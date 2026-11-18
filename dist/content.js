@@ -131,7 +131,7 @@ window.PORTAFOLIO = {
           categoria: 'Finanzas',
           meta: 'CNBV · Visualización interactiva',
           demoUrl: null,
-          codigoUrl: null,
+          codigoUrl: 'https://github.com/Dev-HugoAguilar/mexican-banking-analytics',
           enlaces: [
             {
               texto: 'Portafolio de Información de la CNBV',
@@ -152,7 +152,7 @@ window.PORTAFOLIO = {
           captura: 'img/atlas-vial-completo.jpg',
           capturaAlt: 'Captura del tablero «Atlas vial · Ciudad de México» con el mapa de las 16 alcaldías, el panel de resumen del filtro y la línea temporal de los hechos de tránsito de 2024.',
           demoUrl: null,
-          codigoUrl: null,
+          codigoUrl: 'https://github.com/Dev-HugoAguilar/cdmx-traffic-atlas',
           problema: 'La SSC publica los hechos de tránsito de 2024 en cinco archivos separados de unas 30 655 filas cada uno. Para responder preguntas elementales —dónde ocurren, a qué hora, quiénes resultan afectados— hay que descargarlos, adivinar la codificación y el separador, cruzar cinco tablas por folio y reconstruir los mapas a mano. El riesgo no es solo el esfuerzo: al sumar desgloses de personas se cuentan dos veces las mismas víctimas y al unir archivos por folio se multiplican los hechos.',
           contribucion: 'Diseñé y construí el proceso de datos (descarga desde el catálogo oficial, validación, normalización y publicación atómica en MongoDB), la API de consulta y este tablero con tres vistas conectadas por un mismo estado de filtros. La interfaz está escrita en React, TypeScript y D3; el backend, en Python y FastAPI.',
           fuentes: 'Secretaría de Seguridad Ciudadana de la Ciudad de México, conjunto «Hechos de tránsito registrados por la SSC 2024 (serie de datos ampliada, no comparativa)», catálogo de datos abiertos de la CDMX, licencia CC-BY-4.0-ESP. Cobertura de los eventos: 1 de enero a 31 de diciembre de 2024. Cinco recursos: hechos, personas por sexo, por edad y por tipo de persona, y vehículos. Límites de las alcaldías: conjunto «Límite de Alcaldías», CC-BY-4.0-ESP, a partir del Marco Geoestadístico 2020 del INEGI.',
@@ -188,7 +188,7 @@ window.PORTAFOLIO = {
           capturaRatio: '1600 / 1726',
           capturaAlt: 'Captura del tablero «Marketing y clientes» en su vista Resumen: ocho indicadores del periodo (210 672 eventos, 13 509 usuarios, 17 906 sesiones, 261 compras), el bloque de muestra y cobertura con la población de 270 154 usuarios, la serie diaria de usuarios y el diagrama de la adquisición a la compra con sus tres columnas.',
           demoUrl: null,
-          codigoUrl: null,
+          codigoUrl: 'https://github.com/Dev-HugoAguilar/ga4-marketing-analytics',
           hallazgos: '',
           notaEstado: 'Versión publicada en MongoDB Atlas y servida solo desde ahí: muestra determinista del 5 % de usuarios (13 509 de 270 154) del periodo 1 nov 2020 – 31 ene 2021. Las cuatro vistas se recalculan sobre la misma muestra, y el panel de cobertura del tablero permite auditar población, proporción, método de selección y consistencia entre cada indicador y su gráfica.',
           problema: 'Identificar qué fuentes atraen compradores, dónde se reduce el avance hacia la compra y qué grupos regresan requiere conectar eventos, usuarios y sesiones. Una lectura incorrecta puede duplicar transacciones, sumar usuarios que aparecen en varios días o interpretar como abandono una diferencia entre etapas.',
@@ -228,7 +228,7 @@ window.PORTAFOLIO = {
           capturaRatio: '1600 / 1726',
           capturaAlt: 'Captura del tablero «Pulso comercial · Walmex» en su vista Resumen comercial completa: cabecera con el último trimestre publicado, controles de rango y trimestre, tres indicadores con su tendencia —ingresos consolidados, crecimiento anual y brecha entre mercados—, el puente de origen del crecimiento con los totales de 3T25 y 3T26 y la aportación de cada mercado, las áreas de mezcla del negocio y el calendario comercial de círculos proporcionales.',
           demoUrl: null,
-          codigoUrl: null,
+          codigoUrl: 'https://github.com/Dev-HugoAguilar/walmex-financial-pulse',
           hallazgos: '',
           notaEstado: 'Primera versión publicada con datos oficiales del 1T23 al 3T26 (15 trimestres). Se sirve solo desde MongoDB Atlas y declara la fuente, la base de comparación y la unidad de cada cifra. El comercio electrónico y el detalle por tienda no se publican porque la empresa no los reporta con cobertura y definición comparables en todo el periodo.',
           problema: 'Leer el desempeño comercial de Walmart de México y Centroamérica trimestre a trimestre exige abrir quince comunicados, separar ventas netas de ingresos totales, distinguir el importe nominal de la variación a moneda constante y no confundir el acumulado del año con el trimestre. Mezclar unidades, sumar porcentajes o comparar mercados sin mirar su base produce conclusiones que los propios reportes no sostienen.',
@@ -321,6 +321,7 @@ window.PORTAFOLIO = {
           id: 'observatorio-financiero',
           titulo: 'Observatorio financiero de México',
           estado: 'previsto',
+          categoria: 'Finanzas',
           descripcion: 'Explorar indicadores financieros por periodo y región a partir de fuentes públicas, con filtros, notas que expliquen cada lectura y acceso a la fuente original.',
           destinatario: 'Pensado para quien necesita entender la evolución del sistema financiero sin depender de reportes estáticos en PDF.',
           problema: null,
@@ -374,7 +375,7 @@ window.PORTAFOLIO = {
           capturaAlt:
             'Portada de «ORBITA»: explorador orbital con Tierra 3D, Luna, estaciones y marcadores de seis grupos; panel de constelaciones visibles, indicadores del snapshot, navegación de cinco vistas y avisos de posiciones calculadas, no telemetría en vivo.',
           demoUrl: 'dashboards/orbita/index.html',
-          codigoUrl: null,
+          codigoUrl: 'https://github.com/Dev-HugoAguilar/orbita-orbital-intelligence',
           enlaces: [
             {
               texto: 'CelesTrak · catálogo GP',
@@ -607,7 +608,7 @@ window.PORTAFOLIO = {
           capturaAlt:
             'Portada del observatorio «Gaza · Vidas y territorio»: el mapa bivariado del daño a todo el ancho de su sección, con el título que explica las dos dimensiones de cada celda, los controles de evaluación de UNOSAT, mínimo de sitios y descarga, la barra de ampliación y la franja de Gaza dividida en celdas de 0,005 grados sobre su contorno geográfico.',
           demoUrl: 'dashboards/gaza-observatorio/index.html',
-          codigoUrl: null,
+          codigoUrl: 'https://github.com/Dev-HugoAguilar/gaza-humanitarian-observatory',
           hallazgos: null,
           tecnologiaEstado: null,
           problema:
@@ -751,6 +752,7 @@ window.PORTAFOLIO = {
           id: 'modernizacion-sas-python',
           titulo: 'Modernización SAS → Python',
           estado: 'previsto',
+          categoria: 'Arquitectura & ETL',
           descripcion: 'Un ejemplo reproducible con datos sintéticos que concilia los resultados del proceso original con los del proceso migrado y compara tiempos de ejecución.',
           destinatario: 'Pensado para equipos que mantienen procesos heredados y necesitan migrarlos sin perder trazabilidad.',
           problema: null,
@@ -783,6 +785,7 @@ window.PORTAFOLIO = {
           id: 'asistente-investigacion',
           titulo: 'Briefing con evidencia · Banco de México',
           estado: 'desarrollo',
+          categoria: 'RAG / Finanzas',
           notaEstado:
             'Demo local funcional. El corpus y la recuperación léxica están verificados; Atlas y el modelo son opcionales. No se publica ni se despliega desde esta integración.',
           descripcion:
@@ -833,6 +836,7 @@ window.PORTAFOLIO = {
           id: 'copiloto-nl-sql',
           titulo: 'Copiloto NL-to-SQL · indicadores económicos de México',
           estado: 'desarrollo',
+          categoria: 'NL-to-SQL',
           notaEstado:
             'Demo local funcional. El parser léxico, las plantillas SQL y SQLite de solo lectura están verificados; Atlas y el modelo son opcionales. No se publica ni se despliega desde esta integración.',
           descripcion:
@@ -901,6 +905,7 @@ window.PORTAFOLIO = {
           id: 'data-incident-commander',
           titulo: 'Data Incident Commander — agente de IA para respuesta a incidentes de datos',
           estado: 'desarrollo',
+          categoria: 'Data Reliability',
           notaEstado:
             'Demo local de un agente supervisado simulado. El flujo es determinista y reproducible; los runs y recibos son efímeros. No se publica ni se despliega desde esta integración.',
           descripcion:
@@ -951,6 +956,7 @@ window.PORTAFOLIO = {
           id: 'the-ripple-room',
           titulo: 'The Ripple Room — simulador de disrupciones en la cadena de semiconductores',
           estado: 'desarrollo',
+          categoria: 'Simulación / Supply Chain',
           notaEstado:
             'Demo local autónoma. HTML, CSS, JavaScript, D3, datos y geometría están embebidos; no usa CDN, API, LLM ni servicios externos. Se sirve desde el portafolio local; no se despliega en un servidor remoto.',
           descripcion:
@@ -985,7 +991,7 @@ window.PORTAFOLIO = {
           capturaAlt:
             'Portada de «The Ripple Room»: mapa regional centrado en el Pacífico con países bajo presión y tarjeta de exposición comercial, panel de agentes simulados de Operaciones, Abastecimiento y Finanzas, dos bandas alineadas de cobertura de inventario y demanda pendiente, y diagrama de trade-off servicio-costo.',
           demoUrl: 'dashboards/the-ripple-room/index.html',
-          codigoUrl: null,
+          codigoUrl: 'https://github.com/Dev-HugoAguilar/ripple-room-supply-chain',
           enlaces: [
             {
               texto: 'WITS · México, importaciones HS 8542, 2023',
@@ -1040,7 +1046,7 @@ window.PORTAFOLIO = {
           capturaAlt:
             'Portada de «Kilómetro Cero»: mapa MapLibre de México con carreteras y corredores de envío consolidados, hubs y terminales, flota simulada de muestra, panel de filtros y escenario de red, KPIs, Sankey por corredor y estado, dispersión volumen–puntualidad y tabla de corredores.',
           demoUrl: 'dashboards/kilometro-cero/index.html',
-          codigoUrl: null,
+          codigoUrl: 'https://github.com/Dev-HugoAguilar/kilometro-cero-logistics',
           enlaces: [
             {
               texto: 'OpenStreetMap · copyright y licencia ODbL',
@@ -1068,6 +1074,7 @@ window.PORTAFOLIO = {
           id: 'dockmind',
           titulo: 'DockMind — Pronóstico de demanda y planificación de inventario con machine learning',
           estado: 'desarrollo',
+          categoria: 'Operaciones',
           notaEstado:
             'Demo modular local. El runtime carga D3, datos y aplicación desde archivos locales y se muestra en un iframe del portafolio; no usa Atlas, LLM, marketplace ni servicios externos. La aprobación es local y efímera.',
           descripcion:
@@ -1118,6 +1125,7 @@ window.PORTAFOLIO = {
           id: 'analista-asistido',
           titulo: 'Analista asistido por IA',
           estado: 'previsto',
+          categoria: 'Agentes',
           descripcion: 'Consultar datos, ejecutar cálculos, generar una visualización y preparar un informe que una persona revisa antes de usarlo.',
           destinatario: 'Pensado para equipos de análisis que quieren automatizar el trabajo repetitivo sin perder el control del resultado.',
           problema: null,

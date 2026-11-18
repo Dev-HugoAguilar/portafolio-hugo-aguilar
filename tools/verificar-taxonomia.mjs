@@ -45,8 +45,10 @@ const AREAS = [
 ];
 
 const CON_REPO = [
-  'vidas-en-transito', 'atlas-comercial', 'clientes-campanas', 'clientes-en-movimiento',
-  'retailops', 'asistente-investigacion', 'copiloto-nl-sql', 'data-incident-commander', 'dockmind'
+  'comparativo-bancario', 'atlas-vial', 'marketing-clientes', 'pulso-comercial',
+  'vidas-en-transito', 'orbita', 'atlas-comercial', 'clientes-campanas',
+  'clientes-en-movimiento', 'gaza-observatorio', 'retailops', 'asistente-investigacion',
+  'copiloto-nl-sql', 'data-incident-commander', 'the-ripple-room', 'kilometro-cero', 'dockmind'
 ];
 const CON_DEMO = [
   'vidas-en-transito', 'orbita', 'clientes-campanas', 'clientes-en-movimiento',
