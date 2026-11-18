@@ -1,0 +1,80 @@
+name: tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  integridad:
+    name: Integridad del sitio
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+
+      - name: Verificar archivos obligatorios
+        run: |
+          set -eu
+          for archivo in dist/index.html dist/app.js dist/content.js dist/style.css README.md; do
+            test -s "$archivo" || { echo "Falta $archivo"; exit 1; }
+          done
+
+      - name: Comprobar sintaxis del sitio
+        run: |
+          set -eu
+          node --check dist/app.js
+          node --check dist/content.js
+          echo "Sintaxis correcta"
+
+      - name: Verificar que las cinco categorías estén declaradas
+        run: |
+          set -eu
+          node -e '
+          const fs = require("fs"), vm = require("vm");
+          const ctx = { window: {} };
+          vm.createContext(ctx);
+          vm.runInContext(fs.readFileSync("dist/content.js", "utf8"), ctx);
+          const P = ctx.window.PORTAFOLIO;
+          const esperadas = [
+            ["01", "dashboards", "Visualización"],
+            ["02", "ciencia-de-datos", "Ciencia de datos"],
+            ["03", "ingenieria-de-datos", "Ingeniería de datos"],
+            ["04", "ia-generativa", "IA generativa"],
+            ["05", "agentes", "Agentes"]
+          ];
+          if (P.areas.length !== 5) throw new Error("se esperaban 5 áreas, hay " + P.areas.length);
+          esperadas.forEach(([numero, id, etiqueta], i) => {
+            const a = P.areas[i];
+            if (a.numero !== numero) throw new Error(`posición ${i + 1}: número ${a.numero}`);
+            if (a.id !== id) throw new Error(`posición ${i + 1}: id ${a.id}`);
+            if (a.etiqueta !== etiqueta) throw new Error(`área ${id}: etiqueta ${a.etiqueta}`);
+            if (!a.proyectos || !a.proyectos.length) throw new Error(`área ${id} sin proyectos`);
+            for (const p of a.proyectos) {
+              if (!["publicado", "desarrollo", "previsto"].includes(p.estado)) {
+                throw new Error(`${id}/${p.id}: estado inválido ${p.estado}`);
+              }
+              if (p.codigoUrl && !p.codigoUrl.startsWith("https://github.com/")) {
+                throw new Error(`${id}/${p.id}: codigoUrl inválida`);
+              }
+            }
+          });
+          const fichas = P.areas.reduce((n, a) => n + a.proyectos.length, 0);
+          console.log("Taxonomía correcta: 5 áreas y " + fichas + " fichas");
+          '
+
+      - name: Verificar que no se publiquen credenciales
+        run: |
+          set -eu
+          # Se excluye .github porque este mismo archivo enumera los patrones.
+          if grep -rIl --exclude-dir=.git --exclude-dir=.github -E '(mongodb(\+srv)?://[^"[:space:]]*:[^"[:space:]]*@|sk-[A-Za-z0-9]{16,}|gh[pousr]_[A-Za-z0-9]{20,}|github_pat_[A-Za-z0-9_]{20,}|AKIA[0-9A-Z]{16}|BEGIN (RSA |EC |OPENSSH )?PRIVATE KEY)' .; then
+            echo "Se detectaron posibles credenciales"; exit 1
+          fi
+          echo "Sin credenciales detectadas"
