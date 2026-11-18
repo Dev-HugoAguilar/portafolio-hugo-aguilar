@@ -93,7 +93,7 @@ window.PORTAFOLIO = {
       etiqueta: 'Visualización',
       descripcion: 'Explora los proyectos y sus aplicaciones interactivas.',
       resumen: 'Explorar datos con filtros, mapas, redes y vistas interactivas que se entienden sin manual.',
-      alcance: ['D3.js', 'React', 'Power BI', 'Filtros', 'Mapas', 'Redes', 'Exploración interactiva'],
+      alcance: ['D3.js', 'React', 'Vite', 'Power BI', 'Plotly', 'Streamlit', 'HTML5/CSS3', 'MapLibre', 'SVG', 'Filtros', 'Mapas', 'Redes', 'Exploración interactiva'],
       ilustracion: 'dashboards',
       escenaAlt: 'Ilustración conceptual: un indicador, unas barras y una serie temporal que responden al mismo periodo.',
       /* Esta área se presenta como catálogo de tableros: sin la etiqueta
@@ -409,7 +409,7 @@ window.PORTAFOLIO = {
       etiqueta: 'Ciencia de datos',
       descripcion: 'Modelos y análisis con criterios de evaluación explícitos.',
       resumen: 'Del análisis exploratorio a la evaluación de modelos, con criterios explícitos y comparables.',
-      alcance: ['Análisis exploratorio', 'Estadística', 'Preparación de datos', 'Modelos predictivos', 'Comparación de métodos', 'Evaluación'],
+      alcance: ['Python', 'Pandas', 'NumPy', 'Scikit-learn', 'XGBoost', 'Optuna', 'LightGBM', 'Validación cruzada', 'Pipelines de datos', 'Modelos predictivos', 'Comparación de métodos', 'Evaluación'],
       ilustracion: 'modelos',
       escenaAlt: 'Ilustración conceptual: observaciones dispersas, una recta de ajuste, su banda de confianza del 95 % y los residuos.',
       proyectos: [
@@ -744,7 +744,7 @@ window.PORTAFOLIO = {
       etiqueta: 'Ingeniería de datos',
       descripcion: 'Pipelines y modelos de datos con trazabilidad verificable.',
       resumen: 'Ingesta, transformación y modelado con calidad y trazabilidad verificables.',
-      alcance: ['Ingesta', 'Transformación', 'Modelado de datos', 'Calidad', 'Trazabilidad', 'APIs'],
+      alcance: ['SAS → Python', 'SQL', 'MongoDB Atlas', 'Neo4j · Cypher', 'Spark', 'Kafka', 'HDFS', 'Snowflake', 'BigQuery', 'Docker', 'Docker Compose', 'FastAPI', 'Pydantic', 'REST APIs', 'Git', 'Ingesta', 'Calidad', 'Trazabilidad'],
       ilustracion: 'pipeline',
       escenaAlt: 'Ilustración conceptual: fuentes, transformación, validación y almacenamiento conectados, con una línea de trazabilidad.',
       proyectos: [
@@ -777,7 +777,7 @@ window.PORTAFOLIO = {
       etiqueta: 'IA generativa',
       descripcion: 'Búsqueda documental, RAG y consultas SQL en lenguaje natural con trazabilidad.',
       resumen: 'Respuestas con fuentes y un copiloto NL-to-SQL que muestra interpretación, SQL seguro y filas verificables.',
-      alcance: ['Búsqueda documental', 'RAG', 'NL-to-SQL', 'SQL parametrizado', 'Respuestas con fuentes', 'Evaluación de calidad', 'Coste', 'Latencia'],
+      alcance: ['Integración de LLMs (API)', 'Diseño de prompts', 'RAG', 'NL-to-SQL', 'SQL parametrizado', 'Flujos con agentes', 'Validación de entradas y salidas', 'Respuestas con fuentes', 'Evaluación de calidad', 'Coste', 'Latencia'],
       ilustracion: 'rag',
       escenaAlt: 'Ilustración conceptual de búsqueda documental: consulta, documentos, fragmentos de contexto y respuesta con referencias numeradas.',
       proyectos: [
@@ -897,7 +897,7 @@ window.PORTAFOLIO = {
       etiqueta: 'Agentes',
       descripcion: 'Herramientas coordinadas, respuesta a incidentes y supervisión humana.',
       resumen: 'Flujos de agentes que investigan, comparan alternativas y se detienen en una aprobación humana.',
-      alcance: ['Uso de herramientas', 'Coordinación de tareas', 'Data reliability', 'Validación', 'Supervisión humana'],
+      alcance: ['Uso de herramientas', 'Coordinación de tareas', 'Flujos con agentes', 'Data reliability', 'Validación', 'Supervisión humana', 'Trazabilidad del run'],
       ilustracion: 'agentes',
       escenaAlt: 'Ilustración conceptual: un coordinador llama a consulta, cálculo y gráfico, y entrega el resultado a una revisión humana que queda pendiente.',
       proyectos: [

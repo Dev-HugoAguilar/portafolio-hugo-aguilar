@@ -89,6 +89,91 @@ tienen caso definido. Cuando se publiquen se añadirá su enlace a la tabla y su
 `codigoUrl` en el contenido; el sitio solo dibuja un enlace cuando el repositorio
 existe, de modo que una fila nunca apunta a un destino inexistente.
 
+## Stack tecnológico
+
+**Cómo leer esta sección.** La auditoría de los 18 repositorios públicos distingue
+tres niveles, para que nada se atribuya sin respaldo:
+
+- ✅ **Demostrado** — la tecnología se importa o se configura en un repositorio
+  público enlazado en esta tabla.
+- ◐ **Documentado** — aparece en el diseño o en un caso de roadmap, sin
+  repositorio público.
+- ○ **Experiencia profesional** — se ha usado en contextos laborales, sin un
+  repositorio público que lo demuestre.
+
+### Ciencia de datos y Machine Learning
+
+| Tecnología | Nivel | Dónde se demuestra |
+|---|---|---|
+| Python | ✅ | 15 repositorios: [`portfolio-api`](https://github.com/Dev-HugoAguilar/portfolio-api), [`demand-forecasting-m5`](https://github.com/Dev-HugoAguilar/demand-forecasting-m5), [`customer-growth-intelligence`](https://github.com/Dev-HugoAguilar/customer-growth-intelligence) y el resto de pipelines |
+| Pandas | ✅ | [`customer-growth-intelligence`](https://github.com/Dev-HugoAguilar/customer-growth-intelligence), [`dockmind-demand-planning`](https://github.com/Dev-HugoAguilar/dockmind-demand-planning) |
+| NumPy | ✅ | [`customer-growth-intelligence`](https://github.com/Dev-HugoAguilar/customer-growth-intelligence), [`demand-forecasting-m5`](https://github.com/Dev-HugoAguilar/demand-forecasting-m5), [`dockmind-demand-planning`](https://github.com/Dev-HugoAguilar/dockmind-demand-planning) |
+| SciPy | ✅ | [`customer-growth-intelligence`](https://github.com/Dev-HugoAguilar/customer-growth-intelligence) (potencia estadística y corrección de Holm) |
+| Scikit-learn | ✅ | [`customer-growth-intelligence`](https://github.com/Dev-HugoAguilar/customer-growth-intelligence) (K-Means y propensión), [`dockmind-demand-planning`](https://github.com/Dev-HugoAguilar/dockmind-demand-planning) (Ridge y Random Forest multisalida) |
+| LightGBM | ✅ | [`demand-forecasting-m5`](https://github.com/Dev-HugoAguilar/demand-forecasting-m5) (modelo global por horizonte), [`portfolio-api`](https://github.com/Dev-HugoAguilar/portfolio-api) |
+| XGBoost | ○ | Experiencia profesional. No se usa en estos repositorios |
+| Optuna | ○ | Experiencia profesional. La búsqueda de hiperparámetros de los casos publicados usa rejillas y cortes fijos |
+| Validación cruzada y selección de modelo | ✅ | [`demand-forecasting-m5`](https://github.com/Dev-HugoAguilar/demand-forecasting-m5): cortes de desarrollo para elegir por WAPE y cortes reservados para evaluar; [`customer-growth-intelligence`](https://github.com/Dev-HugoAguilar/customer-growth-intelligence): validación temporal y de estabilidad entre semillas |
+| Pipelines de datos analíticos | ✅ | [`portfolio-api`](https://github.com/Dev-HugoAguilar/portfolio-api) (ingesta idempotente con revisiones por hash), [`demand-forecasting-m5`](https://github.com/Dev-HugoAguilar/demand-forecasting-m5) (importar → entrenar → pronosticar → agregar) |
+
+### IA generativa y LLMs
+
+| Capacidad | Nivel | Dónde se demuestra |
+|---|---|---|
+| Integración de modelos de lenguaje por API | ✅ | [`banxico-evidence-briefing`](https://github.com/Dev-HugoAguilar/banxico-evidence-briefing) (proveedor compatible con OpenAI, respuesta condicionada a la evidencia), [`nl2sql-economic-copilot`](https://github.com/Dev-HugoAguilar/nl2sql-economic-copilot) (plan JSON del modelo, validado antes de tocar la base) |
+| Diseño de prompts contextuales | ✅ | [`banxico-evidence-briefing`](https://github.com/Dev-HugoAguilar/banxico-evidence-briefing): se envía solo la evidencia recuperada y se exige citar `[BM-…]` |
+| Arquitecturas RAG | ✅ | [`banxico-evidence-briefing`](https://github.com/Dev-HugoAguilar/banxico-evidence-briefing): corpus versionado, recuperación léxica y abstención. **Sin embeddings**: el repositorio lo declara como límite, no como equivalencia |
+| Flujos con agentes | ✅ | [`data-incident-commander`](https://github.com/Dev-HugoAguilar/data-incident-commander): agente supervisado que diagnostica, propone y se detiene para aprobación humana |
+| Validación de entradas y salidas | ✅ | [`nl2sql-economic-copilot`](https://github.com/Dev-HugoAguilar/nl2sql-economic-copilot) (plan descartado si no pasa reglas), [`banxico-evidence-briefing`](https://github.com/Dev-HugoAguilar/banxico-evidence-briefing) (verificación de cita), [`data-incident-commander`](https://github.com/Dev-HugoAguilar/data-incident-commander) (reglas y límites de autoridad) |
+| Orquestación multiagente en producción | ○ | Experiencia profesional. Los casos publicados usan un agente con aprobación humana, no una malla de agentes |
+
+### Ingeniería de datos, bases de datos y cloud
+
+| Tecnología | Nivel | Dónde se demuestra |
+|---|---|---|
+| SAS → Python: macros y reportes regulatorios (CNBV / banca) | ◐ ○ | Caso de roadmap *Modernización SAS → Python* (sin repositorio) y experiencia profesional en migración de procesos SAS con macros y reportes regulatorios |
+| SQL | ✅ | [`nl2sql-economic-copilot`](https://github.com/Dev-HugoAguilar/nl2sql-economic-copilot) (plantillas parametrizadas sobre SQLite en solo lectura), [`portfolio-api`](https://github.com/Dev-HugoAguilar/portfolio-api) (agregaciones y consultas) |
+| MongoDB Atlas | ✅ | [`portfolio-api`](https://github.com/Dev-HugoAguilar/portfolio-api) (pymongo, índices, importadores idempotentes con revisiones por hash), [`demand-forecasting-m5`](https://github.com/Dev-HugoAguilar/demand-forecasting-m5) |
+| SQLite | ✅ | [`nl2sql-economic-copilot`](https://github.com/Dev-HugoAguilar/nl2sql-economic-copilot) (base derivada abierta en modo lectura) |
+| Neo4j · Cypher | ○ | Experiencia profesional en grafos y consultas Cypher. No hay repositorio público con Neo4j |
+| Spark | ○ | Experiencia profesional. Los volúmenes de los casos publicados caben en memoria |
+| Kafka | ○ | Experiencia profesional |
+| HDFS | ○ | Experiencia profesional |
+| Snowflake | ○ | Experiencia profesional |
+| BigQuery | ✅ | [`ga4-marketing-analytics`](https://github.com/Dev-HugoAguilar/ga4-marketing-analytics), [`portfolio-api`](https://github.com/Dev-HugoAguilar/portfolio-api) (extracción de la muestra pública de GA4) |
+| Docker | ✅ | [`portfolio-api`](https://github.com/Dev-HugoAguilar/portfolio-api) (`Dockerfile`) |
+| Docker Compose | ◐ | Orquestación local del monorepo de trabajo; el archivo no se publica porque describe rutas y volúmenes del entorno de desarrollo |
+| FastAPI | ✅ | [`portfolio-api`](https://github.com/Dev-HugoAguilar/portfolio-api) y los servicios de dominio de varios repositorios |
+| Pydantic | ✅ | [`portfolio-api`](https://github.com/Dev-HugoAguilar/portfolio-api), [`demand-forecasting-m5`](https://github.com/Dev-HugoAguilar/demand-forecasting-m5), [`data-incident-commander`](https://github.com/Dev-HugoAguilar/data-incident-commander), [`banxico-evidence-briefing`](https://github.com/Dev-HugoAguilar/banxico-evidence-briefing), [`nl2sql-economic-copilot`](https://github.com/Dev-HugoAguilar/nl2sql-economic-copilot) |
+| APIs REST | ✅ | [`portfolio-api`](https://github.com/Dev-HugoAguilar/portfolio-api) (`/api/v1/…`) y las aplicaciones que la consumen |
+| Git | ✅ | Los 18 repositorios, con commits convencionales |
+
+### Business Intelligence y visualización
+
+| Tecnología | Nivel | Dónde se demuestra |
+|---|---|---|
+| Power BI | ○ | Experiencia profesional en tableros corporativos. No hay `.pbix` publicado |
+| D3.js | ✅ | 10 repositorios: [`vidas-en-transito`](https://github.com/Dev-HugoAguilar/vidas-en-transito), [`dockmind-demand-planning`](https://github.com/Dev-HugoAguilar/dockmind-demand-planning), [`cdmx-traffic-atlas`](https://github.com/Dev-HugoAguilar/cdmx-traffic-atlas), [`banxico-evidence-briefing`](https://github.com/Dev-HugoAguilar/banxico-evidence-briefing) y el resto |
+| React | ✅ | [`cdmx-traffic-atlas`](https://github.com/Dev-HugoAguilar/cdmx-traffic-atlas), [`mexican-banking-analytics`](https://github.com/Dev-HugoAguilar/mexican-banking-analytics), [`ga4-marketing-analytics`](https://github.com/Dev-HugoAguilar/ga4-marketing-analytics), [`walmex-financial-pulse`](https://github.com/Dev-HugoAguilar/walmex-financial-pulse), [`demand-forecasting-m5`](https://github.com/Dev-HugoAguilar/demand-forecasting-m5) |
+| Vite | ✅ | Los cinco proyectos React anteriores, con build verificado en CI |
+| HTML5 / CSS3 moderno | ✅ | Todos los sitios: sistema visual propio, sin frameworks de UI |
+| Streamlit | ○ | Experiencia profesional en prototipos analíticos |
+| Plotly | ○ | Experiencia profesional |
+| MapLibre GL · Three.js · SGP4 | ✅ | [`kilometro-cero-logistics`](https://github.com/Dev-HugoAguilar/kilometro-cero-logistics) (mapa vectorial), [`orbita-orbital-intelligence`](https://github.com/Dev-HugoAguilar/orbita-orbital-intelligence) (Tierra 3D y propagación orbital) |
+| Playwright · jsdom | ✅ | Verificadores de navegador de los repositorios y pruebas de interfaz en CI |
+
+**Resumen de la auditoría.** De las tecnologías solicitadas, **17 tienen evidencia
+pública** en estos repositorios (*Python, Pandas, NumPy, SciPy, Scikit-learn,
+LightGBM, SQL/SQLite, MongoDB Atlas, BigQuery, Docker, FastAPI, Pydantic, REST,
+Git, D3.js, React y Vite*), **2 están documentadas sin demo** (*SAS → Python*,
+*Docker Compose*) y **11 se declaran como experiencia profesional sin repositorio
+público** (*XGBoost, Optuna, Neo4j/Cypher, Spark, Kafka, HDFS, Snowflake, Power
+BI, Streamlit, Plotly y orquestación multiagente*).
+
+Esa separación es deliberada: un portafolio que atribuye a un repositorio lo que
+el repositorio no demuestra pierde credibilidad en la primera entrevista técnica.
+Cuando alguno de los casos pendientes incorpore una de esas tecnologías, su nivel
+pasará a ✅ con el enlace correspondiente.
 ## Ejecutar
 
 ```bash
