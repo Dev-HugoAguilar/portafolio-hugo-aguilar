@@ -4,7 +4,7 @@ Sitio integrador del portafolio: **20 fichas** de proyecto organizadas en **cinc
 categorías oficiales**, cada una con su estado, su categoría visible y el enlace a
 su repositorio público.
 
-[![Integridad](https://github.com/Dev-HugoAguilar/portfolio-hugo-aguilar/actions/workflows/tests.yml/badge.svg)](https://github.com/Dev-HugoAguilar/portfolio-hugo-aguilar/actions/workflows/tests.yml)
+[![Integridad](https://github.com/Dev-HugoAguilar/portafolio-hugo-aguilar/actions/workflows/tests.yml/badge.svg)](https://github.com/Dev-HugoAguilar/portafolio-hugo-aguilar/actions/workflows/tests.yml)
 [![Sitio](https://img.shields.io/badge/sitio-est%C3%A1tico-2f855a)](#ejecutar)
 [![Repositorios](https://img.shields.io/badge/repositorios%20p%C3%BAblicos-18-4a5568)](#infraestructura-compartida)
 
@@ -75,7 +75,7 @@ su repositorio público.
 | Repositorio | Qué contiene |
 |---|---|
 | [`portfolio-api`](https://github.com/Dev-HugoAguilar/portfolio-api) | API de solo lectura (FastAPI + MongoDB Atlas) que sirve a los tableros de las cinco categorías. |
-| [`portfolio-hugo-aguilar`](https://github.com/Dev-HugoAguilar/portfolio-hugo-aguilar) | Este sitio integrador: galería, fichas y montaje de las demos. |
+| [`portafolio-hugo-aguilar`](https://github.com/Dev-HugoAguilar/portafolio-hugo-aguilar) | Este sitio integrador: galería, fichas y montaje de las demos. |
 
 ## Estado de publicación
 
@@ -177,8 +177,8 @@ pasará a ✅ con el enlace correspondiente.
 ## Ejecutar
 
 ```bash
-git clone https://github.com/Dev-HugoAguilar/portfolio-hugo-aguilar.git
-cd portfolio-hugo-aguilar
+git clone https://github.com/Dev-HugoAguilar/portafolio-hugo-aguilar.git
+cd portafolio-hugo-aguilar
 python -m http.server 8000 --directory dist
 ```
 
