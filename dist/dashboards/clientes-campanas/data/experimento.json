@@ -1,0 +1,119 @@
+{
+ "estado": "diseño preparado; experimento no ejecutado",
+ "diseño": "3 arms within each behavior segment: holdout, generic campaign, segment-tailored campaign",
+ "comparacion_primaria": "tailored vs generic within each segment (two primary segment comparisons)",
+ "resultado_primario": "any coupon redemption within 30 days of assignment",
+ "supuestos": {
+  "two_sided_alpha_per_primary_comparison": 0.025,
+  "power": 0.8,
+  "allocation": "equal per arm within segment",
+  "method": "normal approximation for two independent proportions, rounded up",
+  "lifts": "relative lift above historical descriptive proxy"
+ },
+ "formula": "n por brazo = (p1(1-p1) + p2(1-p2)) × (z_{1-α/2} + z_{potencia})² / (p2-p1)², aproximación normal para dos proporciones independientes, redondeo hacia arriba",
+ "escenarios": [
+  {
+   "mde_relativo": 0.2,
+   "por_segmento": [
+    {
+     "segmento": "menor_actividad",
+     "tasa_base": 0.03777,
+     "tasa_objetivo": 0.04532,
+     "por_brazo_informe": 13267,
+     "por_brazo_recalculado": 13267,
+     "tres_brazos": 39801
+    },
+    {
+     "segmento": "mayor_actividad",
+     "tasa_base": 0.16226,
+     "tasa_objetivo": 0.19471,
+     "por_brazo_informe": 2646,
+     "por_brazo_recalculado": 2646,
+     "tres_brazos": 7938
+    }
+   ],
+   "total_informe": 47739,
+   "total_recalculado": 47739
+  },
+  {
+   "mde_relativo": 0.3,
+   "por_segmento": [
+    {
+     "segmento": "menor_actividad",
+     "tasa_base": 0.03777,
+     "tasa_objetivo": 0.0491,
+     "por_brazo_informe": 6152,
+     "por_brazo_recalculado": 6152,
+     "tres_brazos": 18456
+    },
+    {
+     "segmento": "mayor_actividad",
+     "tasa_base": 0.16226,
+     "tasa_objetivo": 0.21094,
+     "por_brazo_informe": 1217,
+     "por_brazo_recalculado": 1217,
+     "tres_brazos": 3651
+    }
+   ],
+   "total_informe": 22107,
+   "total_recalculado": 22107
+  },
+  {
+   "mde_relativo": 0.5,
+   "por_segmento": [
+    {
+     "segmento": "menor_actividad",
+     "tasa_base": 0.03777,
+     "tasa_objetivo": 0.05665,
+     "por_brazo_informe": 2397,
+     "por_brazo_recalculado": 2397,
+     "tres_brazos": 7191
+    },
+    {
+     "segmento": "mayor_actividad",
+     "tasa_base": 0.16226,
+     "tasa_objetivo": 0.24339,
+     "por_brazo_informe": 466,
+     "por_brazo_recalculado": 466,
+     "tres_brazos": 1398
+    }
+   ],
+   "total_informe": 8589,
+   "total_recalculado": 8589
+  }
+ ],
+ "capacidad_actual": {
+  "unique_households_in_august_90d_cohort": 2317,
+  "households_low_activity": 749,
+  "households_high_activity": 1568,
+  "can_support_30pct_mde": false,
+  "reason": "30% MDE requires 6,152 households per arm in the lower-activity segment and 1,217 per arm in the higher-activity segment; there are 749/1,568 households total in the respective segments at this cut and historical assignment cannot be randomized retroactively.",
+  "hogares_disponibles": 2317
+ },
+ "segmentos_actuales": [
+  {
+   "segmento": "Menor actividad",
+   "hogares": 748
+  },
+  {
+   "segmento": "Mayor actividad",
+   "hogares": 1569
+  }
+ ],
+ "limitaciones": [
+  "Historical campaign response rates are nonrandomized, repeated household-campaign observations and not causal baselines.",
+  "Cutoff rates overlap; their unweighted average is a planning proxy only.",
+  "The calculation does not account for noncompliance, attrition, interference or household-level clustering beyond one-row-per-household randomization.",
+  "A genuine campaign test requires a new prospective randomized assignment; no control assignment is fabricated from Complete Journey.",
+  "La estimación de potencia no sustituye la asignación aleatoria ni la recolección de resultados.",
+  "Los hogares del cohorte actual no alcanzan para un efecto modesto; haría falta un padrón elegible nuevo."
+ ],
+ "aleatorizador": {
+  "script": "marketing_customer_project/src/randomize_segment_campaign_trial.py",
+  "correccion": "la columna randomization_confirmed ya no la escribe el aleatorizador: exige evidencia externa del manifiesto"
+ },
+ "analizador": {
+  "script": "marketing_customer_project/src/evaluate_segment_campaign_trial.py",
+  "correccion": "verifica el sha256 del manifiesto de asignación y aplica corrección de Holm a las comparaciones"
+ }
+}

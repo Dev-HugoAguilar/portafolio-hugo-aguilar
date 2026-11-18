@@ -1,0 +1,4876 @@
+{
+ "disponible": true,
+ "fuente": {
+  "nombre": "Criteo Uplift Prediction Dataset v2.1",
+  "muestra": "criteo_uplift_sample_500k.csv.gz",
+  "filas": 500000,
+  "unidad": "impresión/usuario con tratamiento aleatorizado (columna treatment)",
+  "licencia": "uso educativo; ver data/README-CRITEO.md del paquete"
+ },
+ "protocolo": {
+  "division": "mitad de ajuste / mitad de prueba por semilla (permutación reproducible)",
+  "modelos": [
+   "s_learner",
+   "t_learner",
+   "propension",
+   "azar"
+  ],
+  "metrica": "AUUC por usuario de prueba, calculada desde predicciones fuera de muestra",
+  "semillas": [
+   111,
+   222,
+   333
+  ],
+  "nota": "El benchmark completo del paquete ajusta con ~1,1 M y evalúa con ~2,8 M filas por semilla; las curvas de esta demo salen del muestreo de 500 000 filas y se identifican como tales."
+ },
+ "resultados": [
+  {
+   "resultado": "visit",
+   "semilla": 111,
+   "modelo": "s_learner",
+   "auuc_por_usuario": 0.006827,
+   "uplift_top_10": 0.05,
+   "tasa_brazo_tratamiento": 0.04751,
+   "tasa_brazo_control": 0.03774,
+   "ate": 0.009763,
+   "filas_prueba": 250000
+  },
+  {
+   "resultado": "visit",
+   "semilla": 111,
+   "modelo": "t_learner",
+   "auuc_por_usuario": 0.005619,
+   "uplift_top_10": 0.041844,
+   "tasa_brazo_tratamiento": 0.04751,
+   "tasa_brazo_control": 0.03774,
+   "ate": 0.009763,
+   "filas_prueba": 250000
+  },
+  {
+   "resultado": "visit",
+   "semilla": 111,
+   "modelo": "azar",
+   "auuc_por_usuario": 0.003951,
+   "uplift_top_10": null,
+   "tasa_brazo_tratamiento": 0.04751,
+   "tasa_brazo_control": 0.03774,
+   "ate": null,
+   "filas_prueba": 250000
+  },
+  {
+   "resultado": "conversion",
+   "semilla": 111,
+   "modelo": "s_learner",
+   "auuc_por_usuario": 0.000712,
+   "uplift_top_10": 0.005612,
+   "tasa_brazo_tratamiento": 0.00329,
+   "tasa_brazo_control": 0.00194,
+   "ate": 0.001341,
+   "filas_prueba": 250000
+  },
+  {
+   "resultado": "conversion",
+   "semilla": 111,
+   "modelo": "t_learner",
+   "auuc_por_usuario": 0.000767,
+   "uplift_top_10": 0.007531,
+   "tasa_brazo_tratamiento": 0.00329,
+   "tasa_brazo_control": 0.00194,
+   "ate": 0.001341,
+   "filas_prueba": 250000
+  },
+  {
+   "resultado": "conversion",
+   "semilla": 111,
+   "modelo": "azar",
+   "auuc_por_usuario": 0.000623,
+   "uplift_top_10": null,
+   "tasa_brazo_tratamiento": 0.00329,
+   "tasa_brazo_control": 0.00194,
+   "ate": null,
+   "filas_prueba": 250000
+  },
+  {
+   "resultado": "conversion",
+   "semilla": 111,
+   "modelo": "propension",
+   "auuc_por_usuario": 0.000872,
+   "uplift_top_10": null,
+   "tasa_brazo_tratamiento": 0.00329,
+   "tasa_brazo_control": 0.00194,
+   "ate": null,
+   "filas_prueba": 250000
+  },
+  {
+   "resultado": "visit",
+   "semilla": 222,
+   "modelo": "s_learner",
+   "auuc_por_usuario": 0.007018,
+   "uplift_top_10": 0.059421,
+   "tasa_brazo_tratamiento": 0.04745,
+   "tasa_brazo_control": 0.03759,
+   "ate": 0.009858,
+   "filas_prueba": 250000
+  },
+  {
+   "resultado": "visit",
+   "semilla": 222,
+   "modelo": "t_learner",
+   "auuc_por_usuario": 0.00626,
+   "uplift_top_10": 0.05588,
+   "tasa_brazo_tratamiento": 0.04745,
+   "tasa_brazo_control": 0.03759,
+   "ate": 0.009858,
+   "filas_prueba": 250000
+  },
+  {
+   "resultado": "visit",
+   "semilla": 222,
+   "modelo": "azar",
+   "auuc_por_usuario": 0.003697,
+   "uplift_top_10": null,
+   "tasa_brazo_tratamiento": 0.04745,
+   "tasa_brazo_control": 0.03759,
+   "ate": null,
+   "filas_prueba": 250000
+  },
+  {
+   "resultado": "conversion",
+   "semilla": 222,
+   "modelo": "s_learner",
+   "auuc_por_usuario": 0.000605,
+   "uplift_top_10": 0.001573,
+   "tasa_brazo_tratamiento": 0.00305,
+   "tasa_brazo_control": 0.00158,
+   "ate": 0.001466,
+   "filas_prueba": 250000
+  },
+  {
+   "resultado": "conversion",
+   "semilla": 222,
+   "modelo": "t_learner",
+   "auuc_por_usuario": 0.000775,
+   "uplift_top_10": 0.007502,
+   "tasa_brazo_tratamiento": 0.00305,
+   "tasa_brazo_control": 0.00158,
+   "ate": 0.001466,
+   "filas_prueba": 250000
+  },
+  {
+   "resultado": "conversion",
+   "semilla": 222,
+   "modelo": "azar",
+   "auuc_por_usuario": 0.000598,
+   "uplift_top_10": null,
+   "tasa_brazo_tratamiento": 0.00305,
+   "tasa_brazo_control": 0.00158,
+   "ate": null,
+   "filas_prueba": 250000
+  },
+  {
+   "resultado": "conversion",
+   "semilla": 222,
+   "modelo": "propension",
+   "auuc_por_usuario": 0.001065,
+   "uplift_top_10": null,
+   "tasa_brazo_tratamiento": 0.00305,
+   "tasa_brazo_control": 0.00158,
+   "ate": null,
+   "filas_prueba": 250000
+  },
+  {
+   "resultado": "visit",
+   "semilla": 333,
+   "modelo": "s_learner",
+   "auuc_por_usuario": 0.007799,
+   "uplift_top_10": 0.06092,
+   "tasa_brazo_tratamiento": 0.04857,
+   "tasa_brazo_control": 0.03749,
+   "ate": 0.011083,
+   "filas_prueba": 250000
+  },
+  {
+   "resultado": "visit",
+   "semilla": 333,
+   "modelo": "t_learner",
+   "auuc_por_usuario": 0.006638,
+   "uplift_top_10": 0.047852,
+   "tasa_brazo_tratamiento": 0.04857,
+   "tasa_brazo_control": 0.03749,
+   "ate": 0.011083,
+   "filas_prueba": 250000
+  },
+  {
+   "resultado": "visit",
+   "semilla": 333,
+   "modelo": "azar",
+   "auuc_por_usuario": 0.004495,
+   "uplift_top_10": null,
+   "tasa_brazo_tratamiento": 0.04857,
+   "tasa_brazo_control": 0.03749,
+   "ate": null,
+   "filas_prueba": 250000
+  },
+  {
+   "resultado": "conversion",
+   "semilla": 333,
+   "modelo": "s_learner",
+   "auuc_por_usuario": 0.000606,
+   "uplift_top_10": 0.001026,
+   "tasa_brazo_tratamiento": 0.00333,
+   "tasa_brazo_control": 0.00153,
+   "ate": 0.001805,
+   "filas_prueba": 250000
+  },
+  {
+   "resultado": "conversion",
+   "semilla": 333,
+   "modelo": "t_learner",
+   "auuc_por_usuario": 0.001037,
+   "uplift_top_10": 0.010318,
+   "tasa_brazo_tratamiento": 0.00333,
+   "tasa_brazo_control": 0.00153,
+   "ate": 0.001805,
+   "filas_prueba": 250000
+  },
+  {
+   "resultado": "conversion",
+   "semilla": 333,
+   "modelo": "azar",
+   "auuc_por_usuario": 0.000862,
+   "uplift_top_10": null,
+   "tasa_brazo_tratamiento": 0.00333,
+   "tasa_brazo_control": 0.00153,
+   "ate": null,
+   "filas_prueba": 250000
+  },
+  {
+   "resultado": "conversion",
+   "semilla": 333,
+   "modelo": "propension",
+   "auuc_por_usuario": 0.001332,
+   "uplift_top_10": null,
+   "tasa_brazo_tratamiento": 0.00333,
+   "tasa_brazo_control": 0.00153,
+   "ate": null,
+   "filas_prueba": 250000
+  }
+ ],
+ "rangos_entre_semillas": [
+  {
+   "resultado": "conversion",
+   "modelo": "azar",
+   "min": 0.0006,
+   "max": 0.0009,
+   "n_semillas": 3,
+   "etiqueta": "rango entre semillas; no es un intervalo de confianza"
+  },
+  {
+   "resultado": "conversion",
+   "modelo": "propension",
+   "min": 0.0009,
+   "max": 0.0013,
+   "n_semillas": 3,
+   "etiqueta": "rango entre semillas; no es un intervalo de confianza"
+  },
+  {
+   "resultado": "conversion",
+   "modelo": "s_learner",
+   "min": 0.0006,
+   "max": 0.0007,
+   "n_semillas": 3,
+   "etiqueta": "rango entre semillas; no es un intervalo de confianza"
+  },
+  {
+   "resultado": "conversion",
+   "modelo": "t_learner",
+   "min": 0.0008,
+   "max": 0.001,
+   "n_semillas": 3,
+   "etiqueta": "rango entre semillas; no es un intervalo de confianza"
+  },
+  {
+   "resultado": "visit",
+   "modelo": "azar",
+   "min": 0.0037,
+   "max": 0.0045,
+   "n_semillas": 3,
+   "etiqueta": "rango entre semillas; no es un intervalo de confianza"
+  },
+  {
+   "resultado": "visit",
+   "modelo": "s_learner",
+   "min": 0.0068,
+   "max": 0.0078,
+   "n_semillas": 3,
+   "etiqueta": "rango entre semillas; no es un intervalo de confianza"
+  },
+  {
+   "resultado": "visit",
+   "modelo": "t_learner",
+   "min": 0.0056,
+   "max": 0.0066,
+   "n_semillas": 3,
+   "etiqueta": "rango entre semillas; no es un intervalo de confianza"
+  }
+ ],
+ "curvas": [
+  {
+   "resultado": "visit",
+   "modelo": "s_learner",
+   "puntos": [
+    {
+     "fraccion": 0.01,
+     "contactados": 2500,
+     "uplift_estimado": 0.173763,
+     "qini_por_usuario": 0.00156
+    },
+    {
+     "fraccion": 0.02,
+     "contactados": 5000,
+     "uplift_estimado": 0.142512,
+     "qini_por_usuario": 0.00254
+    },
+    {
+     "fraccion": 0.03,
+     "contactados": 7500,
+     "uplift_estimado": 0.116646,
+     "qini_por_usuario": 0.003086
+    },
+    {
+     "fraccion": 0.04,
+     "contactados": 10000,
+     "uplift_estimado": 0.087428,
+     "qini_por_usuario": 0.003074
+    },
+    {
+     "fraccion": 0.05,
+     "contactados": 12500,
+     "uplift_estimado": 0.078809,
+     "qini_por_usuario": 0.003444
+    },
+    {
+     "fraccion": 0.06,
+     "contactados": 15000,
+     "uplift_estimado": 0.066495,
+     "qini_por_usuario": 0.003469
+    },
+    {
+     "fraccion": 0.07,
+     "contactados": 17500,
+     "uplift_estimado": 0.056808,
+     "qini_por_usuario": 0.003451
+    },
+    {
+     "fraccion": 0.08,
+     "contactados": 20000,
+     "uplift_estimado": 0.056291,
+     "qini_por_usuario": 0.003896
+    },
+    {
+     "fraccion": 0.09,
+     "contactados": 22500,
+     "uplift_estimado": 0.053546,
+     "qini_por_usuario": 0.00416
+    },
+    {
+     "fraccion": 0.1,
+     "contactados": 25000,
+     "uplift_estimado": 0.05,
+     "qini_por_usuario": 0.004307
+    },
+    {
+     "fraccion": 0.11,
+     "contactados": 27500,
+     "uplift_estimado": 0.049923,
+     "qini_por_usuario": 0.004725
+    },
+    {
+     "fraccion": 0.12,
+     "contactados": 30000,
+     "uplift_estimado": 0.047058,
+     "qini_por_usuario": 0.004854
+    },
+    {
+     "fraccion": 0.13,
+     "contactados": 32500,
+     "uplift_estimado": 0.042202,
+     "qini_por_usuario": 0.004713
+    },
+    {
+     "fraccion": 0.14,
+     "contactados": 35000,
+     "uplift_estimado": 0.038856,
+     "qini_por_usuario": 0.004671
+    },
+    {
+     "fraccion": 0.15,
+     "contactados": 37500,
+     "uplift_estimado": 0.037787,
+     "qini_por_usuario": 0.004862
+    },
+    {
+     "fraccion": 0.16,
+     "contactados": 40000,
+     "uplift_estimado": 0.038176,
+     "qini_por_usuario": 0.005237
+    },
+    {
+     "fraccion": 0.17,
+     "contactados": 42500,
+     "uplift_estimado": 0.035721,
+     "qini_por_usuario": 0.005205
+    },
+    {
+     "fraccion": 0.18,
+     "contactados": 45000,
+     "uplift_estimado": 0.034131,
+     "qini_por_usuario": 0.005266
+    },
+    {
+     "fraccion": 0.19,
+     "contactados": 47500,
+     "uplift_estimado": 0.033111,
+     "qini_por_usuario": 0.005387
+    },
+    {
+     "fraccion": 0.2,
+     "contactados": 50000,
+     "uplift_estimado": 0.032829,
+     "qini_por_usuario": 0.005617
+    },
+    {
+     "fraccion": 0.21,
+     "contactados": 52500,
+     "uplift_estimado": 0.03259,
+     "qini_por_usuario": 0.005854
+    },
+    {
+     "fraccion": 0.22,
+     "contactados": 55000,
+     "uplift_estimado": 0.032077,
+     "qini_por_usuario": 0.006034
+    },
+    {
+     "fraccion": 0.23,
+     "contactados": 57500,
+     "uplift_estimado": 0.030991,
+     "qini_por_usuario": 0.006094
+    },
+    {
+     "fraccion": 0.24,
+     "contactados": 60000,
+     "uplift_estimado": 0.030296,
+     "qini_por_usuario": 0.006216
+    },
+    {
+     "fraccion": 0.25,
+     "contactados": 62500,
+     "uplift_estimado": 0.029336,
+     "qini_por_usuario": 0.006269
+    },
+    {
+     "fraccion": 0.26,
+     "contactados": 65000,
+     "uplift_estimado": 0.028518,
+     "qini_por_usuario": 0.006334
+    },
+    {
+     "fraccion": 0.27,
+     "contactados": 67500,
+     "uplift_estimado": 0.028259,
+     "qini_por_usuario": 0.006515
+    },
+    {
+     "fraccion": 0.28,
+     "contactados": 70000,
+     "uplift_estimado": 0.027685,
+     "qini_por_usuario": 0.006619
+    },
+    {
+     "fraccion": 0.29,
+     "contactados": 72500,
+     "uplift_estimado": 0.027256,
+     "qini_por_usuario": 0.006747
+    },
+    {
+     "fraccion": 0.3,
+     "contactados": 75000,
+     "uplift_estimado": 0.027153,
+     "qini_por_usuario": 0.006953
+    },
+    {
+     "fraccion": 0.31,
+     "contactados": 77500,
+     "uplift_estimado": 0.026501,
+     "qini_por_usuario": 0.00701
+    },
+    {
+     "fraccion": 0.32,
+     "contactados": 80000,
+     "uplift_estimado": 0.026478,
+     "qini_por_usuario": 0.007226
+    },
+    {
+     "fraccion": 0.33,
+     "contactados": 82500,
+     "uplift_estimado": 0.025892,
+     "qini_por_usuario": 0.007288
+    },
+    {
+     "fraccion": 0.34,
+     "contactados": 85000,
+     "uplift_estimado": 0.025417,
+     "qini_por_usuario": 0.007364
+    },
+    {
+     "fraccion": 0.35,
+     "contactados": 87500,
+     "uplift_estimado": 0.024826,
+     "qini_por_usuario": 0.007401
+    },
+    {
+     "fraccion": 0.36,
+     "contactados": 90000,
+     "uplift_estimado": 0.024157,
+     "qini_por_usuario": 0.007407
+    },
+    {
+     "fraccion": 0.37,
+     "contactados": 92500,
+     "uplift_estimado": 0.023286,
+     "qini_por_usuario": 0.007339
+    },
+    {
+     "fraccion": 0.38,
+     "contactados": 95000,
+     "uplift_estimado": 0.022504,
+     "qini_por_usuario": 0.007285
+    },
+    {
+     "fraccion": 0.39,
+     "contactados": 97500,
+     "uplift_estimado": 0.021891,
+     "qini_por_usuario": 0.007272
+    },
+    {
+     "fraccion": 0.4,
+     "contactados": 100000,
+     "uplift_estimado": 0.02137,
+     "qini_por_usuario": 0.00728
+    },
+    {
+     "fraccion": 0.41,
+     "contactados": 102500,
+     "uplift_estimado": 0.020953,
+     "qini_por_usuario": 0.007315
+    },
+    {
+     "fraccion": 0.42,
+     "contactados": 105000,
+     "uplift_estimado": 0.020345,
+     "qini_por_usuario": 0.007276
+    },
+    {
+     "fraccion": 0.43,
+     "contactados": 107500,
+     "uplift_estimado": 0.019904,
+     "qini_por_usuario": 0.007286
+    },
+    {
+     "fraccion": 0.44,
+     "contactados": 110000,
+     "uplift_estimado": 0.019712,
+     "qini_por_usuario": 0.00738
+    },
+    {
+     "fraccion": 0.45,
+     "contactados": 112500,
+     "uplift_estimado": 0.019449,
+     "qini_por_usuario": 0.007446
+    },
+    {
+     "fraccion": 0.46,
+     "contactados": 115000,
+     "uplift_estimado": 0.019129,
+     "qini_por_usuario": 0.007486
+    },
+    {
+     "fraccion": 0.47,
+     "contactados": 117500,
+     "uplift_estimado": 0.018818,
+     "qini_por_usuario": 0.007525
+    },
+    {
+     "fraccion": 0.48,
+     "contactados": 120000,
+     "uplift_estimado": 0.018716,
+     "qini_por_usuario": 0.007642
+    },
+    {
+     "fraccion": 0.49,
+     "contactados": 122500,
+     "uplift_estimado": 0.0182,
+     "qini_por_usuario": 0.007587
+    },
+    {
+     "fraccion": 0.5,
+     "contactados": 125000,
+     "uplift_estimado": 0.017917,
+     "qini_por_usuario": 0.007621
+    },
+    {
+     "fraccion": 0.51,
+     "contactados": 127500,
+     "uplift_estimado": 0.017574,
+     "qini_por_usuario": 0.007624
+    },
+    {
+     "fraccion": 0.52,
+     "contactados": 130000,
+     "uplift_estimado": 0.017445,
+     "qini_por_usuario": 0.007713
+    },
+    {
+     "fraccion": 0.53,
+     "contactados": 132500,
+     "uplift_estimado": 0.017057,
+     "qini_por_usuario": 0.007687
+    },
+    {
+     "fraccion": 0.54,
+     "contactados": 135000,
+     "uplift_estimado": 0.01682,
+     "qini_por_usuario": 0.007723
+    },
+    {
+     "fraccion": 0.55,
+     "contactados": 137500,
+     "uplift_estimado": 0.016532,
+     "qini_por_usuario": 0.007731
+    },
+    {
+     "fraccion": 0.56,
+     "contactados": 140000,
+     "uplift_estimado": 0.016315,
+     "qini_por_usuario": 0.007767
+    },
+    {
+     "fraccion": 0.57,
+     "contactados": 142500,
+     "uplift_estimado": 0.01602,
+     "qini_por_usuario": 0.007763
+    },
+    {
+     "fraccion": 0.58,
+     "contactados": 145000,
+     "uplift_estimado": 0.015725,
+     "qini_por_usuario": 0.007755
+    },
+    {
+     "fraccion": 0.59,
+     "contactados": 147500,
+     "uplift_estimado": 0.015394,
+     "qini_por_usuario": 0.007723
+    },
+    {
+     "fraccion": 0.6,
+     "contactados": 150000,
+     "uplift_estimado": 0.015126,
+     "qini_por_usuario": 0.007718
+    },
+    {
+     "fraccion": 0.61,
+     "contactados": 152500,
+     "uplift_estimado": 0.014881,
+     "qini_por_usuario": 0.00772
+    },
+    {
+     "fraccion": 0.62,
+     "contactados": 155000,
+     "uplift_estimado": 0.014666,
+     "qini_por_usuario": 0.007733
+    },
+    {
+     "fraccion": 0.63,
+     "contactados": 157500,
+     "uplift_estimado": 0.014579,
+     "qini_por_usuario": 0.007808
+    },
+    {
+     "fraccion": 0.64,
+     "contactados": 160000,
+     "uplift_estimado": 0.014268,
+     "qini_por_usuario": 0.007765
+    },
+    {
+     "fraccion": 0.65,
+     "contactados": 162500,
+     "uplift_estimado": 0.014105,
+     "qini_por_usuario": 0.007794
+    },
+    {
+     "fraccion": 0.66,
+     "contactados": 165000,
+     "uplift_estimado": 0.013887,
+     "qini_por_usuario": 0.007792
+    },
+    {
+     "fraccion": 0.67,
+     "contactados": 167500,
+     "uplift_estimado": 0.013644,
+     "qini_por_usuario": 0.007773
+    },
+    {
+     "fraccion": 0.68,
+     "contactados": 170000,
+     "uplift_estimado": 0.013499,
+     "qini_por_usuario": 0.007804
+    },
+    {
+     "fraccion": 0.69,
+     "contactados": 172500,
+     "uplift_estimado": 0.013338,
+     "qini_por_usuario": 0.007824
+    },
+    {
+     "fraccion": 0.7,
+     "contactados": 175000,
+     "uplift_estimado": 0.013138,
+     "qini_por_usuario": 0.007819
+    },
+    {
+     "fraccion": 0.71,
+     "contactados": 177500,
+     "uplift_estimado": 0.012977,
+     "qini_por_usuario": 0.007832
+    },
+    {
+     "fraccion": 0.72,
+     "contactados": 180000,
+     "uplift_estimado": 0.012775,
+     "qini_por_usuario": 0.00782
+    },
+    {
+     "fraccion": 0.73,
+     "contactados": 182500,
+     "uplift_estimado": 0.012609,
+     "qini_por_usuario": 0.007825
+    },
+    {
+     "fraccion": 0.74,
+     "contactados": 185000,
+     "uplift_estimado": 0.012504,
+     "qini_por_usuario": 0.007865
+    },
+    {
+     "fraccion": 0.75,
+     "contactados": 187500,
+     "uplift_estimado": 0.012342,
+     "qini_por_usuario": 0.007868
+    },
+    {
+     "fraccion": 0.76,
+     "contactados": 190000,
+     "uplift_estimado": 0.012142,
+     "qini_por_usuario": 0.007844
+    },
+    {
+     "fraccion": 0.77,
+     "contactados": 192500,
+     "uplift_estimado": 0.012025,
+     "qini_por_usuario": 0.00787
+    },
+    {
+     "fraccion": 0.78,
+     "contactados": 195000,
+     "uplift_estimado": 0.011897,
+     "qini_por_usuario": 0.007887
+    },
+    {
+     "fraccion": 0.79,
+     "contactados": 197500,
+     "uplift_estimado": 0.011794,
+     "qini_por_usuario": 0.007918
+    },
+    {
+     "fraccion": 0.8,
+     "contactados": 200000,
+     "uplift_estimado": 0.011702,
+     "qini_por_usuario": 0.007954
+    },
+    {
+     "fraccion": 0.81,
+     "contactados": 202500,
+     "uplift_estimado": 0.011527,
+     "qini_por_usuario": 0.007933
+    },
+    {
+     "fraccion": 0.82,
+     "contactados": 205000,
+     "uplift_estimado": 0.011399,
+     "qini_por_usuario": 0.007942
+    },
+    {
+     "fraccion": 0.83,
+     "contactados": 207500,
+     "uplift_estimado": 0.011228,
+     "qini_por_usuario": 0.007918
+    },
+    {
+     "fraccion": 0.84,
+     "contactados": 210000,
+     "uplift_estimado": 0.011087,
+     "qini_por_usuario": 0.007913
+    },
+    {
+     "fraccion": 0.85,
+     "contactados": 212500,
+     "uplift_estimado": 0.010975,
+     "qini_por_usuario": 0.007926
+    },
+    {
+     "fraccion": 0.86,
+     "contactados": 215000,
+     "uplift_estimado": 0.010827,
+     "qini_por_usuario": 0.007911
+    },
+    {
+     "fraccion": 0.87,
+     "contactados": 217500,
+     "uplift_estimado": 0.010699,
+     "qini_por_usuario": 0.007908
+    },
+    {
+     "fraccion": 0.88,
+     "contactados": 220000,
+     "uplift_estimado": 0.010547,
+     "qini_por_usuario": 0.007887
+    },
+    {
+     "fraccion": 0.89,
+     "contactados": 222500,
+     "uplift_estimado": 0.01042,
+     "qini_por_usuario": 0.00788
+    },
+    {
+     "fraccion": 0.9,
+     "contactados": 225000,
+     "uplift_estimado": 0.01032,
+     "qini_por_usuario": 0.007893
+    },
+    {
+     "fraccion": 0.91,
+     "contactados": 227500,
+     "uplift_estimado": 0.010239,
+     "qini_por_usuario": 0.007917
+    },
+    {
+     "fraccion": 0.92,
+     "contactados": 230000,
+     "uplift_estimado": 0.010151,
+     "qini_por_usuario": 0.007935
+    },
+    {
+     "fraccion": 0.93,
+     "contactados": 232500,
+     "uplift_estimado": 0.010076,
+     "qini_por_usuario": 0.007961
+    },
+    {
+     "fraccion": 0.94,
+     "contactados": 235000,
+     "uplift_estimado": 0.009977,
+     "qini_por_usuario": 0.007968
+    },
+    {
+     "fraccion": 0.95,
+     "contactados": 237500,
+     "uplift_estimado": 0.009888,
+     "qini_por_usuario": 0.007981
+    },
+    {
+     "fraccion": 0.96,
+     "contactados": 240000,
+     "uplift_estimado": 0.009769,
+     "qini_por_usuario": 0.007969
+    },
+    {
+     "fraccion": 0.97,
+     "contactados": 242500,
+     "uplift_estimado": 0.009675,
+     "qini_por_usuario": 0.007975
+    },
+    {
+     "fraccion": 0.98,
+     "contactados": 245000,
+     "uplift_estimado": 0.00973,
+     "qini_por_usuario": 0.008102
+    },
+    {
+     "fraccion": 0.99,
+     "contactados": 247500,
+     "uplift_estimado": 0.009634,
+     "qini_por_usuario": 0.008104
+    },
+    {
+     "fraccion": 1.0,
+     "contactados": 250000,
+     "uplift_estimado": 0.009763,
+     "qini_por_usuario": 0.008297
+    }
+   ]
+  },
+  {
+   "resultado": "visit",
+   "modelo": "t_learner",
+   "puntos": [
+    {
+     "fraccion": 0.01,
+     "contactados": 2500,
+     "uplift_estimado": 0.164303,
+     "qini_por_usuario": 0.001449
+    },
+    {
+     "fraccion": 0.02,
+     "contactados": 5000,
+     "uplift_estimado": 0.111457,
+     "qini_por_usuario": 0.001946
+    },
+    {
+     "fraccion": 0.03,
+     "contactados": 7500,
+     "uplift_estimado": 0.102069,
+     "qini_por_usuario": 0.002664
+    },
+    {
+     "fraccion": 0.04,
+     "contactados": 10000,
+     "uplift_estimado": 0.076419,
+     "qini_por_usuario": 0.002656
+    },
+    {
+     "fraccion": 0.05,
+     "contactados": 12500,
+     "uplift_estimado": 0.072904,
+     "qini_por_usuario": 0.003155
+    },
+    {
+     "fraccion": 0.06,
+     "contactados": 15000,
+     "uplift_estimado": 0.06628,
+     "qini_por_usuario": 0.003428
+    },
+    {
+     "fraccion": 0.07,
+     "contactados": 17500,
+     "uplift_estimado": 0.059784,
+     "qini_por_usuario": 0.003606
+    },
+    {
+     "fraccion": 0.08,
+     "contactados": 20000,
+     "uplift_estimado": 0.054416,
+     "qini_por_usuario": 0.003746
+    },
+    {
+     "fraccion": 0.09,
+     "contactados": 22500,
+     "uplift_estimado": 0.044663,
+     "qini_por_usuario": 0.003462
+    },
+    {
+     "fraccion": 0.1,
+     "contactados": 25000,
+     "uplift_estimado": 0.041844,
+     "qini_por_usuario": 0.0036
+    },
+    {
+     "fraccion": 0.11,
+     "contactados": 27500,
+     "uplift_estimado": 0.041454,
+     "qini_por_usuario": 0.003916
+    },
+    {
+     "fraccion": 0.12,
+     "contactados": 30000,
+     "uplift_estimado": 0.04089,
+     "qini_por_usuario": 0.00421
+    },
+    {
+     "fraccion": 0.13,
+     "contactados": 32500,
+     "uplift_estimado": 0.039841,
+     "qini_por_usuario": 0.004442
+    },
+    {
+     "fraccion": 0.14,
+     "contactados": 35000,
+     "uplift_estimado": 0.038375,
+     "qini_por_usuario": 0.004606
+    },
+    {
+     "fraccion": 0.15,
+     "contactados": 37500,
+     "uplift_estimado": 0.036204,
+     "qini_por_usuario": 0.004655
+    },
+    {
+     "fraccion": 0.16,
+     "contactados": 40000,
+     "uplift_estimado": 0.034711,
+     "qini_por_usuario": 0.00476
+    },
+    {
+     "fraccion": 0.17,
+     "contactados": 42500,
+     "uplift_estimado": 0.033839,
+     "qini_por_usuario": 0.00493
+    },
+    {
+     "fraccion": 0.18,
+     "contactados": 45000,
+     "uplift_estimado": 0.032203,
+     "qini_por_usuario": 0.004966
+    },
+    {
+     "fraccion": 0.19,
+     "contactados": 47500,
+     "uplift_estimado": 0.030809,
+     "qini_por_usuario": 0.005016
+    },
+    {
+     "fraccion": 0.2,
+     "contactados": 50000,
+     "uplift_estimado": 0.028951,
+     "qini_por_usuario": 0.00496
+    },
+    {
+     "fraccion": 0.21,
+     "contactados": 52500,
+     "uplift_estimado": 0.028238,
+     "qini_por_usuario": 0.005078
+    },
+    {
+     "fraccion": 0.22,
+     "contactados": 55000,
+     "uplift_estimado": 0.027845,
+     "qini_por_usuario": 0.005243
+    },
+    {
+     "fraccion": 0.23,
+     "contactados": 57500,
+     "uplift_estimado": 0.026906,
+     "qini_por_usuario": 0.005295
+    },
+    {
+     "fraccion": 0.24,
+     "contactados": 60000,
+     "uplift_estimado": 0.025557,
+     "qini_por_usuario": 0.005249
+    },
+    {
+     "fraccion": 0.25,
+     "contactados": 62500,
+     "uplift_estimado": 0.024689,
+     "qini_por_usuario": 0.005281
+    },
+    {
+     "fraccion": 0.26,
+     "contactados": 65000,
+     "uplift_estimado": 0.024259,
+     "qini_por_usuario": 0.005388
+    },
+    {
+     "fraccion": 0.27,
+     "contactados": 67500,
+     "uplift_estimado": 0.023251,
+     "qini_por_usuario": 0.005363
+    },
+    {
+     "fraccion": 0.28,
+     "contactados": 70000,
+     "uplift_estimado": 0.022642,
+     "qini_por_usuario": 0.005416
+    },
+    {
+     "fraccion": 0.29,
+     "contactados": 72500,
+     "uplift_estimado": 0.022469,
+     "qini_por_usuario": 0.005563
+    },
+    {
+     "fraccion": 0.3,
+     "contactados": 75000,
+     "uplift_estimado": 0.021746,
+     "qini_por_usuario": 0.00557
+    },
+    {
+     "fraccion": 0.31,
+     "contactados": 77500,
+     "uplift_estimado": 0.021238,
+     "qini_por_usuario": 0.005618
+    },
+    {
+     "fraccion": 0.32,
+     "contactados": 80000,
+     "uplift_estimado": 0.020723,
+     "qini_por_usuario": 0.005657
+    },
+    {
+     "fraccion": 0.33,
+     "contactados": 82500,
+     "uplift_estimado": 0.0202,
+     "qini_por_usuario": 0.005685
+    },
+    {
+     "fraccion": 0.34,
+     "contactados": 85000,
+     "uplift_estimado": 0.020023,
+     "qini_por_usuario": 0.005805
+    },
+    {
+     "fraccion": 0.35,
+     "contactados": 87500,
+     "uplift_estimado": 0.019288,
+     "qini_por_usuario": 0.005758
+    },
+    {
+     "fraccion": 0.36,
+     "contactados": 90000,
+     "uplift_estimado": 0.019011,
+     "qini_por_usuario": 0.005834
+    },
+    {
+     "fraccion": 0.37,
+     "contactados": 92500,
+     "uplift_estimado": 0.018589,
+     "qini_por_usuario": 0.005863
+    },
+    {
+     "fraccion": 0.38,
+     "contactados": 95000,
+     "uplift_estimado": 0.01805,
+     "qini_por_usuario": 0.005846
+    },
+    {
+     "fraccion": 0.39,
+     "contactados": 97500,
+     "uplift_estimado": 0.01749,
+     "qini_por_usuario": 0.005812
+    },
+    {
+     "fraccion": 0.4,
+     "contactados": 100000,
+     "uplift_estimado": 0.017171,
+     "qini_por_usuario": 0.005852
+    },
+    {
+     "fraccion": 0.41,
+     "contactados": 102500,
+     "uplift_estimado": 0.016748,
+     "qini_por_usuario": 0.005851
+    },
+    {
+     "fraccion": 0.42,
+     "contactados": 105000,
+     "uplift_estimado": 0.01628,
+     "qini_por_usuario": 0.005826
+    },
+    {
+     "fraccion": 0.43,
+     "contactados": 107500,
+     "uplift_estimado": 0.015908,
+     "qini_por_usuario": 0.005828
+    },
+    {
+     "fraccion": 0.44,
+     "contactados": 110000,
+     "uplift_estimado": 0.015739,
+     "qini_por_usuario": 0.005899
+    },
+    {
+     "fraccion": 0.45,
+     "contactados": 112500,
+     "uplift_estimado": 0.015601,
+     "qini_por_usuario": 0.005978
+    },
+    {
+     "fraccion": 0.46,
+     "contactados": 115000,
+     "uplift_estimado": 0.015149,
+     "qini_por_usuario": 0.005933
+    },
+    {
+     "fraccion": 0.47,
+     "contactados": 117500,
+     "uplift_estimado": 0.014962,
+     "qini_por_usuario": 0.005986
+    },
+    {
+     "fraccion": 0.48,
+     "contactados": 120000,
+     "uplift_estimado": 0.014786,
+     "qini_por_usuario": 0.006041
+    },
+    {
+     "fraccion": 0.49,
+     "contactados": 122500,
+     "uplift_estimado": 0.014481,
+     "qini_por_usuario": 0.006038
+    },
+    {
+     "fraccion": 0.5,
+     "contactados": 125000,
+     "uplift_estimado": 0.0143,
+     "qini_por_usuario": 0.006084
+    },
+    {
+     "fraccion": 0.51,
+     "contactados": 127500,
+     "uplift_estimado": 0.014032,
+     "qini_por_usuario": 0.006091
+    },
+    {
+     "fraccion": 0.52,
+     "contactados": 130000,
+     "uplift_estimado": 0.01382,
+     "qini_por_usuario": 0.006115
+    },
+    {
+     "fraccion": 0.53,
+     "contactados": 132500,
+     "uplift_estimado": 0.013628,
+     "qini_por_usuario": 0.006145
+    },
+    {
+     "fraccion": 0.54,
+     "contactados": 135000,
+     "uplift_estimado": 0.013361,
+     "qini_por_usuario": 0.006139
+    },
+    {
+     "fraccion": 0.55,
+     "contactados": 137500,
+     "uplift_estimado": 0.013129,
+     "qini_por_usuario": 0.006143
+    },
+    {
+     "fraccion": 0.56,
+     "contactados": 140000,
+     "uplift_estimado": 0.012909,
+     "qini_por_usuario": 0.00615
+    },
+    {
+     "fraccion": 0.57,
+     "contactados": 142500,
+     "uplift_estimado": 0.01265,
+     "qini_por_usuario": 0.006135
+    },
+    {
+     "fraccion": 0.58,
+     "contactados": 145000,
+     "uplift_estimado": 0.012446,
+     "qini_por_usuario": 0.006142
+    },
+    {
+     "fraccion": 0.59,
+     "contactados": 147500,
+     "uplift_estimado": 0.012224,
+     "qini_por_usuario": 0.006137
+    },
+    {
+     "fraccion": 0.6,
+     "contactados": 150000,
+     "uplift_estimado": 0.012067,
+     "qini_por_usuario": 0.00616
+    },
+    {
+     "fraccion": 0.61,
+     "contactados": 152500,
+     "uplift_estimado": 0.011927,
+     "qini_por_usuario": 0.006188
+    },
+    {
+     "fraccion": 0.62,
+     "contactados": 155000,
+     "uplift_estimado": 0.011762,
+     "qini_por_usuario": 0.006201
+    },
+    {
+     "fraccion": 0.63,
+     "contactados": 157500,
+     "uplift_estimado": 0.011592,
+     "qini_por_usuario": 0.00621
+    },
+    {
+     "fraccion": 0.64,
+     "contactados": 160000,
+     "uplift_estimado": 0.011515,
+     "qini_por_usuario": 0.006265
+    },
+    {
+     "fraccion": 0.65,
+     "contactados": 162500,
+     "uplift_estimado": 0.011252,
+     "qini_por_usuario": 0.006218
+    },
+    {
+     "fraccion": 0.66,
+     "contactados": 165000,
+     "uplift_estimado": 0.011186,
+     "qini_por_usuario": 0.006275
+    },
+    {
+     "fraccion": 0.67,
+     "contactados": 167500,
+     "uplift_estimado": 0.01098,
+     "qini_por_usuario": 0.006254
+    },
+    {
+     "fraccion": 0.68,
+     "contactados": 170000,
+     "uplift_estimado": 0.010802,
+     "qini_por_usuario": 0.006245
+    },
+    {
+     "fraccion": 0.69,
+     "contactados": 172500,
+     "uplift_estimado": 0.010615,
+     "qini_por_usuario": 0.006228
+    },
+    {
+     "fraccion": 0.7,
+     "contactados": 175000,
+     "uplift_estimado": 0.010549,
+     "qini_por_usuario": 0.006278
+    },
+    {
+     "fraccion": 0.71,
+     "contactados": 177500,
+     "uplift_estimado": 0.010433,
+     "qini_por_usuario": 0.006297
+    },
+    {
+     "fraccion": 0.72,
+     "contactados": 180000,
+     "uplift_estimado": 0.010239,
+     "qini_por_usuario": 0.006268
+    },
+    {
+     "fraccion": 0.73,
+     "contactados": 182500,
+     "uplift_estimado": 0.010183,
+     "qini_por_usuario": 0.006319
+    },
+    {
+     "fraccion": 0.74,
+     "contactados": 185000,
+     "uplift_estimado": 0.010058,
+     "qini_por_usuario": 0.006327
+    },
+    {
+     "fraccion": 0.75,
+     "contactados": 187500,
+     "uplift_estimado": 0.009926,
+     "qini_por_usuario": 0.006328
+    },
+    {
+     "fraccion": 0.76,
+     "contactados": 190000,
+     "uplift_estimado": 0.009824,
+     "qini_por_usuario": 0.006346
+    },
+    {
+     "fraccion": 0.77,
+     "contactados": 192500,
+     "uplift_estimado": 0.009691,
+     "qini_por_usuario": 0.006343
+    },
+    {
+     "fraccion": 0.78,
+     "contactados": 195000,
+     "uplift_estimado": 0.009587,
+     "qini_por_usuario": 0.006355
+    },
+    {
+     "fraccion": 0.79,
+     "contactados": 197500,
+     "uplift_estimado": 0.009468,
+     "qini_por_usuario": 0.006357
+    },
+    {
+     "fraccion": 0.8,
+     "contactados": 200000,
+     "uplift_estimado": 0.009345,
+     "qini_por_usuario": 0.006354
+    },
+    {
+     "fraccion": 0.81,
+     "contactados": 202500,
+     "uplift_estimado": 0.009234,
+     "qini_por_usuario": 0.006356
+    },
+    {
+     "fraccion": 0.82,
+     "contactados": 205000,
+     "uplift_estimado": 0.009122,
+     "qini_por_usuario": 0.006357
+    },
+    {
+     "fraccion": 0.83,
+     "contactados": 207500,
+     "uplift_estimado": 0.009025,
+     "qini_por_usuario": 0.006365
+    },
+    {
+     "fraccion": 0.84,
+     "contactados": 210000,
+     "uplift_estimado": 0.008889,
+     "qini_por_usuario": 0.006346
+    },
+    {
+     "fraccion": 0.85,
+     "contactados": 212500,
+     "uplift_estimado": 0.008735,
+     "qini_por_usuario": 0.00631
+    },
+    {
+     "fraccion": 0.86,
+     "contactados": 215000,
+     "uplift_estimado": 0.008641,
+     "qini_por_usuario": 0.006316
+    },
+    {
+     "fraccion": 0.87,
+     "contactados": 217500,
+     "uplift_estimado": 0.008497,
+     "qini_por_usuario": 0.006283
+    },
+    {
+     "fraccion": 0.88,
+     "contactados": 220000,
+     "uplift_estimado": 0.008437,
+     "qini_por_usuario": 0.006311
+    },
+    {
+     "fraccion": 0.89,
+     "contactados": 222500,
+     "uplift_estimado": 0.008424,
+     "qini_por_usuario": 0.006374
+    },
+    {
+     "fraccion": 0.9,
+     "contactados": 225000,
+     "uplift_estimado": 0.00834,
+     "qini_por_usuario": 0.006381
+    },
+    {
+     "fraccion": 0.91,
+     "contactados": 227500,
+     "uplift_estimado": 0.008264,
+     "qini_por_usuario": 0.006392
+    },
+    {
+     "fraccion": 0.92,
+     "contactados": 230000,
+     "uplift_estimado": 0.008207,
+     "qini_por_usuario": 0.006418
+    },
+    {
+     "fraccion": 0.93,
+     "contactados": 232500,
+     "uplift_estimado": 0.008322,
+     "qini_por_usuario": 0.006578
+    },
+    {
+     "fraccion": 0.94,
+     "contactados": 235000,
+     "uplift_estimado": 0.008318,
+     "qini_por_usuario": 0.006646
+    },
+    {
+     "fraccion": 0.95,
+     "contactados": 237500,
+     "uplift_estimado": 0.007998,
+     "qini_por_usuario": 0.006458
+    },
+    {
+     "fraccion": 0.96,
+     "contactados": 240000,
+     "uplift_estimado": 0.00819,
+     "qini_por_usuario": 0.006683
+    },
+    {
+     "fraccion": 0.97,
+     "contactados": 242500,
+     "uplift_estimado": 0.008373,
+     "qini_por_usuario": 0.006903
+    },
+    {
+     "fraccion": 0.98,
+     "contactados": 245000,
+     "uplift_estimado": 0.008754,
+     "qini_por_usuario": 0.00729
+    },
+    {
+     "fraccion": 0.99,
+     "contactados": 247500,
+     "uplift_estimado": 0.00936,
+     "qini_por_usuario": 0.007875
+    },
+    {
+     "fraccion": 1.0,
+     "contactados": 250000,
+     "uplift_estimado": 0.009763,
+     "qini_por_usuario": 0.008297
+    }
+   ]
+  },
+  {
+   "resultado": "visit",
+   "modelo": "azar",
+   "puntos": [
+    {
+     "fraccion": 0.01,
+     "contactados": 2500,
+     "uplift_estimado": 0.005461,
+     "qini_por_usuario": 4.6e-05
+    },
+    {
+     "fraccion": 0.02,
+     "contactados": 5000,
+     "uplift_estimado": 0.017522,
+     "qini_por_usuario": 0.000296
+    },
+    {
+     "fraccion": 0.03,
+     "contactados": 7500,
+     "uplift_estimado": 0.01445,
+     "qini_por_usuario": 0.000367
+    },
+    {
+     "fraccion": 0.04,
+     "contactados": 10000,
+     "uplift_estimado": 0.014478,
+     "qini_por_usuario": 0.000493
+    },
+    {
+     "fraccion": 0.05,
+     "contactados": 12500,
+     "uplift_estimado": 0.011227,
+     "qini_por_usuario": 0.000478
+    },
+    {
+     "fraccion": 0.06,
+     "contactados": 15000,
+     "uplift_estimado": 0.011422,
+     "qini_por_usuario": 0.000585
+    },
+    {
+     "fraccion": 0.07,
+     "contactados": 17500,
+     "uplift_estimado": 0.008987,
+     "qini_por_usuario": 0.000538
+    },
+    {
+     "fraccion": 0.08,
+     "contactados": 20000,
+     "uplift_estimado": 0.009685,
+     "qini_por_usuario": 0.000661
+    },
+    {
+     "fraccion": 0.09,
+     "contactados": 22500,
+     "uplift_estimado": 0.009633,
+     "qini_por_usuario": 0.00074
+    },
+    {
+     "fraccion": 0.1,
+     "contactados": 25000,
+     "uplift_estimado": 0.009945,
+     "qini_por_usuario": 0.000848
+    },
+    {
+     "fraccion": 0.11,
+     "contactados": 27500,
+     "uplift_estimado": 0.008913,
+     "qini_por_usuario": 0.000836
+    },
+    {
+     "fraccion": 0.12,
+     "contactados": 30000,
+     "uplift_estimado": 0.009661,
+     "qini_por_usuario": 0.000988
+    },
+    {
+     "fraccion": 0.13,
+     "contactados": 32500,
+     "uplift_estimado": 0.00865,
+     "qini_por_usuario": 0.000958
+    },
+    {
+     "fraccion": 0.14,
+     "contactados": 35000,
+     "uplift_estimado": 0.008468,
+     "qini_por_usuario": 0.00101
+    },
+    {
+     "fraccion": 0.15,
+     "contactados": 37500,
+     "uplift_estimado": 0.008617,
+     "qini_por_usuario": 0.001101
+    },
+    {
+     "fraccion": 0.16,
+     "contactados": 40000,
+     "uplift_estimado": 0.007927,
+     "qini_por_usuario": 0.001081
+    },
+    {
+     "fraccion": 0.17,
+     "contactados": 42500,
+     "uplift_estimado": 0.007553,
+     "qini_por_usuario": 0.001094
+    },
+    {
+     "fraccion": 0.18,
+     "contactados": 45000,
+     "uplift_estimado": 0.00783,
+     "qini_por_usuario": 0.001201
+    },
+    {
+     "fraccion": 0.19,
+     "contactados": 47500,
+     "uplift_estimado": 0.008814,
+     "qini_por_usuario": 0.001427
+    },
+    {
+     "fraccion": 0.2,
+     "contactados": 50000,
+     "uplift_estimado": 0.008096,
+     "qini_por_usuario": 0.00138
+    },
+    {
+     "fraccion": 0.21,
+     "contactados": 52500,
+     "uplift_estimado": 0.007764,
+     "qini_por_usuario": 0.001389
+    },
+    {
+     "fraccion": 0.22,
+     "contactados": 55000,
+     "uplift_estimado": 0.00816,
+     "qini_por_usuario": 0.001529
+    },
+    {
+     "fraccion": 0.23,
+     "contactados": 57500,
+     "uplift_estimado": 0.007913,
+     "qini_por_usuario": 0.001549
+    },
+    {
+     "fraccion": 0.24,
+     "contactados": 60000,
+     "uplift_estimado": 0.008608,
+     "qini_por_usuario": 0.001758
+    },
+    {
+     "fraccion": 0.25,
+     "contactados": 62500,
+     "uplift_estimado": 0.008417,
+     "qini_por_usuario": 0.00179
+    },
+    {
+     "fraccion": 0.26,
+     "contactados": 65000,
+     "uplift_estimado": 0.008883,
+     "qini_por_usuario": 0.001965
+    },
+    {
+     "fraccion": 0.27,
+     "contactados": 67500,
+     "uplift_estimado": 0.009131,
+     "qini_por_usuario": 0.002098
+    },
+    {
+     "fraccion": 0.28,
+     "contactados": 70000,
+     "uplift_estimado": 0.009972,
+     "qini_por_usuario": 0.002375
+    },
+    {
+     "fraccion": 0.29,
+     "contactados": 72500,
+     "uplift_estimado": 0.010312,
+     "qini_por_usuario": 0.002543
+    },
+    {
+     "fraccion": 0.3,
+     "contactados": 75000,
+     "uplift_estimado": 0.010228,
+     "qini_por_usuario": 0.00261
+    },
+    {
+     "fraccion": 0.31,
+     "contactados": 77500,
+     "uplift_estimado": 0.010316,
+     "qini_por_usuario": 0.002721
+    },
+    {
+     "fraccion": 0.32,
+     "contactados": 80000,
+     "uplift_estimado": 0.009945,
+     "qini_por_usuario": 0.002708
+    },
+    {
+     "fraccion": 0.33,
+     "contactados": 82500,
+     "uplift_estimado": 0.009915,
+     "qini_por_usuario": 0.002783
+    },
+    {
+     "fraccion": 0.34,
+     "contactados": 85000,
+     "uplift_estimado": 0.010182,
+     "qini_por_usuario": 0.002946
+    },
+    {
+     "fraccion": 0.35,
+     "contactados": 87500,
+     "uplift_estimado": 0.009913,
+     "qini_por_usuario": 0.002952
+    },
+    {
+     "fraccion": 0.36,
+     "contactados": 90000,
+     "uplift_estimado": 0.010086,
+     "qini_por_usuario": 0.00309
+    },
+    {
+     "fraccion": 0.37,
+     "contactados": 92500,
+     "uplift_estimado": 0.009765,
+     "qini_por_usuario": 0.003074
+    },
+    {
+     "fraccion": 0.38,
+     "contactados": 95000,
+     "uplift_estimado": 0.00935,
+     "qini_por_usuario": 0.003024
+    },
+    {
+     "fraccion": 0.39,
+     "contactados": 97500,
+     "uplift_estimado": 0.009355,
+     "qini_por_usuario": 0.003104
+    },
+    {
+     "fraccion": 0.4,
+     "contactados": 100000,
+     "uplift_estimado": 0.009386,
+     "qini_por_usuario": 0.003196
+    },
+    {
+     "fraccion": 0.41,
+     "contactados": 102500,
+     "uplift_estimado": 0.009178,
+     "qini_por_usuario": 0.003203
+    },
+    {
+     "fraccion": 0.42,
+     "contactados": 105000,
+     "uplift_estimado": 0.009332,
+     "qini_por_usuario": 0.003335
+    },
+    {
+     "fraccion": 0.43,
+     "contactados": 107500,
+     "uplift_estimado": 0.009032,
+     "qini_por_usuario": 0.003305
+    },
+    {
+     "fraccion": 0.44,
+     "contactados": 110000,
+     "uplift_estimado": 0.008627,
+     "qini_por_usuario": 0.00323
+    },
+    {
+     "fraccion": 0.45,
+     "contactados": 112500,
+     "uplift_estimado": 0.008704,
+     "qini_por_usuario": 0.003332
+    },
+    {
+     "fraccion": 0.46,
+     "contactados": 115000,
+     "uplift_estimado": 0.008722,
+     "qini_por_usuario": 0.003414
+    },
+    {
+     "fraccion": 0.47,
+     "contactados": 117500,
+     "uplift_estimado": 0.008887,
+     "qini_por_usuario": 0.003554
+    },
+    {
+     "fraccion": 0.48,
+     "contactados": 120000,
+     "uplift_estimado": 0.008742,
+     "qini_por_usuario": 0.003571
+    },
+    {
+     "fraccion": 0.49,
+     "contactados": 122500,
+     "uplift_estimado": 0.008802,
+     "qini_por_usuario": 0.003671
+    },
+    {
+     "fraccion": 0.5,
+     "contactados": 125000,
+     "uplift_estimado": 0.008549,
+     "qini_por_usuario": 0.003639
+    },
+    {
+     "fraccion": 0.51,
+     "contactados": 127500,
+     "uplift_estimado": 0.008494,
+     "qini_por_usuario": 0.003687
+    },
+    {
+     "fraccion": 0.52,
+     "contactados": 130000,
+     "uplift_estimado": 0.008494,
+     "qini_por_usuario": 0.003759
+    },
+    {
+     "fraccion": 0.53,
+     "contactados": 132500,
+     "uplift_estimado": 0.008213,
+     "qini_por_usuario": 0.003705
+    },
+    {
+     "fraccion": 0.54,
+     "contactados": 135000,
+     "uplift_estimado": 0.008217,
+     "qini_por_usuario": 0.003778
+    },
+    {
+     "fraccion": 0.55,
+     "contactados": 137500,
+     "uplift_estimado": 0.00855,
+     "qini_por_usuario": 0.004003
+    },
+    {
+     "fraccion": 0.56,
+     "contactados": 140000,
+     "uplift_estimado": 0.008511,
+     "qini_por_usuario": 0.004057
+    },
+    {
+     "fraccion": 0.57,
+     "contactados": 142500,
+     "uplift_estimado": 0.008682,
+     "qini_por_usuario": 0.004212
+    },
+    {
+     "fraccion": 0.58,
+     "contactados": 145000,
+     "uplift_estimado": 0.009052,
+     "qini_por_usuario": 0.004468
+    },
+    {
+     "fraccion": 0.59,
+     "contactados": 147500,
+     "uplift_estimado": 0.00934,
+     "qini_por_usuario": 0.004689
+    },
+    {
+     "fraccion": 0.6,
+     "contactados": 150000,
+     "uplift_estimado": 0.009184,
+     "qini_por_usuario": 0.004689
+    },
+    {
+     "fraccion": 0.61,
+     "contactados": 152500,
+     "uplift_estimado": 0.009378,
+     "qini_por_usuario": 0.004867
+    },
+    {
+     "fraccion": 0.62,
+     "contactados": 155000,
+     "uplift_estimado": 0.009395,
+     "qini_por_usuario": 0.004954
+    },
+    {
+     "fraccion": 0.63,
+     "contactados": 157500,
+     "uplift_estimado": 0.008923,
+     "qini_por_usuario": 0.004782
+    },
+    {
+     "fraccion": 0.64,
+     "contactados": 160000,
+     "uplift_estimado": 0.008897,
+     "qini_por_usuario": 0.004844
+    },
+    {
+     "fraccion": 0.65,
+     "contactados": 162500,
+     "uplift_estimado": 0.009012,
+     "qini_por_usuario": 0.004983
+    },
+    {
+     "fraccion": 0.66,
+     "contactados": 165000,
+     "uplift_estimado": 0.009395,
+     "qini_por_usuario": 0.005274
+    },
+    {
+     "fraccion": 0.67,
+     "contactados": 167500,
+     "uplift_estimado": 0.009329,
+     "qini_por_usuario": 0.005316
+    },
+    {
+     "fraccion": 0.68,
+     "contactados": 170000,
+     "uplift_estimado": 0.009588,
+     "qini_por_usuario": 0.005546
+    },
+    {
+     "fraccion": 0.69,
+     "contactados": 172500,
+     "uplift_estimado": 0.009068,
+     "qini_por_usuario": 0.005323
+    },
+    {
+     "fraccion": 0.7,
+     "contactados": 175000,
+     "uplift_estimado": 0.009377,
+     "qini_por_usuario": 0.005583
+    },
+    {
+     "fraccion": 0.71,
+     "contactados": 177500,
+     "uplift_estimado": 0.00949,
+     "qini_por_usuario": 0.005733
+    },
+    {
+     "fraccion": 0.72,
+     "contactados": 180000,
+     "uplift_estimado": 0.009477,
+     "qini_por_usuario": 0.005805
+    },
+    {
+     "fraccion": 0.73,
+     "contactados": 182500,
+     "uplift_estimado": 0.009023,
+     "qini_por_usuario": 0.005604
+    },
+    {
+     "fraccion": 0.74,
+     "contactados": 185000,
+     "uplift_estimado": 0.009078,
+     "qini_por_usuario": 0.005715
+    },
+    {
+     "fraccion": 0.75,
+     "contactados": 187500,
+     "uplift_estimado": 0.009187,
+     "qini_por_usuario": 0.005861
+    },
+    {
+     "fraccion": 0.76,
+     "contactados": 190000,
+     "uplift_estimado": 0.009072,
+     "qini_por_usuario": 0.005865
+    },
+    {
+     "fraccion": 0.77,
+     "contactados": 192500,
+     "uplift_estimado": 0.009045,
+     "qini_por_usuario": 0.005922
+    },
+    {
+     "fraccion": 0.78,
+     "contactados": 195000,
+     "uplift_estimado": 0.009228,
+     "qini_por_usuario": 0.006121
+    },
+    {
+     "fraccion": 0.79,
+     "contactados": 197500,
+     "uplift_estimado": 0.009433,
+     "qini_por_usuario": 0.006337
+    },
+    {
+     "fraccion": 0.8,
+     "contactados": 200000,
+     "uplift_estimado": 0.009419,
+     "qini_por_usuario": 0.006407
+    },
+    {
+     "fraccion": 0.81,
+     "contactados": 202500,
+     "uplift_estimado": 0.00952,
+     "qini_por_usuario": 0.006555
+    },
+    {
+     "fraccion": 0.82,
+     "contactados": 205000,
+     "uplift_estimado": 0.009538,
+     "qini_por_usuario": 0.006648
+    },
+    {
+     "fraccion": 0.83,
+     "contactados": 207500,
+     "uplift_estimado": 0.009502,
+     "qini_por_usuario": 0.006705
+    },
+    {
+     "fraccion": 0.84,
+     "contactados": 210000,
+     "uplift_estimado": 0.009504,
+     "qini_por_usuario": 0.006786
+    },
+    {
+     "fraccion": 0.85,
+     "contactados": 212500,
+     "uplift_estimado": 0.009379,
+     "qini_por_usuario": 0.006777
+    },
+    {
+     "fraccion": 0.86,
+     "contactados": 215000,
+     "uplift_estimado": 0.00943,
+     "qini_por_usuario": 0.006895
+    },
+    {
+     "fraccion": 0.87,
+     "contactados": 217500,
+     "uplift_estimado": 0.009342,
+     "qini_por_usuario": 0.006909
+    },
+    {
+     "fraccion": 0.88,
+     "contactados": 220000,
+     "uplift_estimado": 0.009438,
+     "qini_por_usuario": 0.007059
+    },
+    {
+     "fraccion": 0.89,
+     "contactados": 222500,
+     "uplift_estimado": 0.009328,
+     "qini_por_usuario": 0.007056
+    },
+    {
+     "fraccion": 0.9,
+     "contactados": 225000,
+     "uplift_estimado": 0.009528,
+     "qini_por_usuario": 0.007288
+    },
+    {
+     "fraccion": 0.91,
+     "contactados": 227500,
+     "uplift_estimado": 0.009536,
+     "qini_por_usuario": 0.007376
+    },
+    {
+     "fraccion": 0.92,
+     "contactados": 230000,
+     "uplift_estimado": 0.009569,
+     "qini_por_usuario": 0.007482
+    },
+    {
+     "fraccion": 0.93,
+     "contactados": 232500,
+     "uplift_estimado": 0.009713,
+     "qini_por_usuario": 0.007677
+    },
+    {
+     "fraccion": 0.94,
+     "contactados": 235000,
+     "uplift_estimado": 0.009732,
+     "qini_por_usuario": 0.007774
+    },
+    {
+     "fraccion": 0.95,
+     "contactados": 237500,
+     "uplift_estimado": 0.009792,
+     "qini_por_usuario": 0.007906
+    },
+    {
+     "fraccion": 0.96,
+     "contactados": 240000,
+     "uplift_estimado": 0.009925,
+     "qini_por_usuario": 0.008098
+    },
+    {
+     "fraccion": 0.97,
+     "contactados": 242500,
+     "uplift_estimado": 0.009857,
+     "qini_por_usuario": 0.008127
+    },
+    {
+     "fraccion": 0.98,
+     "contactados": 245000,
+     "uplift_estimado": 0.009705,
+     "qini_por_usuario": 0.008083
+    },
+    {
+     "fraccion": 0.99,
+     "contactados": 247500,
+     "uplift_estimado": 0.009818,
+     "qini_por_usuario": 0.008261
+    },
+    {
+     "fraccion": 1.0,
+     "contactados": 250000,
+     "uplift_estimado": 0.009763,
+     "qini_por_usuario": 0.008297
+    }
+   ]
+  },
+  {
+   "resultado": "conversion",
+   "modelo": "s_learner",
+   "puntos": [
+    {
+     "fraccion": 0.01,
+     "contactados": 2500,
+     "uplift_estimado": 0.028963,
+     "qini_por_usuario": 0.000253
+    },
+    {
+     "fraccion": 0.02,
+     "contactados": 5000,
+     "uplift_estimado": 0.021127,
+     "qini_por_usuario": 0.000369
+    },
+    {
+     "fraccion": 0.03,
+     "contactados": 7500,
+     "uplift_estimado": 0.017018,
+     "qini_por_usuario": 0.000444
+    },
+    {
+     "fraccion": 0.04,
+     "contactados": 10000,
+     "uplift_estimado": 0.011894,
+     "qini_por_usuario": 0.000411
+    },
+    {
+     "fraccion": 0.05,
+     "contactados": 12500,
+     "uplift_estimado": 0.008531,
+     "qini_por_usuario": 0.000368
+    },
+    {
+     "fraccion": 0.06,
+     "contactados": 15000,
+     "uplift_estimado": 0.007801,
+     "qini_por_usuario": 0.000404
+    },
+    {
+     "fraccion": 0.07,
+     "contactados": 17500,
+     "uplift_estimado": 0.007591,
+     "qini_por_usuario": 0.000457
+    },
+    {
+     "fraccion": 0.08,
+     "contactados": 20000,
+     "uplift_estimado": 0.006074,
+     "qini_por_usuario": 0.000418
+    },
+    {
+     "fraccion": 0.09,
+     "contactados": 22500,
+     "uplift_estimado": 0.006176,
+     "qini_por_usuario": 0.000477
+    },
+    {
+     "fraccion": 0.1,
+     "contactados": 25000,
+     "uplift_estimado": 0.005612,
+     "qini_por_usuario": 0.000481
+    },
+    {
+     "fraccion": 0.11,
+     "contactados": 27500,
+     "uplift_estimado": 0.005027,
+     "qini_por_usuario": 0.000473
+    },
+    {
+     "fraccion": 0.12,
+     "contactados": 30000,
+     "uplift_estimado": 0.004848,
+     "qini_por_usuario": 0.000497
+    },
+    {
+     "fraccion": 0.13,
+     "contactados": 32500,
+     "uplift_estimado": 0.00419,
+     "qini_por_usuario": 0.000466
+    },
+    {
+     "fraccion": 0.14,
+     "contactados": 35000,
+     "uplift_estimado": 0.004133,
+     "qini_por_usuario": 0.000495
+    },
+    {
+     "fraccion": 0.15,
+     "contactados": 37500,
+     "uplift_estimado": 0.003845,
+     "qini_por_usuario": 0.000493
+    },
+    {
+     "fraccion": 0.16,
+     "contactados": 40000,
+     "uplift_estimado": 0.003609,
+     "qini_por_usuario": 0.000493
+    },
+    {
+     "fraccion": 0.17,
+     "contactados": 42500,
+     "uplift_estimado": 0.00338,
+     "qini_por_usuario": 0.00049
+    },
+    {
+     "fraccion": 0.18,
+     "contactados": 45000,
+     "uplift_estimado": 0.003036,
+     "qini_por_usuario": 0.000466
+    },
+    {
+     "fraccion": 0.19,
+     "contactados": 47500,
+     "uplift_estimado": 0.002941,
+     "qini_por_usuario": 0.000476
+    },
+    {
+     "fraccion": 0.2,
+     "contactados": 50000,
+     "uplift_estimado": 0.002836,
+     "qini_por_usuario": 0.000483
+    },
+    {
+     "fraccion": 0.21,
+     "contactados": 52500,
+     "uplift_estimado": 0.002674,
+     "qini_por_usuario": 0.000478
+    },
+    {
+     "fraccion": 0.22,
+     "contactados": 55000,
+     "uplift_estimado": 0.002594,
+     "qini_por_usuario": 0.000486
+    },
+    {
+     "fraccion": 0.23,
+     "contactados": 57500,
+     "uplift_estimado": 0.002509,
+     "qini_por_usuario": 0.000491
+    },
+    {
+     "fraccion": 0.24,
+     "contactados": 60000,
+     "uplift_estimado": 0.00213,
+     "qini_por_usuario": 0.000435
+    },
+    {
+     "fraccion": 0.25,
+     "contactados": 62500,
+     "uplift_estimado": 0.002059,
+     "qini_por_usuario": 0.000438
+    },
+    {
+     "fraccion": 0.26,
+     "contactados": 65000,
+     "uplift_estimado": 0.002064,
+     "qini_por_usuario": 0.000456
+    },
+    {
+     "fraccion": 0.27,
+     "contactados": 67500,
+     "uplift_estimado": 0.002042,
+     "qini_por_usuario": 0.000469
+    },
+    {
+     "fraccion": 0.28,
+     "contactados": 70000,
+     "uplift_estimado": 0.001985,
+     "qini_por_usuario": 0.000473
+    },
+    {
+     "fraccion": 0.29,
+     "contactados": 72500,
+     "uplift_estimado": 0.001874,
+     "qini_por_usuario": 0.000462
+    },
+    {
+     "fraccion": 0.3,
+     "contactados": 75000,
+     "uplift_estimado": 0.001979,
+     "qini_por_usuario": 0.000505
+    },
+    {
+     "fraccion": 0.31,
+     "contactados": 77500,
+     "uplift_estimado": 0.001749,
+     "qini_por_usuario": 0.000461
+    },
+    {
+     "fraccion": 0.32,
+     "contactados": 80000,
+     "uplift_estimado": 0.001608,
+     "qini_por_usuario": 0.000438
+    },
+    {
+     "fraccion": 0.33,
+     "contactados": 82500,
+     "uplift_estimado": 0.00166,
+     "qini_por_usuario": 0.000466
+    },
+    {
+     "fraccion": 0.34,
+     "contactados": 85000,
+     "uplift_estimado": 0.001632,
+     "qini_por_usuario": 0.000472
+    },
+    {
+     "fraccion": 0.35,
+     "contactados": 87500,
+     "uplift_estimado": 0.001544,
+     "qini_por_usuario": 0.00046
+    },
+    {
+     "fraccion": 0.36,
+     "contactados": 90000,
+     "uplift_estimado": 0.001619,
+     "qini_por_usuario": 0.000496
+    },
+    {
+     "fraccion": 0.37,
+     "contactados": 92500,
+     "uplift_estimado": 0.001626,
+     "qini_por_usuario": 0.000512
+    },
+    {
+     "fraccion": 0.38,
+     "contactados": 95000,
+     "uplift_estimado": 0.001668,
+     "qini_por_usuario": 0.00054
+    },
+    {
+     "fraccion": 0.39,
+     "contactados": 97500,
+     "uplift_estimado": 0.001727,
+     "qini_por_usuario": 0.000573
+    },
+    {
+     "fraccion": 0.4,
+     "contactados": 100000,
+     "uplift_estimado": 0.001757,
+     "qini_por_usuario": 0.000598
+    },
+    {
+     "fraccion": 0.41,
+     "contactados": 102500,
+     "uplift_estimado": 0.001764,
+     "qini_por_usuario": 0.000615
+    },
+    {
+     "fraccion": 0.42,
+     "contactados": 105000,
+     "uplift_estimado": 0.00175,
+     "qini_por_usuario": 0.000625
+    },
+    {
+     "fraccion": 0.43,
+     "contactados": 107500,
+     "uplift_estimado": 0.001746,
+     "qini_por_usuario": 0.000639
+    },
+    {
+     "fraccion": 0.44,
+     "contactados": 110000,
+     "uplift_estimado": 0.001703,
+     "qini_por_usuario": 0.000638
+    },
+    {
+     "fraccion": 0.45,
+     "contactados": 112500,
+     "uplift_estimado": 0.001719,
+     "qini_por_usuario": 0.000658
+    },
+    {
+     "fraccion": 0.46,
+     "contactados": 115000,
+     "uplift_estimado": 0.00173,
+     "qini_por_usuario": 0.000677
+    },
+    {
+     "fraccion": 0.47,
+     "contactados": 117500,
+     "uplift_estimado": 0.001746,
+     "qini_por_usuario": 0.000698
+    },
+    {
+     "fraccion": 0.48,
+     "contactados": 120000,
+     "uplift_estimado": 0.001766,
+     "qini_por_usuario": 0.000721
+    },
+    {
+     "fraccion": 0.49,
+     "contactados": 122500,
+     "uplift_estimado": 0.001776,
+     "qini_por_usuario": 0.00074
+    },
+    {
+     "fraccion": 0.5,
+     "contactados": 125000,
+     "uplift_estimado": 0.001761,
+     "qini_por_usuario": 0.000749
+    },
+    {
+     "fraccion": 0.51,
+     "contactados": 127500,
+     "uplift_estimado": 0.001778,
+     "qini_por_usuario": 0.000771
+    },
+    {
+     "fraccion": 0.52,
+     "contactados": 130000,
+     "uplift_estimado": 0.001814,
+     "qini_por_usuario": 0.000802
+    },
+    {
+     "fraccion": 0.53,
+     "contactados": 132500,
+     "uplift_estimado": 0.001799,
+     "qini_por_usuario": 0.000811
+    },
+    {
+     "fraccion": 0.54,
+     "contactados": 135000,
+     "uplift_estimado": 0.001703,
+     "qini_por_usuario": 0.000783
+    },
+    {
+     "fraccion": 0.55,
+     "contactados": 137500,
+     "uplift_estimado": 0.001659,
+     "qini_por_usuario": 0.000776
+    },
+    {
+     "fraccion": 0.56,
+     "contactados": 140000,
+     "uplift_estimado": 0.001607,
+     "qini_por_usuario": 0.000765
+    },
+    {
+     "fraccion": 0.57,
+     "contactados": 142500,
+     "uplift_estimado": 0.001556,
+     "qini_por_usuario": 0.000755
+    },
+    {
+     "fraccion": 0.58,
+     "contactados": 145000,
+     "uplift_estimado": 0.001525,
+     "qini_por_usuario": 0.000752
+    },
+    {
+     "fraccion": 0.59,
+     "contactados": 147500,
+     "uplift_estimado": 0.001526,
+     "qini_por_usuario": 0.000766
+    },
+    {
+     "fraccion": 0.6,
+     "contactados": 150000,
+     "uplift_estimado": 0.001545,
+     "qini_por_usuario": 0.000788
+    },
+    {
+     "fraccion": 0.61,
+     "contactados": 152500,
+     "uplift_estimado": 0.001557,
+     "qini_por_usuario": 0.000808
+    },
+    {
+     "fraccion": 0.62,
+     "contactados": 155000,
+     "uplift_estimado": 0.00153,
+     "qini_por_usuario": 0.000807
+    },
+    {
+     "fraccion": 0.63,
+     "contactados": 157500,
+     "uplift_estimado": 0.001459,
+     "qini_por_usuario": 0.000781
+    },
+    {
+     "fraccion": 0.64,
+     "contactados": 160000,
+     "uplift_estimado": 0.001479,
+     "qini_por_usuario": 0.000805
+    },
+    {
+     "fraccion": 0.65,
+     "contactados": 162500,
+     "uplift_estimado": 0.001494,
+     "qini_por_usuario": 0.000826
+    },
+    {
+     "fraccion": 0.66,
+     "contactados": 165000,
+     "uplift_estimado": 0.001457,
+     "qini_por_usuario": 0.000818
+    },
+    {
+     "fraccion": 0.67,
+     "contactados": 167500,
+     "uplift_estimado": 0.00147,
+     "qini_por_usuario": 0.000837
+    },
+    {
+     "fraccion": 0.68,
+     "contactados": 170000,
+     "uplift_estimado": 0.001478,
+     "qini_por_usuario": 0.000854
+    },
+    {
+     "fraccion": 0.69,
+     "contactados": 172500,
+     "uplift_estimado": 0.001492,
+     "qini_por_usuario": 0.000875
+    },
+    {
+     "fraccion": 0.7,
+     "contactados": 175000,
+     "uplift_estimado": 0.0015,
+     "qini_por_usuario": 0.000892
+    },
+    {
+     "fraccion": 0.71,
+     "contactados": 177500,
+     "uplift_estimado": 0.001509,
+     "qini_por_usuario": 0.00091
+    },
+    {
+     "fraccion": 0.72,
+     "contactados": 180000,
+     "uplift_estimado": 0.00153,
+     "qini_por_usuario": 0.000936
+    },
+    {
+     "fraccion": 0.73,
+     "contactados": 182500,
+     "uplift_estimado": 0.001488,
+     "qini_por_usuario": 0.000922
+    },
+    {
+     "fraccion": 0.74,
+     "contactados": 185000,
+     "uplift_estimado": 0.00149,
+     "qini_por_usuario": 0.000937
+    },
+    {
+     "fraccion": 0.75,
+     "contactados": 187500,
+     "uplift_estimado": 0.001495,
+     "qini_por_usuario": 0.000952
+    },
+    {
+     "fraccion": 0.76,
+     "contactados": 190000,
+     "uplift_estimado": 0.00152,
+     "qini_por_usuario": 0.000982
+    },
+    {
+     "fraccion": 0.77,
+     "contactados": 192500,
+     "uplift_estimado": 0.001496,
+     "qini_por_usuario": 0.000979
+    },
+    {
+     "fraccion": 0.78,
+     "contactados": 195000,
+     "uplift_estimado": 0.001461,
+     "qini_por_usuario": 0.000968
+    },
+    {
+     "fraccion": 0.79,
+     "contactados": 197500,
+     "uplift_estimado": 0.001472,
+     "qini_por_usuario": 0.000988
+    },
+    {
+     "fraccion": 0.8,
+     "contactados": 200000,
+     "uplift_estimado": 0.001411,
+     "qini_por_usuario": 0.000959
+    },
+    {
+     "fraccion": 0.81,
+     "contactados": 202500,
+     "uplift_estimado": 0.001402,
+     "qini_por_usuario": 0.000965
+    },
+    {
+     "fraccion": 0.82,
+     "contactados": 205000,
+     "uplift_estimado": 0.001347,
+     "qini_por_usuario": 0.000939
+    },
+    {
+     "fraccion": 0.83,
+     "contactados": 207500,
+     "uplift_estimado": 0.001351,
+     "qini_por_usuario": 0.000953
+    },
+    {
+     "fraccion": 0.84,
+     "contactados": 210000,
+     "uplift_estimado": 0.001353,
+     "qini_por_usuario": 0.000966
+    },
+    {
+     "fraccion": 0.85,
+     "contactados": 212500,
+     "uplift_estimado": 0.001359,
+     "qini_por_usuario": 0.000982
+    },
+    {
+     "fraccion": 0.86,
+     "contactados": 215000,
+     "uplift_estimado": 0.001369,
+     "qini_por_usuario": 0.001001
+    },
+    {
+     "fraccion": 0.87,
+     "contactados": 217500,
+     "uplift_estimado": 0.001382,
+     "qini_por_usuario": 0.001021
+    },
+    {
+     "fraccion": 0.88,
+     "contactados": 220000,
+     "uplift_estimado": 0.001344,
+     "qini_por_usuario": 0.001005
+    },
+    {
+     "fraccion": 0.89,
+     "contactados": 222500,
+     "uplift_estimado": 0.001357,
+     "qini_por_usuario": 0.001026
+    },
+    {
+     "fraccion": 0.9,
+     "contactados": 225000,
+     "uplift_estimado": 0.001378,
+     "qini_por_usuario": 0.001054
+    },
+    {
+     "fraccion": 0.91,
+     "contactados": 227500,
+     "uplift_estimado": 0.001385,
+     "qini_por_usuario": 0.001071
+    },
+    {
+     "fraccion": 0.92,
+     "contactados": 230000,
+     "uplift_estimado": 0.00139,
+     "qini_por_usuario": 0.001087
+    },
+    {
+     "fraccion": 0.93,
+     "contactados": 232500,
+     "uplift_estimado": 0.001388,
+     "qini_por_usuario": 0.001096
+    },
+    {
+     "fraccion": 0.94,
+     "contactados": 235000,
+     "uplift_estimado": 0.001358,
+     "qini_por_usuario": 0.001085
+    },
+    {
+     "fraccion": 0.95,
+     "contactados": 237500,
+     "uplift_estimado": 0.001337,
+     "qini_por_usuario": 0.001079
+    },
+    {
+     "fraccion": 0.96,
+     "contactados": 240000,
+     "uplift_estimado": 0.001352,
+     "qini_por_usuario": 0.001103
+    },
+    {
+     "fraccion": 0.97,
+     "contactados": 242500,
+     "uplift_estimado": 0.001324,
+     "qini_por_usuario": 0.001091
+    },
+    {
+     "fraccion": 0.98,
+     "contactados": 245000,
+     "uplift_estimado": 0.001334,
+     "qini_por_usuario": 0.001111
+    },
+    {
+     "fraccion": 0.99,
+     "contactados": 247500,
+     "uplift_estimado": 0.001324,
+     "qini_por_usuario": 0.001114
+    },
+    {
+     "fraccion": 1.0,
+     "contactados": 250000,
+     "uplift_estimado": 0.001341,
+     "qini_por_usuario": 0.00114
+    }
+   ]
+  },
+  {
+   "resultado": "conversion",
+   "modelo": "t_learner",
+   "puntos": [
+    {
+     "fraccion": 0.01,
+     "contactados": 2500,
+     "uplift_estimado": 0.024571,
+     "qini_por_usuario": 0.000216
+    },
+    {
+     "fraccion": 0.02,
+     "contactados": 5000,
+     "uplift_estimado": 0.022739,
+     "qini_por_usuario": 0.000396
+    },
+    {
+     "fraccion": 0.03,
+     "contactados": 7500,
+     "uplift_estimado": 0.01985,
+     "qini_por_usuario": 0.000513
+    },
+    {
+     "fraccion": 0.04,
+     "contactados": 10000,
+     "uplift_estimado": 0.016634,
+     "qini_por_usuario": 0.000575
+    },
+    {
+     "fraccion": 0.05,
+     "contactados": 12500,
+     "uplift_estimado": 0.012634,
+     "qini_por_usuario": 0.000546
+    },
+    {
+     "fraccion": 0.06,
+     "contactados": 15000,
+     "uplift_estimado": 0.01065,
+     "qini_por_usuario": 0.00055
+    },
+    {
+     "fraccion": 0.07,
+     "contactados": 17500,
+     "uplift_estimado": 0.009354,
+     "qini_por_usuario": 0.000563
+    },
+    {
+     "fraccion": 0.08,
+     "contactados": 20000,
+     "uplift_estimado": 0.007219,
+     "qini_por_usuario": 0.000496
+    },
+    {
+     "fraccion": 0.09,
+     "contactados": 22500,
+     "uplift_estimado": 0.007251,
+     "qini_por_usuario": 0.00056
+    },
+    {
+     "fraccion": 0.1,
+     "contactados": 25000,
+     "uplift_estimado": 0.007531,
+     "qini_por_usuario": 0.000645
+    },
+    {
+     "fraccion": 0.11,
+     "contactados": 27500,
+     "uplift_estimado": 0.007412,
+     "qini_por_usuario": 0.000698
+    },
+    {
+     "fraccion": 0.12,
+     "contactados": 30000,
+     "uplift_estimado": 0.006639,
+     "qini_por_usuario": 0.000682
+    },
+    {
+     "fraccion": 0.13,
+     "contactados": 32500,
+     "uplift_estimado": 0.006388,
+     "qini_por_usuario": 0.00071
+    },
+    {
+     "fraccion": 0.14,
+     "contactados": 35000,
+     "uplift_estimado": 0.006014,
+     "qini_por_usuario": 0.00072
+    },
+    {
+     "fraccion": 0.15,
+     "contactados": 37500,
+     "uplift_estimado": 0.005637,
+     "qini_por_usuario": 0.000722
+    },
+    {
+     "fraccion": 0.16,
+     "contactados": 40000,
+     "uplift_estimado": 0.005212,
+     "qini_por_usuario": 0.000712
+    },
+    {
+     "fraccion": 0.17,
+     "contactados": 42500,
+     "uplift_estimado": 0.004837,
+     "qini_por_usuario": 0.000702
+    },
+    {
+     "fraccion": 0.18,
+     "contactados": 45000,
+     "uplift_estimado": 0.004605,
+     "qini_por_usuario": 0.000707
+    },
+    {
+     "fraccion": 0.19,
+     "contactados": 47500,
+     "uplift_estimado": 0.004443,
+     "qini_por_usuario": 0.00072
+    },
+    {
+     "fraccion": 0.2,
+     "contactados": 50000,
+     "uplift_estimado": 0.004233,
+     "qini_por_usuario": 0.000722
+    },
+    {
+     "fraccion": 0.21,
+     "contactados": 52500,
+     "uplift_estimado": 0.004091,
+     "qini_por_usuario": 0.000733
+    },
+    {
+     "fraccion": 0.22,
+     "contactados": 55000,
+     "uplift_estimado": 0.003923,
+     "qini_por_usuario": 0.000736
+    },
+    {
+     "fraccion": 0.23,
+     "contactados": 57500,
+     "uplift_estimado": 0.003827,
+     "qini_por_usuario": 0.00075
+    },
+    {
+     "fraccion": 0.24,
+     "contactados": 60000,
+     "uplift_estimado": 0.003726,
+     "qini_por_usuario": 0.000762
+    },
+    {
+     "fraccion": 0.25,
+     "contactados": 62500,
+     "uplift_estimado": 0.003446,
+     "qini_por_usuario": 0.000734
+    },
+    {
+     "fraccion": 0.26,
+     "contactados": 65000,
+     "uplift_estimado": 0.003333,
+     "qini_por_usuario": 0.000738
+    },
+    {
+     "fraccion": 0.27,
+     "contactados": 67500,
+     "uplift_estimado": 0.003257,
+     "qini_por_usuario": 0.000749
+    },
+    {
+     "fraccion": 0.28,
+     "contactados": 70000,
+     "uplift_estimado": 0.003141,
+     "qini_por_usuario": 0.000749
+    },
+    {
+     "fraccion": 0.29,
+     "contactados": 72500,
+     "uplift_estimado": 0.003141,
+     "qini_por_usuario": 0.000775
+    },
+    {
+     "fraccion": 0.3,
+     "contactados": 75000,
+     "uplift_estimado": 0.003087,
+     "qini_por_usuario": 0.000788
+    },
+    {
+     "fraccion": 0.31,
+     "contactados": 77500,
+     "uplift_estimado": 0.002993,
+     "qini_por_usuario": 0.00079
+    },
+    {
+     "fraccion": 0.32,
+     "contactados": 80000,
+     "uplift_estimado": 0.002901,
+     "qini_por_usuario": 0.00079
+    },
+    {
+     "fraccion": 0.33,
+     "contactados": 82500,
+     "uplift_estimado": 0.002826,
+     "qini_por_usuario": 0.000794
+    },
+    {
+     "fraccion": 0.34,
+     "contactados": 85000,
+     "uplift_estimado": 0.002741,
+     "qini_por_usuario": 0.000794
+    },
+    {
+     "fraccion": 0.35,
+     "contactados": 87500,
+     "uplift_estimado": 0.002659,
+     "qini_por_usuario": 0.000793
+    },
+    {
+     "fraccion": 0.36,
+     "contactados": 90000,
+     "uplift_estimado": 0.002589,
+     "qini_por_usuario": 0.000794
+    },
+    {
+     "fraccion": 0.37,
+     "contactados": 92500,
+     "uplift_estimado": 0.002518,
+     "qini_por_usuario": 0.000793
+    },
+    {
+     "fraccion": 0.38,
+     "contactados": 95000,
+     "uplift_estimado": 0.002469,
+     "qini_por_usuario": 0.000798
+    },
+    {
+     "fraccion": 0.39,
+     "contactados": 97500,
+     "uplift_estimado": 0.00242,
+     "qini_por_usuario": 0.000803
+    },
+    {
+     "fraccion": 0.4,
+     "contactados": 100000,
+     "uplift_estimado": 0.002363,
+     "qini_por_usuario": 0.000804
+    },
+    {
+     "fraccion": 0.41,
+     "contactados": 102500,
+     "uplift_estimado": 0.002307,
+     "qini_por_usuario": 0.000805
+    },
+    {
+     "fraccion": 0.42,
+     "contactados": 105000,
+     "uplift_estimado": 0.002192,
+     "qini_por_usuario": 0.000783
+    },
+    {
+     "fraccion": 0.43,
+     "contactados": 107500,
+     "uplift_estimado": 0.002141,
+     "qini_por_usuario": 0.000783
+    },
+    {
+     "fraccion": 0.44,
+     "contactados": 110000,
+     "uplift_estimado": 0.002103,
+     "qini_por_usuario": 0.000787
+    },
+    {
+     "fraccion": 0.45,
+     "contactados": 112500,
+     "uplift_estimado": 0.002051,
+     "qini_por_usuario": 0.000785
+    },
+    {
+     "fraccion": 0.46,
+     "contactados": 115000,
+     "uplift_estimado": 0.002009,
+     "qini_por_usuario": 0.000786
+    },
+    {
+     "fraccion": 0.47,
+     "contactados": 117500,
+     "uplift_estimado": 0.001975,
+     "qini_por_usuario": 0.00079
+    },
+    {
+     "fraccion": 0.48,
+     "contactados": 120000,
+     "uplift_estimado": 0.001953,
+     "qini_por_usuario": 0.000797
+    },
+    {
+     "fraccion": 0.49,
+     "contactados": 122500,
+     "uplift_estimado": 0.001911,
+     "qini_por_usuario": 0.000796
+    },
+    {
+     "fraccion": 0.5,
+     "contactados": 125000,
+     "uplift_estimado": 0.001875,
+     "qini_por_usuario": 0.000797
+    },
+    {
+     "fraccion": 0.51,
+     "contactados": 127500,
+     "uplift_estimado": 0.001851,
+     "qini_por_usuario": 0.000802
+    },
+    {
+     "fraccion": 0.52,
+     "contactados": 130000,
+     "uplift_estimado": 0.001814,
+     "qini_por_usuario": 0.000802
+    },
+    {
+     "fraccion": 0.53,
+     "contactados": 132500,
+     "uplift_estimado": 0.001782,
+     "qini_por_usuario": 0.000803
+    },
+    {
+     "fraccion": 0.54,
+     "contactados": 135000,
+     "uplift_estimado": 0.00175,
+     "qini_por_usuario": 0.000803
+    },
+    {
+     "fraccion": 0.55,
+     "contactados": 137500,
+     "uplift_estimado": 0.001716,
+     "qini_por_usuario": 0.000802
+    },
+    {
+     "fraccion": 0.56,
+     "contactados": 140000,
+     "uplift_estimado": 0.001684,
+     "qini_por_usuario": 0.000802
+    },
+    {
+     "fraccion": 0.57,
+     "contactados": 142500,
+     "uplift_estimado": 0.001657,
+     "qini_por_usuario": 0.000803
+    },
+    {
+     "fraccion": 0.58,
+     "contactados": 145000,
+     "uplift_estimado": 0.001631,
+     "qini_por_usuario": 0.000804
+    },
+    {
+     "fraccion": 0.59,
+     "contactados": 147500,
+     "uplift_estimado": 0.001602,
+     "qini_por_usuario": 0.000803
+    },
+    {
+     "fraccion": 0.6,
+     "contactados": 150000,
+     "uplift_estimado": 0.001576,
+     "qini_por_usuario": 0.000804
+    },
+    {
+     "fraccion": 0.61,
+     "contactados": 152500,
+     "uplift_estimado": 0.001557,
+     "qini_por_usuario": 0.000808
+    },
+    {
+     "fraccion": 0.62,
+     "contactados": 155000,
+     "uplift_estimado": 0.001534,
+     "qini_por_usuario": 0.000809
+    },
+    {
+     "fraccion": 0.63,
+     "contactados": 157500,
+     "uplift_estimado": 0.00151,
+     "qini_por_usuario": 0.000808
+    },
+    {
+     "fraccion": 0.64,
+     "contactados": 160000,
+     "uplift_estimado": 0.001492,
+     "qini_por_usuario": 0.000811
+    },
+    {
+     "fraccion": 0.65,
+     "contactados": 162500,
+     "uplift_estimado": 0.00147,
+     "qini_por_usuario": 0.000812
+    },
+    {
+     "fraccion": 0.66,
+     "contactados": 165000,
+     "uplift_estimado": 0.001447,
+     "qini_por_usuario": 0.000811
+    },
+    {
+     "fraccion": 0.67,
+     "contactados": 167500,
+     "uplift_estimado": 0.001426,
+     "qini_por_usuario": 0.000812
+    },
+    {
+     "fraccion": 0.68,
+     "contactados": 170000,
+     "uplift_estimado": 0.001404,
+     "qini_por_usuario": 0.000811
+    },
+    {
+     "fraccion": 0.69,
+     "contactados": 172500,
+     "uplift_estimado": 0.001384,
+     "qini_por_usuario": 0.000811
+    },
+    {
+     "fraccion": 0.7,
+     "contactados": 175000,
+     "uplift_estimado": 0.001366,
+     "qini_por_usuario": 0.000812
+    },
+    {
+     "fraccion": 0.71,
+     "contactados": 177500,
+     "uplift_estimado": 0.001346,
+     "qini_por_usuario": 0.000812
+    },
+    {
+     "fraccion": 0.72,
+     "contactados": 180000,
+     "uplift_estimado": 0.001326,
+     "qini_por_usuario": 0.000811
+    },
+    {
+     "fraccion": 0.73,
+     "contactados": 182500,
+     "uplift_estimado": 0.001307,
+     "qini_por_usuario": 0.000811
+    },
+    {
+     "fraccion": 0.74,
+     "contactados": 185000,
+     "uplift_estimado": 0.001296,
+     "qini_por_usuario": 0.000815
+    },
+    {
+     "fraccion": 0.75,
+     "contactados": 187500,
+     "uplift_estimado": 0.001281,
+     "qini_por_usuario": 0.000816
+    },
+    {
+     "fraccion": 0.76,
+     "contactados": 190000,
+     "uplift_estimado": 0.001262,
+     "qini_por_usuario": 0.000815
+    },
+    {
+     "fraccion": 0.77,
+     "contactados": 192500,
+     "uplift_estimado": 0.001247,
+     "qini_por_usuario": 0.000816
+    },
+    {
+     "fraccion": 0.78,
+     "contactados": 195000,
+     "uplift_estimado": 0.001231,
+     "qini_por_usuario": 0.000816
+    },
+    {
+     "fraccion": 0.79,
+     "contactados": 197500,
+     "uplift_estimado": 0.001215,
+     "qini_por_usuario": 0.000815
+    },
+    {
+     "fraccion": 0.8,
+     "contactados": 200000,
+     "uplift_estimado": 0.001209,
+     "qini_por_usuario": 0.000822
+    },
+    {
+     "fraccion": 0.81,
+     "contactados": 202500,
+     "uplift_estimado": 0.001201,
+     "qini_por_usuario": 0.000826
+    },
+    {
+     "fraccion": 0.82,
+     "contactados": 205000,
+     "uplift_estimado": 0.001192,
+     "qini_por_usuario": 0.00083
+    },
+    {
+     "fraccion": 0.83,
+     "contactados": 207500,
+     "uplift_estimado": 0.001178,
+     "qini_por_usuario": 0.00083
+    },
+    {
+     "fraccion": 0.84,
+     "contactados": 210000,
+     "uplift_estimado": 0.00117,
+     "qini_por_usuario": 0.000834
+    },
+    {
+     "fraccion": 0.85,
+     "contactados": 212500,
+     "uplift_estimado": 0.001165,
+     "qini_por_usuario": 0.000841
+    },
+    {
+     "fraccion": 0.86,
+     "contactados": 215000,
+     "uplift_estimado": 0.001152,
+     "qini_por_usuario": 0.000842
+    },
+    {
+     "fraccion": 0.87,
+     "contactados": 217500,
+     "uplift_estimado": 0.001147,
+     "qini_por_usuario": 0.000847
+    },
+    {
+     "fraccion": 0.88,
+     "contactados": 220000,
+     "uplift_estimado": 0.001133,
+     "qini_por_usuario": 0.000847
+    },
+    {
+     "fraccion": 0.89,
+     "contactados": 222500,
+     "uplift_estimado": 0.001125,
+     "qini_por_usuario": 0.000851
+    },
+    {
+     "fraccion": 0.9,
+     "contactados": 225000,
+     "uplift_estimado": 0.001114,
+     "qini_por_usuario": 0.000851
+    },
+    {
+     "fraccion": 0.91,
+     "contactados": 227500,
+     "uplift_estimado": 0.001114,
+     "qini_por_usuario": 0.00086
+    },
+    {
+     "fraccion": 0.92,
+     "contactados": 230000,
+     "uplift_estimado": 0.001106,
+     "qini_por_usuario": 0.000864
+    },
+    {
+     "fraccion": 0.93,
+     "contactados": 232500,
+     "uplift_estimado": 0.001108,
+     "qini_por_usuario": 0.000875
+    },
+    {
+     "fraccion": 0.94,
+     "contactados": 235000,
+     "uplift_estimado": 0.001103,
+     "qini_por_usuario": 0.00088
+    },
+    {
+     "fraccion": 0.95,
+     "contactados": 237500,
+     "uplift_estimado": 0.001092,
+     "qini_por_usuario": 0.000881
+    },
+    {
+     "fraccion": 0.96,
+     "contactados": 240000,
+     "uplift_estimado": 0.001078,
+     "qini_por_usuario": 0.000879
+    },
+    {
+     "fraccion": 0.97,
+     "contactados": 242500,
+     "uplift_estimado": 0.001066,
+     "qini_por_usuario": 0.000878
+    },
+    {
+     "fraccion": 0.98,
+     "contactados": 245000,
+     "uplift_estimado": 0.001078,
+     "qini_por_usuario": 0.000897
+    },
+    {
+     "fraccion": 0.99,
+     "contactados": 247500,
+     "uplift_estimado": 0.001196,
+     "qini_por_usuario": 0.001006
+    },
+    {
+     "fraccion": 1.0,
+     "contactados": 250000,
+     "uplift_estimado": 0.001341,
+     "qini_por_usuario": 0.00114
+    }
+   ]
+  },
+  {
+   "resultado": "conversion",
+   "modelo": "azar",
+   "puntos": [
+    {
+     "fraccion": 0.01,
+     "contactados": 2500,
+     "uplift_estimado": 0.003274,
+     "qini_por_usuario": 2.8e-05
+    },
+    {
+     "fraccion": 0.02,
+     "contactados": 5000,
+     "uplift_estimado": 0.002868,
+     "qini_por_usuario": 4.9e-05
+    },
+    {
+     "fraccion": 0.03,
+     "contactados": 7500,
+     "uplift_estimado": 0.002884,
+     "qini_por_usuario": 7.3e-05
+    },
+    {
+     "fraccion": 0.04,
+     "contactados": 10000,
+     "uplift_estimado": 0.001869,
+     "qini_por_usuario": 6.3e-05
+    },
+    {
+     "fraccion": 0.05,
+     "contactados": 12500,
+     "uplift_estimado": 0.000919,
+     "qini_por_usuario": 3.9e-05
+    },
+    {
+     "fraccion": 0.06,
+     "contactados": 15000,
+     "uplift_estimado": 0.001131,
+     "qini_por_usuario": 5.8e-05
+    },
+    {
+     "fraccion": 0.07,
+     "contactados": 17500,
+     "uplift_estimado": 0.001585,
+     "qini_por_usuario": 9.4e-05
+    },
+    {
+     "fraccion": 0.08,
+     "contactados": 20000,
+     "uplift_estimado": 0.001711,
+     "qini_por_usuario": 0.000116
+    },
+    {
+     "fraccion": 0.09,
+     "contactados": 22500,
+     "uplift_estimado": 0.001287,
+     "qini_por_usuario": 9.8e-05
+    },
+    {
+     "fraccion": 0.1,
+     "contactados": 25000,
+     "uplift_estimado": 0.001526,
+     "qini_por_usuario": 0.00013
+    },
+    {
+     "fraccion": 0.11,
+     "contactados": 27500,
+     "uplift_estimado": 0.001778,
+     "qini_por_usuario": 0.000166
+    },
+    {
+     "fraccion": 0.12,
+     "contactados": 30000,
+     "uplift_estimado": 0.001423,
+     "qini_por_usuario": 0.000145
+    },
+    {
+     "fraccion": 0.13,
+     "contactados": 32500,
+     "uplift_estimado": 0.001679,
+     "qini_por_usuario": 0.000185
+    },
+    {
+     "fraccion": 0.14,
+     "contactados": 35000,
+     "uplift_estimado": 0.001642,
+     "qini_por_usuario": 0.000195
+    },
+    {
+     "fraccion": 0.15,
+     "contactados": 37500,
+     "uplift_estimado": 0.001544,
+     "qini_por_usuario": 0.000197
+    },
+    {
+     "fraccion": 0.16,
+     "contactados": 40000,
+     "uplift_estimado": 0.001587,
+     "qini_por_usuario": 0.000216
+    },
+    {
+     "fraccion": 0.17,
+     "contactados": 42500,
+     "uplift_estimado": 0.001561,
+     "qini_por_usuario": 0.000225
+    },
+    {
+     "fraccion": 0.18,
+     "contactados": 45000,
+     "uplift_estimado": 0.001783,
+     "qini_por_usuario": 0.000273
+    },
+    {
+     "fraccion": 0.19,
+     "contactados": 47500,
+     "uplift_estimado": 0.001714,
+     "qini_por_usuario": 0.000277
+    },
+    {
+     "fraccion": 0.2,
+     "contactados": 50000,
+     "uplift_estimado": 0.001714,
+     "qini_por_usuario": 0.000292
+    },
+    {
+     "fraccion": 0.21,
+     "contactados": 52500,
+     "uplift_estimado": 0.001816,
+     "qini_por_usuario": 0.000324
+    },
+    {
+     "fraccion": 0.22,
+     "contactados": 55000,
+     "uplift_estimado": 0.001875,
+     "qini_por_usuario": 0.000351
+    },
+    {
+     "fraccion": 0.23,
+     "contactados": 57500,
+     "uplift_estimado": 0.001613,
+     "qini_por_usuario": 0.000316
+    },
+    {
+     "fraccion": 0.24,
+     "contactados": 60000,
+     "uplift_estimado": 0.001702,
+     "qini_por_usuario": 0.000348
+    },
+    {
+     "fraccion": 0.25,
+     "contactados": 62500,
+     "uplift_estimado": 0.001737,
+     "qini_por_usuario": 0.000369
+    },
+    {
+     "fraccion": 0.26,
+     "contactados": 65000,
+     "uplift_estimado": 0.001618,
+     "qini_por_usuario": 0.000358
+    },
+    {
+     "fraccion": 0.27,
+     "contactados": 67500,
+     "uplift_estimado": 0.001516,
+     "qini_por_usuario": 0.000348
+    },
+    {
+     "fraccion": 0.28,
+     "contactados": 70000,
+     "uplift_estimado": 0.001565,
+     "qini_por_usuario": 0.000373
+    },
+    {
+     "fraccion": 0.29,
+     "contactados": 72500,
+     "uplift_estimado": 0.001519,
+     "qini_por_usuario": 0.000375
+    },
+    {
+     "fraccion": 0.3,
+     "contactados": 75000,
+     "uplift_estimado": 0.001478,
+     "qini_por_usuario": 0.000377
+    },
+    {
+     "fraccion": 0.31,
+     "contactados": 77500,
+     "uplift_estimado": 0.001447,
+     "qini_por_usuario": 0.000381
+    },
+    {
+     "fraccion": 0.32,
+     "contactados": 80000,
+     "uplift_estimado": 0.001424,
+     "qini_por_usuario": 0.000387
+    },
+    {
+     "fraccion": 0.33,
+     "contactados": 82500,
+     "uplift_estimado": 0.001444,
+     "qini_por_usuario": 0.000405
+    },
+    {
+     "fraccion": 0.34,
+     "contactados": 85000,
+     "uplift_estimado": 0.001539,
+     "qini_por_usuario": 0.000445
+    },
+    {
+     "fraccion": 0.35,
+     "contactados": 87500,
+     "uplift_estimado": 0.001531,
+     "qini_por_usuario": 0.000455
+    },
+    {
+     "fraccion": 0.36,
+     "contactados": 90000,
+     "uplift_estimado": 0.001471,
+     "qini_por_usuario": 0.00045
+    },
+    {
+     "fraccion": 0.37,
+     "contactados": 92500,
+     "uplift_estimado": 0.001519,
+     "qini_por_usuario": 0.000477
+    },
+    {
+     "fraccion": 0.38,
+     "contactados": 95000,
+     "uplift_estimado": 0.001469,
+     "qini_por_usuario": 0.000474
+    },
+    {
+     "fraccion": 0.39,
+     "contactados": 97500,
+     "uplift_estimado": 0.001398,
+     "qini_por_usuario": 0.000463
+    },
+    {
+     "fraccion": 0.4,
+     "contactados": 100000,
+     "uplift_estimado": 0.001359,
+     "qini_por_usuario": 0.000462
+    },
+    {
+     "fraccion": 0.41,
+     "contactados": 102500,
+     "uplift_estimado": 0.001265,
+     "qini_por_usuario": 0.000441
+    },
+    {
+     "fraccion": 0.42,
+     "contactados": 105000,
+     "uplift_estimado": 0.001254,
+     "qini_por_usuario": 0.000447
+    },
+    {
+     "fraccion": 0.43,
+     "contactados": 107500,
+     "uplift_estimado": 0.001351,
+     "qini_por_usuario": 0.000493
+    },
+    {
+     "fraccion": 0.44,
+     "contactados": 110000,
+     "uplift_estimado": 0.001341,
+     "qini_por_usuario": 0.000501
+    },
+    {
+     "fraccion": 0.45,
+     "contactados": 112500,
+     "uplift_estimado": 0.001366,
+     "qini_por_usuario": 0.000522
+    },
+    {
+     "fraccion": 0.46,
+     "contactados": 115000,
+     "uplift_estimado": 0.001332,
+     "qini_por_usuario": 0.00052
+    },
+    {
+     "fraccion": 0.47,
+     "contactados": 117500,
+     "uplift_estimado": 0.001401,
+     "qini_por_usuario": 0.000559
+    },
+    {
+     "fraccion": 0.48,
+     "contactados": 120000,
+     "uplift_estimado": 0.001288,
+     "qini_por_usuario": 0.000525
+    },
+    {
+     "fraccion": 0.49,
+     "contactados": 122500,
+     "uplift_estimado": 0.00131,
+     "qini_por_usuario": 0.000545
+    },
+    {
+     "fraccion": 0.5,
+     "contactados": 125000,
+     "uplift_estimado": 0.001406,
+     "qini_por_usuario": 0.000597
+    },
+    {
+     "fraccion": 0.51,
+     "contactados": 127500,
+     "uplift_estimado": 0.001433,
+     "qini_por_usuario": 0.00062
+    },
+    {
+     "fraccion": 0.52,
+     "contactados": 130000,
+     "uplift_estimado": 0.001417,
+     "qini_por_usuario": 0.000626
+    },
+    {
+     "fraccion": 0.53,
+     "contactados": 132500,
+     "uplift_estimado": 0.001469,
+     "qini_por_usuario": 0.000661
+    },
+    {
+     "fraccion": 0.54,
+     "contactados": 135000,
+     "uplift_estimado": 0.001477,
+     "qini_por_usuario": 0.000677
+    },
+    {
+     "fraccion": 0.55,
+     "contactados": 137500,
+     "uplift_estimado": 0.001517,
+     "qini_por_usuario": 0.000708
+    },
+    {
+     "fraccion": 0.56,
+     "contactados": 140000,
+     "uplift_estimado": 0.001495,
+     "qini_por_usuario": 0.000711
+    },
+    {
+     "fraccion": 0.57,
+     "contactados": 142500,
+     "uplift_estimado": 0.00153,
+     "qini_por_usuario": 0.00074
+    },
+    {
+     "fraccion": 0.58,
+     "contactados": 145000,
+     "uplift_estimado": 0.001537,
+     "qini_por_usuario": 0.000756
+    },
+    {
+     "fraccion": 0.59,
+     "contactados": 147500,
+     "uplift_estimado": 0.001586,
+     "qini_por_usuario": 0.000795
+    },
+    {
+     "fraccion": 0.6,
+     "contactados": 150000,
+     "uplift_estimado": 0.001664,
+     "qini_por_usuario": 0.000847
+    },
+    {
+     "fraccion": 0.61,
+     "contactados": 152500,
+     "uplift_estimado": 0.001675,
+     "qini_por_usuario": 0.000867
+    },
+    {
+     "fraccion": 0.62,
+     "contactados": 155000,
+     "uplift_estimado": 0.001724,
+     "qini_por_usuario": 0.000907
+    },
+    {
+     "fraccion": 0.63,
+     "contactados": 157500,
+     "uplift_estimado": 0.001668,
+     "qini_por_usuario": 0.000892
+    },
+    {
+     "fraccion": 0.64,
+     "contactados": 160000,
+     "uplift_estimado": 0.001589,
+     "qini_por_usuario": 0.000863
+    },
+    {
+     "fraccion": 0.65,
+     "contactados": 162500,
+     "uplift_estimado": 0.001506,
+     "qini_por_usuario": 0.000831
+    },
+    {
+     "fraccion": 0.66,
+     "contactados": 165000,
+     "uplift_estimado": 0.001526,
+     "qini_por_usuario": 0.000855
+    },
+    {
+     "fraccion": 0.67,
+     "contactados": 167500,
+     "uplift_estimado": 0.001554,
+     "qini_por_usuario": 0.000884
+    },
+    {
+     "fraccion": 0.68,
+     "contactados": 170000,
+     "uplift_estimado": 0.00151,
+     "qini_por_usuario": 0.000872
+    },
+    {
+     "fraccion": 0.69,
+     "contactados": 172500,
+     "uplift_estimado": 0.001499,
+     "qini_por_usuario": 0.000878
+    },
+    {
+     "fraccion": 0.7,
+     "contactados": 175000,
+     "uplift_estimado": 0.001491,
+     "qini_por_usuario": 0.000886
+    },
+    {
+     "fraccion": 0.71,
+     "contactados": 177500,
+     "uplift_estimado": 0.001516,
+     "qini_por_usuario": 0.000914
+    },
+    {
+     "fraccion": 0.72,
+     "contactados": 180000,
+     "uplift_estimado": 0.001485,
+     "qini_por_usuario": 0.000908
+    },
+    {
+     "fraccion": 0.73,
+     "contactados": 182500,
+     "uplift_estimado": 0.00148,
+     "qini_por_usuario": 0.000917
+    },
+    {
+     "fraccion": 0.74,
+     "contactados": 185000,
+     "uplift_estimado": 0.001448,
+     "qini_por_usuario": 0.00091
+    },
+    {
+     "fraccion": 0.75,
+     "contactados": 187500,
+     "uplift_estimado": 0.001498,
+     "qini_por_usuario": 0.000954
+    },
+    {
+     "fraccion": 0.76,
+     "contactados": 190000,
+     "uplift_estimado": 0.001519,
+     "qini_por_usuario": 0.00098
+    },
+    {
+     "fraccion": 0.77,
+     "contactados": 192500,
+     "uplift_estimado": 0.001494,
+     "qini_por_usuario": 0.000977
+    },
+    {
+     "fraccion": 0.78,
+     "contactados": 195000,
+     "uplift_estimado": 0.001482,
+     "qini_por_usuario": 0.000982
+    },
+    {
+     "fraccion": 0.79,
+     "contactados": 197500,
+     "uplift_estimado": 0.001487,
+     "qini_por_usuario": 0.000998
+    },
+    {
+     "fraccion": 0.8,
+     "contactados": 200000,
+     "uplift_estimado": 0.001448,
+     "qini_por_usuario": 0.000984
+    },
+    {
+     "fraccion": 0.81,
+     "contactados": 202500,
+     "uplift_estimado": 0.001355,
+     "qini_por_usuario": 0.000932
+    },
+    {
+     "fraccion": 0.82,
+     "contactados": 205000,
+     "uplift_estimado": 0.001356,
+     "qini_por_usuario": 0.000944
+    },
+    {
+     "fraccion": 0.83,
+     "contactados": 207500,
+     "uplift_estimado": 0.001387,
+     "qini_por_usuario": 0.000978
+    },
+    {
+     "fraccion": 0.84,
+     "contactados": 210000,
+     "uplift_estimado": 0.001402,
+     "qini_por_usuario": 0.001001
+    },
+    {
+     "fraccion": 0.85,
+     "contactados": 212500,
+     "uplift_estimado": 0.001393,
+     "qini_por_usuario": 0.001006
+    },
+    {
+     "fraccion": 0.86,
+     "contactados": 215000,
+     "uplift_estimado": 0.001404,
+     "qini_por_usuario": 0.001026
+    },
+    {
+     "fraccion": 0.87,
+     "contactados": 217500,
+     "uplift_estimado": 0.001422,
+     "qini_por_usuario": 0.001051
+    },
+    {
+     "fraccion": 0.88,
+     "contactados": 220000,
+     "uplift_estimado": 0.001443,
+     "qini_por_usuario": 0.001079
+    },
+    {
+     "fraccion": 0.89,
+     "contactados": 222500,
+     "uplift_estimado": 0.001464,
+     "qini_por_usuario": 0.001107
+    },
+    {
+     "fraccion": 0.9,
+     "contactados": 225000,
+     "uplift_estimado": 0.001446,
+     "qini_por_usuario": 0.001105
+    },
+    {
+     "fraccion": 0.91,
+     "contactados": 227500,
+     "uplift_estimado": 0.001452,
+     "qini_por_usuario": 0.001122
+    },
+    {
+     "fraccion": 0.92,
+     "contactados": 230000,
+     "uplift_estimado": 0.001426,
+     "qini_por_usuario": 0.001115
+    },
+    {
+     "fraccion": 0.93,
+     "contactados": 232500,
+     "uplift_estimado": 0.001397,
+     "qini_por_usuario": 0.001103
+    },
+    {
+     "fraccion": 0.94,
+     "contactados": 235000,
+     "uplift_estimado": 0.001322,
+     "qini_por_usuario": 0.001055
+    },
+    {
+     "fraccion": 0.95,
+     "contactados": 237500,
+     "uplift_estimado": 0.001346,
+     "qini_por_usuario": 0.001087
+    },
+    {
+     "fraccion": 0.96,
+     "contactados": 240000,
+     "uplift_estimado": 0.001356,
+     "qini_por_usuario": 0.001106
+    },
+    {
+     "fraccion": 0.97,
+     "contactados": 242500,
+     "uplift_estimado": 0.001366,
+     "qini_por_usuario": 0.001126
+    },
+    {
+     "fraccion": 0.98,
+     "contactados": 245000,
+     "uplift_estimado": 0.001399,
+     "qini_por_usuario": 0.001165
+    },
+    {
+     "fraccion": 0.99,
+     "contactados": 247500,
+     "uplift_estimado": 0.001404,
+     "qini_por_usuario": 0.001181
+    },
+    {
+     "fraccion": 1.0,
+     "contactados": 250000,
+     "uplift_estimado": 0.001341,
+     "qini_por_usuario": 0.00114
+    }
+   ]
+  },
+  {
+   "resultado": "conversion",
+   "modelo": "propension",
+   "puntos": [
+    {
+     "fraccion": 0.01,
+     "contactados": 2500,
+     "uplift_estimado": 0.025557,
+     "qini_por_usuario": 0.000224
+    },
+    {
+     "fraccion": 0.02,
+     "contactados": 5000,
+     "uplift_estimado": 0.015165,
+     "qini_por_usuario": 0.000266
+    },
+    {
+     "fraccion": 0.03,
+     "contactados": 7500,
+     "uplift_estimado": 0.016496,
+     "qini_por_usuario": 0.000431
+    },
+    {
+     "fraccion": 0.04,
+     "contactados": 10000,
+     "uplift_estimado": 0.015973,
+     "qini_por_usuario": 0.000554
+    },
+    {
+     "fraccion": 0.05,
+     "contactados": 12500,
+     "uplift_estimado": 0.014245,
+     "qini_por_usuario": 0.000618
+    },
+    {
+     "fraccion": 0.06,
+     "contactados": 15000,
+     "uplift_estimado": 0.011252,
+     "qini_por_usuario": 0.000584
+    },
+    {
+     "fraccion": 0.07,
+     "contactados": 17500,
+     "uplift_estimado": 0.010793,
+     "qini_por_usuario": 0.000651
+    },
+    {
+     "fraccion": 0.08,
+     "contactados": 20000,
+     "uplift_estimado": 0.009107,
+     "qini_por_usuario": 0.000628
+    },
+    {
+     "fraccion": 0.09,
+     "contactados": 22500,
+     "uplift_estimado": 0.008404,
+     "qini_por_usuario": 0.000652
+    },
+    {
+     "fraccion": 0.1,
+     "contactados": 25000,
+     "uplift_estimado": 0.007831,
+     "qini_por_usuario": 0.000674
+    },
+    {
+     "fraccion": 0.11,
+     "contactados": 27500,
+     "uplift_estimado": 0.007281,
+     "qini_por_usuario": 0.000688
+    },
+    {
+     "fraccion": 0.12,
+     "contactados": 30000,
+     "uplift_estimado": 0.007241,
+     "qini_por_usuario": 0.000745
+    },
+    {
+     "fraccion": 0.13,
+     "contactados": 32500,
+     "uplift_estimado": 0.006947,
+     "qini_por_usuario": 0.000774
+    },
+    {
+     "fraccion": 0.14,
+     "contactados": 35000,
+     "uplift_estimado": 0.006378,
+     "qini_por_usuario": 0.000764
+    },
+    {
+     "fraccion": 0.15,
+     "contactados": 37500,
+     "uplift_estimado": 0.00625,
+     "qini_por_usuario": 0.000802
+    },
+    {
+     "fraccion": 0.16,
+     "contactados": 40000,
+     "uplift_estimado": 0.006111,
+     "qini_por_usuario": 0.000837
+    },
+    {
+     "fraccion": 0.17,
+     "contactados": 42500,
+     "uplift_estimado": 0.005535,
+     "qini_por_usuario": 0.000805
+    },
+    {
+     "fraccion": 0.18,
+     "contactados": 45000,
+     "uplift_estimado": 0.00549,
+     "qini_por_usuario": 0.000845
+    },
+    {
+     "fraccion": 0.19,
+     "contactados": 47500,
+     "uplift_estimado": 0.005,
+     "qini_por_usuario": 0.000813
+    },
+    {
+     "fraccion": 0.2,
+     "contactados": 50000,
+     "uplift_estimado": 0.004803,
+     "qini_por_usuario": 0.000822
+    },
+    {
+     "fraccion": 0.21,
+     "contactados": 52500,
+     "uplift_estimado": 0.004628,
+     "qini_por_usuario": 0.000831
+    },
+    {
+     "fraccion": 0.22,
+     "contactados": 55000,
+     "uplift_estimado": 0.004491,
+     "qini_por_usuario": 0.000844
+    },
+    {
+     "fraccion": 0.23,
+     "contactados": 57500,
+     "uplift_estimado": 0.00422,
+     "qini_por_usuario": 0.000829
+    },
+    {
+     "fraccion": 0.24,
+     "contactados": 60000,
+     "uplift_estimado": 0.004117,
+     "qini_por_usuario": 0.000844
+    },
+    {
+     "fraccion": 0.25,
+     "contactados": 62500,
+     "uplift_estimado": 0.004004,
+     "qini_por_usuario": 0.000854
+    },
+    {
+     "fraccion": 0.26,
+     "contactados": 65000,
+     "uplift_estimado": 0.003936,
+     "qini_por_usuario": 0.000873
+    },
+    {
+     "fraccion": 0.27,
+     "contactados": 67500,
+     "uplift_estimado": 0.003794,
+     "qini_por_usuario": 0.000874
+    },
+    {
+     "fraccion": 0.28,
+     "contactados": 70000,
+     "uplift_estimado": 0.003573,
+     "qini_por_usuario": 0.000853
+    },
+    {
+     "fraccion": 0.29,
+     "contactados": 72500,
+     "uplift_estimado": 0.003478,
+     "qini_por_usuario": 0.00086
+    },
+    {
+     "fraccion": 0.3,
+     "contactados": 75000,
+     "uplift_estimado": 0.00339,
+     "qini_por_usuario": 0.000867
+    },
+    {
+     "fraccion": 0.31,
+     "contactados": 77500,
+     "uplift_estimado": 0.003318,
+     "qini_por_usuario": 0.000877
+    },
+    {
+     "fraccion": 0.32,
+     "contactados": 80000,
+     "uplift_estimado": 0.003223,
+     "qini_por_usuario": 0.000879
+    },
+    {
+     "fraccion": 0.33,
+     "contactados": 82500,
+     "uplift_estimado": 0.003142,
+     "qini_por_usuario": 0.000884
+    },
+    {
+     "fraccion": 0.34,
+     "contactados": 85000,
+     "uplift_estimado": 0.00306,
+     "qini_por_usuario": 0.000886
+    },
+    {
+     "fraccion": 0.35,
+     "contactados": 87500,
+     "uplift_estimado": 0.002988,
+     "qini_por_usuario": 0.000891
+    },
+    {
+     "fraccion": 0.36,
+     "contactados": 90000,
+     "uplift_estimado": 0.002908,
+     "qini_por_usuario": 0.000891
+    },
+    {
+     "fraccion": 0.37,
+     "contactados": 92500,
+     "uplift_estimado": 0.00284,
+     "qini_por_usuario": 0.000895
+    },
+    {
+     "fraccion": 0.38,
+     "contactados": 95000,
+     "uplift_estimado": 0.002783,
+     "qini_por_usuario": 0.0009
+    },
+    {
+     "fraccion": 0.39,
+     "contactados": 97500,
+     "uplift_estimado": 0.002718,
+     "qini_por_usuario": 0.000902
+    },
+    {
+     "fraccion": 0.4,
+     "contactados": 100000,
+     "uplift_estimado": 0.002658,
+     "qini_por_usuario": 0.000905
+    },
+    {
+     "fraccion": 0.41,
+     "contactados": 102500,
+     "uplift_estimado": 0.002596,
+     "qini_por_usuario": 0.000906
+    },
+    {
+     "fraccion": 0.42,
+     "contactados": 105000,
+     "uplift_estimado": 0.002547,
+     "qini_por_usuario": 0.00091
+    },
+    {
+     "fraccion": 0.43,
+     "contactados": 107500,
+     "uplift_estimado": 0.002419,
+     "qini_por_usuario": 0.000885
+    },
+    {
+     "fraccion": 0.44,
+     "contactados": 110000,
+     "uplift_estimado": 0.002377,
+     "qini_por_usuario": 0.00089
+    },
+    {
+     "fraccion": 0.45,
+     "contactados": 112500,
+     "uplift_estimado": 0.002344,
+     "qini_por_usuario": 0.000897
+    },
+    {
+     "fraccion": 0.46,
+     "contactados": 115000,
+     "uplift_estimado": 0.002295,
+     "qini_por_usuario": 0.000898
+    },
+    {
+     "fraccion": 0.47,
+     "contactados": 117500,
+     "uplift_estimado": 0.002248,
+     "qini_por_usuario": 0.000899
+    },
+    {
+     "fraccion": 0.48,
+     "contactados": 120000,
+     "uplift_estimado": 0.002207,
+     "qini_por_usuario": 0.000902
+    },
+    {
+     "fraccion": 0.49,
+     "contactados": 122500,
+     "uplift_estimado": 0.002163,
+     "qini_por_usuario": 0.000902
+    },
+    {
+     "fraccion": 0.5,
+     "contactados": 125000,
+     "uplift_estimado": 0.00214,
+     "qini_por_usuario": 0.000911
+    },
+    {
+     "fraccion": 0.51,
+     "contactados": 127500,
+     "uplift_estimado": 0.002095,
+     "qini_por_usuario": 0.000909
+    },
+    {
+     "fraccion": 0.52,
+     "contactados": 130000,
+     "uplift_estimado": 0.002079,
+     "qini_por_usuario": 0.000919
+    },
+    {
+     "fraccion": 0.53,
+     "contactados": 132500,
+     "uplift_estimado": 0.002044,
+     "qini_por_usuario": 0.000922
+    },
+    {
+     "fraccion": 0.54,
+     "contactados": 135000,
+     "uplift_estimado": 0.001999,
+     "qini_por_usuario": 0.000919
+    },
+    {
+     "fraccion": 0.55,
+     "contactados": 137500,
+     "uplift_estimado": 0.00197,
+     "qini_por_usuario": 0.000922
+    },
+    {
+     "fraccion": 0.56,
+     "contactados": 140000,
+     "uplift_estimado": 0.00194,
+     "qini_por_usuario": 0.000924
+    },
+    {
+     "fraccion": 0.57,
+     "contactados": 142500,
+     "uplift_estimado": 0.001912,
+     "qini_por_usuario": 0.000927
+    },
+    {
+     "fraccion": 0.58,
+     "contactados": 145000,
+     "uplift_estimado": 0.00188,
+     "qini_por_usuario": 0.000927
+    },
+    {
+     "fraccion": 0.59,
+     "contactados": 147500,
+     "uplift_estimado": 0.001854,
+     "qini_por_usuario": 0.000931
+    },
+    {
+     "fraccion": 0.6,
+     "contactados": 150000,
+     "uplift_estimado": 0.001832,
+     "qini_por_usuario": 0.000935
+    },
+    {
+     "fraccion": 0.61,
+     "contactados": 152500,
+     "uplift_estimado": 0.001812,
+     "qini_por_usuario": 0.00094
+    },
+    {
+     "fraccion": 0.62,
+     "contactados": 155000,
+     "uplift_estimado": 0.001785,
+     "qini_por_usuario": 0.000942
+    },
+    {
+     "fraccion": 0.63,
+     "contactados": 157500,
+     "uplift_estimado": 0.001758,
+     "qini_por_usuario": 0.000942
+    },
+    {
+     "fraccion": 0.64,
+     "contactados": 160000,
+     "uplift_estimado": 0.001736,
+     "qini_por_usuario": 0.000945
+    },
+    {
+     "fraccion": 0.65,
+     "contactados": 162500,
+     "uplift_estimado": 0.001705,
+     "qini_por_usuario": 0.000943
+    },
+    {
+     "fraccion": 0.66,
+     "contactados": 165000,
+     "uplift_estimado": 0.00168,
+     "qini_por_usuario": 0.000943
+    },
+    {
+     "fraccion": 0.67,
+     "contactados": 167500,
+     "uplift_estimado": 0.001665,
+     "qini_por_usuario": 0.000949
+    },
+    {
+     "fraccion": 0.68,
+     "contactados": 170000,
+     "uplift_estimado": 0.001647,
+     "qini_por_usuario": 0.000952
+    },
+    {
+     "fraccion": 0.69,
+     "contactados": 172500,
+     "uplift_estimado": 0.001629,
+     "qini_por_usuario": 0.000956
+    },
+    {
+     "fraccion": 0.7,
+     "contactados": 175000,
+     "uplift_estimado": 0.001609,
+     "qini_por_usuario": 0.000957
+    },
+    {
+     "fraccion": 0.71,
+     "contactados": 177500,
+     "uplift_estimado": 0.001592,
+     "qini_por_usuario": 0.000961
+    },
+    {
+     "fraccion": 0.72,
+     "contactados": 180000,
+     "uplift_estimado": 0.001569,
+     "qini_por_usuario": 0.000961
+    },
+    {
+     "fraccion": 0.73,
+     "contactados": 182500,
+     "uplift_estimado": 0.001556,
+     "qini_por_usuario": 0.000966
+    },
+    {
+     "fraccion": 0.74,
+     "contactados": 185000,
+     "uplift_estimado": 0.001536,
+     "qini_por_usuario": 0.000966
+    },
+    {
+     "fraccion": 0.75,
+     "contactados": 187500,
+     "uplift_estimado": 0.001516,
+     "qini_por_usuario": 0.000966
+    },
+    {
+     "fraccion": 0.76,
+     "contactados": 190000,
+     "uplift_estimado": 0.001497,
+     "qini_por_usuario": 0.000967
+    },
+    {
+     "fraccion": 0.77,
+     "contactados": 192500,
+     "uplift_estimado": 0.001487,
+     "qini_por_usuario": 0.000973
+    },
+    {
+     "fraccion": 0.78,
+     "contactados": 195000,
+     "uplift_estimado": 0.001471,
+     "qini_por_usuario": 0.000975
+    },
+    {
+     "fraccion": 0.79,
+     "contactados": 197500,
+     "uplift_estimado": 0.001459,
+     "qini_por_usuario": 0.000979
+    },
+    {
+     "fraccion": 0.8,
+     "contactados": 200000,
+     "uplift_estimado": 0.001439,
+     "qini_por_usuario": 0.000979
+    },
+    {
+     "fraccion": 0.81,
+     "contactados": 202500,
+     "uplift_estimado": 0.001422,
+     "qini_por_usuario": 0.000979
+    },
+    {
+     "fraccion": 0.82,
+     "contactados": 205000,
+     "uplift_estimado": 0.001404,
+     "qini_por_usuario": 0.000978
+    },
+    {
+     "fraccion": 0.83,
+     "contactados": 207500,
+     "uplift_estimado": 0.001387,
+     "qini_por_usuario": 0.000978
+    },
+    {
+     "fraccion": 0.84,
+     "contactados": 210000,
+     "uplift_estimado": 0.001372,
+     "qini_por_usuario": 0.00098
+    },
+    {
+     "fraccion": 0.85,
+     "contactados": 212500,
+     "uplift_estimado": 0.001356,
+     "qini_por_usuario": 0.00098
+    },
+    {
+     "fraccion": 0.86,
+     "contactados": 215000,
+     "uplift_estimado": 0.001346,
+     "qini_por_usuario": 0.000984
+    },
+    {
+     "fraccion": 0.87,
+     "contactados": 217500,
+     "uplift_estimado": 0.001329,
+     "qini_por_usuario": 0.000983
+    },
+    {
+     "fraccion": 0.88,
+     "contactados": 220000,
+     "uplift_estimado": 0.001315,
+     "qini_por_usuario": 0.000983
+    },
+    {
+     "fraccion": 0.89,
+     "contactados": 222500,
+     "uplift_estimado": 0.0013,
+     "qini_por_usuario": 0.000983
+    },
+    {
+     "fraccion": 0.9,
+     "contactados": 225000,
+     "uplift_estimado": 0.001285,
+     "qini_por_usuario": 0.000983
+    },
+    {
+     "fraccion": 0.91,
+     "contactados": 227500,
+     "uplift_estimado": 0.001274,
+     "qini_por_usuario": 0.000985
+    },
+    {
+     "fraccion": 0.92,
+     "contactados": 230000,
+     "uplift_estimado": 0.001267,
+     "qini_por_usuario": 0.000991
+    },
+    {
+     "fraccion": 0.93,
+     "contactados": 232500,
+     "uplift_estimado": 0.001259,
+     "qini_por_usuario": 0.000995
+    },
+    {
+     "fraccion": 0.94,
+     "contactados": 235000,
+     "uplift_estimado": 0.001251,
+     "qini_por_usuario": 0.000999
+    },
+    {
+     "fraccion": 0.95,
+     "contactados": 237500,
+     "uplift_estimado": 0.001237,
+     "qini_por_usuario": 0.000998
+    },
+    {
+     "fraccion": 0.96,
+     "contactados": 240000,
+     "uplift_estimado": 0.001224,
+     "qini_por_usuario": 0.000999
+    },
+    {
+     "fraccion": 0.97,
+     "contactados": 242500,
+     "uplift_estimado": 0.001212,
+     "qini_por_usuario": 0.000999
+    },
+    {
+     "fraccion": 0.98,
+     "contactados": 245000,
+     "uplift_estimado": 0.001199,
+     "qini_por_usuario": 0.000998
+    },
+    {
+     "fraccion": 0.99,
+     "contactados": 247500,
+     "uplift_estimado": 0.001186,
+     "qini_por_usuario": 0.000998
+    },
+    {
+     "fraccion": 1.0,
+     "contactados": 250000,
+     "uplift_estimado": 0.001341,
+     "qini_por_usuario": 0.00114
+    }
+   ]
+  }
+ ],
+ "referencia_benchmark_completo": {
+  "carreras": [
+   {
+    "semilla": 111,
+    "resultado": "visit",
+    "modelo": "t_learner",
+    "auuc_relativo": 0.009435,
+    "uplift_top_10_pp": 6.2793,
+    "ic_95_pp": [
+     5.8372,
+     6.7214
+    ],
+    "ate": 0.010395,
+    "azar_auuc_medio": 0.005186
+   },
+   {
+    "semilla": 111,
+    "resultado": "visit",
+    "modelo": "s_learner",
+    "auuc_relativo": 0.009325,
+    "uplift_top_10_pp": 5.923,
+    "ic_95_pp": [
+     5.4683,
+     6.3777
+    ],
+    "ate": 0.010395,
+    "azar_auuc_medio": 0.005186
+   },
+   {
+    "semilla": 111,
+    "resultado": "visit",
+    "modelo": "response_propensity",
+    "auuc_relativo": 0.009309,
+    "uplift_top_10_pp": 5.0872,
+    "ic_95_pp": [
+     4.5892,
+     5.5852
+    ],
+    "ate": 0.010395,
+    "azar_auuc_medio": 0.005186
+   },
+   {
+    "semilla": 111,
+    "resultado": "conversion",
+    "modelo": "t_learner",
+    "auuc_relativo": 0.001041,
+    "uplift_top_10_pp": 0.7748,
+    "ic_95_pp": [
+     0.6344,
+     0.9153
+    ],
+    "ate": 0.001145,
+    "azar_auuc_medio": 0.000568
+   },
+   {
+    "semilla": 111,
+    "resultado": "conversion",
+    "modelo": "s_learner",
+    "auuc_relativo": 0.001047,
+    "uplift_top_10_pp": 0.7945,
+    "ic_95_pp": [
+     0.6541,
+     0.9348
+    ],
+    "ate": 0.001145,
+    "azar_auuc_medio": 0.000568
+   },
+   {
+    "semilla": 111,
+    "resultado": "conversion",
+    "modelo": "response_propensity",
+    "auuc_relativo": 0.001082,
+    "uplift_top_10_pp": 0.8472,
+    "ic_95_pp": [
+     0.6994,
+     0.9949
+    ],
+    "ate": 0.001145,
+    "azar_auuc_medio": 0.000568
+   },
+   {
+    "semilla": 222,
+    "resultado": "visit",
+    "modelo": "t_learner",
+    "auuc_relativo": 0.009095,
+    "uplift_top_10_pp": 6.1516,
+    "ic_95_pp": [
+     5.7076,
+     6.5957
+    ],
+    "ate": 0.009923,
+    "azar_auuc_medio": 0.004913
+   },
+   {
+    "semilla": 222,
+    "resultado": "visit",
+    "modelo": "s_learner",
+    "auuc_relativo": 0.009039,
+    "uplift_top_10_pp": 6.0808,
+    "ic_95_pp": [
+     5.6284,
+     6.5331
+    ],
+    "ate": 0.009923,
+    "azar_auuc_medio": 0.004913
+   },
+   {
+    "semilla": 222,
+    "resultado": "visit",
+    "modelo": "response_propensity",
+    "auuc_relativo": 0.008817,
+    "uplift_top_10_pp": 4.7922,
+    "ic_95_pp": [
+     4.2925,
+     5.2918
+    ],
+    "ate": 0.009923,
+    "azar_auuc_medio": 0.004913
+   },
+   {
+    "semilla": 222,
+    "resultado": "conversion",
+    "modelo": "t_learner",
+    "auuc_relativo": 0.001173,
+    "uplift_top_10_pp": 0.8941,
+    "ic_95_pp": [
+     0.7569,
+     1.0314
+    ],
+    "ate": 0.001246,
+    "azar_auuc_medio": 0.00062
+   },
+   {
+    "semilla": 222,
+    "resultado": "conversion",
+    "modelo": "s_learner",
+    "auuc_relativo": 0.001089,
+    "uplift_top_10_pp": 0.8295,
+    "ic_95_pp": [
+     0.6952,
+     0.9637
+    ],
+    "ate": 0.001246,
+    "azar_auuc_medio": 0.00062
+   },
+   {
+    "semilla": 222,
+    "resultado": "conversion",
+    "modelo": "response_propensity",
+    "auuc_relativo": 0.001177,
+    "uplift_top_10_pp": 0.9375,
+    "ic_95_pp": [
+     0.7929,
+     1.0821
+    ],
+    "ate": 0.001246,
+    "azar_auuc_medio": 0.00062
+   },
+   {
+    "semilla": 333,
+    "resultado": "visit",
+    "modelo": "t_learner",
+    "auuc_relativo": 0.009314,
+    "uplift_top_10_pp": 6.2984,
+    "ic_95_pp": [
+     5.8505,
+     6.7462
+    ],
+    "ate": 0.010416,
+    "azar_auuc_medio": 0.005251
+   },
+   {
+    "semilla": 333,
+    "resultado": "visit",
+    "modelo": "s_learner",
+    "auuc_relativo": 0.009263,
+    "uplift_top_10_pp": 6.2596,
+    "ic_95_pp": [
+     5.8088,
+     6.7104
+    ],
+    "ate": 0.010416,
+    "azar_auuc_medio": 0.005251
+   },
+   {
+    "semilla": 333,
+    "resultado": "visit",
+    "modelo": "response_propensity",
+    "auuc_relativo": 0.009319,
+    "uplift_top_10_pp": 5.2503,
+    "ic_95_pp": [
+     4.7524,
+     5.7481
+    ],
+    "ate": 0.010416,
+    "azar_auuc_medio": 0.005251
+   },
+   {
+    "semilla": 333,
+    "resultado": "conversion",
+    "modelo": "t_learner",
+    "auuc_relativo": 0.001108,
+    "uplift_top_10_pp": 0.857,
+    "ic_95_pp": [
+     0.7208,
+     0.9933
+    ],
+    "ate": 0.001245,
+    "azar_auuc_medio": 0.000623
+   },
+   {
+    "semilla": 333,
+    "resultado": "conversion",
+    "modelo": "s_learner",
+    "auuc_relativo": 0.001076,
+    "uplift_top_10_pp": 0.8498,
+    "ic_95_pp": [
+     0.7137,
+     0.9859
+    ],
+    "ate": 0.001245,
+    "azar_auuc_medio": 0.000623
+   },
+   {
+    "semilla": 333,
+    "resultado": "conversion",
+    "modelo": "response_propensity",
+    "auuc_relativo": 0.001183,
+    "uplift_top_10_pp": 0.9369,
+    "ic_95_pp": [
+     0.79,
+     1.0837
+    ],
+    "ate": 0.001245,
+    "azar_auuc_medio": 0.000623
+   }
+  ],
+  "resumen_por_resultado": [
+   {
+    "outcome": "visit",
+    "ate_pp": {
+     "mean": 1.0244820999007385,
+     "min": 0.9923383563230512,
+     "max": 1.0416204909881794
+    },
+    "models": {
+     "t_learner": {
+      "auuc_mean": 0.009281490592875205,
+      "auuc_min": 0.009094693239424934,
+      "auuc_max": 0.009435489887548623,
+      "top10_uplift_pp_mean": 6.243096006364275,
+      "top10_uplift_pp_min": 6.151634444554285,
+      "top10_uplift_pp_max": 6.298372966909527
+     },
+     "s_learner": {
+      "auuc_mean": 0.00920928745425302,
+      "auuc_min": 0.009039361586993663,
+      "auuc_max": 0.00932535127486872,
+      "top10_uplift_pp_mean": 6.087773467243101,
+      "top10_uplift_pp_min": 5.923004947825023,
+      "top10_uplift_pp_max": 6.259564055787497
+     },
+     "response_propensity": {
+      "auuc_mean": 0.009148544164749889,
+      "auuc_min": 0.008817414576840167,
+      "auuc_max": 0.009319248461593509,
+      "top10_uplift_pp_mean": 5.043208458024383,
+      "top10_uplift_pp_min": 4.792153944130234,
+      "top10_uplift_pp_max": 5.250278732636321
+     }
+    }
+   },
+   {
+    "outcome": "conversion",
+    "ate_pp": {
+     "mean": 0.12122284170628922,
+     "min": 0.11451171307791767,
+     "max": 0.1246264919334839
+    },
+    "models": {
+     "t_learner": {
+      "auuc_mean": 0.001107268031367979,
+      "auuc_min": 0.001040905883745784,
+      "auuc_max": 0.001173356319193131,
+      "top10_uplift_pp_mean": 0.8420001908545499,
+      "top10_uplift_pp_min": 0.774824570436006,
+      "top10_uplift_pp_max": 0.8941393534210166
+     },
+     "s_learner": {
+      "auuc_mean": 0.0010704772509710864,
+      "auuc_min": 0.0010466516506525952,
+      "auuc_max": 0.0010891906577928728,
+      "top10_uplift_pp_mean": 0.8245670253052515,
+      "top10_uplift_pp_min": 0.7944503102851757,
+      "top10_uplift_pp_max": 0.8497838835438603
+     },
+     "response_propensity": {
+      "auuc_mean": 0.0011472295587262227,
+      "auuc_min": 0.0010815825704694605,
+      "auuc_max": 0.0011828891355938626,
+      "top10_uplift_pp_mean": 0.9071691405959423,
+      "top10_uplift_pp_min": 0.8471541377581503,
+      "top10_uplift_pp_max": 0.937472797791775
+     }
+    }
+   }
+  ],
+  "nota": "Cifras del benchmark completo del paquete, con tres semillas de ajuste muestreado y conjuntos de prueba que se traslapan: min/max son rangos entre semillas, no intervalos de confianza."
+ },
+ "limites": [
+  "La diferencia entre modelos es pequeña y no se ha probado superioridad estadística.",
+  "Los rangos entre semillas no son intervalos de confianza: los conjuntos de prueba se traslapan.",
+  "Criteo no comparte hogares, segmentos ni campañas con Complete Journey: sus efectos no se atribuyen a esos segmentos.",
+  "El uplift es sobre visitas y conversiones de la fuente, no sobre ingresos ni ROI."
+ ]
+}

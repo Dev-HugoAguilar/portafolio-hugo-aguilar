@@ -1,0 +1,99 @@
+{
+ "cortes": [
+  "2017-07-01",
+  "2017-08-01",
+  "2017-09-01"
+ ],
+ "pares": [
+  {
+   "corte_a": "2017-07-01",
+   "corte_b": "2017-08-01",
+   "hogares_a": 2300,
+   "hogares_b": 2317,
+   "comunes": 2259,
+   "salen": 41,
+   "entran": 58,
+   "ari": 0.6394,
+   "flujos": [
+    {
+     "desde": 0,
+     "hacia": 0,
+     "hogares": 591,
+     "share_desde": 0.8431,
+     "permanece": true
+    },
+    {
+     "desde": 0,
+     "hacia": 1,
+     "hogares": 110,
+     "share_desde": 0.1569,
+     "permanece": false
+    },
+    {
+     "desde": 1,
+     "hacia": 0,
+     "hogares": 111,
+     "share_desde": 0.0712,
+     "permanece": false
+    },
+    {
+     "desde": 1,
+     "hacia": 1,
+     "hogares": 1447,
+     "share_desde": 0.9288,
+     "permanece": true
+    }
+   ],
+   "permanencia_global": 0.9022
+  },
+  {
+   "corte_a": "2017-08-01",
+   "corte_b": "2017-09-01",
+   "hogares_a": 2317,
+   "hogares_b": 2311,
+   "comunes": 2265,
+   "salen": 52,
+   "entran": 46,
+   "ari": 0.6674,
+   "flujos": [
+    {
+     "desde": 0,
+     "hacia": 0,
+     "hogares": 591,
+     "share_desde": 0.8455,
+     "permanece": true
+    },
+    {
+     "desde": 0,
+     "hacia": 1,
+     "hogares": 108,
+     "share_desde": 0.1545,
+     "permanece": false
+    },
+    {
+     "desde": 1,
+     "hacia": 0,
+     "hogares": 94,
+     "share_desde": 0.06,
+     "permanece": false
+    },
+    {
+     "desde": 1,
+     "hacia": 1,
+     "hogares": 1472,
+     "share_desde": 0.94,
+     "permanece": true
+    }
+   ],
+   "permanencia_global": 0.9108
+  }
+ ],
+ "estabilidad_submuestras": {
+  "corte": "2017-07-01",
+  "k": 2,
+  "nota": "submuestras del mismo corte (80 % de los hogares, 20 repeticiones): estabilidad interna, no validación externa",
+  "min_share_k": 0.3217,
+  "silhouette_proxy": null
+ },
+ "nota": "El ARI mide coincidencia de particiones; no reconstruye flujos. Los flujos y la permanencia se calculan con las asignaciones por hogar exportadas."
+}

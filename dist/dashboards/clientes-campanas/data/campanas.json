@@ -1,0 +1,3272 @@
+{
+ "cortes": [
+  {
+   "corte": "2017-07-01",
+   "diseno": "holdout temporal hacia adelante: entrenamiento con campañas cerradas antes del corte; prueba con campañas que empiezan en el corte o después",
+   "entrenamiento": {
+    "pares": 2167,
+    "campanas": 12,
+    "respuestas": 232,
+    "tasa": 0.10706,
+    "ultima_campana_cerrada": "2017-06-25"
+   },
+   "excluidas_en_vuelo": {
+    "pares": 299,
+    "campanas": 2,
+    "motivo": "su periodo de redención no había cerrado en el corte: no son ni entrenamiento ni prueba"
+   },
+   "prueba": {
+    "pares": 4123,
+    "campanas": 13,
+    "respuestas": 530,
+    "tasa": 0.12855,
+    "primera_campana": "2017-07-12",
+    "ultima_campana_fin": "2018-02-28"
+   },
+   "metricas": {
+    "todos": {
+     "filas": 4123,
+     "positivos": 530,
+     "ap": 0.4144,
+     "roc_auc": 0.8012,
+     "brier": 0.0932,
+     "log_loss": 0.3184,
+     "hogares": 1399,
+     "campanas": 13,
+     "tasa_base": 0.12855,
+     "tasa_decil_superior": 0.50121,
+     "lift_decil_superior": 3.899
+    },
+    "con_exposicion_previa": {
+     "filas": 3529,
+     "positivos": 468,
+     "ap": 0.4331,
+     "roc_auc": 0.8107,
+     "brier": 0.094,
+     "log_loss": 0.3202,
+     "hogares": 1085,
+     "campanas": 13,
+     "tasa_base": 0.13262,
+     "tasa_decil_superior": 0.51558,
+     "lift_decil_superior": 3.888
+    },
+    "sin_exposicion_previa": {
+     "filas": 594,
+     "positivos": 62,
+     "ap": 0.2513,
+     "roc_auc": 0.7274,
+     "brier": 0.0883,
+     "log_loss": 0.3077,
+     "hogares": 314,
+     "campanas": 13,
+     "tasa_base": 0.10438,
+     "tasa_decil_superior": 0.3,
+     "lift_decil_superior": 2.874
+    },
+    "baseline_tipo_campana": {
+     "filas": 4123,
+     "positivos": 530,
+     "ap": 0.1741,
+     "roc_auc": 0.636,
+     "brier": 0.1098,
+     "log_loss": 0.3727
+    }
+   },
+   "calibracion": [
+    {
+     "decil": 1,
+     "filas": 413,
+     "probabilidad_media": 0.00722,
+     "tasa_observada": 0.01695,
+     "min": 0.000544,
+     "max": 0.011696
+    },
+    {
+     "decil": 2,
+     "filas": 413,
+     "probabilidad_media": 0.01611,
+     "tasa_observada": 0.01453,
+     "min": 0.011701,
+     "max": 0.020123
+    },
+    {
+     "decil": 3,
+     "filas": 413,
+     "probabilidad_media": 0.02554,
+     "tasa_observada": 0.02906,
+     "min": 0.020194,
+     "max": 0.032131
+    },
+    {
+     "decil": 4,
+     "filas": 412,
+     "probabilidad_media": 0.04021,
+     "tasa_observada": 0.07767,
+     "min": 0.03214,
+     "max": 0.048779
+    },
+    {
+     "decil": 5,
+     "filas": 412,
+     "probabilidad_media": 0.05709,
+     "tasa_observada": 0.07039,
+     "min": 0.048805,
+     "max": 0.065064
+    },
+    {
+     "decil": 6,
+     "filas": 412,
+     "probabilidad_media": 0.07522,
+     "tasa_observada": 0.08738,
+     "min": 0.065109,
+     "max": 0.085925
+    },
+    {
+     "decil": 7,
+     "filas": 412,
+     "probabilidad_media": 0.10193,
+     "tasa_observada": 0.10922,
+     "min": 0.086176,
+     "max": 0.119958
+    },
+    {
+     "decil": 8,
+     "filas": 412,
+     "probabilidad_media": 0.14977,
+     "tasa_observada": 0.1335,
+     "min": 0.12005,
+     "max": 0.186573
+    },
+    {
+     "decil": 9,
+     "filas": 412,
+     "probabilidad_media": 0.23986,
+     "tasa_observada": 0.24515,
+     "min": 0.186591,
+     "max": 0.325293
+    },
+    {
+     "decil": 10,
+     "filas": 412,
+     "probabilidad_media": 0.57836,
+     "tasa_observada": 0.50243,
+     "min": 0.327198,
+     "max": 0.996555
+    }
+   ],
+   "targeting": [
+    {
+     "fraccion": 0.0,
+     "contactados": 0,
+     "capturados": 0,
+     "tasa": null,
+     "recall": 0.0,
+     "lift": null
+    },
+    {
+     "fraccion": 0.01,
+     "contactados": 41,
+     "capturados": 26,
+     "tasa": 0.63415,
+     "recall": 0.04906,
+     "lift": 4.933
+    },
+    {
+     "fraccion": 0.02,
+     "contactados": 82,
+     "capturados": 52,
+     "tasa": 0.63415,
+     "recall": 0.09811,
+     "lift": 4.933
+    },
+    {
+     "fraccion": 0.03,
+     "contactados": 124,
+     "capturados": 77,
+     "tasa": 0.62097,
+     "recall": 0.14528,
+     "lift": 4.831
+    },
+    {
+     "fraccion": 0.04,
+     "contactados": 165,
+     "capturados": 97,
+     "tasa": 0.58788,
+     "recall": 0.18302,
+     "lift": 4.573
+    },
+    {
+     "fraccion": 0.05,
+     "contactados": 206,
+     "capturados": 117,
+     "tasa": 0.56796,
+     "recall": 0.22075,
+     "lift": 4.418
+    },
+    {
+     "fraccion": 0.06,
+     "contactados": 247,
+     "capturados": 140,
+     "tasa": 0.5668,
+     "recall": 0.26415,
+     "lift": 4.409
+    },
+    {
+     "fraccion": 0.07,
+     "contactados": 289,
+     "capturados": 161,
+     "tasa": 0.55709,
+     "recall": 0.30377,
+     "lift": 4.334
+    },
+    {
+     "fraccion": 0.08,
+     "contactados": 330,
+     "capturados": 175,
+     "tasa": 0.5303,
+     "recall": 0.33019,
+     "lift": 4.125
+    },
+    {
+     "fraccion": 0.09,
+     "contactados": 371,
+     "capturados": 189,
+     "tasa": 0.50943,
+     "recall": 0.3566,
+     "lift": 3.963
+    },
+    {
+     "fraccion": 0.1,
+     "contactados": 412,
+     "capturados": 207,
+     "tasa": 0.50243,
+     "recall": 0.39057,
+     "lift": 3.909
+    },
+    {
+     "fraccion": 0.11,
+     "contactados": 454,
+     "capturados": 227,
+     "tasa": 0.5,
+     "recall": 0.4283,
+     "lift": 3.89
+    },
+    {
+     "fraccion": 0.12,
+     "contactados": 495,
+     "capturados": 236,
+     "tasa": 0.47677,
+     "recall": 0.44528,
+     "lift": 3.709
+    },
+    {
+     "fraccion": 0.13,
+     "contactados": 536,
+     "capturados": 251,
+     "tasa": 0.46828,
+     "recall": 0.47358,
+     "lift": 3.643
+    },
+    {
+     "fraccion": 0.14,
+     "contactados": 577,
+     "capturados": 256,
+     "tasa": 0.44367,
+     "recall": 0.48302,
+     "lift": 3.451
+    },
+    {
+     "fraccion": 0.15,
+     "contactados": 618,
+     "capturados": 263,
+     "tasa": 0.42557,
+     "recall": 0.49623,
+     "lift": 3.311
+    },
+    {
+     "fraccion": 0.16,
+     "contactados": 660,
+     "capturados": 273,
+     "tasa": 0.41364,
+     "recall": 0.51509,
+     "lift": 3.218
+    },
+    {
+     "fraccion": 0.17,
+     "contactados": 701,
+     "capturados": 286,
+     "tasa": 0.40799,
+     "recall": 0.53962,
+     "lift": 3.174
+    },
+    {
+     "fraccion": 0.18,
+     "contactados": 742,
+     "capturados": 296,
+     "tasa": 0.39892,
+     "recall": 0.55849,
+     "lift": 3.103
+    },
+    {
+     "fraccion": 0.19,
+     "contactados": 783,
+     "capturados": 302,
+     "tasa": 0.3857,
+     "recall": 0.56981,
+     "lift": 3.0
+    },
+    {
+     "fraccion": 0.2,
+     "contactados": 825,
+     "capturados": 308,
+     "tasa": 0.37333,
+     "recall": 0.58113,
+     "lift": 2.904
+    },
+    {
+     "fraccion": 0.21,
+     "contactados": 866,
+     "capturados": 316,
+     "tasa": 0.3649,
+     "recall": 0.59623,
+     "lift": 2.839
+    },
+    {
+     "fraccion": 0.22,
+     "contactados": 907,
+     "capturados": 317,
+     "tasa": 0.3495,
+     "recall": 0.59811,
+     "lift": 2.719
+    },
+    {
+     "fraccion": 0.23,
+     "contactados": 948,
+     "capturados": 324,
+     "tasa": 0.34177,
+     "recall": 0.61132,
+     "lift": 2.659
+    },
+    {
+     "fraccion": 0.24,
+     "contactados": 990,
+     "capturados": 332,
+     "tasa": 0.33535,
+     "recall": 0.62642,
+     "lift": 2.609
+    },
+    {
+     "fraccion": 0.25,
+     "contactados": 1031,
+     "capturados": 336,
+     "tasa": 0.3259,
+     "recall": 0.63396,
+     "lift": 2.535
+    },
+    {
+     "fraccion": 0.26,
+     "contactados": 1072,
+     "capturados": 343,
+     "tasa": 0.31996,
+     "recall": 0.64717,
+     "lift": 2.489
+    },
+    {
+     "fraccion": 0.27,
+     "contactados": 1113,
+     "capturados": 350,
+     "tasa": 0.31447,
+     "recall": 0.66038,
+     "lift": 2.446
+    },
+    {
+     "fraccion": 0.28,
+     "contactados": 1154,
+     "capturados": 354,
+     "tasa": 0.30676,
+     "recall": 0.66792,
+     "lift": 2.386
+    },
+    {
+     "fraccion": 0.29,
+     "contactados": 1196,
+     "capturados": 358,
+     "tasa": 0.29933,
+     "recall": 0.67547,
+     "lift": 2.329
+    },
+    {
+     "fraccion": 0.3,
+     "contactados": 1237,
+     "capturados": 363,
+     "tasa": 0.29345,
+     "recall": 0.68491,
+     "lift": 2.283
+    },
+    {
+     "fraccion": 0.31,
+     "contactados": 1278,
+     "capturados": 371,
+     "tasa": 0.2903,
+     "recall": 0.7,
+     "lift": 2.258
+    },
+    {
+     "fraccion": 0.32,
+     "contactados": 1319,
+     "capturados": 378,
+     "tasa": 0.28658,
+     "recall": 0.71321,
+     "lift": 2.229
+    },
+    {
+     "fraccion": 0.33,
+     "contactados": 1361,
+     "capturados": 383,
+     "tasa": 0.28141,
+     "recall": 0.72264,
+     "lift": 2.189
+    },
+    {
+     "fraccion": 0.34,
+     "contactados": 1402,
+     "capturados": 387,
+     "tasa": 0.27603,
+     "recall": 0.73019,
+     "lift": 2.147
+    },
+    {
+     "fraccion": 0.35,
+     "contactados": 1443,
+     "capturados": 392,
+     "tasa": 0.27166,
+     "recall": 0.73962,
+     "lift": 2.113
+    },
+    {
+     "fraccion": 0.36,
+     "contactados": 1484,
+     "capturados": 395,
+     "tasa": 0.26617,
+     "recall": 0.74528,
+     "lift": 2.071
+    },
+    {
+     "fraccion": 0.37,
+     "contactados": 1526,
+     "capturados": 398,
+     "tasa": 0.26081,
+     "recall": 0.75094,
+     "lift": 2.029
+    },
+    {
+     "fraccion": 0.38,
+     "contactados": 1567,
+     "capturados": 400,
+     "tasa": 0.25526,
+     "recall": 0.75472,
+     "lift": 1.986
+    },
+    {
+     "fraccion": 0.39,
+     "contactados": 1608,
+     "capturados": 408,
+     "tasa": 0.25373,
+     "recall": 0.76981,
+     "lift": 1.974
+    },
+    {
+     "fraccion": 0.4,
+     "contactados": 1649,
+     "capturados": 408,
+     "tasa": 0.24742,
+     "recall": 0.76981,
+     "lift": 1.925
+    },
+    {
+     "fraccion": 0.41,
+     "contactados": 1690,
+     "capturados": 413,
+     "tasa": 0.24438,
+     "recall": 0.77925,
+     "lift": 1.901
+    },
+    {
+     "fraccion": 0.42,
+     "contactados": 1732,
+     "capturados": 418,
+     "tasa": 0.24134,
+     "recall": 0.78868,
+     "lift": 1.877
+    },
+    {
+     "fraccion": 0.43,
+     "contactados": 1773,
+     "capturados": 424,
+     "tasa": 0.23914,
+     "recall": 0.8,
+     "lift": 1.86
+    },
+    {
+     "fraccion": 0.44,
+     "contactados": 1814,
+     "capturados": 427,
+     "tasa": 0.23539,
+     "recall": 0.80566,
+     "lift": 1.831
+    },
+    {
+     "fraccion": 0.45,
+     "contactados": 1855,
+     "capturados": 430,
+     "tasa": 0.23181,
+     "recall": 0.81132,
+     "lift": 1.803
+    },
+    {
+     "fraccion": 0.46,
+     "contactados": 1897,
+     "capturados": 432,
+     "tasa": 0.22773,
+     "recall": 0.81509,
+     "lift": 1.772
+    },
+    {
+     "fraccion": 0.47,
+     "contactados": 1938,
+     "capturados": 433,
+     "tasa": 0.22343,
+     "recall": 0.81698,
+     "lift": 1.738
+    },
+    {
+     "fraccion": 0.48,
+     "contactados": 1979,
+     "capturados": 437,
+     "tasa": 0.22082,
+     "recall": 0.82453,
+     "lift": 1.718
+    },
+    {
+     "fraccion": 0.49,
+     "contactados": 2020,
+     "capturados": 438,
+     "tasa": 0.21683,
+     "recall": 0.82642,
+     "lift": 1.687
+    },
+    {
+     "fraccion": 0.5,
+     "contactados": 2062,
+     "capturados": 445,
+     "tasa": 0.21581,
+     "recall": 0.83962,
+     "lift": 1.679
+    },
+    {
+     "fraccion": 0.51,
+     "contactados": 2103,
+     "capturados": 447,
+     "tasa": 0.21255,
+     "recall": 0.8434,
+     "lift": 1.654
+    },
+    {
+     "fraccion": 0.52,
+     "contactados": 2144,
+     "capturados": 451,
+     "tasa": 0.21035,
+     "recall": 0.85094,
+     "lift": 1.636
+    },
+    {
+     "fraccion": 0.53,
+     "contactados": 2185,
+     "capturados": 453,
+     "tasa": 0.20732,
+     "recall": 0.85472,
+     "lift": 1.613
+    },
+    {
+     "fraccion": 0.54,
+     "contactados": 2226,
+     "capturados": 456,
+     "tasa": 0.20485,
+     "recall": 0.86038,
+     "lift": 1.594
+    },
+    {
+     "fraccion": 0.55,
+     "contactados": 2268,
+     "capturados": 458,
+     "tasa": 0.20194,
+     "recall": 0.86415,
+     "lift": 1.571
+    },
+    {
+     "fraccion": 0.56,
+     "contactados": 2309,
+     "capturados": 464,
+     "tasa": 0.20095,
+     "recall": 0.87547,
+     "lift": 1.563
+    },
+    {
+     "fraccion": 0.57,
+     "contactados": 2350,
+     "capturados": 466,
+     "tasa": 0.1983,
+     "recall": 0.87925,
+     "lift": 1.543
+    },
+    {
+     "fraccion": 0.58,
+     "contactados": 2391,
+     "capturados": 469,
+     "tasa": 0.19615,
+     "recall": 0.88491,
+     "lift": 1.526
+    },
+    {
+     "fraccion": 0.59,
+     "contactados": 2433,
+     "capturados": 471,
+     "tasa": 0.19359,
+     "recall": 0.88868,
+     "lift": 1.506
+    },
+    {
+     "fraccion": 0.6,
+     "contactados": 2474,
+     "capturados": 473,
+     "tasa": 0.19119,
+     "recall": 0.89245,
+     "lift": 1.487
+    },
+    {
+     "fraccion": 0.61,
+     "contactados": 2515,
+     "capturados": 477,
+     "tasa": 0.18966,
+     "recall": 0.9,
+     "lift": 1.475
+    },
+    {
+     "fraccion": 0.62,
+     "contactados": 2556,
+     "capturados": 479,
+     "tasa": 0.1874,
+     "recall": 0.90377,
+     "lift": 1.458
+    },
+    {
+     "fraccion": 0.63,
+     "contactados": 2597,
+     "capturados": 485,
+     "tasa": 0.18675,
+     "recall": 0.91509,
+     "lift": 1.453
+    },
+    {
+     "fraccion": 0.64,
+     "contactados": 2639,
+     "capturados": 488,
+     "tasa": 0.18492,
+     "recall": 0.92075,
+     "lift": 1.439
+    },
+    {
+     "fraccion": 0.65,
+     "contactados": 2680,
+     "capturados": 493,
+     "tasa": 0.18396,
+     "recall": 0.93019,
+     "lift": 1.431
+    },
+    {
+     "fraccion": 0.66,
+     "contactados": 2721,
+     "capturados": 495,
+     "tasa": 0.18192,
+     "recall": 0.93396,
+     "lift": 1.415
+    },
+    {
+     "fraccion": 0.67,
+     "contactados": 2762,
+     "capturados": 496,
+     "tasa": 0.17958,
+     "recall": 0.93585,
+     "lift": 1.397
+    },
+    {
+     "fraccion": 0.68,
+     "contactados": 2804,
+     "capturados": 502,
+     "tasa": 0.17903,
+     "recall": 0.94717,
+     "lift": 1.393
+    },
+    {
+     "fraccion": 0.69,
+     "contactados": 2845,
+     "capturados": 502,
+     "tasa": 0.17645,
+     "recall": 0.94717,
+     "lift": 1.373
+    },
+    {
+     "fraccion": 0.7,
+     "contactados": 2886,
+     "capturados": 505,
+     "tasa": 0.17498,
+     "recall": 0.95283,
+     "lift": 1.361
+    },
+    {
+     "fraccion": 0.71,
+     "contactados": 2927,
+     "capturados": 509,
+     "tasa": 0.1739,
+     "recall": 0.96038,
+     "lift": 1.353
+    },
+    {
+     "fraccion": 0.72,
+     "contactados": 2969,
+     "capturados": 510,
+     "tasa": 0.17178,
+     "recall": 0.96226,
+     "lift": 1.336
+    },
+    {
+     "fraccion": 0.73,
+     "contactados": 3010,
+     "capturados": 510,
+     "tasa": 0.16944,
+     "recall": 0.96226,
+     "lift": 1.318
+    },
+    {
+     "fraccion": 0.74,
+     "contactados": 3051,
+     "capturados": 510,
+     "tasa": 0.16716,
+     "recall": 0.96226,
+     "lift": 1.3
+    },
+    {
+     "fraccion": 0.75,
+     "contactados": 3092,
+     "capturados": 512,
+     "tasa": 0.16559,
+     "recall": 0.96604,
+     "lift": 1.288
+    },
+    {
+     "fraccion": 0.76,
+     "contactados": 3133,
+     "capturados": 513,
+     "tasa": 0.16374,
+     "recall": 0.96792,
+     "lift": 1.274
+    },
+    {
+     "fraccion": 0.77,
+     "contactados": 3175,
+     "capturados": 515,
+     "tasa": 0.1622,
+     "recall": 0.9717,
+     "lift": 1.262
+    },
+    {
+     "fraccion": 0.78,
+     "contactados": 3216,
+     "capturados": 516,
+     "tasa": 0.16045,
+     "recall": 0.97358,
+     "lift": 1.248
+    },
+    {
+     "fraccion": 0.79,
+     "contactados": 3257,
+     "capturados": 517,
+     "tasa": 0.15874,
+     "recall": 0.97547,
+     "lift": 1.235
+    },
+    {
+     "fraccion": 0.8,
+     "contactados": 3298,
+     "capturados": 517,
+     "tasa": 0.15676,
+     "recall": 0.97547,
+     "lift": 1.219
+    },
+    {
+     "fraccion": 0.81,
+     "contactados": 3340,
+     "capturados": 517,
+     "tasa": 0.15479,
+     "recall": 0.97547,
+     "lift": 1.204
+    },
+    {
+     "fraccion": 0.82,
+     "contactados": 3381,
+     "capturados": 518,
+     "tasa": 0.15321,
+     "recall": 0.97736,
+     "lift": 1.192
+    },
+    {
+     "fraccion": 0.83,
+     "contactados": 3422,
+     "capturados": 518,
+     "tasa": 0.15137,
+     "recall": 0.97736,
+     "lift": 1.178
+    },
+    {
+     "fraccion": 0.84,
+     "contactados": 3463,
+     "capturados": 520,
+     "tasa": 0.15016,
+     "recall": 0.98113,
+     "lift": 1.168
+    },
+    {
+     "fraccion": 0.85,
+     "contactados": 3505,
+     "capturados": 520,
+     "tasa": 0.14836,
+     "recall": 0.98113,
+     "lift": 1.154
+    },
+    {
+     "fraccion": 0.86,
+     "contactados": 3546,
+     "capturados": 520,
+     "tasa": 0.14664,
+     "recall": 0.98113,
+     "lift": 1.141
+    },
+    {
+     "fraccion": 0.87,
+     "contactados": 3587,
+     "capturados": 520,
+     "tasa": 0.14497,
+     "recall": 0.98113,
+     "lift": 1.128
+    },
+    {
+     "fraccion": 0.88,
+     "contactados": 3628,
+     "capturados": 522,
+     "tasa": 0.14388,
+     "recall": 0.98491,
+     "lift": 1.119
+    },
+    {
+     "fraccion": 0.89,
+     "contactados": 3669,
+     "capturados": 522,
+     "tasa": 0.14227,
+     "recall": 0.98491,
+     "lift": 1.107
+    },
+    {
+     "fraccion": 0.9,
+     "contactados": 3711,
+     "capturados": 523,
+     "tasa": 0.14093,
+     "recall": 0.98679,
+     "lift": 1.096
+    },
+    {
+     "fraccion": 0.91,
+     "contactados": 3752,
+     "capturados": 523,
+     "tasa": 0.13939,
+     "recall": 0.98679,
+     "lift": 1.084
+    },
+    {
+     "fraccion": 0.92,
+     "contactados": 3793,
+     "capturados": 524,
+     "tasa": 0.13815,
+     "recall": 0.98868,
+     "lift": 1.075
+    },
+    {
+     "fraccion": 0.93,
+     "contactados": 3834,
+     "capturados": 524,
+     "tasa": 0.13667,
+     "recall": 0.98868,
+     "lift": 1.063
+    },
+    {
+     "fraccion": 0.94,
+     "contactados": 3876,
+     "capturados": 526,
+     "tasa": 0.13571,
+     "recall": 0.99245,
+     "lift": 1.056
+    },
+    {
+     "fraccion": 0.95,
+     "contactados": 3917,
+     "capturados": 526,
+     "tasa": 0.13429,
+     "recall": 0.99245,
+     "lift": 1.045
+    },
+    {
+     "fraccion": 0.96,
+     "contactados": 3958,
+     "capturados": 527,
+     "tasa": 0.13315,
+     "recall": 0.99434,
+     "lift": 1.036
+    },
+    {
+     "fraccion": 0.97,
+     "contactados": 3999,
+     "capturados": 527,
+     "tasa": 0.13178,
+     "recall": 0.99434,
+     "lift": 1.025
+    },
+    {
+     "fraccion": 0.98,
+     "contactados": 4041,
+     "capturados": 528,
+     "tasa": 0.13066,
+     "recall": 0.99623,
+     "lift": 1.016
+    },
+    {
+     "fraccion": 0.99,
+     "contactados": 4082,
+     "capturados": 529,
+     "tasa": 0.12959,
+     "recall": 0.99811,
+     "lift": 1.008
+    },
+    {
+     "fraccion": 1.0,
+     "contactados": 4123,
+     "capturados": 530,
+     "tasa": 0.12855,
+     "recall": 1.0,
+     "lift": 1.0
+    }
+   ],
+   "campanas": [
+    {
+     "campaign_id": 11,
+     "tipo": "Type B",
+     "inicio": "2017-07-12",
+     "fin": "2017-08-27",
+     "expuestos": 214,
+     "respuestas": 6,
+     "tasa_observada": 0.02804,
+     "score_medio": 0.06662
+    },
+    {
+     "campaign_id": 12,
+     "tipo": "Type B",
+     "inicio": "2017-07-12",
+     "fin": "2017-08-13",
+     "expuestos": 170,
+     "respuestas": 11,
+     "tasa_observada": 0.06471,
+     "score_medio": 0.06048
+    },
+    {
+     "campaign_id": 13,
+     "tipo": "Type A",
+     "inicio": "2017-08-08",
+     "fin": "2017-09-24",
+     "expuestos": 1077,
+     "respuestas": 196,
+     "tasa_observada": 0.18199,
+     "score_medio": 0.15728
+    },
+    {
+     "campaign_id": 14,
+     "tipo": "Type C",
+     "inicio": "2017-09-04",
+     "fin": "2017-11-08",
+     "expuestos": 224,
+     "respuestas": 18,
+     "tasa_observada": 0.08036,
+     "score_medio": 0.04919
+    },
+    {
+     "campaign_id": 15,
+     "tipo": "Type C",
+     "inicio": "2017-09-20",
+     "fin": "2018-02-28",
+     "expuestos": 17,
+     "respuestas": 2,
+     "tasa_observada": 0.11765,
+     "score_medio": 0.02209
+    },
+    {
+     "campaign_id": 16,
+     "tipo": "Type B",
+     "inicio": "2017-10-04",
+     "fin": "2017-11-05",
+     "expuestos": 188,
+     "respuestas": 19,
+     "tasa_observada": 0.10106,
+     "score_medio": 0.09653
+    },
+    {
+     "campaign_id": 17,
+     "tipo": "Type B",
+     "inicio": "2017-10-18",
+     "fin": "2017-11-19",
+     "expuestos": 202,
+     "respuestas": 18,
+     "tasa_observada": 0.08911,
+     "score_medio": 0.08983
+    },
+    {
+     "campaign_id": 18,
+     "tipo": "Type A",
+     "inicio": "2017-10-30",
+     "fin": "2017-12-24",
+     "expuestos": 1133,
+     "respuestas": 214,
+     "tasa_observada": 0.18888,
+     "score_medio": 0.16974
+    },
+    {
+     "campaign_id": 19,
+     "tipo": "Type B",
+     "inicio": "2017-11-15",
+     "fin": "2017-12-17",
+     "expuestos": 130,
+     "respuestas": 15,
+     "tasa_observada": 0.11538,
+     "score_medio": 0.10576
+    },
+    {
+     "campaign_id": 20,
+     "tipo": "Type C",
+     "inicio": "2017-11-27",
+     "fin": "2018-02-05",
+     "expuestos": 244,
+     "respuestas": 11,
+     "tasa_observada": 0.04508,
+     "score_medio": 0.07266
+    },
+    {
+     "campaign_id": 21,
+     "tipo": "Type B",
+     "inicio": "2017-12-06",
+     "fin": "2018-01-07",
+     "expuestos": 65,
+     "respuestas": 2,
+     "tasa_observada": 0.03077,
+     "score_medio": 0.1123
+    },
+    {
+     "campaign_id": 22,
+     "tipo": "Type B",
+     "inicio": "2017-12-06",
+     "fin": "2018-01-07",
+     "expuestos": 276,
+     "respuestas": 15,
+     "tasa_observada": 0.05435,
+     "score_medio": 0.12073
+    },
+    {
+     "campaign_id": 23,
+     "tipo": "Type B",
+     "inicio": "2017-12-28",
+     "fin": "2018-02-04",
+     "expuestos": 183,
+     "respuestas": 3,
+     "tasa_observada": 0.01639,
+     "score_medio": 0.14224
+    }
+   ]
+  },
+  {
+   "corte": "2017-08-01",
+   "diseno": "holdout temporal hacia adelante: entrenamiento con campañas cerradas antes del corte; prueba con campañas que empiezan en el corte o después",
+   "entrenamiento": {
+    "pares": 2466,
+    "campanas": 14,
+    "respuestas": 262,
+    "tasa": 0.10624,
+    "ultima_campana_cerrada": "2017-07-30"
+   },
+   "excluidas_en_vuelo": {
+    "pares": 384,
+    "campanas": 2,
+    "motivo": "su periodo de redención no había cerrado en el corte: no son ni entrenamiento ni prueba"
+   },
+   "prueba": {
+    "pares": 3739,
+    "campanas": 11,
+    "respuestas": 513,
+    "tasa": 0.1372,
+    "primera_campana": "2017-08-08",
+    "ultima_campana_fin": "2018-02-28"
+   },
+   "metricas": {
+    "todos": {
+     "filas": 3739,
+     "positivos": 513,
+     "ap": 0.4024,
+     "roc_auc": 0.7945,
+     "brier": 0.1036,
+     "log_loss": 0.3521,
+     "hogares": 1389,
+     "campanas": 11,
+     "tasa_base": 0.1372,
+     "tasa_decil_superior": 0.5,
+     "lift_decil_superior": 3.644
+    },
+    "con_exposicion_previa": {
+     "filas": 3243,
+     "positivos": 457,
+     "ap": 0.4194,
+     "roc_auc": 0.8051,
+     "brier": 0.1046,
+     "log_loss": 0.355,
+     "hogares": 1104,
+     "campanas": 11,
+     "tasa_base": 0.14092,
+     "tasa_decil_superior": 0.51692,
+     "lift_decil_superior": 3.668
+    },
+    "sin_exposicion_previa": {
+     "filas": 496,
+     "positivos": 56,
+     "ap": 0.2407,
+     "roc_auc": 0.7078,
+     "brier": 0.0973,
+     "log_loss": 0.3333,
+     "hogares": 285,
+     "campanas": 11,
+     "tasa_base": 0.1129,
+     "tasa_decil_superior": 0.34,
+     "lift_decil_superior": 3.011
+    },
+    "baseline_tipo_campana": {
+     "filas": 3739,
+     "positivos": 513,
+     "ap": 0.1774,
+     "roc_auc": 0.6214,
+     "brier": 0.1166,
+     "log_loss": 0.3917
+    }
+   },
+   "calibracion": [
+    {
+     "decil": 1,
+     "filas": 374,
+     "probabilidad_media": 0.00814,
+     "tasa_observada": 0.02139,
+     "min": 0.000754,
+     "max": 0.013619
+    },
+    {
+     "decil": 2,
+     "filas": 374,
+     "probabilidad_media": 0.01944,
+     "tasa_observada": 0.01337,
+     "min": 0.013699,
+     "max": 0.025319
+    },
+    {
+     "decil": 3,
+     "filas": 374,
+     "probabilidad_media": 0.03383,
+     "tasa_observada": 0.03209,
+     "min": 0.025325,
+     "max": 0.042568
+    },
+    {
+     "decil": 4,
+     "filas": 374,
+     "probabilidad_media": 0.05149,
+     "tasa_observada": 0.08556,
+     "min": 0.042595,
+     "max": 0.059223
+    },
+    {
+     "decil": 5,
+     "filas": 374,
+     "probabilidad_media": 0.06708,
+     "tasa_observada": 0.07754,
+     "min": 0.059228,
+     "max": 0.075505
+    },
+    {
+     "decil": 6,
+     "filas": 374,
+     "probabilidad_media": 0.08741,
+     "tasa_observada": 0.09091,
+     "min": 0.075525,
+     "max": 0.101424
+    },
+    {
+     "decil": 7,
+     "filas": 374,
+     "probabilidad_media": 0.12039,
+     "tasa_observada": 0.13102,
+     "min": 0.101443,
+     "max": 0.144918
+    },
+    {
+     "decil": 8,
+     "filas": 374,
+     "probabilidad_media": 0.17885,
+     "tasa_observada": 0.14439,
+     "min": 0.144932,
+     "max": 0.22081
+    },
+    {
+     "decil": 9,
+     "filas": 374,
+     "probabilidad_media": 0.31342,
+     "tasa_observada": 0.2754,
+     "min": 0.220921,
+     "max": 0.441278
+    },
+    {
+     "decil": 10,
+     "filas": 373,
+     "probabilidad_media": 0.70702,
+     "tasa_observada": 0.50134,
+     "min": 0.442939,
+     "max": 0.998439
+    }
+   ],
+   "targeting": [
+    {
+     "fraccion": 0.0,
+     "contactados": 0,
+     "capturados": 0,
+     "tasa": null,
+     "recall": 0.0,
+     "lift": null
+    },
+    {
+     "fraccion": 0.01,
+     "contactados": 37,
+     "capturados": 21,
+     "tasa": 0.56757,
+     "recall": 0.04094,
+     "lift": 4.137
+    },
+    {
+     "fraccion": 0.02,
+     "contactados": 75,
+     "capturados": 47,
+     "tasa": 0.62667,
+     "recall": 0.09162,
+     "lift": 4.567
+    },
+    {
+     "fraccion": 0.03,
+     "contactados": 112,
+     "capturados": 63,
+     "tasa": 0.5625,
+     "recall": 0.12281,
+     "lift": 4.1
+    },
+    {
+     "fraccion": 0.04,
+     "contactados": 150,
+     "capturados": 83,
+     "tasa": 0.55333,
+     "recall": 0.16179,
+     "lift": 4.033
+    },
+    {
+     "fraccion": 0.05,
+     "contactados": 187,
+     "capturados": 102,
+     "tasa": 0.54545,
+     "recall": 0.19883,
+     "lift": 3.976
+    },
+    {
+     "fraccion": 0.06,
+     "contactados": 224,
+     "capturados": 120,
+     "tasa": 0.53571,
+     "recall": 0.23392,
+     "lift": 3.905
+    },
+    {
+     "fraccion": 0.07,
+     "contactados": 262,
+     "capturados": 139,
+     "tasa": 0.53053,
+     "recall": 0.27096,
+     "lift": 3.867
+    },
+    {
+     "fraccion": 0.08,
+     "contactados": 299,
+     "capturados": 154,
+     "tasa": 0.51505,
+     "recall": 0.30019,
+     "lift": 3.754
+    },
+    {
+     "fraccion": 0.09,
+     "contactados": 337,
+     "capturados": 172,
+     "tasa": 0.51039,
+     "recall": 0.33528,
+     "lift": 3.72
+    },
+    {
+     "fraccion": 0.1,
+     "contactados": 374,
+     "capturados": 187,
+     "tasa": 0.5,
+     "recall": 0.36452,
+     "lift": 3.644
+    },
+    {
+     "fraccion": 0.11,
+     "contactados": 411,
+     "capturados": 199,
+     "tasa": 0.48418,
+     "recall": 0.38791,
+     "lift": 3.529
+    },
+    {
+     "fraccion": 0.12,
+     "contactados": 449,
+     "capturados": 218,
+     "tasa": 0.48552,
+     "recall": 0.42495,
+     "lift": 3.539
+    },
+    {
+     "fraccion": 0.13,
+     "contactados": 486,
+     "capturados": 227,
+     "tasa": 0.46708,
+     "recall": 0.4425,
+     "lift": 3.404
+    },
+    {
+     "fraccion": 0.14,
+     "contactados": 523,
+     "capturados": 238,
+     "tasa": 0.45507,
+     "recall": 0.46394,
+     "lift": 3.317
+    },
+    {
+     "fraccion": 0.15,
+     "contactados": 561,
+     "capturados": 250,
+     "tasa": 0.44563,
+     "recall": 0.48733,
+     "lift": 3.248
+    },
+    {
+     "fraccion": 0.16,
+     "contactados": 598,
+     "capturados": 260,
+     "tasa": 0.43478,
+     "recall": 0.50682,
+     "lift": 3.169
+    },
+    {
+     "fraccion": 0.17,
+     "contactados": 636,
+     "capturados": 270,
+     "tasa": 0.42453,
+     "recall": 0.52632,
+     "lift": 3.094
+    },
+    {
+     "fraccion": 0.18,
+     "contactados": 673,
+     "capturados": 278,
+     "tasa": 0.41308,
+     "recall": 0.54191,
+     "lift": 3.011
+    },
+    {
+     "fraccion": 0.19,
+     "contactados": 710,
+     "capturados": 286,
+     "tasa": 0.40282,
+     "recall": 0.5575,
+     "lift": 2.936
+    },
+    {
+     "fraccion": 0.2,
+     "contactados": 748,
+     "capturados": 290,
+     "tasa": 0.3877,
+     "recall": 0.5653,
+     "lift": 2.826
+    },
+    {
+     "fraccion": 0.21,
+     "contactados": 785,
+     "capturados": 295,
+     "tasa": 0.3758,
+     "recall": 0.57505,
+     "lift": 2.739
+    },
+    {
+     "fraccion": 0.22,
+     "contactados": 823,
+     "capturados": 301,
+     "tasa": 0.36574,
+     "recall": 0.58674,
+     "lift": 2.666
+    },
+    {
+     "fraccion": 0.23,
+     "contactados": 860,
+     "capturados": 310,
+     "tasa": 0.36047,
+     "recall": 0.60429,
+     "lift": 2.627
+    },
+    {
+     "fraccion": 0.24,
+     "contactados": 897,
+     "capturados": 313,
+     "tasa": 0.34894,
+     "recall": 0.61014,
+     "lift": 2.543
+    },
+    {
+     "fraccion": 0.25,
+     "contactados": 935,
+     "capturados": 324,
+     "tasa": 0.34652,
+     "recall": 0.63158,
+     "lift": 2.526
+    },
+    {
+     "fraccion": 0.26,
+     "contactados": 972,
+     "capturados": 328,
+     "tasa": 0.33745,
+     "recall": 0.63938,
+     "lift": 2.459
+    },
+    {
+     "fraccion": 0.27,
+     "contactados": 1010,
+     "capturados": 333,
+     "tasa": 0.3297,
+     "recall": 0.64912,
+     "lift": 2.403
+    },
+    {
+     "fraccion": 0.28,
+     "contactados": 1047,
+     "capturados": 338,
+     "tasa": 0.32283,
+     "recall": 0.65887,
+     "lift": 2.353
+    },
+    {
+     "fraccion": 0.29,
+     "contactados": 1084,
+     "capturados": 340,
+     "tasa": 0.31365,
+     "recall": 0.66277,
+     "lift": 2.286
+    },
+    {
+     "fraccion": 0.3,
+     "contactados": 1122,
+     "capturados": 344,
+     "tasa": 0.3066,
+     "recall": 0.67057,
+     "lift": 2.235
+    },
+    {
+     "fraccion": 0.31,
+     "contactados": 1159,
+     "capturados": 350,
+     "tasa": 0.30198,
+     "recall": 0.68226,
+     "lift": 2.201
+    },
+    {
+     "fraccion": 0.32,
+     "contactados": 1196,
+     "capturados": 357,
+     "tasa": 0.29849,
+     "recall": 0.69591,
+     "lift": 2.176
+    },
+    {
+     "fraccion": 0.33,
+     "contactados": 1234,
+     "capturados": 362,
+     "tasa": 0.29335,
+     "recall": 0.70565,
+     "lift": 2.138
+    },
+    {
+     "fraccion": 0.34,
+     "contactados": 1271,
+     "capturados": 367,
+     "tasa": 0.28875,
+     "recall": 0.7154,
+     "lift": 2.105
+    },
+    {
+     "fraccion": 0.35,
+     "contactados": 1309,
+     "capturados": 370,
+     "tasa": 0.28266,
+     "recall": 0.72125,
+     "lift": 2.06
+    },
+    {
+     "fraccion": 0.36,
+     "contactados": 1346,
+     "capturados": 375,
+     "tasa": 0.2786,
+     "recall": 0.73099,
+     "lift": 2.031
+    },
+    {
+     "fraccion": 0.37,
+     "contactados": 1383,
+     "capturados": 383,
+     "tasa": 0.27693,
+     "recall": 0.74659,
+     "lift": 2.018
+    },
+    {
+     "fraccion": 0.38,
+     "contactados": 1421,
+     "capturados": 387,
+     "tasa": 0.27234,
+     "recall": 0.75439,
+     "lift": 1.985
+    },
+    {
+     "fraccion": 0.39,
+     "contactados": 1458,
+     "capturados": 389,
+     "tasa": 0.2668,
+     "recall": 0.75828,
+     "lift": 1.945
+    },
+    {
+     "fraccion": 0.4,
+     "contactados": 1496,
+     "capturados": 393,
+     "tasa": 0.2627,
+     "recall": 0.76608,
+     "lift": 1.915
+    },
+    {
+     "fraccion": 0.41,
+     "contactados": 1533,
+     "capturados": 397,
+     "tasa": 0.25897,
+     "recall": 0.77388,
+     "lift": 1.887
+    },
+    {
+     "fraccion": 0.42,
+     "contactados": 1570,
+     "capturados": 404,
+     "tasa": 0.25732,
+     "recall": 0.78752,
+     "lift": 1.876
+    },
+    {
+     "fraccion": 0.43,
+     "contactados": 1608,
+     "capturados": 408,
+     "tasa": 0.25373,
+     "recall": 0.79532,
+     "lift": 1.849
+    },
+    {
+     "fraccion": 0.44,
+     "contactados": 1645,
+     "capturados": 411,
+     "tasa": 0.24985,
+     "recall": 0.80117,
+     "lift": 1.821
+    },
+    {
+     "fraccion": 0.45,
+     "contactados": 1683,
+     "capturados": 414,
+     "tasa": 0.24599,
+     "recall": 0.80702,
+     "lift": 1.793
+    },
+    {
+     "fraccion": 0.46,
+     "contactados": 1720,
+     "capturados": 415,
+     "tasa": 0.24128,
+     "recall": 0.80897,
+     "lift": 1.759
+    },
+    {
+     "fraccion": 0.47,
+     "contactados": 1757,
+     "capturados": 417,
+     "tasa": 0.23734,
+     "recall": 0.81287,
+     "lift": 1.73
+    },
+    {
+     "fraccion": 0.48,
+     "contactados": 1795,
+     "capturados": 420,
+     "tasa": 0.23398,
+     "recall": 0.81871,
+     "lift": 1.705
+    },
+    {
+     "fraccion": 0.49,
+     "contactados": 1832,
+     "capturados": 425,
+     "tasa": 0.23199,
+     "recall": 0.82846,
+     "lift": 1.691
+    },
+    {
+     "fraccion": 0.5,
+     "contactados": 1870,
+     "capturados": 427,
+     "tasa": 0.22834,
+     "recall": 0.83236,
+     "lift": 1.664
+    },
+    {
+     "fraccion": 0.51,
+     "contactados": 1907,
+     "capturados": 429,
+     "tasa": 0.22496,
+     "recall": 0.83626,
+     "lift": 1.64
+    },
+    {
+     "fraccion": 0.52,
+     "contactados": 1944,
+     "capturados": 432,
+     "tasa": 0.22222,
+     "recall": 0.84211,
+     "lift": 1.62
+    },
+    {
+     "fraccion": 0.53,
+     "contactados": 1982,
+     "capturados": 438,
+     "tasa": 0.22099,
+     "recall": 0.8538,
+     "lift": 1.611
+    },
+    {
+     "fraccion": 0.54,
+     "contactados": 2019,
+     "capturados": 441,
+     "tasa": 0.21842,
+     "recall": 0.85965,
+     "lift": 1.592
+    },
+    {
+     "fraccion": 0.55,
+     "contactados": 2056,
+     "capturados": 444,
+     "tasa": 0.21595,
+     "recall": 0.8655,
+     "lift": 1.574
+    },
+    {
+     "fraccion": 0.56,
+     "contactados": 2094,
+     "capturados": 445,
+     "tasa": 0.21251,
+     "recall": 0.86745,
+     "lift": 1.549
+    },
+    {
+     "fraccion": 0.57,
+     "contactados": 2131,
+     "capturados": 448,
+     "tasa": 0.21023,
+     "recall": 0.87329,
+     "lift": 1.532
+    },
+    {
+     "fraccion": 0.58,
+     "contactados": 2169,
+     "capturados": 451,
+     "tasa": 0.20793,
+     "recall": 0.87914,
+     "lift": 1.515
+    },
+    {
+     "fraccion": 0.59,
+     "contactados": 2206,
+     "capturados": 454,
+     "tasa": 0.2058,
+     "recall": 0.88499,
+     "lift": 1.5
+    },
+    {
+     "fraccion": 0.6,
+     "contactados": 2243,
+     "capturados": 456,
+     "tasa": 0.2033,
+     "recall": 0.88889,
+     "lift": 1.482
+    },
+    {
+     "fraccion": 0.61,
+     "contactados": 2281,
+     "capturados": 459,
+     "tasa": 0.20123,
+     "recall": 0.89474,
+     "lift": 1.467
+    },
+    {
+     "fraccion": 0.62,
+     "contactados": 2318,
+     "capturados": 459,
+     "tasa": 0.19802,
+     "recall": 0.89474,
+     "lift": 1.443
+    },
+    {
+     "fraccion": 0.63,
+     "contactados": 2356,
+     "capturados": 463,
+     "tasa": 0.19652,
+     "recall": 0.90253,
+     "lift": 1.432
+    },
+    {
+     "fraccion": 0.64,
+     "contactados": 2393,
+     "capturados": 466,
+     "tasa": 0.19473,
+     "recall": 0.90838,
+     "lift": 1.419
+    },
+    {
+     "fraccion": 0.65,
+     "contactados": 2430,
+     "capturados": 468,
+     "tasa": 0.19259,
+     "recall": 0.91228,
+     "lift": 1.404
+    },
+    {
+     "fraccion": 0.66,
+     "contactados": 2468,
+     "capturados": 472,
+     "tasa": 0.19125,
+     "recall": 0.92008,
+     "lift": 1.394
+    },
+    {
+     "fraccion": 0.67,
+     "contactados": 2505,
+     "capturados": 476,
+     "tasa": 0.19002,
+     "recall": 0.92788,
+     "lift": 1.385
+    },
+    {
+     "fraccion": 0.68,
+     "contactados": 2543,
+     "capturados": 481,
+     "tasa": 0.18915,
+     "recall": 0.93762,
+     "lift": 1.379
+    },
+    {
+     "fraccion": 0.69,
+     "contactados": 2580,
+     "capturados": 486,
+     "tasa": 0.18837,
+     "recall": 0.94737,
+     "lift": 1.373
+    },
+    {
+     "fraccion": 0.7,
+     "contactados": 2617,
+     "capturados": 488,
+     "tasa": 0.18647,
+     "recall": 0.95127,
+     "lift": 1.359
+    },
+    {
+     "fraccion": 0.71,
+     "contactados": 2655,
+     "capturados": 489,
+     "tasa": 0.18418,
+     "recall": 0.95322,
+     "lift": 1.342
+    },
+    {
+     "fraccion": 0.72,
+     "contactados": 2692,
+     "capturados": 489,
+     "tasa": 0.18165,
+     "recall": 0.95322,
+     "lift": 1.324
+    },
+    {
+     "fraccion": 0.73,
+     "contactados": 2729,
+     "capturados": 491,
+     "tasa": 0.17992,
+     "recall": 0.95712,
+     "lift": 1.311
+    },
+    {
+     "fraccion": 0.74,
+     "contactados": 2767,
+     "capturados": 492,
+     "tasa": 0.17781,
+     "recall": 0.95906,
+     "lift": 1.296
+    },
+    {
+     "fraccion": 0.75,
+     "contactados": 2804,
+     "capturados": 495,
+     "tasa": 0.17653,
+     "recall": 0.96491,
+     "lift": 1.287
+    },
+    {
+     "fraccion": 0.76,
+     "contactados": 2842,
+     "capturados": 495,
+     "tasa": 0.17417,
+     "recall": 0.96491,
+     "lift": 1.269
+    },
+    {
+     "fraccion": 0.77,
+     "contactados": 2879,
+     "capturados": 496,
+     "tasa": 0.17228,
+     "recall": 0.96686,
+     "lift": 1.256
+    },
+    {
+     "fraccion": 0.78,
+     "contactados": 2916,
+     "capturados": 497,
+     "tasa": 0.17044,
+     "recall": 0.96881,
+     "lift": 1.242
+    },
+    {
+     "fraccion": 0.79,
+     "contactados": 2954,
+     "capturados": 497,
+     "tasa": 0.16825,
+     "recall": 0.96881,
+     "lift": 1.226
+    },
+    {
+     "fraccion": 0.8,
+     "contactados": 2991,
+     "capturados": 500,
+     "tasa": 0.16717,
+     "recall": 0.97466,
+     "lift": 1.218
+    },
+    {
+     "fraccion": 0.81,
+     "contactados": 3029,
+     "capturados": 500,
+     "tasa": 0.16507,
+     "recall": 0.97466,
+     "lift": 1.203
+    },
+    {
+     "fraccion": 0.82,
+     "contactados": 3066,
+     "capturados": 502,
+     "tasa": 0.16373,
+     "recall": 0.97856,
+     "lift": 1.193
+    },
+    {
+     "fraccion": 0.83,
+     "contactados": 3103,
+     "capturados": 502,
+     "tasa": 0.16178,
+     "recall": 0.97856,
+     "lift": 1.179
+    },
+    {
+     "fraccion": 0.84,
+     "contactados": 3141,
+     "capturados": 505,
+     "tasa": 0.16078,
+     "recall": 0.98441,
+     "lift": 1.172
+    },
+    {
+     "fraccion": 0.85,
+     "contactados": 3178,
+     "capturados": 505,
+     "tasa": 0.1589,
+     "recall": 0.98441,
+     "lift": 1.158
+    },
+    {
+     "fraccion": 0.86,
+     "contactados": 3216,
+     "capturados": 505,
+     "tasa": 0.15703,
+     "recall": 0.98441,
+     "lift": 1.144
+    },
+    {
+     "fraccion": 0.87,
+     "contactados": 3253,
+     "capturados": 505,
+     "tasa": 0.15524,
+     "recall": 0.98441,
+     "lift": 1.131
+    },
+    {
+     "fraccion": 0.88,
+     "contactados": 3290,
+     "capturados": 505,
+     "tasa": 0.1535,
+     "recall": 0.98441,
+     "lift": 1.119
+    },
+    {
+     "fraccion": 0.89,
+     "contactados": 3328,
+     "capturados": 505,
+     "tasa": 0.15174,
+     "recall": 0.98441,
+     "lift": 1.106
+    },
+    {
+     "fraccion": 0.9,
+     "contactados": 3365,
+     "capturados": 505,
+     "tasa": 0.15007,
+     "recall": 0.98441,
+     "lift": 1.094
+    },
+    {
+     "fraccion": 0.91,
+     "contactados": 3402,
+     "capturados": 507,
+     "tasa": 0.14903,
+     "recall": 0.9883,
+     "lift": 1.086
+    },
+    {
+     "fraccion": 0.92,
+     "contactados": 3440,
+     "capturados": 508,
+     "tasa": 0.14767,
+     "recall": 0.99025,
+     "lift": 1.076
+    },
+    {
+     "fraccion": 0.93,
+     "contactados": 3477,
+     "capturados": 509,
+     "tasa": 0.14639,
+     "recall": 0.9922,
+     "lift": 1.067
+    },
+    {
+     "fraccion": 0.94,
+     "contactados": 3515,
+     "capturados": 509,
+     "tasa": 0.14481,
+     "recall": 0.9922,
+     "lift": 1.055
+    },
+    {
+     "fraccion": 0.95,
+     "contactados": 3552,
+     "capturados": 509,
+     "tasa": 0.1433,
+     "recall": 0.9922,
+     "lift": 1.044
+    },
+    {
+     "fraccion": 0.96,
+     "contactados": 3589,
+     "capturados": 510,
+     "tasa": 0.1421,
+     "recall": 0.99415,
+     "lift": 1.036
+    },
+    {
+     "fraccion": 0.97,
+     "contactados": 3627,
+     "capturados": 510,
+     "tasa": 0.14061,
+     "recall": 0.99415,
+     "lift": 1.025
+    },
+    {
+     "fraccion": 0.98,
+     "contactados": 3664,
+     "capturados": 512,
+     "tasa": 0.13974,
+     "recall": 0.99805,
+     "lift": 1.018
+    },
+    {
+     "fraccion": 0.99,
+     "contactados": 3702,
+     "capturados": 512,
+     "tasa": 0.1383,
+     "recall": 0.99805,
+     "lift": 1.008
+    },
+    {
+     "fraccion": 1.0,
+     "contactados": 3739,
+     "capturados": 513,
+     "tasa": 0.1372,
+     "recall": 1.0,
+     "lift": 1.0
+    }
+   ],
+   "campanas": [
+    {
+     "campaign_id": 13,
+     "tipo": "Type A",
+     "inicio": "2017-08-08",
+     "fin": "2017-09-24",
+     "expuestos": 1077,
+     "respuestas": 196,
+     "tasa_observada": 0.18199,
+     "score_medio": 0.16631
+    },
+    {
+     "campaign_id": 14,
+     "tipo": "Type C",
+     "inicio": "2017-09-04",
+     "fin": "2017-11-08",
+     "expuestos": 224,
+     "respuestas": 18,
+     "tasa_observada": 0.08036,
+     "score_medio": 0.06583
+    },
+    {
+     "campaign_id": 15,
+     "tipo": "Type C",
+     "inicio": "2017-09-20",
+     "fin": "2018-02-28",
+     "expuestos": 17,
+     "respuestas": 2,
+     "tasa_observada": 0.11765,
+     "score_medio": 0.02991
+    },
+    {
+     "campaign_id": 16,
+     "tipo": "Type B",
+     "inicio": "2017-10-04",
+     "fin": "2017-11-05",
+     "expuestos": 188,
+     "respuestas": 19,
+     "tasa_observada": 0.10106,
+     "score_medio": 0.12949
+    },
+    {
+     "campaign_id": 17,
+     "tipo": "Type B",
+     "inicio": "2017-10-18",
+     "fin": "2017-11-19",
+     "expuestos": 202,
+     "respuestas": 18,
+     "tasa_observada": 0.08911,
+     "score_medio": 0.11842
+    },
+    {
+     "campaign_id": 18,
+     "tipo": "Type A",
+     "inicio": "2017-10-30",
+     "fin": "2017-12-24",
+     "expuestos": 1133,
+     "respuestas": 214,
+     "tasa_observada": 0.18888,
+     "score_medio": 0.18858
+    },
+    {
+     "campaign_id": 19,
+     "tipo": "Type B",
+     "inicio": "2017-11-15",
+     "fin": "2017-12-17",
+     "expuestos": 130,
+     "respuestas": 15,
+     "tasa_observada": 0.11538,
+     "score_medio": 0.14303
+    },
+    {
+     "campaign_id": 20,
+     "tipo": "Type C",
+     "inicio": "2017-11-27",
+     "fin": "2018-02-05",
+     "expuestos": 244,
+     "respuestas": 11,
+     "tasa_observada": 0.04508,
+     "score_medio": 0.10272
+    },
+    {
+     "campaign_id": 21,
+     "tipo": "Type B",
+     "inicio": "2017-12-06",
+     "fin": "2018-01-07",
+     "expuestos": 65,
+     "respuestas": 2,
+     "tasa_observada": 0.03077,
+     "score_medio": 0.16253
+    },
+    {
+     "campaign_id": 22,
+     "tipo": "Type B",
+     "inicio": "2017-12-06",
+     "fin": "2018-01-07",
+     "expuestos": 276,
+     "respuestas": 15,
+     "tasa_observada": 0.05435,
+     "score_medio": 0.17002
+    },
+    {
+     "campaign_id": 23,
+     "tipo": "Type B",
+     "inicio": "2017-12-28",
+     "fin": "2018-02-04",
+     "expuestos": 183,
+     "respuestas": 3,
+     "tasa_observada": 0.01639,
+     "score_medio": 0.19352
+    }
+   ]
+  },
+  {
+   "corte": "2017-09-01",
+   "diseno": "holdout temporal hacia adelante: entrenamiento con campañas cerradas antes del corte; prueba con campañas que empiezan en el corte o después",
+   "entrenamiento": {
+    "pares": 2850,
+    "campanas": 16,
+    "respuestas": 279,
+    "tasa": 0.09789,
+    "ultima_campana_cerrada": "2017-08-27"
+   },
+   "excluidas_en_vuelo": {
+    "pares": 1077,
+    "campanas": 1,
+    "motivo": "su periodo de redención no había cerrado en el corte: no son ni entrenamiento ni prueba"
+   },
+   "prueba": {
+    "pares": 2662,
+    "campanas": 10,
+    "respuestas": 317,
+    "tasa": 0.11908,
+    "primera_campana": "2017-09-04",
+    "ultima_campana_fin": "2018-02-28"
+   },
+   "metricas": {
+    "todos": {
+     "filas": 2662,
+     "positivos": 317,
+     "ap": 0.3792,
+     "roc_auc": 0.8016,
+     "brier": 0.0953,
+     "log_loss": 0.3297,
+     "hogares": 1258,
+     "campanas": 10,
+     "tasa_base": 0.11908,
+     "tasa_decil_superior": 0.45693,
+     "lift_decil_superior": 3.837
+    },
+    "con_exposicion_previa": {
+     "filas": 2339,
+     "positivos": 275,
+     "ap": 0.3962,
+     "roc_auc": 0.8139,
+     "brier": 0.093,
+     "log_loss": 0.3241,
+     "hogares": 1031,
+     "campanas": 10,
+     "tasa_base": 0.11757,
+     "tasa_decil_superior": 0.47863,
+     "lift_decil_superior": 4.071
+    },
+    "sin_exposicion_previa": {
+     "filas": 323,
+     "positivos": 42,
+     "ap": 0.2738,
+     "roc_auc": 0.7354,
+     "brier": 0.1113,
+     "log_loss": 0.3704,
+     "hogares": 227,
+     "campanas": 10,
+     "tasa_base": 0.13003,
+     "tasa_decil_superior": 0.30303,
+     "lift_decil_superior": 2.33
+    },
+    "baseline_tipo_campana": {
+     "filas": 2662,
+     "positivos": 317,
+     "ap": 0.169,
+     "roc_auc": 0.6433,
+     "brier": 0.1027,
+     "log_loss": 0.355
+    }
+   },
+   "calibracion": [
+    {
+     "decil": 1,
+     "filas": 267,
+     "probabilidad_media": 0.00637,
+     "tasa_observada": 0.01873,
+     "min": 0.000706,
+     "max": 0.009664
+    },
+    {
+     "decil": 2,
+     "filas": 267,
+     "probabilidad_media": 0.01322,
+     "tasa_observada": 0.01124,
+     "min": 0.00968,
+     "max": 0.016828
+    },
+    {
+     "decil": 3,
+     "filas": 266,
+     "probabilidad_media": 0.02081,
+     "tasa_observada": 0.02632,
+     "min": 0.01686,
+     "max": 0.025561
+    },
+    {
+     "decil": 4,
+     "filas": 266,
+     "probabilidad_media": 0.03337,
+     "tasa_observada": 0.04135,
+     "min": 0.025567,
+     "max": 0.040903
+    },
+    {
+     "decil": 5,
+     "filas": 266,
+     "probabilidad_media": 0.05035,
+     "tasa_observada": 0.09023,
+     "min": 0.040944,
+     "max": 0.05926
+    },
+    {
+     "decil": 6,
+     "filas": 266,
+     "probabilidad_media": 0.06935,
+     "tasa_observada": 0.07143,
+     "min": 0.05933,
+     "max": 0.080273
+    },
+    {
+     "decil": 7,
+     "filas": 266,
+     "probabilidad_media": 0.09993,
+     "tasa_observada": 0.11654,
+     "min": 0.080538,
+     "max": 0.122848
+    },
+    {
+     "decil": 8,
+     "filas": 266,
+     "probabilidad_media": 0.15661,
+     "tasa_observada": 0.10902,
+     "min": 0.122874,
+     "max": 0.200213
+    },
+    {
+     "decil": 9,
+     "filas": 266,
+     "probabilidad_media": 0.29242,
+     "tasa_observada": 0.24812,
+     "min": 0.201486,
+     "max": 0.426737
+    },
+    {
+     "decil": 10,
+     "filas": 266,
+     "probabilidad_media": 0.71355,
+     "tasa_observada": 0.45865,
+     "min": 0.427142,
+     "max": 0.998353
+    }
+   ],
+   "targeting": [
+    {
+     "fraccion": 0.0,
+     "contactados": 0,
+     "capturados": 0,
+     "tasa": null,
+     "recall": 0.0,
+     "lift": null
+    },
+    {
+     "fraccion": 0.01,
+     "contactados": 27,
+     "capturados": 14,
+     "tasa": 0.51852,
+     "recall": 0.04416,
+     "lift": 4.354
+    },
+    {
+     "fraccion": 0.02,
+     "contactados": 53,
+     "capturados": 32,
+     "tasa": 0.60377,
+     "recall": 0.10095,
+     "lift": 5.07
+    },
+    {
+     "fraccion": 0.03,
+     "contactados": 80,
+     "capturados": 45,
+     "tasa": 0.5625,
+     "recall": 0.14196,
+     "lift": 4.724
+    },
+    {
+     "fraccion": 0.04,
+     "contactados": 106,
+     "capturados": 56,
+     "tasa": 0.5283,
+     "recall": 0.17666,
+     "lift": 4.436
+    },
+    {
+     "fraccion": 0.05,
+     "contactados": 133,
+     "capturados": 68,
+     "tasa": 0.51128,
+     "recall": 0.21451,
+     "lift": 4.293
+    },
+    {
+     "fraccion": 0.06,
+     "contactados": 160,
+     "capturados": 84,
+     "tasa": 0.525,
+     "recall": 0.26498,
+     "lift": 4.409
+    },
+    {
+     "fraccion": 0.07,
+     "contactados": 186,
+     "capturados": 94,
+     "tasa": 0.50538,
+     "recall": 0.29653,
+     "lift": 4.244
+    },
+    {
+     "fraccion": 0.08,
+     "contactados": 213,
+     "capturados": 103,
+     "tasa": 0.48357,
+     "recall": 0.32492,
+     "lift": 4.061
+    },
+    {
+     "fraccion": 0.09,
+     "contactados": 240,
+     "capturados": 112,
+     "tasa": 0.46667,
+     "recall": 0.35331,
+     "lift": 3.919
+    },
+    {
+     "fraccion": 0.1,
+     "contactados": 266,
+     "capturados": 122,
+     "tasa": 0.45865,
+     "recall": 0.38486,
+     "lift": 3.851
+    },
+    {
+     "fraccion": 0.11,
+     "contactados": 293,
+     "capturados": 129,
+     "tasa": 0.44027,
+     "recall": 0.40694,
+     "lift": 3.697
+    },
+    {
+     "fraccion": 0.12,
+     "contactados": 319,
+     "capturados": 138,
+     "tasa": 0.4326,
+     "recall": 0.43533,
+     "lift": 3.633
+    },
+    {
+     "fraccion": 0.13,
+     "contactados": 346,
+     "capturados": 145,
+     "tasa": 0.41908,
+     "recall": 0.45741,
+     "lift": 3.519
+    },
+    {
+     "fraccion": 0.14,
+     "contactados": 373,
+     "capturados": 155,
+     "tasa": 0.41555,
+     "recall": 0.48896,
+     "lift": 3.49
+    },
+    {
+     "fraccion": 0.15,
+     "contactados": 399,
+     "capturados": 161,
+     "tasa": 0.40351,
+     "recall": 0.50789,
+     "lift": 3.388
+    },
+    {
+     "fraccion": 0.16,
+     "contactados": 426,
+     "capturados": 167,
+     "tasa": 0.39202,
+     "recall": 0.52681,
+     "lift": 3.292
+    },
+    {
+     "fraccion": 0.17,
+     "contactados": 453,
+     "capturados": 173,
+     "tasa": 0.3819,
+     "recall": 0.54574,
+     "lift": 3.207
+    },
+    {
+     "fraccion": 0.18,
+     "contactados": 479,
+     "capturados": 176,
+     "tasa": 0.36743,
+     "recall": 0.55521,
+     "lift": 3.086
+    },
+    {
+     "fraccion": 0.19,
+     "contactados": 506,
+     "capturados": 186,
+     "tasa": 0.36759,
+     "recall": 0.58675,
+     "lift": 3.087
+    },
+    {
+     "fraccion": 0.2,
+     "contactados": 532,
+     "capturados": 188,
+     "tasa": 0.35338,
+     "recall": 0.59306,
+     "lift": 2.968
+    },
+    {
+     "fraccion": 0.21,
+     "contactados": 559,
+     "capturados": 192,
+     "tasa": 0.34347,
+     "recall": 0.60568,
+     "lift": 2.884
+    },
+    {
+     "fraccion": 0.22,
+     "contactados": 586,
+     "capturados": 199,
+     "tasa": 0.33959,
+     "recall": 0.62776,
+     "lift": 2.852
+    },
+    {
+     "fraccion": 0.23,
+     "contactados": 612,
+     "capturados": 200,
+     "tasa": 0.3268,
+     "recall": 0.63091,
+     "lift": 2.744
+    },
+    {
+     "fraccion": 0.24,
+     "contactados": 639,
+     "capturados": 202,
+     "tasa": 0.31612,
+     "recall": 0.63722,
+     "lift": 2.655
+    },
+    {
+     "fraccion": 0.25,
+     "contactados": 666,
+     "capturados": 206,
+     "tasa": 0.30931,
+     "recall": 0.64984,
+     "lift": 2.597
+    },
+    {
+     "fraccion": 0.26,
+     "contactados": 692,
+     "capturados": 208,
+     "tasa": 0.30058,
+     "recall": 0.65615,
+     "lift": 2.524
+    },
+    {
+     "fraccion": 0.27,
+     "contactados": 719,
+     "capturados": 209,
+     "tasa": 0.29068,
+     "recall": 0.65931,
+     "lift": 2.441
+    },
+    {
+     "fraccion": 0.28,
+     "contactados": 745,
+     "capturados": 211,
+     "tasa": 0.28322,
+     "recall": 0.66562,
+     "lift": 2.378
+    },
+    {
+     "fraccion": 0.29,
+     "contactados": 772,
+     "capturados": 214,
+     "tasa": 0.2772,
+     "recall": 0.67508,
+     "lift": 2.328
+    },
+    {
+     "fraccion": 0.3,
+     "contactados": 799,
+     "capturados": 217,
+     "tasa": 0.27159,
+     "recall": 0.68454,
+     "lift": 2.281
+    },
+    {
+     "fraccion": 0.31,
+     "contactados": 825,
+     "capturados": 220,
+     "tasa": 0.26667,
+     "recall": 0.69401,
+     "lift": 2.239
+    },
+    {
+     "fraccion": 0.32,
+     "contactados": 852,
+     "capturados": 223,
+     "tasa": 0.26174,
+     "recall": 0.70347,
+     "lift": 2.198
+    },
+    {
+     "fraccion": 0.33,
+     "contactados": 878,
+     "capturados": 225,
+     "tasa": 0.25626,
+     "recall": 0.70978,
+     "lift": 2.152
+    },
+    {
+     "fraccion": 0.34,
+     "contactados": 905,
+     "capturados": 227,
+     "tasa": 0.25083,
+     "recall": 0.71609,
+     "lift": 2.106
+    },
+    {
+     "fraccion": 0.35,
+     "contactados": 932,
+     "capturados": 232,
+     "tasa": 0.24893,
+     "recall": 0.73186,
+     "lift": 2.09
+    },
+    {
+     "fraccion": 0.36,
+     "contactados": 958,
+     "capturados": 234,
+     "tasa": 0.24426,
+     "recall": 0.73817,
+     "lift": 2.051
+    },
+    {
+     "fraccion": 0.37,
+     "contactados": 985,
+     "capturados": 237,
+     "tasa": 0.24061,
+     "recall": 0.74763,
+     "lift": 2.021
+    },
+    {
+     "fraccion": 0.38,
+     "contactados": 1012,
+     "capturados": 242,
+     "tasa": 0.23913,
+     "recall": 0.76341,
+     "lift": 2.008
+    },
+    {
+     "fraccion": 0.39,
+     "contactados": 1038,
+     "capturados": 245,
+     "tasa": 0.23603,
+     "recall": 0.77287,
+     "lift": 1.982
+    },
+    {
+     "fraccion": 0.4,
+     "contactados": 1065,
+     "capturados": 249,
+     "tasa": 0.2338,
+     "recall": 0.78549,
+     "lift": 1.963
+    },
+    {
+     "fraccion": 0.41,
+     "contactados": 1091,
+     "capturados": 250,
+     "tasa": 0.22915,
+     "recall": 0.78864,
+     "lift": 1.924
+    },
+    {
+     "fraccion": 0.42,
+     "contactados": 1118,
+     "capturados": 253,
+     "tasa": 0.2263,
+     "recall": 0.79811,
+     "lift": 1.9
+    },
+    {
+     "fraccion": 0.43,
+     "contactados": 1145,
+     "capturados": 257,
+     "tasa": 0.22445,
+     "recall": 0.81073,
+     "lift": 1.885
+    },
+    {
+     "fraccion": 0.44,
+     "contactados": 1171,
+     "capturados": 260,
+     "tasa": 0.22203,
+     "recall": 0.82019,
+     "lift": 1.865
+    },
+    {
+     "fraccion": 0.45,
+     "contactados": 1198,
+     "capturados": 262,
+     "tasa": 0.2187,
+     "recall": 0.8265,
+     "lift": 1.837
+    },
+    {
+     "fraccion": 0.46,
+     "contactados": 1225,
+     "capturados": 262,
+     "tasa": 0.21388,
+     "recall": 0.8265,
+     "lift": 1.796
+    },
+    {
+     "fraccion": 0.47,
+     "contactados": 1251,
+     "capturados": 262,
+     "tasa": 0.20943,
+     "recall": 0.8265,
+     "lift": 1.759
+    },
+    {
+     "fraccion": 0.48,
+     "contactados": 1278,
+     "capturados": 264,
+     "tasa": 0.20657,
+     "recall": 0.83281,
+     "lift": 1.735
+    },
+    {
+     "fraccion": 0.49,
+     "contactados": 1304,
+     "capturados": 265,
+     "tasa": 0.20322,
+     "recall": 0.83596,
+     "lift": 1.707
+    },
+    {
+     "fraccion": 0.5,
+     "contactados": 1331,
+     "capturados": 267,
+     "tasa": 0.2006,
+     "recall": 0.84227,
+     "lift": 1.685
+    },
+    {
+     "fraccion": 0.51,
+     "contactados": 1358,
+     "capturados": 270,
+     "tasa": 0.19882,
+     "recall": 0.85174,
+     "lift": 1.67
+    },
+    {
+     "fraccion": 0.52,
+     "contactados": 1384,
+     "capturados": 273,
+     "tasa": 0.19725,
+     "recall": 0.8612,
+     "lift": 1.656
+    },
+    {
+     "fraccion": 0.53,
+     "contactados": 1411,
+     "capturados": 273,
+     "tasa": 0.19348,
+     "recall": 0.8612,
+     "lift": 1.625
+    },
+    {
+     "fraccion": 0.54,
+     "contactados": 1437,
+     "capturados": 277,
+     "tasa": 0.19276,
+     "recall": 0.87382,
+     "lift": 1.619
+    },
+    {
+     "fraccion": 0.55,
+     "contactados": 1464,
+     "capturados": 279,
+     "tasa": 0.19057,
+     "recall": 0.88013,
+     "lift": 1.6
+    },
+    {
+     "fraccion": 0.56,
+     "contactados": 1491,
+     "capturados": 283,
+     "tasa": 0.18981,
+     "recall": 0.89274,
+     "lift": 1.594
+    },
+    {
+     "fraccion": 0.57,
+     "contactados": 1517,
+     "capturados": 287,
+     "tasa": 0.18919,
+     "recall": 0.90536,
+     "lift": 1.589
+    },
+    {
+     "fraccion": 0.58,
+     "contactados": 1544,
+     "capturados": 289,
+     "tasa": 0.18718,
+     "recall": 0.91167,
+     "lift": 1.572
+    },
+    {
+     "fraccion": 0.59,
+     "contactados": 1571,
+     "capturados": 289,
+     "tasa": 0.18396,
+     "recall": 0.91167,
+     "lift": 1.545
+    },
+    {
+     "fraccion": 0.6,
+     "contactados": 1597,
+     "capturados": 291,
+     "tasa": 0.18222,
+     "recall": 0.91798,
+     "lift": 1.53
+    },
+    {
+     "fraccion": 0.61,
+     "contactados": 1624,
+     "capturados": 292,
+     "tasa": 0.1798,
+     "recall": 0.92114,
+     "lift": 1.51
+    },
+    {
+     "fraccion": 0.62,
+     "contactados": 1650,
+     "capturados": 292,
+     "tasa": 0.17697,
+     "recall": 0.92114,
+     "lift": 1.486
+    },
+    {
+     "fraccion": 0.63,
+     "contactados": 1677,
+     "capturados": 292,
+     "tasa": 0.17412,
+     "recall": 0.92114,
+     "lift": 1.462
+    },
+    {
+     "fraccion": 0.64,
+     "contactados": 1704,
+     "capturados": 294,
+     "tasa": 0.17254,
+     "recall": 0.92744,
+     "lift": 1.449
+    },
+    {
+     "fraccion": 0.65,
+     "contactados": 1730,
+     "capturados": 297,
+     "tasa": 0.17168,
+     "recall": 0.93691,
+     "lift": 1.442
+    },
+    {
+     "fraccion": 0.66,
+     "contactados": 1757,
+     "capturados": 297,
+     "tasa": 0.16904,
+     "recall": 0.93691,
+     "lift": 1.419
+    },
+    {
+     "fraccion": 0.67,
+     "contactados": 1784,
+     "capturados": 299,
+     "tasa": 0.1676,
+     "recall": 0.94322,
+     "lift": 1.407
+    },
+    {
+     "fraccion": 0.68,
+     "contactados": 1810,
+     "capturados": 301,
+     "tasa": 0.1663,
+     "recall": 0.94953,
+     "lift": 1.396
+    },
+    {
+     "fraccion": 0.69,
+     "contactados": 1837,
+     "capturados": 301,
+     "tasa": 0.16385,
+     "recall": 0.94953,
+     "lift": 1.376
+    },
+    {
+     "fraccion": 0.7,
+     "contactados": 1863,
+     "capturados": 302,
+     "tasa": 0.1621,
+     "recall": 0.95268,
+     "lift": 1.361
+    },
+    {
+     "fraccion": 0.71,
+     "contactados": 1890,
+     "capturados": 304,
+     "tasa": 0.16085,
+     "recall": 0.95899,
+     "lift": 1.351
+    },
+    {
+     "fraccion": 0.72,
+     "contactados": 1917,
+     "capturados": 304,
+     "tasa": 0.15858,
+     "recall": 0.95899,
+     "lift": 1.332
+    },
+    {
+     "fraccion": 0.73,
+     "contactados": 1943,
+     "capturados": 305,
+     "tasa": 0.15697,
+     "recall": 0.96215,
+     "lift": 1.318
+    },
+    {
+     "fraccion": 0.74,
+     "contactados": 1970,
+     "capturados": 306,
+     "tasa": 0.15533,
+     "recall": 0.9653,
+     "lift": 1.304
+    },
+    {
+     "fraccion": 0.75,
+     "contactados": 1996,
+     "capturados": 308,
+     "tasa": 0.15431,
+     "recall": 0.97161,
+     "lift": 1.296
+    },
+    {
+     "fraccion": 0.76,
+     "contactados": 2023,
+     "capturados": 308,
+     "tasa": 0.15225,
+     "recall": 0.97161,
+     "lift": 1.279
+    },
+    {
+     "fraccion": 0.77,
+     "contactados": 2050,
+     "capturados": 308,
+     "tasa": 0.15024,
+     "recall": 0.97161,
+     "lift": 1.262
+    },
+    {
+     "fraccion": 0.78,
+     "contactados": 2076,
+     "capturados": 309,
+     "tasa": 0.14884,
+     "recall": 0.97476,
+     "lift": 1.25
+    },
+    {
+     "fraccion": 0.79,
+     "contactados": 2103,
+     "capturados": 309,
+     "tasa": 0.14693,
+     "recall": 0.97476,
+     "lift": 1.234
+    },
+    {
+     "fraccion": 0.8,
+     "contactados": 2130,
+     "capturados": 309,
+     "tasa": 0.14507,
+     "recall": 0.97476,
+     "lift": 1.218
+    },
+    {
+     "fraccion": 0.81,
+     "contactados": 2156,
+     "capturados": 309,
+     "tasa": 0.14332,
+     "recall": 0.97476,
+     "lift": 1.204
+    },
+    {
+     "fraccion": 0.82,
+     "contactados": 2183,
+     "capturados": 309,
+     "tasa": 0.14155,
+     "recall": 0.97476,
+     "lift": 1.189
+    },
+    {
+     "fraccion": 0.83,
+     "contactados": 2209,
+     "capturados": 309,
+     "tasa": 0.13988,
+     "recall": 0.97476,
+     "lift": 1.175
+    },
+    {
+     "fraccion": 0.84,
+     "contactados": 2236,
+     "capturados": 309,
+     "tasa": 0.13819,
+     "recall": 0.97476,
+     "lift": 1.16
+    },
+    {
+     "fraccion": 0.85,
+     "contactados": 2263,
+     "capturados": 310,
+     "tasa": 0.13699,
+     "recall": 0.97792,
+     "lift": 1.15
+    },
+    {
+     "fraccion": 0.86,
+     "contactados": 2289,
+     "capturados": 310,
+     "tasa": 0.13543,
+     "recall": 0.97792,
+     "lift": 1.137
+    },
+    {
+     "fraccion": 0.87,
+     "contactados": 2316,
+     "capturados": 311,
+     "tasa": 0.13428,
+     "recall": 0.98107,
+     "lift": 1.128
+    },
+    {
+     "fraccion": 0.88,
+     "contactados": 2343,
+     "capturados": 311,
+     "tasa": 0.13274,
+     "recall": 0.98107,
+     "lift": 1.115
+    },
+    {
+     "fraccion": 0.89,
+     "contactados": 2369,
+     "capturados": 312,
+     "tasa": 0.1317,
+     "recall": 0.98423,
+     "lift": 1.106
+    },
+    {
+     "fraccion": 0.9,
+     "contactados": 2396,
+     "capturados": 312,
+     "tasa": 0.13022,
+     "recall": 0.98423,
+     "lift": 1.093
+    },
+    {
+     "fraccion": 0.91,
+     "contactados": 2422,
+     "capturados": 313,
+     "tasa": 0.12923,
+     "recall": 0.98738,
+     "lift": 1.085
+    },
+    {
+     "fraccion": 0.92,
+     "contactados": 2449,
+     "capturados": 313,
+     "tasa": 0.12781,
+     "recall": 0.98738,
+     "lift": 1.073
+    },
+    {
+     "fraccion": 0.93,
+     "contactados": 2476,
+     "capturados": 313,
+     "tasa": 0.12641,
+     "recall": 0.98738,
+     "lift": 1.062
+    },
+    {
+     "fraccion": 0.94,
+     "contactados": 2502,
+     "capturados": 313,
+     "tasa": 0.1251,
+     "recall": 0.98738,
+     "lift": 1.051
+    },
+    {
+     "fraccion": 0.95,
+     "contactados": 2529,
+     "capturados": 313,
+     "tasa": 0.12376,
+     "recall": 0.98738,
+     "lift": 1.039
+    },
+    {
+     "fraccion": 0.96,
+     "contactados": 2556,
+     "capturados": 314,
+     "tasa": 0.12285,
+     "recall": 0.99054,
+     "lift": 1.032
+    },
+    {
+     "fraccion": 0.97,
+     "contactados": 2582,
+     "capturados": 315,
+     "tasa": 0.122,
+     "recall": 0.99369,
+     "lift": 1.024
+    },
+    {
+     "fraccion": 0.98,
+     "contactados": 2609,
+     "capturados": 316,
+     "tasa": 0.12112,
+     "recall": 0.99685,
+     "lift": 1.017
+    },
+    {
+     "fraccion": 0.99,
+     "contactados": 2635,
+     "capturados": 317,
+     "tasa": 0.1203,
+     "recall": 1.0,
+     "lift": 1.01
+    },
+    {
+     "fraccion": 1.0,
+     "contactados": 2662,
+     "capturados": 317,
+     "tasa": 0.11908,
+     "recall": 1.0,
+     "lift": 1.0
+    }
+   ],
+   "campanas": [
+    {
+     "campaign_id": 14,
+     "tipo": "Type C",
+     "inicio": "2017-09-04",
+     "fin": "2017-11-08",
+     "expuestos": 224,
+     "respuestas": 18,
+     "tasa_observada": 0.08036,
+     "score_medio": 0.06232
+    },
+    {
+     "campaign_id": 15,
+     "tipo": "Type C",
+     "inicio": "2017-09-20",
+     "fin": "2018-02-28",
+     "expuestos": 17,
+     "respuestas": 2,
+     "tasa_observada": 0.11765,
+     "score_medio": 0.02915
+    },
+    {
+     "campaign_id": 16,
+     "tipo": "Type B",
+     "inicio": "2017-10-04",
+     "fin": "2017-11-05",
+     "expuestos": 188,
+     "respuestas": 19,
+     "tasa_observada": 0.10106,
+     "score_medio": 0.114
+    },
+    {
+     "campaign_id": 17,
+     "tipo": "Type B",
+     "inicio": "2017-10-18",
+     "fin": "2017-11-19",
+     "expuestos": 202,
+     "respuestas": 18,
+     "tasa_observada": 0.08911,
+     "score_medio": 0.10386
+    },
+    {
+     "campaign_id": 18,
+     "tipo": "Type A",
+     "inicio": "2017-10-30",
+     "fin": "2017-12-24",
+     "expuestos": 1133,
+     "respuestas": 214,
+     "tasa_observada": 0.18888,
+     "score_medio": 0.18284
+    },
+    {
+     "campaign_id": 19,
+     "tipo": "Type B",
+     "inicio": "2017-11-15",
+     "fin": "2017-12-17",
+     "expuestos": 130,
+     "respuestas": 15,
+     "tasa_observada": 0.11538,
+     "score_medio": 0.12848
+    },
+    {
+     "campaign_id": 20,
+     "tipo": "Type C",
+     "inicio": "2017-11-27",
+     "fin": "2018-02-05",
+     "expuestos": 244,
+     "respuestas": 11,
+     "tasa_observada": 0.04508,
+     "score_medio": 0.09766
+    },
+    {
+     "campaign_id": 21,
+     "tipo": "Type B",
+     "inicio": "2017-12-06",
+     "fin": "2018-01-07",
+     "expuestos": 65,
+     "respuestas": 2,
+     "tasa_observada": 0.03077,
+     "score_medio": 0.14129
+    },
+    {
+     "campaign_id": 22,
+     "tipo": "Type B",
+     "inicio": "2017-12-06",
+     "fin": "2018-01-07",
+     "expuestos": 276,
+     "respuestas": 15,
+     "tasa_observada": 0.05435,
+     "score_medio": 0.15225
+    },
+    {
+     "campaign_id": 23,
+     "tipo": "Type B",
+     "inicio": "2017-12-28",
+     "fin": "2018-02-04",
+     "expuestos": 183,
+     "respuestas": 3,
+     "tasa_observada": 0.01639,
+     "score_medio": 0.17237
+    }
+   ]
+  }
+ ],
+ "notas": {
+  "unidad": "par hogar × campaña (una fila por hogar y campaña expuesta)",
+  "modelo": "regresión logística con variables conductuales de 90 días y de exposición previa; sin demografía",
+  "variables": [
+   "campaign_type",
+   "age",
+   "income",
+   "home_ownership",
+   "marital_status",
+   "household_size",
+   "household_comp",
+   "kids_count",
+   "purchase_lines_90d",
+   "baskets_90d",
+   "products_90d",
+   "log_sales_90d",
+   "coupon_discount_90d",
+   "recency_days",
+   "history_coverage_days",
+   "prior_campaigns",
+   "prior_redemptions",
+   "prior_response_rate"
+  ],
+  "tope": "El puntaje sirve para ordenar. La calibración es insuficiente para leer cada puntuación como probabilidad: en el decil superior la probabilidad media supera con holgura la tasa observada.",
+  "no_es": "No es uplift ni efecto causal: no hay asignación aleatoria ni grupo de control. El canje observado es una asociación descriptiva.",
+  "ventanas": "las ventanas de prueba se traslapan entre cortes y no son réplicas independientes"
+ }
+}

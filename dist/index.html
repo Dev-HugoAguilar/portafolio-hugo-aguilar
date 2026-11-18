@@ -1,0 +1,749 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Hugo Aguilar — Data Scientist &amp; AI Engineer</title>
+  <meta name="description" content="Portafolio de Hugo César Aguilar Reyna, científico de datos e ingeniero de IA en Ciudad de México. Dashboards y visualización, ciencia de datos, ingeniería de datos, IA generativa y agentes.">
+  <meta name="author" content="Hugo César Aguilar Reyna">
+  <meta name="theme-color" content="#F7F8FC">
+
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="es_MX">
+  <meta property="og:site_name" content="Hugo Aguilar">
+  <meta property="og:title" content="Hugo Aguilar — Data Scientist &amp; AI Engineer">
+  <meta property="og:description" content="Ciencia de datos, ingeniería de datos, visualización e IA generativa. Portafolio de Hugo César Aguilar Reyna, Ciudad de México.">
+
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23111318'/%3E%3Ccircle cx='16' cy='17' r='7' fill='none' stroke='%23FFFFFF' stroke-width='1.6'/%3E%3Ccircle cx='23' cy='9' r='3' fill='%233458F5'/%3E%3C/svg%3E">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,300..600&amp;family=IBM+Plex+Mono:wght@400;500&amp;family=Inter:wght@300..600&amp;display=swap">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <a class="skip-link" href="#contenido">Saltar al contenido</a>
+
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <a class="wordmark" href="#inicio">
+        <span class="wordmark-name">Hugo Aguilar</span>
+        <span class="wordmark-role">Data Science &amp; AI</span>
+      </a>
+      <nav class="site-nav" aria-label="Navegación principal">
+        <a href="#/sobre-mi" id="nav-about">Sobre mí</a>
+        <a href="#portafolio" id="nav-portfolio">Portafolio</a>
+        <a class="nav-contact" href="#contacto">Contacto</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="contenido">
+
+    <div class="page" id="page-home">
+
+    <!-- ============ INICIO ============ -->
+    <section class="hero" id="inicio" aria-labelledby="hero-title">
+      <div class="wrap hero-inner">
+        <div class="hero-copy">
+          <p class="eyebrow">
+            <span class="eyebrow-dot" aria-hidden="true"></span>
+            <span>Data Scientist &amp; AI Engineer</span>
+            <span class="eyebrow-sep" aria-hidden="true">·</span>
+            <span>Ciudad de México</span>
+          </p>
+          <h1 id="hero-title">Los datos tienen<br>mucho que <em>contar.</em></h1>
+          <p class="hero-lead">
+            Soy Hugo César Aguilar Reyna. Científico de datos e ingeniero de IA con trayectoria
+            en datos y Business Intelligence para el sector financiero. Trabajo donde el análisis,
+            los modelos y la interfaz se convierten en una herramienta para decidir.
+          </p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#portafolio">
+              Explorar las cinco áreas
+              <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg>
+            </a>
+            <a class="btn btn-ghost" href="#/sobre-mi">Conoce más sobre mí</a>
+          </div>
+        </div>
+
+        <figure class="hero-art">
+          <svg id="network" viewBox="0 0 520 520" role="group"
+               aria-labelledby="net-title" aria-describedby="net-desc">
+            <title id="net-title">Red de relaciones conceptual</title>
+            <desc id="net-desc">Ilustración circular con tres grupos de nodos conectados alrededor de un centro con el monograma HA. Los puntos que recorren las conexiones son una simulación visual: no representan datos ni actividad real.</desc>
+          </svg>
+          <figcaption class="hero-caption">
+            <span class="caption-text">
+              <span class="caption-label">Red de relaciones</span>
+              <span class="caption-note">Simulación visual, no son datos reales</span>
+            </span>
+            <button class="net-toggle" type="button" id="net-toggle" data-paused="false"
+                    aria-controls="network" aria-label="Pausar la animación de la red">
+              <svg class="icon net-icon-pause" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M9 5v14M15 5v14"/>
+              </svg>
+              <svg class="icon net-icon-play" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M9 5.5 18 12 9 18.5Z"/>
+              </svg>
+              <span class="net-toggle-text">Pausar</span>
+            </button>
+            <p class="sr-only">Red interactiva: recorre los nodos con las flechas del teclado y pulsa Enter para fijar el resaltado de sus conexiones.</p>
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- ============ ACCESO RÁPIDO A LAS ÁREAS ============ -->
+    <nav class="areas-strip" aria-label="Ir a un área del portafolio">
+      <div class="wrap strip-inner">
+        <span class="strip-label">Cinco áreas</span>
+        <ul class="strip-list" id="areas-strip"></ul>
+      </div>
+    </nav>
+
+    <!-- ============ PORTAFOLIO: galería → área → proyecto ============ -->
+    <section class="section portfolio" id="portafolio">
+      <div class="wrap">
+
+        <!-- Nivel 1: galería de áreas -->
+        <div class="view" id="view-gallery">
+          <header class="section-head">
+            <div>
+              <h2 id="portfolio-title" tabindex="-1">Un problema.<br><em>Distintas formas de resolverlo.</em></h2>
+            </div>
+            <p class="section-intro">
+              Cinco áreas de trabajo, de la exploración de datos a los sistemas de decisión.
+              Cada área reúne sus proyectos y cada proyecto se explica y se usa aquí mismo,
+              sin salir del portafolio. Hoy los casos están planificados.
+            </p>
+          </header>
+
+          <div class="filters" role="group" aria-labelledby="filters-title">
+            <p class="micro-label" id="filters-title">Filtrar por área</p>
+            <div class="filters-row" id="filters"></div>
+          </div>
+          <p class="sr-only" role="status" id="filter-status"></p>
+
+          <div class="projects" id="projects"></div>
+          <p class="portfolio-note">Ilustraciones conceptuales: explican la idea de cada área, no datos reales ni resultados de un proyecto.</p>
+        </div>
+
+        <!-- Nivel 2: proyectos del área (se genera con JavaScript) -->
+        <div class="view" id="view-area" hidden></div>
+
+        <!-- Nivel 3: proyecto integrado con su aplicación (se genera con JavaScript) -->
+        <div class="view" id="view-project" hidden></div>
+
+        <!-- Ruta desconocida: estado explícito (se genera con JavaScript) -->
+        <div class="view" id="view-error" hidden></div>
+      </div>
+    </section>
+
+    <!-- ============ CONTACTO ============ -->
+    <section class="section contact" id="contacto" aria-labelledby="contact-title">
+      <div class="wrap contact-grid">
+        <div class="contact-copy">
+          <p class="eyebrow">02 / Contacto</p>
+          <h2 id="contact-title">Hablemos de tu<br>próximo <em>desafío.</em></h2>
+          <p class="contact-lead">
+            Estoy disponible para oportunidades remotas o híbridas en ciencia de datos,
+            ingeniería de IA y visualización de datos.
+          </p>
+          <dl class="contact-meta">
+            <div>
+              <dt>Ubicación</dt>
+              <dd>Ciudad de México, México</dd>
+            </div>
+            <div>
+              <dt>Disponibilidad</dt>
+              <dd>Remoto o híbrido</dd>
+            </div>
+          </dl>
+        </div>
+
+        <div class="contact-actions">
+          <p class="micro-label">Correo</p>
+          <a class="email" href="mailto:aguilar.hugo55@gmail.com">aguilar.hugo55@gmail.com</a>
+          <div class="contact-buttons">
+            <button class="btn btn-outline" type="button" id="copy"
+                    data-copy="aguilar.hugo55@gmail.com">
+              <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+                <rect x="9" y="9" width="11" height="11" rx="1.5"/>
+                <path d="M15 5.5H5.5A1.5 1.5 0 0 0 4 7v9"/>
+              </svg>
+              Copiar correo
+            </button>
+            <a class="btn btn-outline" href="https://www.linkedin.com/in/hugo-aguilar-reyna/"
+               target="_blank" rel="noopener noreferrer">
+              LinkedIn
+              <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg>
+            </a>
+          </div>
+          <p class="copy-status" id="copy-status" role="status" aria-live="polite"></p>
+          <p class="note-inline">
+            Este sitio no tiene formulario ni envía datos a ningún servidor: el contacto
+            ocurre directamente por correo o LinkedIn.
+          </p>
+        </div>
+      </div>
+    </section>
+    </div><!-- /page-home -->
+
+    <!-- ============ SOBRE MÍ: página interna ============ -->
+    <section class="section about" id="page-about" aria-labelledby="about-title" hidden>
+      <div class="wrap">
+
+        <!-- 1. Presentación personal -->
+        <div class="about-hero">
+          <div class="about-intro">
+            <p class="eyebrow">01 / Sobre mí</p>
+            <h1 class="about-title" id="about-title" tabindex="-1">
+              Científico de datos<br>e <em>ingeniero de IA</em>
+            </h1>
+            <p class="about-lead">
+              Hola, soy Hugo. Diseño y construyo soluciones que conectan datos, modelos y
+              aplicaciones: convierto información dispersa en herramientas que permiten decidir.
+            </p>
+          </div>
+
+          <!-- La red animada se monta aquí al entrar en la página (ver app.js):
+               mismo componente que Inicio, sin núcleo central y sin pie. -->
+          <figure class="about-art">
+            <svg id="network-sobre-mi" viewBox="0 0 520 520" role="group"
+                 aria-labelledby="net-about-title" aria-describedby="net-about-desc">
+              <title id="net-about-title">Red de relaciones conceptual</title>
+              <desc id="net-about-desc">Nodos conectados que forman una composición orgánica. Los puntos que recorren las conexiones son una simulación visual: no representan datos ni actividad real.</desc>
+            </svg>
+            <p class="sr-only">Red interactiva: recorre los nodos con las flechas del teclado y pulsa Enter para fijar el resaltado de sus conexiones.</p>
+          </figure>
+        </div>
+
+        <!-- 2. Mi recorrido -->
+        <section class="about-block" aria-labelledby="about-track-title">
+          <div class="about-block-head">
+            <p class="eyebrow">02 / Mi recorrido</p>
+            <h2 id="about-track-title">Del rigor financiero a la <em>construcción de sistemas con IA.</em></h2>
+          </div>
+
+          <div class="about-columns">
+            <div class="about-column">
+              <p>
+                Mi trayectoria se ha desarrollado en el sector financiero, trabajando con
+                <strong>procesos de datos</strong>, reglas de negocio y reportes donde la
+                precisión y la <strong>trazabilidad</strong> forman parte del trabajo diario.
+              </p>
+              <p>
+                Esa experiencia define mi manera de abordar un proyecto: entender qué representa
+                cada dato, comprobar las transformaciones y poder explicar cómo se obtuvo un
+                resultado.
+              </p>
+            </div>
+            <div class="about-column">
+              <p>
+                Sobre esa base he ampliado mi trabajo hacia la ciencia de datos y la ingeniería
+                de IA, incorporando <strong>modelos predictivos</strong>, visualización
+                interactiva y aplicaciones con <strong>modelos de lenguaje</strong>.
+              </p>
+              <p>
+                Mi campo de trabajo abarca el recorrido completo: <strong>preparar los
+                datos</strong>, investigar patrones, evaluar métodos y <strong>construir la
+                aplicación</strong> que permite explorar y utilizar los resultados.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <!-- 3. Cómo trabajo -->
+        <section class="about-block" aria-labelledby="about-method-title">
+          <div class="about-block-head">
+            <p class="eyebrow">03 / Cómo trabajo</p>
+            <h2 id="about-method-title">Cada decisión técnica responde a un problema.</h2>
+            <p class="about-block-intro">
+              Empiezo por entender qué necesita resolver la herramienta y cómo se utilizarán sus
+              resultados. A partir de ahí, desarrollo y reviso el proyecto en cinco etapas que se
+              retroalimentan.
+            </p>
+          </div>
+
+          <!-- Recorrido: los textos de las cinco etapas a la izquierda y un
+               esquema conceptual fijo a la derecha. La etapa activa la decide el
+               scroll (IntersectionObserver en app.js); sin él los textos se leen
+               igual. En móvil cada etapa lleva su propio esquema, sin sticky. -->
+          <!-- Recorrido: los textos de las cinco etapas a la izquierda y, a la
+               derecha, un esquema conceptual con cinco momentos, uno por etapa.
+               El esquema ocupa la misma altura que la lista y cada momento se
+               centra en su paso; app.js mide ambas columnas y coloca los grupos.
+               La etapa activa la decide el scroll. Sin JavaScript el lienzo de
+               referencia (440 × 660) ya deja la composición completa y legible. -->
+          <div class="journey" data-testid="recorrido">
+            <ol class="journey-steps">
+              <li class="journey-step" data-etapa="1">
+                <span class="step-num">01</span>
+                <h3 class="step-title">Definir el problema</h3>
+                <p class="step-text">
+                  Precisar la pregunta, las restricciones y los criterios con los que se evaluará
+                  la solución.
+                </p>
+              </li>
+              <li class="journey-step" data-etapa="2">
+                <span class="step-num">02</span>
+                <h3 class="step-title">Examinar los datos</h3>
+                <p class="step-text">
+                  Revisar su procedencia, cobertura y calidad; identificar qué permiten concluir y
+                  qué información falta.
+                </p>
+              </li>
+              <li class="journey-step" data-etapa="3">
+                <span class="step-num">03</span>
+                <h3 class="step-title">Construir una referencia</h3>
+                <p class="step-text">
+                  Establecer una solución inicial y comparar métodos según el problema, la evidencia
+                  y la complejidad necesaria.
+                </p>
+              </li>
+              <li class="journey-step" data-etapa="4">
+                <span class="step-num">04</span>
+                <h3 class="step-title">Evaluar y contrastar</h3>
+                <p class="step-text">
+                  Analizar errores, comprobar resultados y documentar las condiciones en las que la
+                  solución funciona.
+                </p>
+              </li>
+              <li class="journey-step" data-etapa="5">
+                <span class="step-num">05</span>
+                <h3 class="step-title">Integrar y comunicar</h3>
+                <p class="step-text">
+                  Llevar el análisis a una aplicación con resultados comprensibles, interacciones
+                  coherentes y cálculos verificables.
+                </p>
+              </li>
+            </ol>
+
+            <div class="journey-visual">
+              <div class="journey-frame" aria-hidden="true">
+                <svg class="jr-svg" viewBox="0 0 440 660" focusable="false">
+                  <!-- Espina del recorrido: une los cinco momentos -->
+                  <line class="jr-spine" x1="26" y1="66" x2="26" y2="594" />
+
+                  <!-- 1. Pregunta y criterios de evaluación -->
+                  <g class="jr-etapa" data-etapa="1" data-estado="pendiente" transform="translate(0,66)">
+                    <circle class="jr-marca" cx="26" cy="0" r="4.5" />
+                    <line class="jr-link" x1="34" y1="0" x2="52" y2="0" />
+                    <rect class="jr-box" x="52" y="-38" width="168" height="32" rx="5" />
+                    <text class="jr-ink" x="64" y="-17">Pregunta</text>
+                    <text class="jr-label" x="52" y="10">criterios</text>
+                    <circle class="jr-fill-violet" cx="56" cy="22" r="2.4" />
+                    <line class="jr-line" x1="68" y1="22" x2="330" y2="22" />
+                    <circle class="jr-fill-violet" cx="56" cy="34" r="2.4" />
+                    <line class="jr-line" x1="68" y1="34" x2="296" y2="34" />
+                    <circle class="jr-fill-violet" cx="56" cy="46" r="2.4" />
+                    <line class="jr-line" x1="68" y1="46" x2="262" y2="46" />
+                  </g>
+
+                  <!-- 2. Estructura y revisión de los datos -->
+                  <g class="jr-etapa" data-etapa="2" data-estado="pendiente" transform="translate(0,198)">
+                    <circle class="jr-marca" cx="26" cy="0" r="4.5" />
+                    <line class="jr-link" x1="34" y1="0" x2="52" y2="0" />
+                    <text class="jr-label" x="56" y="42">datos</text>
+                    <g class="jr-grid">
+                      <line x1="52" y1="-34" x2="268" y2="-34" />
+                      <line x1="52" y1="-21" x2="268" y2="-21" />
+                      <line x1="52" y1="-8" x2="268" y2="-8" />
+                      <line x1="52" y1="5" x2="268" y2="5" />
+                      <line x1="52" y1="18" x2="268" y2="18" />
+                      <line x1="52" y1="-34" x2="52" y2="18" />
+                      <line x1="79" y1="-34" x2="79" y2="18" />
+                      <line x1="106" y1="-34" x2="106" y2="18" />
+                      <line x1="133" y1="-34" x2="133" y2="18" />
+                      <line x1="160" y1="-34" x2="160" y2="18" />
+                      <line x1="187" y1="-34" x2="187" y2="18" />
+                      <line x1="214" y1="-34" x2="214" y2="18" />
+                      <line x1="241" y1="-34" x2="241" y2="18" />
+                      <line x1="268" y1="-34" x2="268" y2="18" />
+                    </g>
+                    <rect class="jr-revision" x="133" y="-34" width="27" height="52" />
+                    <rect class="jr-hueco" x="214" y="-8" width="27" height="13" />
+                    <text class="jr-label" x="286" y="-2">revisión</text>
+                  </g>
+
+                  <!-- 3. Comparación de métodos y referencia -->
+                  <g class="jr-etapa" data-etapa="3" data-estado="pendiente" transform="translate(0,330)">
+                    <circle class="jr-marca" cx="26" cy="0" r="4.5" />
+                    <line class="jr-link" x1="34" y1="0" x2="52" y2="0" />
+                    <text class="jr-label" x="56" y="-30">métodos</text>
+                    <path class="jr-stroke-violet" d="M52 16 C 104 -26 186 58 268 0" fill="none" />
+                    <path class="jr-stroke-teal jr-dash" d="M52 16 C 118 6 190 28 268 16" fill="none" />
+                    <path class="jr-line" d="M52 16 L 268 40" fill="none" />
+                    <circle class="jr-fill-violet" cx="268" cy="0" r="3.2" />
+                    <circle class="jr-fill-teal" cx="268" cy="16" r="3.2" />
+                    <circle class="jr-marca" cx="268" cy="40" r="3.2" />
+                    <text class="jr-label" x="282" y="44">referencia</text>
+                  </g>
+
+                  <!-- 4. Evaluación: errores y contraste -->
+                  <g class="jr-etapa" data-etapa="4" data-estado="pendiente" transform="translate(0,462)">
+                    <circle class="jr-marca" cx="26" cy="0" r="4.5" />
+                    <line class="jr-link" x1="34" y1="0" x2="52" y2="0" />
+                    <text class="jr-label" x="56" y="-34">evaluación</text>
+                    <path class="jr-line" d="M52 34 H 290 M52 34 V -20" fill="none" />
+                    <line class="jr-line jr-dash" x1="62" y1="28" x2="282" y2="-18" />
+                    <circle class="jr-marca" cx="92" cy="14" r="2.8" />
+                    <circle class="jr-marca" cx="124" cy="0" r="2.8" />
+                    <circle class="jr-fill-teal" cx="158" cy="-2" r="2.8" />
+                    <circle class="jr-marca" cx="196" cy="-10" r="2.8" />
+                    <circle class="jr-fill-violet" cx="232" cy="-18" r="2.8" />
+                    <circle class="jr-marca" cx="268" cy="-26" r="2.8" />
+                    <line class="jr-line jr-dash" x1="124" y1="0" x2="124" y2="16" />
+                    <line class="jr-line jr-dash" x1="196" y1="-10" x2="196" y2="2" />
+                    <text class="jr-label" x="300" y="18">error</text>
+                  </g>
+
+                  <!-- 5. Aplicación y comunicación del resultado -->
+                  <g class="jr-etapa" data-etapa="5" data-estado="pendiente" transform="translate(0,594)">
+                    <circle class="jr-marca" cx="26" cy="0" r="4.5" />
+                    <line class="jr-link" x1="34" y1="0" x2="52" y2="0" />
+                    <rect class="jr-box" x="52" y="-34" width="216" height="70" rx="5" />
+                    <line class="jr-line" x1="52" y1="-19" x2="268" y2="-19" />
+                    <circle class="jr-marca" cx="60" cy="-26" r="1.8" />
+                    <circle class="jr-marca" cx="67" cy="-26" r="1.8" />
+                    <circle class="jr-marca" cx="74" cy="-26" r="1.8" />
+                    <path class="jr-line" d="M62 30 L 92 10 L 122 18 L 152 -2 L 182 6 L 258 -10" fill="none" />
+                    <text class="jr-label" x="286" y="-2">aplicación</text>
+                  </g>
+                </svg>
+              </div>
+            </div>
+          </div>
+          <p class="journey-note">
+            Esquema conceptual del proceso · no representa datos del caso CNBV
+          </p>
+        </section>
+
+        <!-- Herramientas y capacidades -->
+        <section class="about-block" aria-labelledby="about-tools-title">
+          <div class="about-block-head">
+            <h2 id="about-tools-title">Herramientas y <em>capacidades.</em></h2>
+          </div>
+
+          <div class="cap-grid">
+            <div class="cap">
+              <h3 class="cap-title">Ingeniería de datos y Business Intelligence</h3>
+              <p class="cap-stack">SAS · Macros SAS · SQL · Python · ETL · Power BI · SAS Web Report</p>
+              <p class="cap-text">
+                Desarrollo de pipelines, integración de fuentes, modelado de reglas de negocio,
+                automatización de reportes regulatorios y optimización de procesos de cierre.
+                Modelado multidimensional, documentación de transformaciones y trazabilidad de
+                resultados. Migración de procesos SAS a Python.
+              </p>
+            </div>
+
+            <div class="cap">
+              <h3 class="cap-title">Procesamiento masivo y almacenamiento analítico</h3>
+              <p class="cap-stack">PySpark · Spark · Snowflake · HDFS · MapReduce · Kafka · Impala</p>
+              <p class="cap-text">
+                Formación y práctica técnica en procesamiento distribuido, arquitectura de datos y
+                almacenamiento analítico.
+              </p>
+            </div>
+
+            <div class="cap">
+              <h3 class="cap-title">Ciencia de datos, Machine Learning y Deep Learning</h3>
+              <p class="cap-stack">Python · Pandas · Scikit-learn · XGBoost · R</p>
+              <p class="cap-text">
+                Análisis exploratorio, preparación de variables, clasificación, regresión, árboles
+                de decisión, métodos de ensamble, clustering y reducción de dimensionalidad.
+                Formación en redes neuronales y redes neuronales profundas. Comparación de
+                modelos, ajuste de hiperparámetros y evaluación de errores y generalización.
+              </p>
+            </div>
+
+            <div class="cap">
+              <h3 class="cap-title">Bases de datos</h3>
+              <p class="cap-stack">SQL · SQL Server · Oracle · MongoDB · MongoDB Atlas · Neo4j · Cypher</p>
+              <p class="cap-text">
+                Integración y consulta de fuentes relacionales, modelado de documentos y grafos,
+                consultas Cypher y conexión de Neo4j con aplicaciones Python.
+              </p>
+            </div>
+
+            <div class="cap">
+              <h3 class="cap-title">Aplicaciones, servicios y contenedores</h3>
+              <p class="cap-stack">FastAPI · Pydantic · React · Git · Docker · Docker Compose</p>
+              <p class="cap-text">
+                Desarrollo e integración de APIs e interfaces, contratos de datos, validación y
+                pruebas de integración. Contenedorización de servicios y ejecución conjunta de
+                backend, frontend y proxy inverso en entornos locales reproducibles.
+              </p>
+            </div>
+
+            <div class="cap">
+              <h3 class="cap-title">Visualización e interfaces</h3>
+              <p class="cap-stack">Power BI · D3.js · React · Plotly · Streamlit · jQuery</p>
+              <p class="cap-text">
+                Construcción de tableros, visualizaciones interactivas e interfaces para explorar
+                información y comunicar resultados.
+              </p>
+            </div>
+
+            <div class="cap">
+              <h3 class="cap-title">IA generativa, RAG y agentes</h3>
+              <p class="cap-stack">LLMs mediante APIs · LangChain · LangGraph · LangSmith · MCP</p>
+              <p class="cap-text">
+                Preparación y fragmentación de documentos, embeddings, recuperación de contexto y
+                respuestas con fuentes. Diseño de instrucciones, integración de herramientas,
+                flujos y agentes con estado, trazabilidad y evaluación. Validación de entradas y
+                salidas y diagnóstico de errores de conexión, autenticación e interoperabilidad.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <!-- 4. Formación -->
+        <section class="about-block" aria-labelledby="about-edu-title">
+          <div class="about-block-head">
+            <p class="eyebrow">04 / Formación</p>
+            <h2 id="about-edu-title">La base académica de mi <em>práctica.</em></h2>
+          </div>
+
+          <!-- Estudios académicos -->
+          <ul class="edu-list about-edu">
+            <li>
+              <span class="edu-title">Máster en Análisis y Visualización de Datos Masivos</span>
+              <span class="edu-meta">UNIR México</span>
+              <span class="edu-period">Octubre de 2024 – marzo de 2026</span>
+            </li>
+            <li>
+              <span class="edu-title">Licenciatura en Sistemas Computacionales</span>
+              <span class="edu-meta">Comunidades Educativas Unidas</span>
+              <span class="edu-period">Junio de 2018 – octubre de 2021</span>
+            </li>
+            <li>
+              <span class="edu-title">
+                Bachillerato tecnológico con carrera técnica en Informática Administrativa
+              </span>
+              <span class="edu-meta">Fundación Lefranc</span>
+              <span class="edu-period">Febrero de 2011 – diciembre de 2013</span>
+            </li>
+          </ul>
+
+          <!-- Formación complementaria: certificaciones y cursos, por área -->
+          <div class="edu-complementaria">
+            <h3 class="edu-block-title" id="about-cfc-title">Formación complementaria</h3>
+
+            <div class="certi-grid">
+              <div class="certi-grupo">
+                <h4 class="certi-title">Ciencia de datos e inteligencia artificial</h4>
+                <ul class="certi-list">
+                  <li>
+                    <span class="certi-nombre">Continuing Education Certificate in Data Science</span>
+                    <span class="certi-emisor">MIU City University Miami</span>
+                  </li>
+                  <li>
+                    <span class="certi-nombre">Generative AI Using SAS</span>
+                    <span class="certi-emisor">SAS</span>
+                  </li>
+                  <li>
+                    <span class="certi-nombre">
+                      Modern Data Science with SAS Viya Workbench and Python
+                    </span>
+                    <span class="certi-emisor">SAS</span>
+                  </li>
+                  <li>
+                    <span class="certi-nombre">SAS Programming for R Users</span>
+                    <span class="certi-emisor">SAS</span>
+                  </li>
+                </ul>
+              </div>
+
+              <div class="certi-grupo">
+                <h4 class="certi-title">Arquitectura y procesamiento</h4>
+                <ul class="certi-list">
+                  <li>
+                    <span class="certi-nombre">Ingeniería del Procesado Masivo de Datos</span>
+                    <span class="certi-emisor">UNIR México</span>
+                  </li>
+                  <li>
+                    <span class="certi-nombre">Arquitectura de Datos</span>
+                    <span class="certi-emisor">UNIR México</span>
+                  </li>
+                  <li>
+                    <span class="certi-nombre">
+                      Hands-On Essentials: Data Warehousing Workshop
+                    </span>
+                    <span class="certi-emisor">Snowflake</span>
+                  </li>
+                  <li>
+                    <span class="certi-nombre">
+                      Curso de Preparación para la Certificación AZ-900 Microsoft Azure
+                    </span>
+                    <span class="certi-emisor">UNIR México</span>
+                    <span class="certi-nota">Curso de preparación · sin certificación oficial AZ-900</span>
+                  </li>
+                </ul>
+              </div>
+
+              <div class="certi-grupo">
+                <h4 class="certi-title">Grafos y bases de datos NoSQL</h4>
+                <ul class="certi-list">
+                  <li>
+                    <span class="certi-nombre">Neo4j Certified Professional</span>
+                    <span class="certi-emisor">Neo4j</span>
+                  </li>
+                  <li>
+                    <span class="certi-nombre">Building Neo4j Applications with Python</span>
+                    <span class="certi-emisor">Neo4j</span>
+                  </li>
+                  <li>
+                    <span class="certi-nombre">Intermediate Cypher Queries</span>
+                    <span class="certi-emisor">Neo4j</span>
+                  </li>
+                  <li>
+                    <span class="certi-nombre">Graph Data Modeling Fundamentals</span>
+                    <span class="certi-emisor">Neo4j</span>
+                  </li>
+                  <li>
+                    <span class="certi-nombre">Getting Started with MongoDB Atlas</span>
+                    <span class="certi-emisor">MongoDB</span>
+                  </li>
+                  <li>
+                    <span class="certi-nombre">Introduction MongoDB for Manufacturing</span>
+                    <span class="certi-emisor">MongoDB</span>
+                  </li>
+                  <li>
+                    <span class="certi-nombre">Introduction to MongoDB</span>
+                    <span class="certi-emisor">MongoDB</span>
+                  </li>
+                </ul>
+              </div>
+
+              <div class="certi-grupo">
+                <h4 class="certi-title">Visualización y Business Intelligence</h4>
+                <ul class="certi-list">
+                  <li>
+                    <span class="certi-nombre">Análisis y Visualización de Datos</span>
+                    <span class="certi-emisor">UNIR México</span>
+                  </li>
+                  <li>
+                    <span class="certi-nombre">
+                      Business Intelligence Professional Certification, BIFPC™
+                    </span>
+                    <span class="certi-emisor">CertiProf</span>
+                    <span class="certi-nota">Vigencia hasta enero de 2028</span>
+                  </li>
+                </ul>
+              </div>
+
+              <div class="certi-grupo">
+                <h4 class="certi-title">Gestión</h4>
+                <ul class="certi-list">
+                  <li>
+                    <span class="certi-nombre">
+                      Diplomado en Soft Skills y Habilidades Directivas
+                    </span>
+                    <span class="certi-emisor">UNIR México</span>
+                  </li>
+                  <li>
+                    <span class="certi-nombre">
+                      Scrum Master Professional Certificate, SMPC®
+                    </span>
+                    <span class="certi-emisor">CertiProf</span>
+                    <span class="certi-nota">Credencial vencida en mayo de 2024</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 5. Contacto -->
+        <section class="about-block about-contact" aria-labelledby="about-contact-title">
+          <div class="about-block-head">
+            <p class="eyebrow">05 / Contacto</p>
+            <h2 id="about-contact-title">Hablemos de lo que <em>estás construyendo.</em></h2>
+            <p class="about-block-intro">
+              Si tu proyecto requiere conectar datos, modelos y una aplicación que permita
+              utilizarlos, <a class="about-link" href="#contacto">conversemos</a> sobre el
+              problema y su alcance.
+            </p>
+          </div>
+
+          <div class="about-contact-grid">
+            <div class="about-contact-actions">
+              <a class="about-email" href="mailto:aguilar.hugo55@gmail.com">aguilar.hugo55@gmail.com</a>
+              <a class="btn btn-ghost" href="https://www.linkedin.com/in/hugo-aguilar-reyna/"
+                 target="_blank" rel="noopener noreferrer">
+                LinkedIn
+                <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg>
+              </a>
+            </div>
+          </div>
+        </section>
+
+        <p class="about-foot">
+          <a class="view-back" href="#portafolio">
+            Explora mi trabajo
+            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg>
+          </a>
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap footer-inner">
+      <p>© 2026 Hugo César Aguilar Reyna</p>
+      <nav class="footer-nav" aria-label="Navegación del pie">
+        <a href="#inicio">Inicio</a>
+        <a href="#/sobre-mi">Sobre mí</a>
+        <a href="#portafolio">Portafolio</a>
+        <a href="#contacto">Contacto</a>
+      </nav>
+      <p class="footer-note">Sitio estático, sin analítica ni cookies.</p>
+    </div>
+  </footer>
+
+  <!-- ============ APLICACIÓN AMPLIADA ============
+       La demo no sale del sitio: al ampliarla se traslada a este diálogo, que
+       ocupa la pantalla para trabajar cómodamente. La acción de ampliar/reducir
+       vive en la cabecera del propio dashboard (icono junto a «Fuentes»). -->
+  <dialog id="demo-dialog" class="demo-dialog" aria-label="Aplicación ampliada">
+    <div class="demo-slot" id="demo-slot"></div>
+  </dialog>
+
+  <noscript>
+    <div class="noscript">
+      La galería del portafolio, sus áreas y los proyectos se generan con JavaScript.
+      Actívalo para explorarlos. El resto del sitio —biografía, formación, herramientas y
+      contacto— funciona sin JavaScript.
+    </div>
+  </noscript>
+
+  <script src="content.js" defer></script>
+  <script src="scenes.js" defer></script>
+  <script src="projects.js" defer></script>
+  <script src="projects/observatorio-financiero.js" defer></script>
+  <script src="projects/comparativo-bancario.js" defer></script>
+  <script src="projects/atlas-vial.js" defer></script>
+  <script src="projects/marketing-clientes.js" defer></script>
+  <script src="projects/atlas-comercial.js" defer></script>
+  <script src="projects/clientes-campanas.js" defer></script>
+  <script src="projects/clientes-en-movimiento.js" defer></script>
+  <script src="projects/gaza-observatorio.js" defer></script>
+<script src="projects/vidas-en-transito.js" defer></script>
+  <script src="projects/pulso-comercial.js" defer></script>
+  <script src="projects/modernizacion-sas-python.js" defer></script>
+  <script src="projects/asistente-investigacion.js" defer></script>
+  <script src="projects/copiloto-nl-sql.js" defer></script>
+  <script src="projects/data-incident-commander.js" defer></script>
+  <script src="projects/the-ripple-room.js" defer></script>
+  <script src="projects/kilometro-cero.js" defer></script>
+  <script src="projects/dockmind.js" defer></script>
+  <script src="projects/orbita.js" defer></script>
+  <script src="projects/retailops.js" defer></script>
+  <script src="projects/analista-asistido.js" defer></script>
+  <script src="app.js" defer></script>
+</body>
+</html>
+

@@ -1,0 +1,2109 @@
+/* ==========================================================================
+   HUGO AGUILAR — PORTAFOLIO
+   style.css
+   --------------------------------------------------------------------------
+   1. Tokens de diseño (paleta aprobada + derivados)
+   2. Base y reset
+   3. Utilidades
+   4. Cabecera
+   5. Inicio (hero + ilustración)
+   6. Franja de áreas
+   7. Secciones y Sobre mí
+   8. Herramientas
+   9. Portafolio (filtros y fichas de galería)
+   10. Ficha emergente (dialog)
+   11. Contacto y pie
+   12. Adaptación a pantallas pequeñas
+   13. Preferencias del usuario
+   ========================================================================== */
+
+/* ============ 1. TOKENS ============ */
+:root {
+  /* ---- Paleta aprobada ----------------------------------------------
+     bg        fondo general
+     surface   tarjetas, diálogos y controles
+     text      títulos, texto principal y sección de contacto (fondo)
+     secondary párrafos secundarios
+     border    separadores y bordes
+     primary   acciones, enlaces destacados, foco y filtro activo
+     viz-*     apoyo en ilustraciones y visualizaciones
+     ------------------------------------------------------------------ */
+  --bg: #F7F8FC;
+  --surface: #FFFFFF;
+  --text: #111318;
+  --text-secondary: #596273;
+  --border: #DDE2EB;
+  --primary: #3458F5;
+  --viz-purple: #8066E8;
+  --viz-teal: #087F8C;
+
+  /* ---- Derivados de la paleta (estados y superficies) ---------------
+     Se obtienen de los colores anteriores; no añaden tonos nuevos.
+     ------------------------------------------------------------------ */
+  --surface-2: #F1F3F9;                    /* superficie alterna suave */
+  --border-strong: #C6CEDC;                /* separadores enfatizados */
+  --control-border: #7C879B;               /* contorno de controles (>= 3:1) */
+  --primary-hover: #2745D7;                /* primary oscurecido */
+  --primary-soft: rgba(52, 88, 245, .07);  /* relleno de hover */
+  --on-primary: #FFFFFF;                   /* texto sobre primary */
+  --on-dark: #FFFFFF;                      /* texto sobre --text */
+  --on-dark-soft: rgba(255, 255, 255, .72);
+  --on-dark-faint: rgba(255, 255, 255, .55);
+  --on-dark-rule: rgba(255, 255, 255, .18);
+  --on-dark-rule-strong: rgba(255, 255, 255, .42);
+  --on-dark-hover: rgba(255, 255, 255, .10);
+  --link-on-dark: #8FB0FF;                 /* enlace claro sobre --text */
+  --shadow: rgba(17, 19, 24, .45);
+  --backdrop: rgba(17, 19, 24, .55);
+
+  /* Tipografía */
+  --serif: 'Fraunces', 'Iowan Old Style', Georgia, 'Times New Roman', serif;
+  --sans: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+
+  /* Medidas */
+  --wrap: 1220px;
+  --pad: clamp(18px, 5vw, 64px);
+  --measure: 66ch;
+  --header-h: 72px;
+  --radius: 3px;
+  --ease: cubic-bezier(.22, .68, .28, 1);
+}
+
+/* ============ 2. BASE ============ */
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-behavior: smooth;
+  scroll-padding-top: calc(var(--header-h) + 20px);
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--sans);
+  font-size: clamp(15.5px, 0.55vw + 14px, 17px);
+  font-weight: 400;
+  line-height: 1.72;
+  letter-spacing: -0.003em;
+  overflow-wrap: break-word;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3 {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-optical-sizing: auto;
+  line-height: 1.06;
+  letter-spacing: -0.022em;
+  text-wrap: balance;
+  margin: 0;
+}
+
+h1 { font-size: clamp(2.6rem, 6.1vw, 4.9rem); letter-spacing: -0.032em; }
+h2 { font-size: clamp(1.85rem, 3.5vw, 3rem); }
+h3 { font-size: clamp(1.15rem, 1.5vw, 1.42rem); line-height: 1.22; letter-spacing: -0.012em; }
+
+em { font-style: italic; color: var(--primary); }
+
+p { margin: 0 0 1.05em; }
+p:last-child { margin-bottom: 0; }
+
+a { color: inherit; text-decoration: none; }
+
+button { font: inherit; color: inherit; }
+
+svg { display: block; max-width: 100%; }
+
+ul, ol, dl, dd { margin: 0; padding: 0; }
+ul, ol { list-style: none; }
+
+::selection { background: var(--primary); color: var(--on-primary); }
+
+:where(a, button, [tabindex]):focus-visible {
+  outline: 2.5px solid var(--primary);
+  outline-offset: 4px;
+  border-radius: 2px;
+}
+
+/* ============ 3. UTILIDADES ============ */
+.wrap {
+  width: 100%;
+  max-width: var(--wrap);
+  margin-inline: auto;
+  padding-inline: var(--pad);
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+[hidden] { display: none !important; }
+
+.skip-link {
+  position: fixed;
+  top: 10px; left: 10px;
+  z-index: 100;
+  padding: 12px 18px;
+  background: var(--primary);
+  color: var(--on-primary);
+  font-size: 0.85rem;
+  border-radius: var(--radius);
+  transform: translateY(-160%);
+  transition: transform .18s var(--ease);
+}
+.skip-link:focus-visible { transform: translateY(0); outline-offset: 2px; }
+
+.eyebrow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 10px;
+  font-family: var(--mono);
+  font-size: 0.685rem;
+  font-weight: 400;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  line-height: 1.5;
+  margin: 0 0 clamp(18px, 2vw, 28px);
+}
+.eyebrow > span { white-space: nowrap; }
+.eyebrow-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--primary);
+  flex: 0 0 auto;
+}
+.eyebrow-sep { color: var(--border-strong); }
+
+.micro-label {
+  font-family: var(--mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  margin: 0 0 14px;
+}
+
+.note-inline {
+  font-size: 0.79rem;
+  line-height: 1.65;
+  color: var(--text-secondary);
+  margin: 18px 0 0;
+  max-width: 62ch;
+}
+
+/* Ruta desconocida y códigos: mismo lenguaje que las migas */
+.mono {
+  font-family: var(--mono);
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  overflow-wrap: anywhere;
+}
+
+.icon {
+  width: 1.05em; height: 1.05em;
+  flex: 0 0 auto;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* Botones */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 22px;
+  border: 1px solid transparent;
+  border-radius: var(--radius);
+  font-size: 0.87rem;
+  font-weight: 500;
+  letter-spacing: 0.005em;
+  line-height: 1.2;
+  transition: background-color .18s var(--ease), border-color .18s var(--ease), color .18s var(--ease);
+}
+.btn .icon { transition: transform .18s var(--ease); }
+.btn:hover .icon { transform: translateX(3px); }
+
+/* Acción principal: fondo primary con texto blanco */
+.btn-primary {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: var(--on-primary);
+}
+.btn-primary:hover { background: var(--primary-hover); border-color: var(--primary-hover); }
+
+/* Acción secundaria sobre fondo claro */
+.btn-ghost { border-color: var(--control-border); color: var(--text); background: transparent; }
+.btn-ghost:hover {
+  border-color: var(--primary);
+  color: var(--primary);
+  background: var(--primary-soft);
+}
+
+/* Acción secundaria sobre la sección oscura */
+.btn-outline {
+  border-color: var(--on-dark-rule-strong);
+  color: var(--on-dark);
+  background: transparent;
+}
+.btn-outline:hover {
+  border-color: var(--on-dark);
+  background: var(--on-dark-hover);
+}
+
+/* ============ 4. CABECERA ============ */
+
+/* Progreso del velo: 0 arriba del todo y 1 con la página desplazada. Lo
+   escribe app.js en cada fotograma; el CSS lo usa para el fondo, el desenfoque y
+   el divisor, de modo que el cambio es continuo y no hay saltos. */
+@property --hdr-p {
+  syntax: "<number>";
+  inherits: false;
+  initial-value: 0;
+}
+
+/* En reposo la barra es el propio fondo de la página: sin velo ni divisor. Al
+   desplazarse aparece un velo claro translúcido con desenfoque sutil y una línea
+   fina. El borde se declara siempre —con alfa 0 en reposo— para que la altura
+   de la cabecera no cambie nunca y el contenido no se mueva. */
+.site-header {
+  --hdr-p: 0;
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  background-color: rgba(247, 248, 252, calc(var(--hdr-p) * 0.86));
+  -webkit-backdrop-filter: blur(calc(var(--hdr-p) * 12px)) saturate(1.04);
+  backdrop-filter: blur(calc(var(--hdr-p) * 12px)) saturate(1.04);
+  border-bottom: 1px solid rgba(221, 226, 235, var(--hdr-p));
+}
+
+.header-inner {
+  min-height: var(--header-h);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.wordmark { display: block; line-height: 1.1; }
+.wordmark-name {
+  display: block;
+  font-family: var(--serif);
+  font-size: 1.24rem;
+  letter-spacing: -0.015em;
+}
+.wordmark-role {
+  display: block;
+  font-family: var(--mono);
+  font-size: 0.605rem;
+  letter-spacing: 0.19em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  margin-top: 5px;
+}
+
+.site-nav {
+  display: flex;
+  align-items: center;
+  gap: clamp(16px, 2.4vw, 34px);
+  font-size: 0.87rem;
+}
+
+/* Enlaces de texto: la sección activa y la interacción se marcan con una línea
+   azul fina que se revela desde el centro hacia los extremos. */
+.site-nav a:not(.nav-contact) {
+  position: relative;
+  padding-block: 6px;
+  color: var(--text);
+  transition: color .18s var(--ease);
+}
+.site-nav a:not(.nav-contact)::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 1.5px;
+  border-radius: 1px;
+  background: var(--primary);
+  transform: scaleX(0);
+  transform-origin: 50% 50%;
+  transition: transform .24s var(--ease);
+}
+.site-nav a:not(.nav-contact):hover,
+.site-nav a:not(.nav-contact):focus-visible { color: var(--primary); }
+.site-nav a:not(.nav-contact):hover::after,
+.site-nav a:not(.nav-contact):focus-visible::after,
+.site-nav a[aria-current="page"]::after { transform: scaleX(1); }
+
+/* Contacto: contorno fino que al interactuar toma el azul de la paleta con un
+   relleno suave, sin resplandores ni sombras. */
+.nav-contact {
+  font-family: var(--mono);
+  font-size: 0.74rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text);
+  border: 1px solid var(--control-border);
+  border-radius: 999px;
+  padding: 8px 16px;
+  transition: border-color .18s var(--ease), color .18s var(--ease),
+    background-color .18s var(--ease);
+}
+.nav-contact:hover,
+.nav-contact:focus-visible {
+  border-color: var(--primary);
+  color: var(--primary);
+  background: var(--primary-soft);
+}
+
+/* ============ 5. INICIO ============ */
+.hero { padding-block: clamp(44px, 6vw, 92px) clamp(40px, 5vw, 76px); }
+
+.hero-inner {
+  display: grid;
+  grid-template-columns: minmax(0, 1.04fr) minmax(0, 0.96fr);
+  align-items: center;
+  gap: clamp(32px, 5vw, 76px);
+}
+
+.hero-lead {
+  font-size: clamp(1.02rem, 1.2vw, 1.17rem);
+  line-height: 1.78;
+  color: var(--text-secondary);
+  max-width: 49ch;
+  margin: clamp(22px, 2.6vw, 30px) 0 0;
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 14px;
+  margin-top: clamp(26px, 3vw, 38px);
+}
+
+.hero-art { margin: 0; }
+.hero-art svg {
+  width: 100%;
+  height: auto;
+  max-width: 520px;
+  margin-inline: auto;
+}
+
+.hero-caption {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px 16px;
+  max-width: 520px;
+  margin: 12px auto 0;
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  line-height: 1.45;
+}
+.caption-text { display: grid; gap: 4px; min-width: 0; }
+.caption-note {
+  font-size: 0.55rem;
+  letter-spacing: 0.06em;
+  text-transform: none;
+  opacity: .85;
+}
+
+/* Control de pausa de la ilustración */
+.net-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  flex: 0 0 auto;
+  padding: 7px 13px;
+  border: 1px solid var(--control-border);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--text-secondary);
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+  line-height: 1;
+  cursor: pointer;
+  transition: border-color .16s var(--ease), color .16s var(--ease), background-color .16s var(--ease);
+}
+.net-toggle:hover {
+  border-color: var(--primary);
+  color: var(--primary);
+  background: var(--primary-soft);
+}
+.net-toggle .icon { width: 11px; height: 11px; stroke-width: 2; }
+.net-toggle .net-icon-play { display: none; }
+.net-toggle[data-paused="true"] .net-icon-pause { display: none; }
+.net-toggle[data-paused="true"] .net-icon-play { display: block; }
+
+/* Ilustración: las capas decorativas no reciben el puntero */
+.net-links,
+.net-nodes,
+.net-signals,
+.net-label { pointer-events: none; }
+.net-links line {
+  transition: stroke .18s var(--ease), stroke-width .18s var(--ease), stroke-opacity .18s var(--ease);
+}
+.net-nodes circle {
+  transition: fill .3s var(--ease), fill-opacity .2s var(--ease);
+}
+
+/* Iniciales junto al núcleo: sans serif, sin placa, sin cursiva */
+.net-mark {
+  font-family: var(--sans);
+  font-size: 9.5px;
+  font-weight: 500;
+  letter-spacing: 0.09em;
+  dominant-baseline: middle;
+}
+
+.net-node-hit { cursor: pointer; }
+.net-node-hit:focus,
+.net-node-hit:focus-visible { outline: none; }
+.net-focus-ring,
+.net-pulse-trail { pointer-events: none; }
+
+/* ============ 6. FRANJA DE ÁREAS ============ */
+.areas-strip { border-block: 1px solid var(--border); }
+
+.strip-inner {
+  display: flex;
+  align-items: baseline;
+  gap: clamp(14px, 2vw, 32px);
+  padding-block: 15px;
+  flex-wrap: wrap;
+}
+
+.strip-label {
+  font-family: var(--mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  flex: 0 0 auto;
+}
+
+.strip-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px clamp(14px, 2.2vw, 34px);
+  flex: 1 1 auto;
+}
+
+.strip-list button {
+  border: 0;
+  background: none;
+  padding: 2px 0;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: baseline;
+  gap: 8px;
+  font-size: 0.83rem;
+  color: var(--text);
+  border-bottom: 1px solid transparent;
+  transition: color .18s var(--ease), border-color .18s var(--ease);
+}
+.strip-list button:hover { color: var(--primary); border-bottom-color: var(--primary); }
+.strip-num {
+  font-family: var(--mono);
+  font-size: 0.63rem;
+  color: var(--text-secondary);
+  letter-spacing: 0.06em;
+}
+
+/* ============ 7. SECCIONES Y PÁGINA SOBRE MÍ ============ */
+.section { padding-block: clamp(62px, 8vw, 122px); }
+
+/* --- página interna «Sobre mí» --- */
+.about { padding-block: clamp(44px, 5.5vw, 76px) clamp(62px, 8vw, 110px); }
+
+/* Primer bloque de la página: las dos columnas arrancan arriba, de modo que
+   «01 / Sobre mí» queda a la altura del inicio visible de la red. No lleva
+   borde ni relleno inferior: el único separador es el del bloque siguiente. */
+.about-hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1.12fr) minmax(0, 0.88fr);
+  gap: clamp(28px, 5vw, 72px);
+  align-items: start;
+}
+
+/* 48 px del contenido más bajo al separador y 40 px de este a «02». */
+.about-hero + .about-block {
+  margin-top: 48px;
+  padding-top: 40px;
+}
+
+.about-title {
+  font-size: clamp(2.05rem, 4.4vw, 3.5rem);
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  outline: none;
+}
+.about-title:focus-visible { outline: 2.5px solid var(--primary); outline-offset: 8px; }
+
+.about-lead {
+  font-size: clamp(1.05rem, 1.3vw, 1.22rem);
+  line-height: 1.72;
+  color: var(--text-secondary);
+  max-width: 44ch;
+  margin: clamp(20px, 2.4vw, 28px) 0 0;
+}
+
+/* Red animada de «Sobre mí»: el mismo componente de Inicio, integrado sobre el
+   fondo de la página (sin tarjeta, marco ni pie de ilustración). */
+.about-art { margin: 0; }
+.about-art svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-width: 460px;
+  margin-inline: auto;
+  overflow: visible;
+}
+
+/* Énfasis puntual: capacidades dentro del texto, nunca frases completas. */
+.about strong { font-weight: 600; color: var(--text); }
+/* Enlace dentro del texto (cierre «conversemos»). */
+.about-link {
+  color: var(--primary);
+  padding-bottom: 1px;
+  border-bottom: 1px solid currentColor;
+  transition: color .16s var(--ease), border-color .16s var(--ease);
+}
+.about-link:hover { color: var(--primary-hover); }
+
+/* Bloques de la página */
+.about-block {
+  margin-top: clamp(46px, 6vw, 88px);
+  border-top: 1px solid var(--border);
+  padding-top: clamp(26px, 3.4vw, 44px);
+}
+.about-block-head h2 {
+  font-size: clamp(1.65rem, 3vw, 2.45rem);
+  max-width: 26ch;
+}
+.about-block-intro {
+  margin: clamp(16px, 2vw, 22px) 0 0;
+  max-width: 58ch;
+  font-size: 0.98rem;
+  line-height: 1.75;
+  color: var(--text-secondary);
+}
+
+.about-columns {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(20px, 3.4vw, 56px);
+  margin-top: clamp(22px, 3vw, 36px);
+  max-width: 98ch;
+}
+.about-column p {
+  font-size: 0.98rem;
+  line-height: 1.78;
+  color: var(--text-secondary);
+  margin: 0 0 1.1em;
+}
+.about-column p:last-child { margin-bottom: 0; }
+
+/* Recorrido de trabajo: textos a la izquierda y esquema conceptual a la derecha.
+   El esquema ocupa la misma altura que la lista y cada momento se centra en su
+   paso. La etapa activa la marca el scroll; sin efecto los textos se leen igual.
+   Integrado en el fondo, sin tarjetas adicionales. */
+.journey {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 0.95fr);
+  gap: clamp(28px, 4.5vw, 60px);
+  align-items: stretch;
+  margin-top: clamp(26px, 3.2vw, 42px);
+}
+.journey-steps {
+  position: relative;
+  display: grid;
+  gap: clamp(28px, 3.8vw, 60px);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+/* Espina de la izquierda: une las cinco etapas sin cajas */
+.journey-steps::before {
+  content: "";
+  position: absolute;
+  top: 10px;
+  bottom: 10px;
+  left: 4px;
+  width: 1px;
+  background: var(--border);
+}
+.journey-step {
+  position: relative;
+  padding-left: 32px;
+}
+.journey-step::before {
+  content: "";
+  position: absolute;
+  top: 6px;
+  left: 0;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--bg);
+  border: 1.5px solid var(--border-strong);
+  transition: background .3s var(--ease), border-color .3s var(--ease);
+}
+.journey-step[data-estado="activa"]::before {
+  background: var(--primary);
+  border-color: var(--primary);
+}
+.journey-step[data-estado="hecho"]::before { border-color: var(--primary); }
+.journey-step .step-num { transition: color .3s var(--ease); }
+.journey-step[data-estado="activa"] .step-num { color: var(--primary); }
+.journey-step .step-title { margin: 0 0 6px; }
+.journey-step .step-text { max-width: 42ch; }
+
+/* El esquema de la derecha comparte la altura de la lista: los cinco momentos
+   quedan a la vista de una vez y cada uno a la altura de su paso. */
+.journey-visual {
+  align-self: stretch;
+  min-width: 0;
+}
+.journey-frame {
+  position: relative;
+  height: 100%;
+  /* La altura la fija la columna y el lienzo (viewBox) la copia en app.js:
+     el dibujo se escala sin deformarse y llega hasta el último píxel. */
+  overflow: visible;
+}
+.journey-frame svg { display: block; width: 100%; height: 100%; overflow: visible; }
+/* Nota del esquema: identifica los dibujos como conceptuales */
+.journey-note {
+  max-width: 62ch;
+  margin: 18px 0 0;
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.08em;
+  line-height: 1.7;
+  color: var(--text-secondary);
+}
+
+/* Esquema conceptual: trazos neutros, acentos de la paleta y azul en la etapa
+   activa. Las transiciones son de 300 ms. */
+.jr-svg text {
+  font-family: var(--sans);
+  font-size: 10px;
+}
+.jr-svg .jr-label {
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.jr-spine { stroke: var(--border); stroke-width: 1; }
+.jr-etapa { transition: opacity .3s var(--ease); }
+/* Los cinco momentos están siempre dibujados: los que aún no toca se leen en
+   gris claro y el activo se enciende con el avance del scroll. */
+.jr-etapa[data-estado="pendiente"] { opacity: 0.4; }
+.jr-etapa[data-estado="hecho"],
+.jr-etapa[data-estado="activa"] { opacity: 1; }
+.jr-svg .jr-box,
+.jr-svg .jr-line,
+.jr-svg .jr-link,
+.jr-svg .jr-grid line {
+  fill: none;
+  stroke: var(--border);
+  stroke-width: 1;
+  stroke-linecap: round;
+  transition: stroke .3s var(--ease);
+}
+.jr-svg .jr-dash { stroke-dasharray: 3 3; }
+.jr-svg .jr-marca {
+  fill: var(--border-strong);
+  transition: fill .3s var(--ease);
+}
+.jr-svg .jr-ink {
+  fill: var(--text);
+  transition: fill .3s var(--ease);
+}
+.jr-svg .jr-label {
+  fill: var(--text-secondary);
+  transition: fill .3s var(--ease);
+}
+.jr-svg .jr-revision {
+  fill: rgba(8, 127, 140, 0.1);
+  stroke: var(--viz-teal);
+  stroke-width: 1;
+  stroke-dasharray: 3 3;
+}
+.jr-svg .jr-hueco {
+  fill: none;
+  stroke: var(--border-strong);
+  stroke-width: 1;
+  stroke-dasharray: 2 2;
+}
+/* Etapa activa: el azul es el color de la etapa en curso */
+.jr-etapa[data-estado="activa"] .jr-box,
+.jr-etapa[data-estado="activa"] .jr-line,
+.jr-etapa[data-estado="activa"] .jr-link,
+.jr-etapa[data-estado="activa"] .jr-grid line { stroke: var(--primary); }
+.jr-etapa[data-estado="activa"] .jr-marca { fill: var(--primary); }
+.jr-etapa[data-estado="activa"] .jr-ink,
+.jr-etapa[data-estado="activa"] .jr-label { fill: var(--primary); }
+/* Acentos de la paleta: no cambian al activarse la etapa */
+.jr-svg .jr-stroke-violet { fill: none; stroke: var(--viz-purple); stroke-width: 1.3; }
+.jr-svg .jr-stroke-teal { fill: none; stroke: var(--viz-teal); stroke-width: 1.3; }
+.jr-svg .jr-fill-violet { fill: var(--viz-purple); }
+.jr-svg .jr-fill-teal { fill: var(--viz-teal); }
+
+.step-num {
+  display: block;
+  font-family: var(--mono);
+  font-size: 0.63rem;
+  letter-spacing: 0.14em;
+  color: var(--text-secondary);
+  margin-bottom: 8px;
+}
+.step-title {
+  font-size: clamp(1.02rem, 1.35vw, 1.22rem);
+  line-height: 1.25;
+  margin: 0 0 8px;
+}
+.step-text {
+  font-size: 0.88rem;
+  line-height: 1.62;
+  color: var(--text-secondary);
+  margin: 0;
+  max-width: 30ch;
+}
+
+/* Herramientas y capacidades: cuadrícula editorial de dos columnas. Cada área
+   lleva subtítulo, línea de tecnologías y una descripción breve. Sin tarjetas,
+   píldoras, logotipos ni barras: solo un filete superior y aire. */
+.cap-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(30px, 3.6vw, 46px) clamp(28px, 4vw, 60px);
+  margin-top: clamp(26px, 3vw, 38px);
+  max-width: 104ch;
+}
+.cap {
+  padding-top: 18px;
+  border-top: 1px solid var(--border);
+}
+.cap-title {
+  margin: 0 0 8px;
+  font-size: clamp(1.02rem, 1.25vw, 1.14rem);
+  line-height: 1.3;
+  color: var(--text);
+}
+.cap-stack {
+  margin: 0 0 10px;
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.02em;
+  line-height: 1.7;
+  color: var(--text-secondary);
+}
+.cap-text {
+  margin: 0;
+  font-size: 0.93rem;
+  line-height: 1.7;
+  color: var(--text-secondary);
+}
+
+/* Formación */
+.about-edu { margin-top: clamp(22px, 3vw, 34px); max-width: 74ch; }
+.edu-list { display: grid; gap: 22px; }
+.edu-list li { display: grid; gap: 5px; }
+.edu-title { font-size: 0.98rem; line-height: 1.45; color: var(--text); }
+.edu-meta {
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.06em;
+  color: var(--text-secondary);
+}
+/* Periodo cursado: un paso por debajo de la institución, sin fechas inventadas. */
+.edu-period {
+  font-family: var(--mono);
+  font-size: 0.63rem;
+  letter-spacing: 0.06em;
+  color: var(--text-secondary);
+}
+
+/* Formación complementaria: certificaciones y cursos agrupados por área, con el
+   mismo lenguaje editorial (subtítulo, nombre y emisor; sin tarjetas). */
+.edu-complementaria {
+  margin-top: clamp(34px, 4vw, 54px);
+  padding-top: clamp(24px, 3vw, 36px);
+  border-top: 1px solid var(--border);
+}
+.edu-block-title {
+  font-size: clamp(1.15rem, 1.9vw, 1.45rem);
+  line-height: 1.2;
+}
+.certi-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(26px, 3.2vw, 42px) clamp(28px, 4vw, 60px);
+  margin-top: clamp(20px, 2.6vw, 30px);
+  max-width: 104ch;
+}
+.certi-grupo {
+  padding-top: 16px;
+  border-top: 1px solid var(--border);
+}
+.certi-title {
+  margin: 0 0 12px;
+  font-size: clamp(0.98rem, 1.2vw, 1.08rem);
+  line-height: 1.3;
+  color: var(--text);
+}
+.certi-list { display: grid; gap: 13px; margin: 0; padding: 0; list-style: none; }
+.certi-list li { display: grid; gap: 3px; }
+.certi-nombre { font-size: 0.93rem; line-height: 1.45; color: var(--text); }
+.certi-emisor {
+  font-family: var(--mono);
+  font-size: 0.63rem;
+  letter-spacing: 0.06em;
+  color: var(--text-secondary);
+}
+/* Vigencia o estado de la credencial: dato documentado, no una valoración */
+.certi-nota {
+  font-family: var(--mono);
+  font-size: 0.63rem;
+  letter-spacing: 0.06em;
+  color: var(--text-secondary);
+}
+
+/* Contacto de la página */
+.about-contact-grid {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: clamp(24px, 4vw, 64px);
+  margin-top: clamp(22px, 3vw, 34px);
+}
+.about-contact-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 16px 22px;
+  min-width: 0;
+}
+.about-email {
+  font-family: var(--serif);
+  font-size: clamp(1.12rem, 2.2vw, 1.65rem);
+  line-height: 1.3;
+  color: var(--text);
+  border-bottom: 1px solid var(--border-strong);
+  padding-bottom: 5px;
+  overflow-wrap: anywhere;
+  transition: color .16s var(--ease), border-color .16s var(--ease);
+}
+.about-email:hover { color: var(--primary); border-bottom-color: var(--primary); }
+
+.about-foot { margin-top: clamp(32px, 4vw, 48px); }
+
+
+/* ============ 9. PORTAFOLIO ============ */
+.portfolio {
+  background: var(--surface-2);
+  border-block: 1px solid var(--border);
+}
+
+.section-head {
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.75fr);
+  gap: clamp(24px, 4vw, 64px);
+  align-items: end;
+}
+/* En el encabezado del portafolio las dos columnas arrancan por el BORDE
+   SUPERIOR: el título y la primera línea de la entradilla empiezan a la misma
+   altura. No hay márgenes que corregir —el desplazamiento lo producía alinear
+   los bloques al pie— y el aire antes de «Filtrar por área» no cambia. */
+#view-gallery .section-head { align-items: start; }
+.section-intro {
+  font-size: 0.93rem;
+  line-height: 1.72;
+  color: var(--text-secondary);
+  max-width: 40ch;
+  margin: 0;
+}
+
+.filters { margin: clamp(34px, 4vw, 52px) 0 clamp(28px, 3vw, 40px); }
+
+.filters-row {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.filters-row button {
+  border: 1px solid var(--control-border);
+  background: var(--surface);
+  color: var(--text);
+  padding: 9px 16px;
+  border-radius: 999px;
+  font-size: 0.82rem;
+  line-height: 1.2;
+  cursor: pointer;
+  transition: background-color .16s var(--ease), border-color .16s var(--ease), color .16s var(--ease);
+}
+.filters-row button:hover { border-color: var(--primary); color: var(--primary); }
+
+/* Selección: relleno + peso tipográfico, no solo color */
+.filters-row button[aria-pressed="true"] {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: var(--on-primary);
+  font-weight: 500;
+}
+.filters-row button[aria-pressed="true"]:hover {
+  background: var(--primary-hover);
+  border-color: var(--primary-hover);
+  color: var(--on-primary);
+}
+
+/* La superficie azul la dibuja un único elemento que se desplaza hasta la
+   opción elegida. Sin JavaScript no se crea y manda el relleno del botón. */
+.filters-pill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 0;
+  border-radius: 999px;
+  background: var(--primary);
+  pointer-events: none;
+  transition: transform .26s var(--ease), width .26s var(--ease), height .2s var(--ease);
+}
+.filters-row.has-pill button {
+  position: relative;
+  z-index: 1;
+}
+.filters-row.has-pill button[aria-pressed="true"],
+.filters-row.has-pill button[aria-pressed="true"]:hover {
+  background: transparent;
+  border-color: transparent;
+  color: var(--on-primary);
+}
+
+.projects {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(30px, 3.4vw, 54px) clamp(20px, 2.6vw, 44px);
+}
+
+.card { position: relative; display: flex; flex-direction: column; min-width: 0; }
+
+/* La portada es una tarjeta: superficie --surface. El color de cada área vive
+   dentro de la escena, no en el fondo. */
+.cover {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  aspect-ratio: 16 / 10;
+  background: var(--surface);
+}
+
+/* Escenas animadas: las dibuja scenes.js sobre un viewBox de 480 × 300.
+   La ilustración no intercepta la navegación: el enlace de la ficha la cubre. */
+.cover > svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+.cover {
+  transition: border-color .2s var(--ease);
+}
+
+/* Texto de las escenas. Se dimensiona en unidades del viewBox: al reducir la
+   tarjeta crece en la hoja de estilos para seguir siendo legible. */
+.scene-label {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.02em;
+}
+.scene-note {
+  font-family: var(--mono);
+  font-size: 8.6px;
+  letter-spacing: 0.04em;
+}
+.scene-value {
+  font-family: var(--mono);
+  font-size: 20px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+}
+
+/* Paradas de teclado de la ilustración: pocas y con nombre accesible */
+.scene-stop { outline: none; }
+.scene-stop:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
+.card-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  margin-top: 16px;
+  font-family: var(--mono);
+  font-size: 0.615rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 9px;
+  border: 1px solid var(--border-strong);
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--text);
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.chip::before {
+  content: "";
+  width: 5px; height: 5px;
+  border-radius: 50%;
+  background: var(--text-secondary);
+}
+.chip[data-estado="desarrollo"]::before { background: var(--viz-purple); }
+.chip[data-estado="publicado"]::before { background: var(--viz-teal); }
+
+.card h3 {
+  margin-top: 10px;
+  transition: color .18s var(--ease);
+}
+.card-text {
+  font-size: 0.9rem;
+  line-height: 1.66;
+  color: var(--text-secondary);
+  margin: 8px 0 0;
+  max-width: 44ch;
+}
+
+/* Enlaces explícitos de la tarjeta. La capa `card-hit` cubre la tarjeta con
+   z-index 2; estos enlaces suben a z-index 3 para seguir siendo clicables. */
+.card-links {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 18px;
+  margin: 14px 0 0;
+}
+.card-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 0;
+  border-bottom: 1px solid transparent;
+  color: var(--primary);
+  font-family: var(--mono);
+  font-size: 0.615rem;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+  text-decoration: none;
+}
+.card-link:hover,
+.card-link:focus-visible { border-bottom-color: currentColor; }
+.card-link:focus-visible { outline: 2px solid var(--primary); outline-offset: 3px; }
+.card-link svg {
+  width: 13px; height: 13px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* Recuento por estado y categorías visibles del área, en la galería */
+.card-counts {
+  margin: 14px 0 0;
+  font-family: var(--mono);
+  font-size: 0.615rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+}
+.card-cats { display: flex; flex-wrap: wrap; gap: 6px; margin: 10px 0 0; }
+.card-cats .tag { padding: 3px 9px; font-size: 0.6rem; }
+
+/* Roadmap: el caso está definido pero todavía no se puede abrir. Se mantiene
+   visible, con la portada atenuada y un distintivo en trazo discontinuo que no
+   reutiliza los colores de estado. */
+.roadmap-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 9px;
+  border: 1px dashed var(--border-strong);
+  border-radius: 999px;
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  white-space: nowrap;
+}
+.card--previsto .cover { opacity: .5; filter: saturate(.35); }
+.card--previsto h3 { color: var(--text-secondary); }
+.card--previsto:hover h3,
+.card--previsto:focus-within h3 { color: var(--primary); }
+
+/* Flecha del enlace al área: pocos píxeles, sin mover la tarjeta */
+.card-arrow {
+  display: inline-block;
+  width: 15px;
+  height: 15px;
+  margin-left: 7px;
+  vertical-align: -1px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  color: var(--text-secondary);
+  opacity: 0.6;
+  transition: transform .2s var(--ease), opacity .2s var(--ease), color .2s var(--ease);
+}
+
+/* Botón que cubre la ficha completa: toda la tarjeta es clicable y accesible */
+.card-hit {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  border: 0;
+  border-radius: var(--radius);
+  background: transparent;
+  cursor: pointer;
+  padding: 0;
+}
+.card-hit:focus-visible { outline: 2.5px solid var(--primary); outline-offset: 6px; }
+
+.card:hover h3,
+.card:focus-within h3 { color: var(--primary); }
+
+/* Borde acentuado con suavidad; el foco lo marca más para no depender del color */
+.card:hover .cover { border-color: #B7C4F8; }
+.card:focus-within .cover { border-color: var(--primary); }
+
+.card:hover .card-arrow,
+.card:focus-within .card-arrow {
+  color: var(--primary);
+  opacity: 1;
+  transform: translateX(4px);
+}
+
+/* Entrada de la tarjeta cuando aparece en pantalla: opacidad y 10 px como
+   máximo, escalonada entre ilustración, categoría, título y descripción.
+   Solo afecta a la galería del portafolio y solo se prepara si el JavaScript
+   llegó a arrancar (`has-js`): las fichas de la vista de área se ven siempre. */
+.has-js #projects .card > .cover,
+.has-js #projects .card > .card-meta,
+.has-js #projects .card > h3,
+.has-js #projects .card > .card-text,
+.has-js #projects .note-card {
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity .42s var(--ease), transform .42s var(--ease);
+}
+.has-js #projects .card.is-in > .cover { transition-delay: 0ms; }
+.has-js #projects .card.is-in > .card-meta { transition-delay: 60ms; }
+.has-js #projects .card.is-in > h3 { transition-delay: 110ms; }
+.has-js #projects .card.is-in > .card-text { transition-delay: 155ms; }
+.has-js #projects .card.is-in > .cover,
+.has-js #projects .card.is-in > .card-meta,
+.has-js #projects .card.is-in > h3,
+.has-js #projects .card.is-in > .card-text,
+.has-js #projects .note-card.is-in {
+  opacity: 1;
+  transform: none;
+}
+
+/* Aclaración única de la galería */
+.portfolio-note {
+  margin: clamp(22px, 2.6vw, 32px) 0 0;
+  font-family: var(--mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+}
+
+/* Nota final de la galería: ocupa la celda que falta */
+.note-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: clamp(20px, 2.4vw, 30px);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 18px;
+}
+.note-card h3 { font-size: 1.12rem; }
+.note-card p { font-size: 0.83rem; line-height: 1.65; color: var(--text-secondary); margin: 10px 0 0; }
+.state-legend { display: grid; gap: 8px; border-top: 1px solid var(--border); padding-top: 16px; }
+.state-legend div { display: grid; grid-template-columns: auto 1fr; gap: 10px; align-items: start; }
+.state-legend span:last-child { font-size: 0.78rem; line-height: 1.5; color: var(--text-secondary); }
+
+/* ============ 10. VISTAS DEL PORTAFOLIO: ÁREA Y PROYECTO ============ */
+
+/* --- Vistas internas: sin barra de migas -----------------------------------
+   El espacio vertical venía del `padding-block` de `.section` (62–122 px) y de
+   la barra de migas. El área de dashboards ya no lleva migas (el eyebrow dice
+   «Área 01 / Portafolio» y el título, el nombre del área) y la ficha de proyecto
+   nunca las tuvo: ambas arrancan con un respiro compacto bajo la cabecera. Sin
+   márgenes negativos. */
+body[data-vista="area"] .section.portfolio {
+  padding-top: clamp(22px, 2.8vw, 34px);
+}
+
+/* La vista de proyecto ya no lleva migas: solo un respiro compacto bajo la cabecera. */
+body[data-vista="project"] .section.portfolio {
+  padding-top: clamp(18px, 2.4vw, 28px);
+}
+
+/* La cabecera es sticky y ocupa su altura una sola vez: la barra se pega justo
+   debajo con `top: var(--header-h)` y el desplazamiento se ajusta a la altura
+   combinada. */
+.view { scroll-margin-top: calc(var(--header-h) + 62px); }
+
+.view .crumbs {
+  position: sticky;
+  top: calc(var(--header-h) + 1px);
+  z-index: 30;
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  gap: 6px 10px;
+  min-height: 46px;
+  margin: 0 0 16px;
+  padding: 0;
+  background: var(--bg);
+  border-bottom: 1px solid var(--border);
+  font-family: var(--mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  overflow: hidden;
+}
+
+.view .crumbs a,
+.view .crumbs > span {
+  flex: none;
+}
+
+.view .crumbs > span[aria-current="page"] {
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+@media (max-width: 640px) {
+  .view .crumbs {
+    min-height: 42px;
+    font-size: 0.6rem;
+    letter-spacing: 0.06em;
+  }
+}
+
+/* Migas de pan: portafolio → área → proyecto */
+.crumbs {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 10px;
+  font-family: var(--mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  margin-bottom: clamp(18px, 2.4vw, 26px);
+}
+.crumbs a {
+  color: var(--text-secondary);
+  border-bottom: 1px solid transparent;
+  transition: color .16s var(--ease), border-color .16s var(--ease);
+}
+.crumbs a:hover { color: var(--primary); border-bottom-color: var(--primary); }
+.crumbs > span[aria-current="page"] { color: var(--text); }
+.crumbs > span[aria-hidden="true"] { color: var(--border-strong); }
+
+/* Cabecera de la vista */
+.view-head { max-width: 74ch; }
+.view-head h2 { font-size: clamp(1.8rem, 3.2vw, 2.7rem); outline: none; }
+.view-head h2:focus-visible { outline: 2.5px solid var(--primary); outline-offset: 6px; }
+
+/* La cabecera del área es la del portafolio: reutiliza `section-head` (título a
+   la izquierda, entradilla en la columna derecha) y su misma escala tipográfica;
+   solo se le quita el ancho máximo de lectura de las fichas. */
+.section-head.view-head { max-width: none; }
+.section-head.view-head h2 { font-size: clamp(1.85rem, 3.5vw, 3rem); }
+
+/* Catálogo de tableros: mismo título, en el azul principal de la paleta, sin la
+   etiqueta «Área NN / Portafolio» encima y sin entradilla a la derecha, así que
+   el encabezado pasa a una sola columna y el título no queda en una columna
+   vacía. */
+.view-head--catalogo { grid-template-columns: minmax(0, 1fr); }
+.view-head--catalogo h2 { color: var(--primary); }
+
+.view-lead {
+  font-size: clamp(1rem, 1.15vw, 1.1rem);
+  line-height: 1.75;
+  color: var(--text-secondary);
+  margin: 16px 0 0;
+  max-width: 62ch;
+}
+.view-chips { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; margin: 18px 0 0; }
+.view-chips .micro-label { margin: 0; }
+/* En el área el bloque de estado arranca con el mismo aire que los filtros del
+   portafolio respecto a su encabezado. */
+.section-head + .view-chips { margin-top: clamp(30px, 3.4vw, 46px); }
+/* En el catálogo no hay entradilla: el estado y la etiqueta se leen pegados al
+   título y el aire queda entero antes de «Explorar tableros». */
+.view-head--catalogo + .view-chips { margin-top: clamp(16px, 1.8vw, 22px); }
+
+/* --- Ficha del proyecto: lenguaje editorial del portafolio ---------------
+   Etiqueta pequeña en monoespaciada y mayúsculas, título en serif y subtítulo
+   en el azul de la paleta como acento (el mismo recurso que la segunda línea de
+   «Portafolio»). Sin adornos ni tarjetas: solo tipografía, color y aire. */
+.view-head--proyecto .eyebrow { display: block; margin: 0 0 clamp(16px, 1.8vw, 22px); }
+.view-head--proyecto .view-title {
+  margin: 0;
+  font-family: var(--serif);
+  font-size: clamp(2rem, 3.6vw, 2.9rem);
+  font-weight: 400;
+  line-height: 1.08;
+  letter-spacing: -0.012em;
+  color: var(--text);
+  outline: none;
+}
+.view-head--proyecto .view-title::before { content: none; }
+.view-head--proyecto .view-title:focus-visible {
+  outline: 2.5px solid var(--primary);
+  outline-offset: 6px;
+}
+.view-head--proyecto .view-subtitle {
+  margin: 10px 0 0;
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: clamp(1.25rem, 1.9vw, 1.6rem);
+  font-weight: 400;
+  line-height: 1.3;
+  letter-spacing: -0.008em;
+  color: var(--primary);
+}
+.view-head--proyecto .view-summary {
+  margin: 16px 0 0;
+  max-width: 64ch;
+  font-size: 0.9rem;
+  line-height: 1.65;
+  font-weight: 500;
+  color: var(--text-secondary);
+}
+.view-head--proyecto .view-lead {
+  margin: 18px 0 0;
+  max-width: 64ch;
+  font-size: 0.94rem;
+  line-height: 1.72;
+  color: var(--text-secondary);
+}
+.view-head--proyecto .view-chips { margin-top: clamp(20px, 2.2vw, 28px); }
+
+/* La galería del área ocupa todo el ancho: la ilustración conceptual de la
+   columna derecha se retiró y ese espacio lo usan las fichas. */
+.view-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  margin-top: clamp(28px, 3.4vw, 46px);
+  align-items: start;
+}
+.view-main { min-width: 0; }
+.view-block { border-top: 1px solid var(--border); padding-top: 22px; margin-top: 28px; }
+.view-block:first-child { border-top: 0; margin-top: 0; padding-top: 0; }
+
+/* Galería de proyectos de un área: dos fichas por fila en escritorio y una en
+   móvil. Cada ficha repite el formato de las tarjetas del portafolio
+   —contenedor blanco con la captura arriba y, debajo, el texto sobre el fondo de
+   la página— y un único enlace cubre la ficha entera: no hay accesos repetidos. */
+.project-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(30px, 3.4vw, 54px) clamp(20px, 2.6vw, 44px);
+  margin-top: 18px;
+}
+.project-list > li { display: flex; min-width: 0; }
+.project-list > li > .card { flex: 1 1 auto; }
+
+/* El contenedor copia la proporción de la captura real (2184 × 2220): la imagen
+   entra completa, sin recorte ni deformación, y las dos fichas de la fila
+   comparten altura aunque una todavía no tenga captura. */
+.project-list .cover { aspect-ratio: 2184 / 2220; }
+.project-list .cover img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* Portada de un tablero real (`capturaAjuste: 'tablero'` en los datos del
+   proyecto): la captura se genera con la misma proporción que la tarjeta de
+   referencia de «Ciencia de datos» —1600 × 1726, la de Walmart M5—, así que el
+   contenedor mide lo mismo en las tres tarjetas a igual ancho. La imagen llena el
+   recuadro sin deformarse; si un archivo llegara con otra proporción, `cover` lo
+   ajusta desde arriba en lugar de dejar bandas vacías. La regla es compartida:
+   no hay excepciones por tarjeta. */
+.project-list .cover.cover-tablero img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+}
+
+/* Proyectos sin captura: la ilustración conceptual de su área, centrada en el
+   mismo contenedor y en su composición final (decorativa, sin interacción). */
+.cover-ilustracion {
+  position: absolute;
+  inset: 0;
+  display: block;
+}
+.cover-ilustracion .scene {
+  width: 100%;
+  height: 100%;
+}
+
+/* Filtros del catálogo de tableros: categoría, estado y búsqueda. Solo se
+   dibujan cuando hay varios tableros reales; si no, la categoría va como dato en
+   la ficha y la vista previa manda. Los botones son los mismos del portafolio. */
+.catalogo-filtros {
+  display: grid;
+  gap: 18px;
+  margin: 0 0 clamp(24px, 2.6vw, 34px);
+}
+.catalogo-grupo { display: grid; gap: 8px; }
+.catalogo-grupo .micro-label { margin: 0; }
+.catalogo-buscar {
+  width: 100%;
+  max-width: 360px;
+  padding: 9px 16px;
+  border: 1px solid var(--control-border);
+  border-radius: 999px;
+  background: var(--surface);
+  font-family: var(--sans);
+  font-size: 0.86rem;
+  line-height: 1.3;
+  color: var(--text);
+}
+.catalogo-buscar::placeholder { color: var(--text-secondary); }
+.catalogo-buscar:focus-visible { outline: 2.5px solid var(--primary); outline-offset: 2px; }
+/* Etiquetas y fichas de datos (las comparten el área y el proyecto) */
+.tag-list { display: flex; flex-wrap: wrap; gap: 7px; }
+.tag {
+  padding: 5px 11px;
+  border: 1px solid var(--border-strong);
+  border-radius: 999px;
+  background: var(--surface);
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  line-height: 1.3;
+}
+
+.fields { display: grid; gap: 14px; margin-top: 20px; }
+/* Cada apartado es un solo bloque: el título y su texto quedan pegados, sin
+   reparto vertical que los separe. */
+.fields > div {
+  display: block;
+  align-content: start;
+}
+/* Título del apartado: serif, como el resto de títulos del sitio. */
+.fields > div > dt {
+  margin: 0 0 10px;
+  font-family: var(--serif);
+  font-size: clamp(1.15rem, 1.5vw, 1.3rem);
+  font-weight: 400;
+  line-height: 1.25;
+  letter-spacing: -0.008em;
+  text-transform: none;
+  color: var(--text);
+}
+.fields > div > dt::before { content: none; }
+.fields > div > dd { margin: 0; font-size: 0.92rem; line-height: 1.72; color: var(--text-secondary); }
+.fields > div > dd .tag-list { margin-top: 2px; }
+
+/* Vista de proyecto: dos columnas de apartados separadas por divisores finos,
+   sin tarjetas. La fila se estira, así que los divisores de cada pareja quedan
+   a la misma altura y la lectura sigue una retícula. */
+.project-fields {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0 clamp(28px, 3.6vw, 56px);
+  align-items: stretch;
+  margin-top: clamp(30px, 3.4vw, 46px);
+  border-top: 1px solid var(--border);
+}
+.project-fields > div,
+.project-fields > .field {
+  padding: clamp(20px, 2.4vw, 30px) 0;
+  border-bottom: 1px solid var(--border);
+}
+/* La tabla de tecnologías cierra la ficha a todo el ancho */
+.project-fields > .field-tecnologias {
+  grid-column: 1 / -1;
+  padding: clamp(20px, 2.4vw, 30px) 0;
+  border-bottom: 1px solid var(--border);
+}
+
+/* Tecnologías: tabla de dos columnas —la función a la izquierda y las
+   tecnologías a la derecha— con separadores finos entre filas. Fondo de la
+   página: sin píldoras, tarjetas, sombras, iconos ni logotipos. */
+.tec-grupos {
+  display: block;
+  margin: 0;
+  padding: 0;
+}
+.tec-row {
+  display: grid;
+  grid-template-columns: minmax(170px, 30%) minmax(0, 1fr);
+  column-gap: clamp(16px, 2.4vw, 32px);
+  align-items: baseline;
+  padding: 9px 0;
+}
+.tec-row + .tec-row { border-top: 1px solid var(--border); }
+.tec-row:first-child { padding-top: 0; }
+.tec-row:last-child { padding-bottom: 0; }
+/* La función es la etiqueta de la tabla: monoespaciada, mayúsculas y pequeña */
+.tec-funcion {
+  margin: 0;
+  font-family: var(--mono);
+  font-size: 0.63rem;
+  font-weight: 400;
+  letter-spacing: 0.14em;
+  line-height: 1.5;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+}
+.tec-items {
+  margin: 0;
+  font-family: var(--sans);
+  font-size: 0.88rem;
+  line-height: 1.5;
+  color: var(--text);
+}
+
+/* Aplicación del proyecto: se monta directamente, sin marco ni barra externa.
+   La acción de ampliar/reducir vive en la cabecera del propio dashboard. */
+.demo-body {
+  /* 64 px entre el final de la ficha (Tecnologías) y la cabecera interna del
+     dashboard: 54 px de margen exterior + los 10 px de padding del aplicativo,
+     que no se tocan. Se declara una sola vez: no se suman márgenes. */
+  margin-top: 54px;
+  scroll-margin-top: calc(var(--header-h) + 24px);
+  background: var(--bg);
+}
+/* Con la aplicación ampliada, el hueco desaparece. */
+body.demo-ampliado .demo-body { margin-top: 0; }
+.demo-host { min-height: clamp(260px, 34vh, 420px); display: grid; }
+
+/* Marcador mientras el proyecto no tiene aplicación */
+.demo-placeholder {
+  display: grid;
+  align-content: center;
+  justify-items: center;
+  gap: 10px;
+  margin: clamp(14px, 2vw, 20px);
+  padding: clamp(28px, 4vw, 56px) clamp(20px, 4vw, 48px);
+  border: 1px dashed var(--border-strong);
+  border-radius: var(--radius);
+  background: var(--surface);
+  text-align: center;
+}
+.demo-placeholder .micro-label { margin: 0; }
+.demo-placeholder-title { font-size: clamp(1.05rem, 1.5vw, 1.3rem); }
+.demo-placeholder-list {
+  display: grid;
+  gap: 6px;
+  margin-top: 4px;
+  font-size: 0.86rem;
+  line-height: 1.6;
+  color: var(--text-secondary);
+}
+.demo-placeholder-list li { position: relative; padding-left: 16px; }
+.demo-placeholder-list li::before {
+  content: "";
+  position: absolute;
+  left: 2px;
+  top: 0.68em;
+  width: 7px;
+  height: 1px;
+  background: var(--border-strong);
+}
+.demo-placeholder .note-inline { margin-top: 8px; }
+
+/* Aplicación ampliada: ocupa la pantalla sin salir del portafolio */
+.demo-dialog {
+  width: min(1400px, calc(100vw - 24px));
+  height: min(92vh, 1000px);
+  padding: 0;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius);
+  background: var(--surface);
+  color: var(--text);
+  overflow: hidden;
+  box-shadow: 0 36px 90px -42px var(--shadow);
+}
+.demo-dialog::backdrop { background: var(--backdrop); backdrop-filter: blur(3px); }
+/* Sin barra propia: la ampliación y la reducción se hacen desde el dashboard. */
+.demo-slot {
+  display: grid;
+  height: 100%;
+  background: var(--bg);
+  overflow: auto;
+  overscroll-behavior: contain;
+}
+.demo-slot .demo-host { min-height: 0; height: auto; align-content: start; }
+
+/* ============ BLOQUE TÉCNICO DE LA DEMO ============
+   Solo aparece en las fichas que declaran `demoTecnica`. Cierra la ficha a todo
+   el ancho, con la misma retícula que la tabla de tecnologías. */
+.project-fields > .field--demo {
+  grid-column: 1 / -1;
+  padding: clamp(20px, 2.4vw, 30px) 0;
+  border-bottom: 1px solid var(--border);
+}
+.demo-intro {
+  margin: 0 0 10px;
+  font-size: 0.92rem;
+  line-height: 1.65;
+  color: var(--text-secondary);
+}
+.demo-lista {
+  display: grid;
+  gap: 6px;
+  margin: 0;
+  padding-left: 18px;
+  font-size: 0.92rem;
+  line-height: 1.65;
+  color: var(--text-secondary);
+}
+.demo-lista li::marker { color: var(--primary); }
+.demo-nota {
+  margin: 12px 0 0;
+  padding: 10px 12px;
+  border-left: 3px solid var(--primary);
+  background: var(--surface);
+  font-size: 0.86rem;
+  line-height: 1.6;
+  color: var(--text-secondary);
+}
+
+/* Pie de la vista de proyecto */
+.view-nav {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px 20px;
+  margin-top: clamp(26px, 3vw, 38px);
+  border-top: 1px solid var(--border);
+  padding-top: 20px;
+}
+.view-back,
+.view-next {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  font-size: 0.86rem;
+  color: var(--text);
+  border-bottom: 1px solid transparent;
+  transition: color .16s var(--ease), border-color .16s var(--ease);
+}
+.view-back:hover,
+.view-next:hover { color: var(--primary); border-bottom-color: var(--primary); }
+.view-back .icon,
+.view-next .icon { width: 14px; height: 14px; }
+.view-next { margin-left: auto; }
+
+.ficha-note {
+  font-size: 0.79rem;
+  line-height: 1.62;
+  color: var(--text-secondary);
+  background: var(--surface-2);
+  border-left: 2px solid var(--primary);
+  padding: 14px 16px;
+  margin: 24px 0 0;
+}
+
+
+.noscript {
+  margin: 20px;
+  padding: 18px 22px;
+  border: 1px solid var(--border-strong);
+  background: var(--surface);
+  font-size: 0.88rem;
+  line-height: 1.65;
+}
+
+/* ============ 11. CONTACTO Y PIE ============ */
+/* Sección oscura: fondo --text y texto --surface */
+.contact {
+  background: var(--text);
+  color: var(--on-dark);
+}
+.contact h2 { color: var(--on-dark); }
+.contact em { color: var(--link-on-dark); }
+.contact .eyebrow { color: var(--on-dark-soft); }
+.contact .eyebrow-sep { color: var(--on-dark-rule-strong); }
+
+.contact-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+  gap: clamp(34px, 5vw, 80px);
+  align-items: start;
+}
+
+.contact-lead {
+  font-size: 0.98rem;
+  line-height: 1.75;
+  color: var(--on-dark);
+  max-width: 44ch;
+  margin: clamp(20px, 2.4vw, 28px) 0 0;
+}
+
+.contact-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px clamp(30px, 4vw, 56px);
+  margin-top: clamp(26px, 3vw, 40px);
+  border-top: 1px solid var(--on-dark-rule);
+  padding-top: 20px;
+}
+.contact-meta dt {
+  font-family: var(--mono);
+  font-size: 0.63rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--on-dark-soft);
+  margin-bottom: 5px;
+}
+.contact-meta dd { font-size: 0.92rem; color: var(--on-dark); }
+
+.contact-actions { min-width: 0; }
+.contact-actions .micro-label { color: var(--on-dark-soft); }
+
+.email {
+  display: inline-block;
+  font-family: var(--serif);
+  font-size: clamp(1.16rem, 2.5vw, 1.92rem);
+  line-height: 1.3;
+  color: var(--on-dark);
+  border-bottom: 1px solid var(--on-dark-rule-strong);
+  padding-bottom: 6px;
+  overflow-wrap: anywhere;
+  transition: border-color .18s var(--ease), color .18s var(--ease);
+}
+.email:hover { border-bottom-color: var(--link-on-dark); color: var(--link-on-dark); }
+
+.contact-buttons { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 22px; }
+.contact-buttons button { cursor: pointer; }
+
+.copy-status {
+  min-height: 1.5em;
+  margin: 14px 0 0;
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  color: var(--link-on-dark);
+}
+/* El error se distingue por texto y peso, no solo por color */
+.copy-status[data-state="error"] { color: var(--on-dark); font-weight: 500; }
+
+.contact .note-inline { color: var(--on-dark-soft); max-width: 46ch; }
+
+.contact :where(a, button):focus-visible,
+.site-footer :where(a, button):focus-visible {
+  outline-color: var(--link-on-dark);
+}
+
+.site-footer {
+  background: var(--text);
+  color: var(--on-dark-soft);
+  border-top: 1px solid var(--on-dark-rule);
+}
+.footer-inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px 28px;
+  padding-block: 24px;
+  font-size: 0.76rem;
+}
+.footer-inner p { margin: 0; }
+.footer-nav { display: flex; flex-wrap: wrap; gap: 8px 20px; }
+.footer-nav a { transition: color .16s var(--ease); }
+.footer-nav a:hover { color: var(--on-dark); }
+.footer-note {
+  font-family: var(--mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.08em;
+  color: var(--on-dark-faint);
+}
+
+/* ============ 12. PANTALLAS PEQUEÑAS ============ */
+@media (max-width: 1080px) {
+  .journey { gap: clamp(24px, 4vw, 44px); }
+}
+
+@media (max-width: 1000px) {
+  .about-hero { grid-template-columns: minmax(0, 1fr); align-items: start; gap: clamp(24px, 4vw, 36px); }
+  .about-art { max-width: 460px; }
+  .section-head { grid-template-columns: minmax(0, 1fr); align-items: start; row-gap: clamp(30px, 7vw, 44px); }
+  .section-intro { max-width: 58ch; }
+  .scene-label { font-size: 10px; }
+  /* Recorrido en una columna: el esquema pasa a ir DESPUÉS de la lista (es el
+     orden del HTML) y toma la altura que pide su contenido. */
+  .journey { grid-template-columns: minmax(0, 1fr); gap: clamp(20px, 4vw, 32px); align-items: start; }
+  .journey-visual { display: block; }
+  .journey-frame { height: auto; }
+  .journey-frame svg { height: auto; }
+  .journey-steps { padding-bottom: 0; }
+}
+
+@media (max-width: 900px) {
+  .hero-inner { grid-template-columns: minmax(0, 1fr); }
+  .hero-art { order: 2; }
+  .hero-art svg { max-width: 440px; }
+  .hero-caption { max-width: 440px; }
+  .contact-grid { grid-template-columns: minmax(0, 1fr); }
+  .cap-grid { grid-template-columns: minmax(0, 1fr); gap: 28px; }
+  .certi-grid { grid-template-columns: minmax(0, 1fr); gap: 26px; }
+  .net-mark { font-size: 11.5px; }
+  /* Una ficha por fila en pantallas estrechas */
+  .project-list { grid-template-columns: minmax(0, 1fr); }
+}
+
+@media (max-width: 860px) {
+  .scene-label { font-size: 11px; }
+}
+
+@media (max-width: 760px) {
+  :root { --header-h: 64px; }
+
+  .wordmark-name { font-size: 1.06rem; }
+  .wordmark-role { font-size: 0.55rem; letter-spacing: 0.15em; margin-top: 4px; }
+  .site-nav { gap: 14px; font-size: 0.8rem; }
+  .nav-contact { padding: 7px 12px; font-size: 0.68rem; }
+
+  .projects { grid-template-columns: minmax(0, 1fr); }
+  .note-card { order: 99; }
+
+  .strip-inner { padding-block: 13px; gap: 10px; }
+  .strip-label { width: 100%; }
+  .strip-list { gap: 6px 18px; }
+  .strip-list button { font-size: 0.79rem; }
+
+  /* En una columna la ilustración se reduce: el texto de la escena crece en
+     unidades del viewBox para seguir leyéndose. */
+  .scene-label { font-size: 11.6px; }
+  .scene-note { font-size: 10px; }
+  .scene-value { font-size: 22px; }
+
+  .filters-row button { padding: 8px 13px; font-size: 0.78rem; }
+
+  .view-grid { grid-template-columns: minmax(0, 1fr); gap: clamp(24px, 4vw, 36px); }
+  .view-aside { position: static; }
+  /* En móvil el título serif baja de escala; el resto del encabezado no cambia. */
+  .view-head--proyecto .view-title { font-size: 1.9rem; }
+  .view-head--proyecto .view-subtitle { font-size: 1.2rem; }
+  /* Una sola columna de apartados, con los mismos divisores finos. */
+  .project-fields { grid-template-columns: minmax(0, 1fr); gap: 0; }
+  .fields > div > dt { font-size: 1.12rem; }
+  /* En móvil, la función va encima de sus tecnologías. */
+  .tec-row { grid-template-columns: minmax(0, 1fr); row-gap: 4px; }
+  .demo-dialog { width: calc(100vw - 12px); height: 94vh; }
+  /* En móvil el hueco baja a 40 px (32 px de margen + los 8 px del aplicativo). */
+  .demo-body { margin-top: 32px; }
+  .demo-host { min-height: 220px; }
+  .view-next { margin-left: 0; }
+
+  .about-columns { grid-template-columns: minmax(0, 1fr); gap: clamp(18px, 3vw, 26px); }
+  /* En móvil, el primer bloque deja 32 px arriba y abajo del separador. */
+  .about-hero + .about-block { margin-top: 32px; padding-top: 32px; }
+
+  .journey-steps { gap: 26px; }
+  .journey-step .step-text { max-width: 46ch; }
+  .step-text { max-width: 46ch; }
+
+  .about-contact-grid { flex-direction: column; }
+}
+
+@media (max-width: 560px) {
+  .hero-actions { flex-direction: column; align-items: stretch; gap: 10px; }
+  .hero-actions .btn { justify-content: center; }
+  .net-mark { font-size: 14px; }
+}
+
+@media (max-width: 460px) {
+  .wordmark-role { display: none; }
+  .wordmark-name { font-size: 1rem; }
+  .site-nav { gap: 11px; font-size: 0.76rem; }
+  .nav-contact { padding: 6px 10px; font-size: 0.64rem; }
+  .hero-caption .caption-note { display: none; }
+  .contact-meta { gap: 16px 28px; }
+  .footer-inner { flex-direction: column; align-items: flex-start; gap: 10px; }
+}
+
+/* ============ 13. PREFERENCIAS DEL USUARIO ============ */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  .card:hover .cover > svg { transform: none; }
+  /* La línea de la navegación aparece sin animación */
+  .site-nav a:not(.nav-contact)::after { transition: none; }
+
+  /* Sin movimiento: la galería se ve completa desde el primer momento y las
+     escenas muestran directamente su composición final (lo hace app.js). */
+  .filters-pill { transition: none; }
+  .card-arrow { transition: none; }
+  .has-js #projects .card > .cover,
+  .has-js #projects .card > .card-meta,
+  .has-js #projects .card > h3,
+  .has-js #projects .card > .card-text,
+  .has-js #projects .note-card {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
+@media (prefers-contrast: more) {
+  :root {
+    --text-secondary: #3D4552;
+    --border: #B7C0D0;
+    --border-strong: #8D97A8;
+    --control-border: #596273;
+    --on-dark-soft: rgba(255, 255, 255, .88);
+    --on-dark-faint: rgba(255, 255, 255, .74);
+  }
+}
+
+@media print {
+  .site-header,
+  .areas-strip,
+  .filters,
+  .card-hit,
+  .demo-dialog,
+  .contact-buttons { display: none !important; }
+  body { background: var(--surface); color: var(--text); }
+  .card { break-inside: avoid; }
+}
+
+/* --- Hallazgos del análisis dentro de la ficha del proyecto ---------------- */
+.fields .field--wide {
+  grid-column: 1 / -1;
+}
+
+.hallazgos-host {
+  display: block;
+  padding: 0;
+  color: inherit;
+  font: inherit;
+  line-height: inherit;
+}
+
+/* Los párrafos de hallazgos siguen el estilo del resto de apartados. */
+.hallazgos-host p {
+  margin: 0 0 10px;
+  font: inherit;
+  color: inherit;
+  line-height: inherit;
+}
+
+.hallazgos-host p:last-child {
+  margin-bottom: 0;
+}
+
+.hallazgos-espera {
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+}
+
+/* Alcance de los hallazgos (periodo, muestra y «sin filtros»): mismo tamaño
+   reducido y mismo gris que el texto de espera, para que no compita con los
+   hallazgos. */
+.hallazgos-alcance {
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+}
+
+/* La nota de cada hallazgo va en gris secundario: unidad, periodo o limitación
+   necesarios para leer la cifra, sin romper el ritmo del párrafo. */
+.hallazgos-nota {
+  color: var(--text-secondary);
+}
+
+/* Título y cifra clave de cada hallazgo: el mismo cuerpo de texto, en el color
+   principal, para que el párrafo se lea como un bloque con su encabezado. */
+.hallazgos-host .hallazgo-titulo,
+.hallazgos-host .hallazgo-cifra {
+  color: var(--text);
+  font-weight: 600;
+}
+
+/* En pantallas pequeñas los hallazgos mantienen la misma separación y el texto
+   no se justifica: se lee igual que el resto de apartados de la ficha. */
+@media (max-width: 640px) {
+  .hallazgos-host p {
+    margin-bottom: 12px;
+  }
+}
+
+
+
+
+
+
+
+

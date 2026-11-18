@@ -1,0 +1,44 @@
+# Credenciales y datos locales
+.env
+.env.*
+!.env.example
+
+# Volúmenes y datos de MongoDB
+backend/data/
+mongo_data/
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+*.egg-info/
+
+# Entornos de editor
+.vscode/
+.idea/
+.DS_Store
+
+# Node (por si se añade un frontend con build)
+node_modules/
+
+# Datos de la competición M5: no se versionan (condiciones de Kaggle).
+backend/data/m5/*.csv
+backend/exportacion/
+
+# Respaldos, entregas y paquetes locales
+_respaldo_*/
+_revision/
+entregas/
+paquete-demo/
+deploy/
+.openai
+accesos.txt
+
+# Evidencias, registros y capturas de verificación locales
+evidencias/
+*.log
+tmp/

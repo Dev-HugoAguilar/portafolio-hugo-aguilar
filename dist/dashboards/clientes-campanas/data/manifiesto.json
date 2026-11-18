@@ -1,0 +1,83 @@
+{
+ "proyecto": "Customer Growth Intelligence",
+ "version_artefactos": 1,
+ "generado_en": "2026-11-10T14:21:30+00:00",
+ "unidad_complete_journey": "hogar comprador",
+ "cortes": [
+  "2017-07-01",
+  "2017-08-01",
+  "2017-09-01"
+ ],
+ "ventana_dias": 90,
+ "parametros": {
+  "kmeans_semilla": 42,
+  "criterio_k": "menor k con al menos 5 % por segmento",
+  "muestra_beeswarm_por_segmento": 320,
+  "modelo_propension": "regresión logística (variables de 90 días y exposición previa; sin demografía)",
+  "criteo_muestra": "criteo_uplift_sample_500k.csv.gz",
+  "criteo_semillas": [
+   111,
+   222,
+   333
+  ],
+  "puntos_curva": 100
+ },
+ "fuentes": {
+  "complete_journey": {
+   "descripcion": "Complete Journey (84.51°) — transacciones, campañas, cupones y demografía",
+   "filas_transaccion": 1469307,
+   "hogares": 2469,
+   "desde": "2017-01-01",
+   "hasta": "2018-01-01"
+  },
+  "criteo": {
+   "descripcion": "Criteo Uplift Prediction Dataset v2.1 — muestra de 500 000 filas",
+   "filas_muestra": 500000
+  }
+ },
+ "modulos": {
+  "complete_journey": [
+   "Perfiles",
+   "Evolución",
+   "Campañas"
+  ],
+  "criteo": [
+   "Incrementalidad"
+  ],
+  "experimentacion": [
+   "Experimento"
+  ],
+  "separacion": "Criteo no comparte hogares, segmentos ni campañas con Complete Journey; no se unen ni se atribuyen efectos."
+ },
+ "artefactos": [
+  {
+   "archivo": "perfiles.json",
+   "contenido": "perfiles, distribuciones, departamentos y asignaciones por hogar y corte"
+  },
+  {
+   "archivo": "evolucion.json",
+   "contenido": "transiciones entre cortes, entradas y salidas, permanencia y ARI"
+  },
+  {
+   "archivo": "campanas.json",
+   "contenido": "propensión por corte: métricas, calibración, targeting y campañas"
+  },
+  {
+   "archivo": "incrementalidad.json",
+   "contenido": "Criteo: AUUC por modelo y semilla, rangos y curvas"
+  },
+  {
+   "archivo": "experimento.json",
+   "contenido": "diseño prospectivo, potencia y capacidad actual"
+  }
+ ],
+ "correcciones": [
+  "la mezcla de departamentos conserva el nombre del departamento",
+  "el número de segmentos se elige con la regla de ≥5 % por segmento",
+  "las etiquetas de segmento se alinean entre cortes por actividad (el id de K-Means es arbitrario)",
+  "las transiciones se calculan desde las asignaciones por hogar, no desde el ARI",
+  "las curvas de targeting y calibración salen de predicciones fuera de muestra",
+  "los rangos entre semillas de Criteo se etiquetan como rangos, no como intervalos de confianza",
+  "el aleatorizador ya no afirma randomization_confirmed; el analizador ITT exige manifiesto y aplica Holm"
+ ]
+}
