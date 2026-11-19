@@ -1,171 +1,101 @@
-/**
- * Verificación funcional del portafolio (v3).
- *   npm ci && npx playwright install chromium
- *   python -m http.server 8000 --directory dist
- *   node tools/verificar-fichas.mjs [--piloto]
- * Origen por defecto :8000 (autorizado por ALLOWED_ORIGINS de la API).
+/** Browser verification v4. Default: deterministic, test-only empty/error API.
+ * npm ci && npx playwright install chromium; npm run serve; npm run verificar
+ * --piloto: one project. --api-real: additionally require ready from a real API.
+ * --fallo-controlado: exercises fatal-report persistence. No text classifiers.
  */
 import fs from 'node:fs';
 import path from 'node:path';
-import { execSync } from 'node:child_process';
-import { fileURLToPath } from 'node:url';
-
-const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
-const BASE = process.env.SITE_BASE || 'http://127.0.0.1:8000';
-const API = process.env.API_BASE || 'http://127.0.0.1:8010';
-const SALIDA = path.join(ROOT, 'docs', 'verificacion-fichas.json');
-const PILOTO = process.argv.includes('--piloto');
-const BLOQUES = ['Problema','Destinatario','Mi contribución','Fuentes y datos','Método y decisiones técnicas','Resultados publicados','Limitaciones','Tecnologías'];
-const CAMPOS = [['problema','Problema'],['destinatario','Destinatario'],['contribucion','Mi contribución'],['fuentes','Fuentes y datos'],['metodo','Método y decisiones técnicas'],['resultados','Resultados publicados'],['limitaciones','Limitaciones']];
-const CON_API = ['comparativo-bancario','atlas-vial','marketing-clientes','pulso-comercial'];
-const VERSION = '3.0.0';
-const norm = (s) => String(s ?? '').replace(/\u00a0/g,' ').replace(/\s+/g,' ').trim();
-const runId = new Date().toISOString().replace(/[:.]/g,'-');
-
-/* alcance exterior: se usa al construir el reporte */
-const filas = [];
-const contratoVacio = {};
-let errorFatal = null;
-let navegador = null;
-let sha = '', dirty = false;
-try { sha = execSync('git rev-parse HEAD', { cwd: ROOT }).toString().trim(); dirty = execSync('git status --porcelain', { cwd: ROOT }).toString().trim().length > 0; } catch { sha = ''; dirty = true; }
-
-const reg = (f) => filas.push({ run_id: runId, sha_sitio: sha, arbol_sucio: dirty, verificador: VERSION, fecha: new Date().toISOString(), api_base: API, ...f });
-
-function clasificar(texto, clase) {
-  const t = norm(texto).toLowerCase();
-  if (!t) return 'loading';
-  if (clase && /aviso--error|error/i.test(clase)) return 'error';
-  if (/no se pudo|no se pudieron|no disponible|no responde|error al/i.test(t)) return 'error';
-  if (/sin datos|no hay datos|sin registros|no hay registros|vac[ií]o/i.test(t)) return 'empty';
-  return 'ready';
+import vm from 'node:vm';
+import assert from 'node:assert/strict';
+import crypto from 'node:crypto';
+import {execFileSync} from 'node:child_process';
+import {fileURLToPath} from 'node:url';
+import {emptyApi,fixturePaths} from './qa/empty-api.mjs';
+const ROOT=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
+const BASE=process.env.SITE_BASE||'http://127.0.0.1:8000', API=process.env.API_BASE||'http://127.0.0.1:8010';
+const OUTPUT=path.resolve(process.env.VERIFICATION_OUTPUT||path.join(ROOT,'artifacts/verificacion-fichas.json'));
+const PILOT=process.argv.includes('--piloto'), REAL=process.argv.includes('--api-real');
+const VPS={escritorio:{width:1440,height:900},movil:{width:390,height:844}};
+const IDS=['comparativo-bancario','atlas-vial','marketing-clientes','pulso-comercial'];
+const FIELDS={problema:'Problema',destinatario:'Destinatario',contribucion:'Mi contribución',fuentes:'Fuentes y datos',metodo:'Método y decisiones técnicas',resultados:'Resultados publicados',limitaciones:'Limitaciones'};
+const norm=v=>String(v??'').replace(/\u00a0/g,' ').replace(/\s+/g,' ').trim();
+const runId=crypto.randomUUID(), start=Date.now(), rows=[], plan=[], contexts=new Set();
+let browser,fatal=null,git={},projects=[];
+const hash=f=>crypto.createHash('sha256').update(fs.readFileSync(f)).digest('hex');
+const routeOf=p=>`#/area/${p.area}/${p.id}`;
+function add(p,vp,scenario,run){plan.push({p,vp,scenario,run});}
+async function open(vp,initial='empty'){
+ const ctx=await browser.newContext({viewport:VPS[vp]});contexts.add(ctx);let mode=initial;
+ const page=await ctx.newPage(), errors=[], network=[], missing=[];
+ page.on('pageerror',e=>errors.push(e.message));
+ page.on('console',m=>{if(m.type()==='error')network.push({type:'console',text:m.text()});});
+ page.on('requestfailed',r=>network.push({type:'requestfailed',url:r.url(),reason:r.failure()?.errorText}));
+ await ctx.addInitScript(api=>{
+  window.PORTFOLIO_BANCA_API=window.PORTAFOLIO_BANCA_API=api+'/api/v1/cnbv/banca-multiple';
+  window.PORTFOLIO_ATLAS_API=api+'/api/v1/atlas-vial';
+  window.PORTFOLIO_MARKETING_API=api+'/api/v1/marketing';
+  window.PORTFOLIO_WALMEX_API=api+'/api/v1/walmex';
+ },API);
+ await ctx.route('**/api/v1/**',async route=>{
+  if(mode==='real')return route.continue();
+  if(mode==='error')return route.abort('failed');
+  const fixture=emptyApi(route.request().url());
+  if(fixture!==null)return route.fulfill({status:200,contentType:'application/json',body:JSON.stringify(fixture)});
+  missing.push(new URL(route.request().url()).pathname);
+  return route.fulfill({status:503,contentType:'application/json',body:JSON.stringify({detail:'API no disponible en este escenario de prueba.'})});
+ });
+ return {page,errors,network,missing,mode:value=>{mode=value;},close:async()=>{await ctx.close();contexts.delete(ctx);}};
 }
-const leerHost = (page) => page.evaluate(() => {
-  const h = document.querySelector('[data-testid="hallazgos-host"]');
-  if (!h) return { hay: false, texto: '', clase: '', espera: false };
-  const err = h.querySelector('[class*="error"]');
-  return { hay: true, texto: h.textContent, clase: err ? err.className : '', espera: /Calculando hallazgos/.test(h.textContent) };
-});
-
-async function esperarHost(page, limite = 20000) {
-  const t0 = Date.now();
-  while (Date.now() - t0 < limite) {
-    const h = await leerHost(page);
-    if (!h.hay) return { estado: 'sin-host', texto: '', ms: Date.now() - t0 };
-    if (!h.espera) return { estado: clasificar(h.texto, h.clase), texto: norm(h.texto).slice(0, 120), ms: Date.now() - t0 };
-    await page.waitForTimeout(250);
-  }
-  return { estado: 'loading', texto: '', ms: limite };
+async function editorial(page,p){
+ const [title,...subtitle]=p.titulo.split(/\s+—\s+/);
+ await page.waitForFunction(value=>document.querySelector('#project-view-title')?.textContent.trim()===value,title,{timeout:12000});
+ assert.equal(norm(await page.locator('#project-view-title').innerText()),norm(title));
+ assert.equal(norm(await page.locator('.view-subtitle').count() ? await page.locator('.view-subtitle').innerText() : ''),norm(subtitle.join(' — ')));
+ const actual=await page.evaluate(()=>({hash:location.hash,fields:[...document.querySelectorAll('dt')].map(dt=>[dt.textContent.trim(),dt.nextElementSibling?.textContent??'']),host:!!document.querySelector('[data-testid="hallazgos-host"]'),overflow:document.documentElement.scrollWidth-document.documentElement.clientWidth}));
+ assert.equal(actual.hash,routeOf(p),'Ruta incorrecta');
+ const fields=Object.fromEntries(actual.fields.map(([k,v])=>[k,norm(v)]));
+ for(const[key,label]of Object.entries(FIELDS)){assert.ok(Object.hasOwn(fields,label),`Falta ${label}`);assert.equal(fields[label],norm(p[key]),`Texto diferente: ${label}`);}
+ assert.ok(fields.Tecnologías?.length,'Faltan tecnologías');
+ assert.equal(actual.host,IDS.includes(p.id),'Host incorrecto');
+ assert.ok(actual.overflow<=1,`Desbordamiento: ${actual.overflow}px`);
 }
-
-const { chromium } = await import('@playwright/test');
-try {
-  navegador = await chromium.launch();
-  const abrir = async (viewport) => {
-    const ctx = await navegador.newContext({ viewport });
-    const p = await ctx.newPage();
-    const errs = [];
-    p.on('pageerror', (e) => errs.push('pageerror: ' + e.message));
-    p.on('console', (m) => { if (m.type() === 'error') errs.push('console: ' + m.text()); });
-    return { ctx, p, errs };
-  };
-
-  const s = await abrir({ width: 1440, height: 900 });
-  await s.p.goto(BASE + '/#portafolio', { waitUntil: 'networkidle' });
-  let registro = await s.p.evaluate(() => {
-    const o = [];
-    for (const a of window.PORTAFOLIO.areas) for (const x of a.proyectos)
-      o.push({ area: a.id, id: x.id, estado: x.estado, campos: { problema: x.problema||'', destinatario: x.destinatario||'', contribucion: x.contribucion||'', fuentes: x.fuentes||'', metodo: x.metodo||'', resultados: x.resultados||'', limitaciones: x.limitaciones||'' }, hallazgos: x.hallazgos ?? null });
-    return o;
-  });
-  await s.ctx.close();
-  if (PILOTO) registro = [registro[0]];
-
-  // 1. entrada directa
-  for (const [vp, viewport] of [['escritorio',{width:1440,height:900}],['movil',{width:390,height:844}]]) {
-    for (const r of registro) {
-      const { ctx, p, errs } = await abrir(viewport);
-      const ruta = `#/area/${r.area}/${r.id}`;
-      await p.goto(`${BASE}/${ruta}`, { waitUntil: 'load' });
-      await p.reload({ waitUntil: 'networkidle' }).catch(() => {});
-      const d = await p.evaluate(() => ({ pares: [...document.querySelectorAll('dt')].map((n) => ({ k: n.textContent.trim(), v: n.parentElement?.querySelector('dd')?.textContent || '' })), overflow: document.documentElement.scrollWidth - document.documentElement.clientWidth, host: !!document.querySelector('[data-testid="hallazgos-host"]') }));
-      const mapa = Object.fromEntries(d.pares.map((x) => [x.k, norm(x.v)]));
-      const faltan = BLOQUES.filter((b) => !d.pares.some((x) => x.k === b));
-      const distinto = CAMPOS.filter(([c, et]) => norm(r.campos[c]) && mapa[et] !== norm(r.campos[c])).map(([c]) => c);
-      reg({ project_id: r.id, ruta, viewport: vp, escenario: 'entrada-directa', comprobacion: 'bloques+texto-completo', esperado: 'todos los bloques e igualdad exacta', observado: `faltan=${faltan.join(',')||'-'} distinto=${distinto.join(',')||'-'}`, estado: (!faltan.length && !distinto.length) ? 'APROBADO' : 'FALLIDO', evidencia: '', datos: 'content.js' });
-      reg({ project_id: r.id, ruta, viewport: vp, escenario: 'entrada-directa', comprobacion: 'sin-desbordamiento', esperado: 'overflow<=1', observado: `overflow=${d.overflow}`, estado: d.overflow <= 1 ? 'APROBADO' : 'FALLIDO', evidencia: '', datos: 'content.js' });
-      reg({ project_id: r.id, ruta, viewport: vp, escenario: 'entrada-directa', comprobacion: 'contrato-hallazgos', esperado: `host=${CON_API.includes(r.id)}`, observado: `host=${d.host}`, estado: d.host === CON_API.includes(r.id) ? 'APROBADO' : 'FALLIDO', evidencia: '', datos: 'content.js' });
-      const erroresApp = errs.filter((e) => !/\/api\/v1\//.test(e));
-      reg({ project_id: r.id, ruta, viewport: vp, escenario: 'entrada-directa', comprobacion: 'consola-de-la-ficha', esperado: '0 errores ajenos a la API', observado: `errores=${erroresApp.length}`, estado: erroresApp.length === 0 ? 'APROBADO' : 'FALLIDO', evidencia: erroresApp.slice(0,2).join(' | '), datos: 'content.js' });
-      await ctx.close();
-    }
-  }
-
-  // 2. SPA
-  for (const r of registro) {
-    const { ctx, p, errs } = await abrir({ width: 1440, height: 900 });
-    await p.goto(`${BASE}/#/area/${r.area}`, { waitUntil: 'networkidle' });
-    await p.click(`[data-proyecto="${r.id}"] .card-hit`);
-    await p.waitForFunction((t) => document.body.textContent.includes(t), r.campos.problema.slice(0, 40), { timeout: 8000 }).catch(() => {});
-    const hash = await p.evaluate(() => location.hash);
-    const texto = norm(await p.evaluate(() => document.body.textContent));
-    const esperadoHash = `#/area/${r.area}/${r.id}`;
-    const ok = hash === esperadoHash && texto.includes(norm(r.campos.problema));
-    reg({ project_id: r.id, ruta: esperadoHash, viewport: 'escritorio', escenario: 'spa-clic', comprobacion: 'hash+contenido', esperado: `${esperadoHash} y párrafo completo`, observado: `hash=${hash} texto=${ok}`, estado: ok && errs.length === 0 ? 'APROBADO' : 'FALLIDO', evidencia: errs.slice(0,2).join(' | '), datos: 'content.js' });
-    await p.goBack(); await p.waitForTimeout(500);
-    const atras = await p.evaluate(() => location.hash);
-    reg({ project_id: r.id, ruta: esperadoHash, viewport: 'escritorio', escenario: 'spa-atras', comprobacion: 'vuelve-al-area', esperado: `#/area/${r.area}`, observado: `hash=${atras}`, estado: atras === `#/area/${r.area}` ? 'APROBADO' : 'FALLIDO', evidencia: '', datos: 'content.js' });
-    await ctx.close();
-  }
-
-  // 3. escenarios de API
-  for (const id of (PILOTO ? [CON_API[0]] : CON_API)) {
-    const r = registro.find((x) => x.id === id) || (await (async () => { const t = await abrir({width:1440,height:900}); await t.p.goto(BASE+'/#portafolio',{waitUntil:'networkidle'}); const j = await t.p.evaluate(()=>{for(const a of window.PORTAFOLIO.areas)for(const x of a.proyectos)if(x.id===arguments[0])return {area:a.id,id:x.id,campos:{}};return null}); await t.ctx.close(); return j; })());
-    const ruta = `#/area/${r.area}/${id}`;
-    for (const [vp, viewport] of [['escritorio',{width:1440,height:900}],['movil',{width:390,height:844}]]) {
-      const { ctx, p } = await abrir(viewport);
-      const reqs = [];
-      p.on('response', (x) => { if (x.url().includes('/api/v1/')) reqs.push(x.status() + ' ' + x.url().split('/api/v1/')[1].split('?')[0]); });
-      await p.goto(`${BASE}/${ruta}`, { waitUntil: 'load' });
-      await p.reload({ waitUntil: 'networkidle' }).catch(() => {});
-      const h = await esperarHost(p);
-      reg({ project_id: id, ruta, viewport: vp, escenario: 'A-api-real', comprobacion: 'estado-ready', esperado: 'ready', observado: `estado=${h.estado} "${h.texto.slice(0,60)}" ${h.ms}ms`, estado: h.estado === 'ready' ? 'APROBADO' : 'FALLIDO', evidencia: reqs.slice(0,3).join(' | '), datos: 'portfolio-api 8a27227' });
-      await ctx.close();
-    }
-    for (const [esc, esperado] of [['B-fallo-red','error'],['C-vacio','empty'],['D-recuperacion','ready']]) {
-      const { ctx, p } = await abrir({ width: 1440, height: 900 });
-      if (esc === 'B-fallo-red') await p.route('**/api/v1/**', (x) => x.abort());
-      if (esc === 'C-vacio') {
-        await p.route('**/api/v1/**', async (route) => {
-          const real = await route.fetch();
-          const json = await real.json();
-          const vaciar = (v) => Array.isArray(v) ? [] : (v && typeof v === 'object' ? Object.fromEntries(Object.entries(v).map(([k, x]) => [k, vaciar(x)])) : (typeof v === 'number' ? 0 : v));
-          contratoVacio[route.request().url().split('/api/v1/')[1].split('?')[0]] = Object.keys(json).slice(0, 8);
-          await route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify(vaciar(json)) });
-        });
-      }
-      if (esc === 'D-recuperacion') { await p.route('**/api/v1/**', (x) => x.abort()); }
-      await p.goto(`${BASE}/${ruta}`, { waitUntil: 'load' });
-      if (esc === 'D-recuperacion') { await p.waitForTimeout(1500); await p.unroute('**/api/v1/**'); }
-      await p.reload({ waitUntil: 'networkidle' }).catch(() => {});
-      const h = await esperarHost(p);
-      const ok = h.estado === esperado;
-      reg({ project_id: id, ruta, viewport: 'escritorio', escenario: esc, comprobacion: `estado-${esperado}`, esperado, observado: `estado=${h.estado} "${h.texto.slice(0,60)}"`, estado: ok ? 'APROBADO' : 'FALLIDO', evidencia: esc === 'C-vacio' ? 'fixture vaciada sobre respuesta real' : 'route.abort simulado', datos: esc === 'C-vacio' ? 'simulada' : 'portfolio-api 8a27227' });
-      await ctx.close();
-    }
-  }
-} catch (e) {
-  errorFatal = String(e && e.stack ? e.stack.split('\n')[0] : e);
-} finally {
-  if (navegador) await navegador.close().catch(() => {});
-  const resumen = {};
-  for (const f of filas) resumen[f.estado] = (resumen[f.estado] || 0) + 1;
-  const esperados = (PILOTO ? 1 : 20) * 2 * 4 + (PILOTO ? 1 : 20) * 2 + (PILOTO ? 1 : 4) * 5;
-  const salida = { run_id: runId, site: BASE, api: API, sha_sitio: sha, arbol_sucio: dirty, verificador: VERSION, piloto: PILOTO, estado_finalizacion: errorFatal ? 'FALLIDO' : 'COMPLETADO', error_fatal: errorFatal, casos_esperados: esperados, casos_ejecutados: filas.length, contrato_vacio: contratoVacio, resumen, filas };
-  const tmp = SALIDA + '.tmp';
-  fs.mkdirSync(path.dirname(SALIDA), { recursive: true });
-  fs.writeFileSync(tmp, JSON.stringify(salida, null, 1));
-  fs.renameSync(tmp, SALIDA);
-  console.log(JSON.stringify({ run_id: runId, piloto: PILOTO, estado: salida.estado_finalizacion, error_fatal: errorFatal, esperados, ejecutados: filas.length, resumen }));
-  if (errorFatal || (resumen.FALLIDO || 0) > 0 || filas.length === 0) process.exitCode = 1;
+async function state(page,expected){
+ await page.waitForFunction(value=>{const h=document.querySelector('[data-testid="hallazgos-host"]');const n=h?.querySelector('[data-state]');return n?.getAttribute('data-state')===value&&n.textContent.trim().length>0;},expected,{timeout:20000});
+ return page.locator('[data-testid="hallazgos-host"]').innerText();
+}
+try{
+ git={sha:execFileSync('git',['rev-parse','HEAD'],{cwd:ROOT,encoding:'utf8'}).trim(),dirty:!!execFileSync('git',['status','--porcelain'],{cwd:ROOT,encoding:'utf8'}).trim()};
+ const c={window:{}};vm.createContext(c);vm.runInContext(fs.readFileSync(path.join(ROOT,'dist/content.js'),'utf8'),c,{timeout:1000});
+ projects=c.window.PORTAFOLIO.areas.flatMap(a=>a.proyectos.map(p=>({...p,area:a.id})));
+ assert.equal(projects.length,20,'Registro incompleto');
+ if(PILOT)projects=[projects.find(p=>p.id==='comparativo-bancario')];
+ for(const p of projects)for(const vp of Object.keys(VPS)){
+  add(p,vp,'entrada-directa',async()=>{const t=await open(vp);try{await t.page.goto(BASE+'/'+routeOf(p),{waitUntil:'domcontentloaded'});await editorial(t.page,p);assert.deepEqual(t.errors,[],'Excepción del aplicativo');return{api:'simulada-vacia-o-no-disponible',network:t.network,requestsWithoutFixture:t.missing};}finally{await t.close();}});
+  add(p,vp,'spa-clic-atras-adelante',async()=>{const t=await open(vp);try{
+   const area=`#/area/${p.area}`;await t.page.goto(BASE+'/'+area,{waitUntil:'domcontentloaded'});
+   await t.page.locator(`[data-proyecto="${p.id}"] .card-hit`).click();await editorial(t.page,p);
+   await t.page.goBack();await t.page.waitForFunction(h=>location.hash===h&&!!document.querySelector('.project-card'),area);
+   await t.page.goForward();await editorial(t.page,p);assert.deepEqual(t.errors,[],'Excepción al navegar');return{api:'simulada-vacia-o-no-disponible',network:t.network};
+  }finally{await t.close();}});
+ }
+ for(const p of projects.filter(p=>IDS.includes(p.id)))for(const vp of Object.keys(VPS)){
+  for(const scenario of ['error','empty','retry-empty'])add(p,vp,scenario,async()=>{const t=await open(vp,scenario==='empty'?'empty':'error');try{
+   await t.page.goto(BASE+'/'+routeOf(p),{waitUntil:'domcontentloaded'});
+   if(scenario==='retry-empty'){await state(t.page,'error');t.mode('empty');await t.page.locator('[data-testid="hallazgos-host"]').getByRole('button',{name:'Reintentar',exact:true}).click();}
+   const expected=scenario==='error'?'error':'empty',text=await state(t.page,expected);
+   assert.ok(!/NaN|Infinity|undefined/.test(text),'Resultado inválido');assert.deepEqual(t.errors,[],'Excepción del aplicativo');assert.deepEqual(t.missing,[],'Endpoint sin fixture explícita');
+   return{expected,observed:expected,text,api:'simulada',network:t.network};
+  }finally{await t.close();}});
+  if(REAL)add(p,vp,'ready-api-real',async()=>{const t=await open(vp,'real');try{await t.page.goto(BASE+'/'+routeOf(p),{waitUntil:'domcontentloaded'});const text=await state(t.page,'ready');assert.deepEqual(t.errors,[]);return{api:'real',text,network:t.network};}finally{await t.close();}});
+ }
+ if(process.argv.includes('--fallo-controlado'))throw new Error('Fallo controlado: prueba de persistencia del reporte');
+ const {chromium}=await import('@playwright/test');browser=await chromium.launch({headless:true});
+ for(const test of plan){const began=Date.now();try{const evidence=await test.run();rows.push({project_id:test.p.id,viewport:test.vp,escenario:test.scenario,estado:'APROBADO',duration_ms:Date.now()-began,evidence});}catch(e){rows.push({project_id:test.p.id,viewport:test.vp,escenario:test.scenario,estado:'FALLIDO',duration_ms:Date.now()-began,error:String(e.stack||e)});}console.log(`${rows.at(-1).estado}: ${test.p.id} ${test.vp} ${test.scenario}`);}
+}catch(e){fatal=String(e.stack||e);}
+finally{
+ for(const ctx of contexts)await ctx.close().catch(()=>{});if(browser)await browser.close().catch(()=>{});
+ const summary=rows.reduce((s,r)=>({...s,[r.estado]:(s[r.estado]||0)+1}),{}),missing=plan.length-rows.length;
+ const report={run_id:runId,version:'4.0.0',site:BASE,api:API,git,date:new Date().toISOString(),duration_ms:Date.now()-start,status:fatal?'ABORTADO':'COMPLETADO',error_fatal:fatal,expected:plan.length,executed:rows.length,missing,real_api:REAL?'solicitada; consultar filas':'NO EJECUTADO: usar --api-real con API y datos accesibles',verifier_sha256:hash(fileURLToPath(import.meta.url)),fixtures_sha256:hash(path.join(ROOT,'tools/qa/empty-api.mjs')),fixturePaths,summary,rows};
+ fs.mkdirSync(path.dirname(OUTPUT),{recursive:true});fs.writeFileSync(OUTPUT+'.tmp',JSON.stringify(report,null,2));fs.renameSync(OUTPUT+'.tmp',OUTPUT);
+ console.log(JSON.stringify({output:OUTPUT,expected:plan.length,executed:rows.length,summary,fatal}));if(fatal||missing||!plan.length||summary.FALLIDO)process.exitCode=1;
 }

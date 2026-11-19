@@ -1,0 +1,29 @@
+name: Fichas y estados en navegador
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+permissions:
+  contents: read
+jobs:
+  navegador:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+      - name: Fichas, navegación, fallo de red, vacío y reintento
+        run: npm run verificar
+      - name: Conservar evidencia incluso si falla una comprobación
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: verificacion-fichas
+          path: artifacts/verificacion-fichas.json
+          if-no-files-found: error

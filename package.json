@@ -5,8 +5,9 @@
   "description": "Verificación de las 20 fichas del portafolio con Playwright.",
   "type": "module",
   "scripts": {
-    "verificar": "node tools/verificar-fichas.mjs",
-    "serve": "python -m http.server 8000 --directory dist"
+    "verificar": "node tools/ejecutar-verificacion.mjs",
+    "serve": "python -m http.server 8000 --directory dist",
+    "verificar:externo": "node tools/verificar-fichas.mjs"
   },
   "devDependencies": {
     "@playwright/test": "1.56.1"

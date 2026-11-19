@@ -284,3 +284,13 @@ sin resultados ejecutados. El estándar completo está en
 [`docs/ESTANDAR_EDITORIAL.md`](docs/ESTANDAR_EDITORIAL.md) y la evidencia por
 afirmación en [`docs/MATRIZ_EVIDENCIA_PROYECTOS.csv`](docs/MATRIZ_EVIDENCIA_PROYECTOS.csv).
 
+
+## Verificación de fichas en navegador
+
+```bash
+npm ci
+npx playwright install chromium
+npm run verificar
+```
+
+El comando administra su servidor estático y verifica las 20 fichas en escritorio y móvil, navegación SPA y los estados de error, vacío y reintento de los cuatro tableros. La batería predeterminada usa respuestas interceptadas con contratos explícitos; no certifica la API real. [Alcance y reproducción](docs/CORRECCION_HALLAZGOS_2026-11-19.md). [Evidencia local de la corrección](docs/verificacion-fichas.json), ligada al SHA de código indicado en el propio informe. El workflow de navegador conserva evidencia por ejecución cuando se publique la rama.
