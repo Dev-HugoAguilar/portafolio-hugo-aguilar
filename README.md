@@ -225,3 +225,42 @@ repositorios de dominio están en revisión en sus respectivos *pull requests*.
 
 El repositorio no contiene credenciales ni datos personales. Ver
 [`SECURITY.md`](SECURITY.md) y [`CONTRIBUTING.md`](CONTRIBUTING.md).
+
+## Arquitectura: qué se ejecuta y qué necesita backend
+
+No todas las piezas de este repositorio funcionan igual. Conviene distinguirlas
+antes de abrir una demo:
+
+| Tipo | Proyectos | Qué necesita |
+|---|---|---|
+| **Integrador estático** | este repositorio | Solo un servidor de archivos. Navegación por rutas *hash*. |
+| **Demos autocontenidas** | `retailops-unified`, `orbita-orbital-intelligence`, `kilometro-cero-logistics`, `ripple-room-supply-chain`, `dockmind-demand-planning`, `vidas-en-transito`, `gaza-humanitarian-observatory` | Servidor de archivos. Datos, estilos y lógica viajan dentro del artefacto. |
+| **Tableros que requieren la API** | Banca múltiple, Atlas vial, Marketing y clientes, Pulso comercial (Walmex) | `portfolio-api` en ejecución y MongoDB con los datos importados. |
+| **Servicios de dominio** | `nl2sql-economic-copilot`, `banxico-evidence-briefing`, `data-incident-commander` | `pip install -e .` en su repositorio; no usan la API HTTP. |
+| **Entrenamiento y actualización de datos** | `demand-forecasting-m5`, `customer-growth-intelligence`, `dockmind-demand-planning` | CSV externos (M5, Complete Journey, Criteo), MongoDB y, en M5, Unix. |
+
+### Sobre `localhost:8010`
+
+Los cuatro tableros piden la API en `http://127.0.0.1:8010`. En una demo servida
+**desde tu equipo** eso apunta a tu propia máquina: hay que arrancar
+`portfolio-api` en ese puerto con una base importada. En una demo remota, ese
+`localhost` apunta al equipo del visitante y no funcionará: los tableros muestran
+su estado de error, no una cifra inventada. El puerto y `ALLOWED_ORIGINS` se
+configuran por variables de entorno; el detalle está en el README de
+[`portfolio-api`](https://github.com/Dev-HugoAguilar/portfolio-api).
+
+Versiones compatibles registradas: los cuatro tableros se probaron contra
+`portfolio-api` en el commit `8a27227`.
+
+## Estado editorial de las fichas
+
+Cada ficha declara problema, destinatario, contribución, fuentes, método,
+resultados y limitaciones. Los cuatro tableros conservan además un bloque
+dinámico de hallazgos que se calcula contra la API con los filtros activos; si la
+API no responde, el bloque informa el error en lugar de dejar un «Calculando…»
+indefinido. Los proyectos sin adaptador no muestran ese bloque.
+
+Los tres casos **Próximamente** describen alcance previsto y validaciones futuras,
+sin resultados ejecutados. El estándar completo está en
+[`docs/ESTANDAR_EDITORIAL.md`](docs/ESTANDAR_EDITORIAL.md) y la evidencia por
+afirmación en [`docs/MATRIZ_EVIDENCIA_PROYECTOS.csv`](docs/MATRIZ_EVIDENCIA_PROYECTOS.csv).

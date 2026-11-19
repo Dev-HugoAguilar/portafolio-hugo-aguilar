@@ -104,6 +104,7 @@ window.PORTAFOLIO = {
         {
           id: 'comparativo-bancario',
           titulo: 'Banca múltiple mexicana — Comparativo financiero',
+          resultados: 'Cobertura verificada: 7 boletines de la CNBV (octubre 2023 a octubre 2024), 56 248 hechos conciliados celda por celda, 158 conceptos y 50 instituciones. Los hallazgos por filtro se calculan contra la API para el corte seleccionado.',
           estado: 'publicado',
           descripcion: 'Compara saldos y resultados de las instituciones de banca múltiple con cifras publicadas por la CNBV: ranking por institución, evolución temporal, dispersión ROA–ROE y tabla de detalle, todo con un mismo estado de filtros.',
           destinatario: 'Pensado para quien necesita leer el sector bancario mexicano sin descargar y reconstruir a mano los boletines mensuales.',
@@ -142,6 +143,7 @@ window.PORTAFOLIO = {
         {
           id: 'atlas-vial',
           titulo: 'Atlas vial · Ciudad de México',
+          resultados: 'Cobertura verificada: hechos de tránsito 2024 de la SSC CDMX georreferenciados por alcaldía, con 1 654 registros sin edad y 1 005 sin sexo mostrados como «Sin dato». Los hallazgos por filtro se calculan contra la API.',
           estado: 'publicado',
           descripcion: 'Explora la distribución territorial y temporal de los hechos de tránsito registrados por la SSC, las personas afectadas y los vehículos involucrados mediante mapas y filtros conectados.',
           destinatario: 'Pensado para quien necesita leer los hechos de tránsito de la Ciudad de México sin descargar cinco archivos, cruzarlos a mano y reconstruir los mapas en una hoja de cálculo.',
@@ -176,6 +178,7 @@ window.PORTAFOLIO = {
         {
           id: 'marketing-clientes',
           titulo: 'Marketing y clientes',
+          resultados: 'Cobertura verificada: muestra del 5 % de usuarios de GA4 (13 509 de 270 154), periodo del 1 de noviembre de 2020 al 31 de enero de 2021. Los hallazgos por filtro se calculan contra la API.',
           estado: 'desarrollo',
           descripcion: 'Explora adquisición, conversión y retorno de usuarios a partir de eventos de comercio electrónico.',
           destinatario: 'Profesionales de marketing, analítica y comercio electrónico que necesitan explorar adquisición, conversión y retorno de usuarios desde una misma aplicación, con métricas consistentes y filtros conectados.',
@@ -217,6 +220,7 @@ window.PORTAFOLIO = {
         {
           id: 'pulso-comercial',
           titulo: 'Pulso comercial · Walmex',
+          resultados: 'Cobertura verificada: 15 trimestres del 1T23 al 3T26 y 16 documentos oficiales; tráfico y ticket solo desde 2024, con 10 de 15 trimestres y los huecos marcados como «no publicado».',
           estado: 'publicado',
           descripcion: 'Analiza ventas, crecimiento y desempeño comercial de Walmart de México y Centroamérica con los comunicados trimestrales oficiales.',
           destinatario: 'Pensado para analistas, equipos comerciales e inversores que necesitan leer el pulso de la operación trimestre a trimestre sin descargar y rearmar cada comunicado.',
@@ -272,7 +276,7 @@ window.PORTAFOLIO = {
             'Captura del tablero «Vidas en tránsito» servido en local: la cabecera con el corte de cada fuente, el esquema por países del corredor centroamericano descrito por OIM DTM y el inicio de las vistas de UPMRIP, ICIJ/CLIP y OIM DTM con sus notas de cobertura.',
           demoUrl: 'dashboards/vidas-en-transito/index.html',
           codigoUrl: 'https://github.com/Dev-HugoAguilar/vidas-en-transito',
-          hallazgos: '',
+          hallazgos: null,
           problema:
             "Las fuentes disponibles observan fenómenos distintos: eventos administrativos relacionados con personas migrantes que declararon victimización, incidentes documentados por una investigación periodística, registros de atención de organizaciones y elementos de una capa geográfica parcial de servicios. Mezclarlos puede llevar a conclusiones erróneas: interpretar un registro administrativo como un censo de delitos o de personas migrantes; contar una fila de incidente como una persona fallecida; leer un dato faltante como cero; confundir la entidad donde se registró un caso con el lugar del hecho; o presentar una capa parcial como un directorio vigente de albergues. El tablero mantiene separadas las unidades y coberturas, hace visibles los datos faltantes y añade notas para delimitar cada interpretación.",
           contribucion:
@@ -319,8 +323,10 @@ window.PORTAFOLIO = {
         },
         {
           id: 'observatorio-financiero',
+          resultados: 'No hay resultados: el caso está definido y pendiente de desarrollo. No se declaran coberturas, métricas ni validaciones ejecutadas.',
           titulo: 'Observatorio financiero de México',
           estado: 'previsto',
+          resumen: 'Caso previsto: reunir en un solo tablero los indicadores financieros públicos de México que hoy se consultan en boletines separados, con la unidad y el corte de cada fuente a la vista.',
           categoria: 'Finanzas',
           descripcion: 'Explorar indicadores financieros por periodo y región a partir de fuentes públicas, con filtros, notas que expliquen cada lectura y acceso a la fuente original.',
           destinatario: 'Pensado para quien necesita entender la evolución del sistema financiero sin depender de reportes estáticos en PDF.',
@@ -329,7 +335,7 @@ window.PORTAFOLIO = {
           fuentes: null,
           metodo: null,
           resultados: null,
-          limitaciones: 'Solo banca múltiple: no incluye banca de desarrollo, sofomes ni otras entidades. Los conceptos acumulados no se comparan con saldos puntuales. La cobertura depende de los boletines importados (7 periodos, octubre 2023 a octubre 2024) y un mes sin boletín se marca como hueco, no se interpola. La columna «Sistema» es el agregado publicado y nunca se suma con las instituciones. Los importes son nominales, sin ajuste por inflación.',
+          limitaciones: 'Caso previsto: no existe implementación, datos importados ni evaluación. Cualquier cifra que se publique deberá declarar su fuente, su unidad, su corte y el hueco cuando falte el boletín; el agregado de una autoridad no se suma con el de otra.',
           tecnologias: ['D3.js', 'React', 'Datos públicos', 'Power BI'],
           capturas: [],
           demoUrl: null,
@@ -750,8 +756,10 @@ window.PORTAFOLIO = {
       proyectos: [
         {
           id: 'modernizacion-sas-python',
+          resultados: 'No hay resultados: el caso está definido y pendiente de desarrollo. No se ejecutó ninguna migración ni se declaran tiempos ni ahorros.',
           titulo: 'Modernización SAS → Python',
           estado: 'previsto',
+          resumen: 'Caso previsto: migrar procesos de SAS a Python conservando el resultado numérico, con reconciliación automática entre el proceso original y el migrado.',
           categoria: 'Arquitectura & ETL',
           descripcion: 'Un ejemplo reproducible con datos sintéticos que concilia los resultados del proceso original con los del proceso migrado y compara tiempos de ejecución.',
           destinatario: 'Pensado para equipos que mantienen procesos heredados y necesitan migrarlos sin perder trazabilidad.',
@@ -760,7 +768,7 @@ window.PORTAFOLIO = {
           fuentes: null,
           metodo: null,
           resultados: null,
-          limitaciones: 'Solo banca múltiple: no incluye banca de desarrollo, sofomes ni otras entidades. Los conceptos acumulados no se comparan con saldos puntuales. La cobertura depende de los boletines importados (7 periodos, octubre 2023 a octubre 2024) y un mes sin boletín se marca como hueco, no se interpola. La columna «Sistema» es el agregado publicado y nunca se suma con las instituciones. Los importes son nominales, sin ajuste por inflación.',
+          limitaciones: 'Caso previsto: no existe un proceso migrado ni una conciliación ejecutada. La licencia de SAS impide redistribuir el código original; el arnés solo puede publicarse con datos sintéticos y una muestra autorizada.',
           tecnologias: ['SAS', 'Python', 'SQL', 'ETL'],
           capturas: [],
           demoUrl: null,
@@ -1123,8 +1131,10 @@ window.PORTAFOLIO = {
         },
         {
           id: 'analista-asistido',
+          resultados: 'No hay resultados: el caso está definido y pendiente de desarrollo. No se declaran capacidades ni evaluaciones ejecutadas.',
           titulo: 'Analista asistido por IA',
           estado: 'previsto',
+          resumen: 'Caso previsto: un analista asistido que proponga el siguiente paso de un análisis y muestre la evidencia y los límites de su propuesta antes de ejecutar nada.',
           categoria: 'Agentes',
           descripcion: 'Consultar datos, ejecutar cálculos, generar una visualización y preparar un informe que una persona revisa antes de usarlo.',
           destinatario: 'Pensado para equipos de análisis que quieren automatizar el trabajo repetitivo sin perder el control del resultado.',
@@ -1133,7 +1143,7 @@ window.PORTAFOLIO = {
           fuentes: null,
           metodo: null,
           resultados: null,
-          limitaciones: 'Solo banca múltiple: no incluye banca de desarrollo, sofomes ni otras entidades. Los conceptos acumulados no se comparan con saldos puntuales. La cobertura depende de los boletines importados (7 periodos, octubre 2023 a octubre 2024) y un mes sin boletín se marca como hueco, no se interpola. La columna «Sistema» es el agregado publicado y nunca se suma con las instituciones. Los importes son nominales, sin ajuste por inflación.',
+          limitaciones: 'Caso previsto: no existe implementación ni evaluación. Un asistente que propone no demuestra que acierte; la evaluación futura deberá medir acierto, abstención y coste, y declarar qué herramientas puede usar.',
           tecnologias: ['Python', 'APIs', 'Herramientas', 'Validación'],
           capturas: [],
           demoUrl: null,
