@@ -32,3 +32,20 @@ propuestas.
   por API, pero no hay cifras de impacto que declarar.
 - RetailOps: la ficha mantiene las métricas del artefacto; la reproducción del
   entrenamiento sigue pendiente.
+## Corrección de este commit
+
+- **Alcance de hallazgos corregido**: el diff real de `main` a este PR cambia **una**
+  ficha (`vidas-en-transito`) de `hallazgos: ''` a `null`. Los demás proyectos sin
+  consumidor ya tenían `null` o el campo ausente. La afirmación anterior de «16
+  fichas con Calculando…» era incorrecta y se retira.
+- **RetailOps**: la ficha ahora usa las métricas del artefacto servido
+  (`CDC6D7C9…`, 13 416 449 B, idéntico al del repositorio): logística AUC 0.9856 /
+  AP 0.9527 / Brier 0.0402; MLP 24/12 AUC 0.9849 / AP 0.9519 / Brier 0.0411. Se
+  retiran el 0.9859, el 0.9540, el 0.04017 y la paridad 1e-12 de otra versión.
+  Se declara que las métricas son las del artefacto y que el entrenamiento no se
+  reproduce.
+- **Gaza**: el sitio servía el HTML de 10 683 401 B con la lista nominal; ahora
+  sirve el build público de 4 699 056 B. Cifras agregadas sin cambios.
+- **Matriz**: la fila de M5 citaba los cortes 64/68/72 y 84/88/92 de DockMind;
+  ahora declara horizonte de 28 días y cortes diarios d_1773 a d_1913, con el
+  pendiente de confirmar cuáles son de desarrollo y cuáles finales.
