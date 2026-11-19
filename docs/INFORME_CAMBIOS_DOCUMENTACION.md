@@ -157,3 +157,24 @@ simulada y recuperación. Sale con código 1 si hay fallos.
 - Las cifras de pruebas de rondas anteriores (`246`, `362`, `18`) corresponden a
   ejecuciones locales de commits previos; no se repiten aquí como evidencia
   vigente. Los resultados por repositorio viven en sus propios PR y CI.
+
+## Verificador v2 y entorno de pruebas
+
+- **Causa del entorno**: el sitio se probaba en `:8017`, origen que la API **no**
+  autoriza (ACAO vacío). El origen `:8000` sí está en `ALLOWED_ORIGINS` y responde
+  con cabecera CORS. Los fallos de API de la ronda anterior se explican por CORS,
+  no por el componente.
+- **Dependencias declaradas**: `package.json` con `@playwright/test` y su
+  `package-lock.json`. El verificador ya no usa `node_modules` del monorepo y
+  falla con código 2 y un mensaje claro si faltan dependencias o el navegador.
+- **Estados**: el verificador espera a que `#hallazgos-host` deje de mostrar el
+  texto de carga y exige contenido real; distingue `timeout`, `sin-host` y
+  contenido, en vez de inferir éxito de la ausencia de spinner.
+- **Fixtures vacías**: el escenario C no devuelve `[]` a ciegas: intercepta la
+  respuesta real, la vacía recursivamente conservando el contrato y registra las
+  claves observadas.
+- **SPA**: recorrido por clic de las 20 fichas, con comprobación de contenido, más
+  atrás.
+- **Evidencia**: `docs/verificacion-fichas.json` incluye SHA del sitio, marca de
+  árbol sucio, versión del verificador, duración y una fila por
+  ficha/viewport/escenario.

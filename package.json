@@ -1,0 +1,14 @@
+{
+  "name": "portafolio-verificacion",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Verificación de las 20 fichas del portafolio con Playwright.",
+  "type": "module",
+  "scripts": {
+    "verificar": "node tools/verificar-fichas.mjs",
+    "serve": "python -m http.server 8000 --directory dist"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.56.1"
+  }
+}
