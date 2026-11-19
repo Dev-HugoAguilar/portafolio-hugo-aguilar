@@ -178,7 +178,7 @@ node tools/verificar-taxonomia.mjs
 Comprueba en un navegador real el orden de las cinco áreas, sus etiquetas, el
 recuento de casos por estado, las fichas de cada área, los 17 enlaces a
 repositorio, los 12 enlaces a demo, el tratamiento de *roadmap* y la ausencia de
-desbordes a 390 px. Última ejecución local: **246 comprobaciones, 0 fallos**.
+desbordes a 390 px. La última ejecución local se hizo sobre el commit indicado en el PR, no en GitHub Actions.
 
 La integración continua ejecuta la comprobación de sintaxis del JavaScript del
 sitio, la validación de la taxonomía (5 áreas, etiquetas, estados y URL de
@@ -186,31 +186,50 @@ repositorio) y el escaneo de credenciales.
 
 ## Evidencia por repositorio
 
-Lo que verifica la integración continua de cada proyecto, con el resultado
-observado al revisar la migración:
+Lo que ejecuta la integración continua de cada proyecto. Los resultados y sus
+ejecuciones viven en cada repositorio y en sus PR; aquí solo se declara el
+alcance, sin duplicar cifras que caducan:
 
-| Repositorio | Verificación en CI | Resultado observado |
-|---|---|---|
-| `portfolio-api` | `pytest -q` (ejecución real) | 362 pasan · 11 omitidas por falta de boletines CNBV |
-| `customer-growth-intelligence` | `pytest` de artefactos y plantillas | 18 pasan |
-| `vidas-en-transito` | `pytest` de contrato de datos y no redistribución | 8 pasan |
-| `gaza-humanitarian-observatory` | `pytest` de contrato y guarda de la lista nominal | 8 pasan |
-| `nl2sql-economic-copilot` | `pytest` del dominio | 11 pasan |
-| `banxico-evidence-briefing` | `pytest` del dominio | 6 pasan |
-| `data-incident-commander` | `pytest` del dominio | 8 pasan |
-| `demand-forecasting-m5` | `pytest` de contratos estáticos + `compileall` | 8 pasan |
-| `dockmind-demand-planning` | `npm ci` + simulación (36 escenarios) + interfaz (jsdom) | verde |
-| `retailops-unified` | integridad del HTML y escaneo de credenciales | verde |
-| `orbita-orbital-intelligence` | integridad y escaneo de credenciales | verde |
-| cuatro tableros React | `npm ci` + `tsc` + build + artefacto | verde |
+| Repositorio | Qué ejecuta su CI |
+|---|---|
+| `portfolio-api` | `pytest` con dos jobs: dominio sin MongoDB e integración con MongoDB efímero |
+| `customer-growth-intelligence` | `pytest` de artefactos y plantillas |
+| `vidas-en-transito` | `pytest` de contrato de datos y no redistribución |
+| `gaza-humanitarian-observatory` | `pytest` de contrato y guarda de la lista nominal |
+| `nl2sql-economic-copilot`, `banxico-evidence-briefing`, `data-incident-commander` | `pytest` del dominio |
+| `demand-forecasting-m5` | `pytest` de contratos y lógica pura, más `compileall` |
+| `dockmind-demand-planning` | `npm ci`, simulación de 36 escenarios e interfaz en jsdom |
+| `ripple-room-supply-chain`, `kilometro-cero-logistics` | `pytest` de invariantes de la simulación |
+| cuatro tableros React | `npm ci`, `tsc`, build y comprobación del artefacto |
+| `retailops-unified`, `orbita-orbital-intelligence` | integridad del artefacto, procedencia y escaneo de credenciales |
 
-Las mejoras de `dockmind-demand-planning`, `ripple-room-supply-chain`,
-`kilometro-cero-logistics`, `portfolio-api`, los cuatro tableros React y los
-repositorios de dominio están en revisión en sus respectivos *pull requests*.
+## Stack del portafolio y evidencia técnica
 
+Este repositorio contiene **el sitio integrador**. La barra *Languages* de GitHub
+describe únicamente los archivos de este repositorio: los bundles generados de las
+demos y su HTML pesan mucho más que las utilidades de verificación, así que la
+barra no representa el stack del trabajo. Los pipelines, modelos y APIs se
+documentan en los repositorios enlazados.
+
+| Capacidad | Tecnologías | Proyecto | Evidencia directa |
+|---|---|---|---|
+| Machine Learning y evaluación | Python, LightGBM, scikit-learn, Pandas, NumPy | `demand-forecasting-m5` | [`lib/app/comercial/modelo.py`](https://github.com/Dev-HugoAguilar/demand-forecasting-m5/blob/main/lib/app/comercial/modelo.py) |
+| Segmentación y experimentación | scikit-learn, SciPy, pandas | `customer-growth-intelligence` | [`pipeline/src`](https://github.com/Dev-HugoAguilar/customer-growth-intelligence/tree/main/pipeline/src) |
+| Pronóstico y artefactos `joblib` | scikit-learn, joblib | `dockmind-demand-planning` | [`pipeline/train_models.py`](https://github.com/Dev-HugoAguilar/dockmind-demand-planning/blob/main/pipeline/train_models.py) |
+| Ingeniería de datos | Python, importer idempotente, índices | `portfolio-api` | [`app/cnbv`](https://github.com/Dev-HugoAguilar/portfolio-api/tree/main/app/cnbv) y [`app/db/indexes.py`](https://github.com/Dev-HugoAguilar/portfolio-api/blob/main/app/db/indexes.py) |
+| APIs y almacenamiento | FastAPI, Pydantic, MongoDB | `portfolio-api` | [`app/main.py`](https://github.com/Dev-HugoAguilar/portfolio-api/blob/main/app/main.py) |
+| Dominio instalable | Python, SQLite, pydantic-settings | `nl2sql-economic-copilot` | [`src/app/nl_sql`](https://github.com/Dev-HugoAguilar/nl2sql-economic-copilot/tree/main/src/app/nl_sql) |
+| Visualización e interfaces | React, Vite, TypeScript, D3.js, SVG | `cdmx-traffic-atlas`, `vidas-en-transito` | [`app/src`](https://github.com/Dev-HugoAguilar/cdmx-traffic-atlas/tree/main/app/src) y [`web/hexmap.js`](https://github.com/Dev-HugoAguilar/vidas-en-transito/blob/main/web/hexmap.js) |
+| Simulación y decisiones supervisadas | Python, reglas deterministas, aprobación humana | `data-incident-commander`, `ripple-room-supply-chain` | [`service.py`](https://github.com/Dev-HugoAguilar/data-incident-commander/blob/main/src/app/incident_commander/service.py) y [`simulation.py`](https://github.com/Dev-HugoAguilar/ripple-room-supply-chain/blob/main/source/simulation.py) |
+| Verificación | pytest, jsdom, Playwright | varios | [`qa/`](https://github.com/Dev-HugoAguilar/dockmind-demand-planning/tree/main/qa) y [`tools/verificar-taxonomia.mjs`](tools/verificar-taxonomia.mjs) |
+
+**Nivel de cada tecnología**: *implementada* cuando hay código ejecutable en el
+repositorio enlazado; *documentada históricamente* cuando el repositorio la
+declara sin pipeline reproducible (RetailOps: la inferencia está publicada y el
+entrenamiento original sigue pendiente); *propuesta* en los casos de roadmap.
 ## Límites
 
-- Sitio estático sin backend: las demos funcionan con archivos del mismo origen.
+- El integrador es estático. Las demos autocontenidas funcionan con archivos del mismo origen; los cuatro tableros y M5 necesitan la API y sus datos, y no muestran cifras si falta.
 - Algunas demos se montan dentro de la ficha y no se abren fuera del sitio; la
   tarjeta ofrece el enlace directo cuando existe una demo publicada.
 - Dos fichas comparten repositorio (*Clientes y campañas* y *Clientes en
@@ -264,3 +283,4 @@ Los tres casos **Próximamente** describen alcance previsto y validaciones futur
 sin resultados ejecutados. El estándar completo está en
 [`docs/ESTANDAR_EDITORIAL.md`](docs/ESTANDAR_EDITORIAL.md) y la evidencia por
 afirmación en [`docs/MATRIZ_EVIDENCIA_PROYECTOS.csv`](docs/MATRIZ_EVIDENCIA_PROYECTOS.csv).
+

@@ -49,3 +49,26 @@ propuestas.
 - **Matriz**: la fila de M5 citaba los cortes 64/68/72 y 84/88/92 de DockMind;
   ahora declara horizonte de 28 días y cortes diarios d_1773 a d_1913, con el
   pendiente de confirmar cuáles son de desarrollo y cuáles finales.
+
+## Cierre de la revisión editorial
+
+- **RetailOps**: la ficha quedó alineada en `f0684a0` con el bloque `MODEL` del
+  artefacto servido (`synthetic-42-v2`, 13 416 449 B, SHA-256 `CDC6D7C9…`):
+  logística AUC 0.9856 / AP 0.9527 / Brier 0.0402 y MLP 24/12 AUC 0.9849 /
+  AP 0.9519 / Brier 0.0411. Se retiraron el 0.9859, el 0.9540, el 0.04017 y la
+  paridad 1e-12: eran de otra versión. No se declara reproducción del
+  entrenamiento.
+- **README**: se retiran las afirmaciones que daban a entender que todas las
+  demos funcionan solo con archivos locales, y la tabla de cifras de pruebas se
+  sustituye por una de alcance por repositorio, sin números que caducan.
+- **Nueva sección «Stack del portafolio y evidencia técnica»** con seis familias
+  y enlaces a archivos concretos de cada repositorio, más la nota de que la barra
+  *Languages* de GitHub solo describe los archivos de este repositorio.
+- **.gitattributes**: se marcan como `linguist-generated` los bundles de Vite y
+  los `index.html` empaquetados de las demos, y como `linguist-vendored` las
+  librerías de terceros. No se reclasifica ningún lenguaje ni se excluye `dist/`
+  completo; los atributos de texto y binarios se conservan.
+- **Recorrido de las 20 fichas**: el script se corrigió y ejecutó sin errores de
+  consola, con título y navegación en las 20 rutas. El conteo de bloques por
+  ficha devolvió 0 porque el selector usado no coincide con el DOM de la ficha:
+  esa comprobación **no es válida** y no se declara superada.
