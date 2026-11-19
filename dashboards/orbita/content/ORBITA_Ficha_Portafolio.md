@@ -1,0 +1,49 @@
+# ORBITA
+
+*Inteligencia orbital y visualización geoespacial interactiva*
+
+Explorador interactivo para analizar un snapshot público de satélites, comprender la estructura de sus órbitas y comparar su presencia geométrica desde una ubicación. Integra una Tierra 3D, propagación orbital, distribuciones estadísticas, ventanas de paso y trazabilidad del catálogo en una experiencia local reproducible.
+
+**En desarrollo · Ingeniería de datos y visualización**
+
+## Problema
+
+Los catálogos orbitales contienen miles de registros difíciles de interpretar como tablas aisladas. Una representación atractiva del planeta tampoco basta para explicar dónde se concentran los objetos, qué puede observarse desde una ubicación o cuáles son los límites de los datos. ORBITA conecta exploración espacial y análisis cuantitativo para responder esas preguntas con contexto temporal y procedencia explícita.
+
+## Destinatario
+
+Equipos y profesionales de ingeniería y análisis de datos, visualización geoespacial, educación científica y exploración de catálogos satelitales. También permite evaluar el trabajo de integración entre datos científicos, cálculo en navegador y diseño de interfaces del portafolio.
+
+## Mi contribución
+
+Diseñé e implementé un explorador orbital con cinco vistas: Explorador, Constelaciones, Sobre mi ubicación, Comparar y Datos y método. Integré un catálogo público con propagación SGP4, procesamiento en Web Worker, una escena Three.js construida con React Three Fiber y visualizaciones D3/SVG. Modelé filtros de capas, selección de objetos, distribuciones de altura e inclinación, ventanas geométricas, trayectoria aparente y comparación normalizada entre constelaciones. Incorporé exportaciones CSV y controles para distinguir datos del snapshot, resultados calculados y escalas ilustrativas.
+
+## Fuentes y datos
+
+Snapshot de CelesTrak con 12,308 registros y 12,308 identificadores NORAD únicos, distribuidos en seis grupos públicos: Starlink, Amazon Leo, OneWeb, GPS, Galileo y estaciones. Descarga registrada: 2026-11-17T00:46:34.832588+00:00. Referencia temporal de la simulación: 2026-11-16T12:05:12.614208Z. Cada grupo conserva enlace de origen y SHA-256 declarado. Estos conteos pertenecen al snapshot: no son cifras actuales ni un censo completo de objetos en órbita.
+
+## Método y decisiones técnicas
+
+Los elementos orbitales se propagan con SGP4 mediante satellite.js; las coordenadas se transforman a un marco terrestre para su representación. Los cálculos pesados se ejecutan en un Web Worker. La altura media de las distribuciones se aproxima a partir del movimiento medio y no equivale a altitud instantánea. Los pasos se evalúan durante 24 horas con muestras cada 30 segundos. La comparación de Starlink, Amazon Leo y OneWeb utiliza 25 instantes separados por cinco minutos durante dos horas, con conteos absolutos o normalizados por cada 1,000 objetos. D3/SVG coordina selección de rangos, matrices, series y trayectoria polar. La escena combina texturas terrestres, iluminación, atmósfera estilizada, estaciones simbólicas y una posición lunar calculada con efemérides; su distancia de presentación está comprimida.
+
+## Resultados del prototipo
+
+El prototipo permite explorar seis grupos, seleccionar satélites, comparar la distribución de alturas e inclinaciones, inspeccionar ventanas desde ciudades predefinidas y contrastar presencia geométrica de tres constelaciones. La selección de altura dispone de tabla y CSV; la comparación ofrece un cursor temporal compartido y la trayectoria polar puede recorrerse con teclado. En el escenario precomputado de ISS desde Ciudad de México se obtienen dos ventanas sobre 10° dentro de las 24 horas del snapshot. Es un resultado de ese escenario, no una predicción vigente.
+
+## Limitaciones
+
+Prototipo analítico con snapshot fijo; no recibe telemetría en vivo ni es una herramienta de control de misión. La precisión depende de los elementos y su distancia temporal. Un paso geométrico no garantiza visibilidad óptica, conectividad ni cobertura comercial. El relieve es una textura desplazada con exageración, no un DEM calibrado; la atmósfera no es un modelo físico validado. La Luna tiene distancia visual comprimida y orientación superficial ilustrativa; las estaciones están ampliadas para identificarlas. Las posiciones se actualizan por muestras y aún no se interpolan. El HTML es monolítico y pesado. Las pruebas funcionales pasan en un entorno DOM con worker simulado; quedan pendientes la revisión visual en dispositivos y la medición de rendimiento. El backend Python separado no está conectado al HTML entregado. No requiere LLM, credenciales ni escritura en sistemas externos.
+
+## Tecnologías
+
+**Cálculo y datos**
+
+JavaScript · satellite.js / SGP4 · Web Workers · CelesTrak GP JSON · astronomy-engine
+
+**Visualización e interfaz**
+
+React · TypeScript · Three.js · React Three Fiber · Drei · D3.js · SVG · HTML/CSS
+
+## Ubicación en el portafolio
+
+Integrar en Dashboards. Asignar el número de área conforme al orden real del portafolio; no reemplazar Data Incident Commander ni asumir que ORBITA ocupa el área 05.

@@ -1,0 +1,993 @@
+{
+  "purpose": "robustness audit; not an independent causal evaluation",
+  "dataset_rows": 6589,
+  "unique_households": 1559,
+  "unique_campaigns": 27,
+  "cutoff_results": [
+    {
+      "design": "forward temporal holdout; training campaigns must have ended before cutoff; test campaigns start on/after cutoff",
+      "cutoff": "2017-06-01",
+      "train": {
+        "rows": 1091,
+        "positive_pairs": 74,
+        "response_rate": 0.06782768102658111,
+        "campaigns": 11,
+        "last_training_campaign_end": "2017-05-28"
+      },
+      "excluded_in_flight_at_cutoff": {
+        "rows": 1252,
+        "campaigns": 2
+      },
+      "test": {
+        "rows": 4246,
+        "positive_pairs": 540,
+        "response_rate": 0.12717852096090437,
+        "campaigns": 14,
+        "first_test_campaign_start": "2017-06-28",
+        "last_test_campaign_end": "2018-02-28"
+      },
+      "households_seen_in_training": {
+        "rows": 2385,
+        "positive_pairs": 323,
+        "households": 649,
+        "campaigns": 14,
+        "roc_auc": 0.76378850074922,
+        "average_precision": 0.37948673514072717,
+        "brier": 0.10557366233796169,
+        "log_loss": 0.38605733328698055,
+        "top_decile_response_rate": 0.4895397489539749,
+        "base_response_rate": 0.13542976939203355,
+        "top_decile_lift": 3.6147130069821363
+      },
+      "households_not_seen_in_training": {
+        "rows": 1861,
+        "positive_pairs": 217,
+        "households": 751,
+        "campaigns": 14,
+        "roc_auc": 0.7242591409061858,
+        "average_precision": 0.2751599899653224,
+        "brier": 0.10058718371641176,
+        "log_loss": 0.3648246950278091,
+        "top_decile_response_rate": 0.35294117647058826,
+        "base_response_rate": 0.11660397635679742,
+        "top_decile_lift": 3.0268365410680405
+      },
+      "all_test": {
+        "rows": 4246,
+        "positive_pairs": 540,
+        "households": 1400,
+        "campaigns": 14,
+        "roc_auc": 0.7488736983070498,
+        "average_precision": 0.34121188727709983,
+        "brier": 0.10338811435993428,
+        "log_loss": 0.37675117695153115,
+        "top_decile_response_rate": 0.4329411764705882,
+        "base_response_rate": 0.12717852096090437,
+        "top_decile_lift": 3.4042004357298477
+      },
+      "calibration": {
+        "method": "deciles of predicted probability, calculated on the held-out period; diagnostic only, not used to recalibrate",
+        "deciles": [
+          {
+            "rows": 425,
+            "observed_rate": 0.04,
+            "mean_probability": 0.0037104693304457945,
+            "min_probability": 0.00024785521917616653,
+            "max_probability": 0.00624494948038822
+          },
+          {
+            "rows": 425,
+            "observed_rate": 0.06352941176470588,
+            "mean_probability": 0.00870951755178474,
+            "min_probability": 0.006255658887419522,
+            "max_probability": 0.011226157014694873
+          },
+          {
+            "rows": 424,
+            "observed_rate": 0.03537735849056604,
+            "mean_probability": 0.013738054152061386,
+            "min_probability": 0.011229075912224438,
+            "max_probability": 0.016407978329346352
+          },
+          {
+            "rows": 425,
+            "observed_rate": 0.07764705882352942,
+            "mean_probability": 0.01927933342092601,
+            "min_probability": 0.016423841474265115,
+            "max_probability": 0.022354974887111044
+          },
+          {
+            "rows": 424,
+            "observed_rate": 0.04481132075471698,
+            "mean_probability": 0.02554285280083378,
+            "min_probability": 0.022361953227593472,
+            "max_probability": 0.028752932012370506
+          },
+          {
+            "rows": 425,
+            "observed_rate": 0.08235294117647059,
+            "mean_probability": 0.03204931654566379,
+            "min_probability": 0.028781872355325297,
+            "max_probability": 0.03609859574095292
+          },
+          {
+            "rows": 424,
+            "observed_rate": 0.09905660377358491,
+            "mean_probability": 0.04223937112585549,
+            "min_probability": 0.0362822295868136,
+            "max_probability": 0.04956746288517246
+          },
+          {
+            "rows": 425,
+            "observed_rate": 0.16,
+            "mean_probability": 0.06372339513542993,
+            "min_probability": 0.04957236803904133,
+            "max_probability": 0.08164551398615287
+          },
+          {
+            "rows": 424,
+            "observed_rate": 0.2358490566037736,
+            "mean_probability": 0.11843198750251087,
+            "min_probability": 0.08166376674167505,
+            "max_probability": 0.1781717131991886
+          },
+          {
+            "rows": 425,
+            "observed_rate": 0.4329411764705882,
+            "mean_probability": 0.4302450788978095,
+            "min_probability": 0.17819395435734142,
+            "max_probability": 0.9869886158519564
+          }
+        ],
+        "campaign_mean_absolute_gap": 0.07387835146392606
+      },
+      "campaign_cluster_bootstrap": {
+        "cluster_unit": "campaign_id",
+        "campaign_clusters": 14,
+        "requested_resamples": 2000,
+        "intervals": {
+          "average_precision": {
+            "lower_2_5_pct": 0.1685344234876956,
+            "upper_97_5_pct": 0.4398698308220954,
+            "valid_resamples": 2000
+          },
+          "brier": {
+            "lower_2_5_pct": 0.06145204537791901,
+            "upper_97_5_pct": 0.12319741772740544,
+            "valid_resamples": 2000
+          },
+          "top_decile_lift": {
+            "lower_2_5_pct": 2.8504213705903156,
+            "upper_97_5_pct": 3.8710104404813412,
+            "valid_resamples": 2000
+          }
+        },
+        "caveat": "Households may recur across campaigns; this interval preserves within-campaign dependence but does not model cross-campaign household dependence."
+      },
+      "baselines_all_test": {
+        "campaign_type_rate": {
+          "roc_auc": 0.6367637065019688,
+          "average_precision": 0.17297070535368744,
+          "brier": 0.11127625400419608,
+          "log_loss": 0.3825576237991712
+        },
+        "prior_response_rate": {
+          "roc_auc": 0.7114464032299973,
+          "average_precision": 0.2735504320507134,
+          "brier": 0.11600222403657824,
+          "log_loss": 2.4608758923945175
+        }
+      },
+      "coverage": {
+        "test_exposures_with_prior_90d_transaction": 0.9967027790861988,
+        "test_exposures_with_demographics": 0.595148374941121,
+        "test_rows_from_households_seen_in_train": 2385,
+        "test_rows_from_new_households": 1861
+      },
+      "campaign_results": [
+        {
+          "campaign_id": 10,
+          "campaign_type": "Type B",
+          "start_date": "2017-06-28",
+          "end_date": "2017-07-30",
+          "exposures": 123,
+          "responses": 10,
+          "observed_rate": 0.08130081300813008,
+          "mean_score": 0.06182928008339358,
+          "average_precision": 0.3849338982835184,
+          "top_decile_response_rate": 0.23076923076923078,
+          "top_decile_lift": 2.8384615384615386
+        },
+        {
+          "campaign_id": 11,
+          "campaign_type": "Type B",
+          "start_date": "2017-07-12",
+          "end_date": "2017-08-27",
+          "exposures": 214,
+          "responses": 6,
+          "observed_rate": 0.028037383177570093,
+          "mean_score": 0.04062667364303997,
+          "average_precision": 0.30814994626094705,
+          "top_decile_response_rate": 0.13636363636363635,
+          "top_decile_lift": 4.863636363636363
+        },
+        {
+          "campaign_id": 12,
+          "campaign_type": "Type B",
+          "start_date": "2017-07-12",
+          "end_date": "2017-08-13",
+          "exposures": 170,
+          "responses": 11,
+          "observed_rate": 0.06470588235294118,
+          "mean_score": 0.04929501648719023,
+          "average_precision": 0.35989098877661935,
+          "top_decile_response_rate": 0.23529411764705882,
+          "top_decile_lift": 3.636363636363636
+        },
+        {
+          "campaign_id": 13,
+          "campaign_type": "Type A",
+          "start_date": "2017-08-08",
+          "end_date": "2017-09-24",
+          "exposures": 1077,
+          "responses": 196,
+          "observed_rate": 0.18198700092850512,
+          "mean_score": 0.06711569910784519,
+          "average_precision": 0.4683022237599645,
+          "top_decile_response_rate": 0.6018518518518519,
+          "top_decile_lift": 3.307114512471655
+        },
+        {
+          "campaign_id": 14,
+          "campaign_type": "Type C",
+          "start_date": "2017-09-04",
+          "end_date": "2017-11-08",
+          "exposures": 224,
+          "responses": 18,
+          "observed_rate": 0.08035714285714286,
+          "mean_score": 0.05095655727267397,
+          "average_precision": 0.2631367950931095,
+          "top_decile_response_rate": 0.30434782608695654,
+          "top_decile_lift": 3.78743961352657
+        },
+        {
+          "campaign_id": 15,
+          "campaign_type": "Type C",
+          "start_date": "2017-09-20",
+          "end_date": "2018-02-28",
+          "exposures": 17,
+          "responses": 2,
+          "observed_rate": 0.11764705882352941,
+          "mean_score": 0.032006785137677525,
+          "average_precision": 0.3214285714285714,
+          "top_decile_response_rate": 0.5,
+          "top_decile_lift": 4.25
+        },
+        {
+          "campaign_id": 16,
+          "campaign_type": "Type B",
+          "start_date": "2017-10-04",
+          "end_date": "2017-11-05",
+          "exposures": 188,
+          "responses": 19,
+          "observed_rate": 0.10106382978723404,
+          "mean_score": 0.08024182555097248,
+          "average_precision": 0.24568983652426107,
+          "top_decile_response_rate": 0.2631578947368421,
+          "top_decile_lift": 2.6038781163434903
+        },
+        {
+          "campaign_id": 17,
+          "campaign_type": "Type B",
+          "start_date": "2017-10-18",
+          "end_date": "2017-11-19",
+          "exposures": 202,
+          "responses": 18,
+          "observed_rate": 0.0891089108910891,
+          "mean_score": 0.06569550540897552,
+          "average_precision": 0.18409560151077903,
+          "top_decile_response_rate": 0.14285714285714285,
+          "top_decile_lift": 1.6031746031746033
+        },
+        {
+          "campaign_id": 18,
+          "campaign_type": "Type A",
+          "start_date": "2017-10-30",
+          "end_date": "2017-12-24",
+          "exposures": 1133,
+          "responses": 214,
+          "observed_rate": 0.18887908208296558,
+          "mean_score": 0.08531531407685794,
+          "average_precision": 0.5435998894495427,
+          "top_decile_response_rate": 0.7017543859649122,
+          "top_decile_lift": 3.715363174290867
+        },
+        {
+          "campaign_id": 19,
+          "campaign_type": "Type B",
+          "start_date": "2017-11-15",
+          "end_date": "2017-12-17",
+          "exposures": 130,
+          "responses": 15,
+          "observed_rate": 0.11538461538461539,
+          "mean_score": 0.09088979764481311,
+          "average_precision": 0.4242050729597663,
+          "top_decile_response_rate": 0.46153846153846156,
+          "top_decile_lift": 4.0
+        },
+        {
+          "campaign_id": 20,
+          "campaign_type": "Type C",
+          "start_date": "2017-11-27",
+          "end_date": "2018-02-05",
+          "exposures": 244,
+          "responses": 11,
+          "observed_rate": 0.045081967213114756,
+          "mean_score": 0.07710717600493996,
+          "average_precision": 0.3134002792374484,
+          "top_decile_response_rate": 0.24,
+          "top_decile_lift": 5.323636363636363
+        },
+        {
+          "campaign_id": 21,
+          "campaign_type": "Type B",
+          "start_date": "2017-12-06",
+          "end_date": "2018-01-07",
+          "exposures": 65,
+          "responses": 2,
+          "observed_rate": 0.03076923076923077,
+          "mean_score": 0.10427620732595765,
+          "average_precision": 0.11904761904761904,
+          "top_decile_response_rate": 0.14285714285714285,
+          "top_decile_lift": 4.642857142857142
+        },
+        {
+          "campaign_id": 22,
+          "campaign_type": "Type B",
+          "start_date": "2017-12-06",
+          "end_date": "2018-01-07",
+          "exposures": 276,
+          "responses": 15,
+          "observed_rate": 0.05434782608695652,
+          "mean_score": 0.10534178739263551,
+          "average_precision": 0.47341505389410365,
+          "top_decile_response_rate": 0.2857142857142857,
+          "top_decile_lift": 5.257142857142857
+        },
+        {
+          "campaign_id": 23,
+          "campaign_type": "Type B",
+          "start_date": "2017-12-28",
+          "end_date": "2018-02-04",
+          "exposures": 183,
+          "responses": 3,
+          "observed_rate": 0.01639344262295082,
+          "mean_score": 0.11687410176070824,
+          "average_precision": 0.028545667122446147,
+          "top_decile_response_rate": 0.0,
+          "top_decile_lift": 0.0
+        }
+      ]
+    },
+    {
+      "design": "forward temporal holdout; training campaigns must have ended before cutoff; test campaigns start on/after cutoff",
+      "cutoff": "2017-08-01",
+      "train": {
+        "rows": 2466,
+        "positive_pairs": 262,
+        "response_rate": 0.10624493106244931,
+        "campaigns": 14,
+        "last_training_campaign_end": "2017-07-30"
+      },
+      "excluded_in_flight_at_cutoff": {
+        "rows": 384,
+        "campaigns": 2
+      },
+      "test": {
+        "rows": 3739,
+        "positive_pairs": 513,
+        "response_rate": 0.13720246055094945,
+        "campaigns": 11,
+        "first_test_campaign_start": "2017-08-08",
+        "last_test_campaign_end": "2018-02-28"
+      },
+      "households_seen_in_training": {
+        "rows": 3243,
+        "positive_pairs": 457,
+        "households": 1104,
+        "campaigns": 11,
+        "roc_auc": 0.8050678525481423,
+        "average_precision": 0.4194448504338704,
+        "brier": 0.10455680550503083,
+        "log_loss": 0.35499722008282025,
+        "top_decile_response_rate": 0.5169230769230769,
+        "base_response_rate": 0.14091890225100215,
+        "top_decile_lift": 3.6682309375526008
+      },
+      "households_not_seen_in_training": {
+        "rows": 496,
+        "positive_pairs": 56,
+        "households": 285,
+        "campaigns": 11,
+        "roc_auc": 0.7078327922077923,
+        "average_precision": 0.24070679887957985,
+        "brier": 0.09734957000041757,
+        "log_loss": 0.3333090918965754,
+        "top_decile_response_rate": 0.34,
+        "base_response_rate": 0.11290322580645161,
+        "top_decile_lift": 3.0114285714285716
+      },
+      "all_test": {
+        "rows": 3739,
+        "positive_pairs": 513,
+        "households": 1389,
+        "campaigns": 11,
+        "roc_auc": 0.7944623907360882,
+        "average_precision": 0.4024319718880418,
+        "brier": 0.10360072398315649,
+        "log_loss": 0.35212016429775006,
+        "top_decile_response_rate": 0.5,
+        "base_response_rate": 0.13720246055094945,
+        "top_decile_lift": 3.6442495126705654
+      },
+      "calibration": {
+        "method": "deciles of predicted probability, calculated on the held-out period; diagnostic only, not used to recalibrate",
+        "deciles": [
+          {
+            "rows": 374,
+            "observed_rate": 0.0213903743315508,
+            "mean_probability": 0.008144528823138404,
+            "min_probability": 0.0007536830175907818,
+            "max_probability": 0.013619233696892321
+          },
+          {
+            "rows": 374,
+            "observed_rate": 0.013368983957219251,
+            "mean_probability": 0.019441959334108486,
+            "min_probability": 0.01369933883733941,
+            "max_probability": 0.025318710266914533
+          },
+          {
+            "rows": 374,
+            "observed_rate": 0.03208556149732621,
+            "mean_probability": 0.03382957469128384,
+            "min_probability": 0.025324808166300075,
+            "max_probability": 0.04256750352189894
+          },
+          {
+            "rows": 374,
+            "observed_rate": 0.0855614973262032,
+            "mean_probability": 0.051490278426672524,
+            "min_probability": 0.04259526461061048,
+            "max_probability": 0.059223480578191136
+          },
+          {
+            "rows": 374,
+            "observed_rate": 0.07754010695187166,
+            "mean_probability": 0.06708293701893629,
+            "min_probability": 0.05922773704005975,
+            "max_probability": 0.07550488519386825
+          },
+          {
+            "rows": 373,
+            "observed_rate": 0.09115281501340483,
+            "mean_probability": 0.08737725266148162,
+            "min_probability": 0.07552451959262427,
+            "max_probability": 0.10139577211261466
+          },
+          {
+            "rows": 374,
+            "observed_rate": 0.13101604278074866,
+            "mean_probability": 0.12027355876164084,
+            "min_probability": 0.10142361262719557,
+            "max_probability": 0.14478009749750903
+          },
+          {
+            "rows": 374,
+            "observed_rate": 0.1443850267379679,
+            "mean_probability": 0.17864482123235184,
+            "min_probability": 0.14491786100051668,
+            "max_probability": 0.22057226914631042
+          },
+          {
+            "rows": 374,
+            "observed_rate": 0.27540106951871657,
+            "mean_probability": 0.31282599146618806,
+            "min_probability": 0.22081040089539072,
+            "max_probability": 0.4401407704380635
+          },
+          {
+            "rows": 374,
+            "observed_rate": 0.5,
+            "mean_probability": 0.7063054550553849,
+            "min_probability": 0.441278348317523,
+            "max_probability": 0.9984394934788404
+          }
+        ],
+        "campaign_mean_absolute_gap": 0.03310919526490236
+      },
+      "campaign_cluster_bootstrap": {
+        "cluster_unit": "campaign_id",
+        "campaign_clusters": 11,
+        "requested_resamples": 2000,
+        "intervals": {
+          "average_precision": {
+            "lower_2_5_pct": 0.1688369919778911,
+            "upper_97_5_pct": 0.5212525667769248,
+            "valid_resamples": 2000
+          },
+          "brier": {
+            "lower_2_5_pct": 0.08720993727728206,
+            "upper_97_5_pct": 0.1113459276425457,
+            "valid_resamples": 2000
+          },
+          "top_decile_lift": {
+            "lower_2_5_pct": 2.810177973139003,
+            "upper_97_5_pct": 3.991903706314566,
+            "valid_resamples": 2000
+          }
+        },
+        "caveat": "Households may recur across campaigns; this interval preserves within-campaign dependence but does not model cross-campaign household dependence."
+      },
+      "baselines_all_test": {
+        "campaign_type_rate": {
+          "roc_auc": 0.6213991098155942,
+          "average_precision": 0.177352148833598,
+          "brier": 0.1166280208842729,
+          "log_loss": 0.3917398082308812
+        },
+        "prior_response_rate": {
+          "roc_auc": 0.707549467109946,
+          "average_precision": 0.2960932253321233,
+          "brier": 0.11959405934041824,
+          "log_loss": 2.546762212153449
+        }
+      },
+      "coverage": {
+        "test_exposures_with_prior_90d_transaction": 0.9967905857181064,
+        "test_exposures_with_demographics": 0.5969510564322011,
+        "test_rows_from_households_seen_in_train": 3243,
+        "test_rows_from_new_households": 496
+      },
+      "campaign_results": [
+        {
+          "campaign_id": 13,
+          "campaign_type": "Type A",
+          "start_date": "2017-08-08",
+          "end_date": "2017-09-24",
+          "exposures": 1077,
+          "responses": 196,
+          "observed_rate": 0.18198700092850512,
+          "mean_score": 0.1663051019221505,
+          "average_precision": 0.5397285020838194,
+          "top_decile_response_rate": 0.6944444444444444,
+          "top_decile_lift": 3.8159013605442174
+        },
+        {
+          "campaign_id": 14,
+          "campaign_type": "Type C",
+          "start_date": "2017-09-04",
+          "end_date": "2017-11-08",
+          "exposures": 224,
+          "responses": 18,
+          "observed_rate": 0.08035714285714286,
+          "mean_score": 0.06583410467266451,
+          "average_precision": 0.2661651692977511,
+          "top_decile_response_rate": 0.21739130434782608,
+          "top_decile_lift": 2.7053140096618353
+        },
+        {
+          "campaign_id": 15,
+          "campaign_type": "Type C",
+          "start_date": "2017-09-20",
+          "end_date": "2018-02-28",
+          "exposures": 17,
+          "responses": 2,
+          "observed_rate": 0.11764705882352941,
+          "mean_score": 0.029913604907578016,
+          "average_precision": 0.14215686274509803,
+          "top_decile_response_rate": 0.0,
+          "top_decile_lift": 0.0
+        },
+        {
+          "campaign_id": 16,
+          "campaign_type": "Type B",
+          "start_date": "2017-10-04",
+          "end_date": "2017-11-05",
+          "exposures": 188,
+          "responses": 19,
+          "observed_rate": 0.10106382978723404,
+          "mean_score": 0.12949347954973497,
+          "average_precision": 0.22255581376792816,
+          "top_decile_response_rate": 0.2631578947368421,
+          "top_decile_lift": 2.6038781163434903
+        },
+        {
+          "campaign_id": 17,
+          "campaign_type": "Type B",
+          "start_date": "2017-10-18",
+          "end_date": "2017-11-19",
+          "exposures": 202,
+          "responses": 18,
+          "observed_rate": 0.0891089108910891,
+          "mean_score": 0.11841857252981103,
+          "average_precision": 0.2349737773442013,
+          "top_decile_response_rate": 0.2857142857142857,
+          "top_decile_lift": 3.2063492063492065
+        },
+        {
+          "campaign_id": 18,
+          "campaign_type": "Type A",
+          "start_date": "2017-10-30",
+          "end_date": "2017-12-24",
+          "exposures": 1133,
+          "responses": 214,
+          "observed_rate": 0.18887908208296558,
+          "mean_score": 0.18858390483034818,
+          "average_precision": 0.6083302570214678,
+          "top_decile_response_rate": 0.7017543859649122,
+          "top_decile_lift": 3.715363174290867
+        },
+        {
+          "campaign_id": 19,
+          "campaign_type": "Type B",
+          "start_date": "2017-11-15",
+          "end_date": "2017-12-17",
+          "exposures": 130,
+          "responses": 15,
+          "observed_rate": 0.11538461538461539,
+          "mean_score": 0.14303325513550202,
+          "average_precision": 0.4112432673606271,
+          "top_decile_response_rate": 0.38461538461538464,
+          "top_decile_lift": 3.3333333333333335
+        },
+        {
+          "campaign_id": 20,
+          "campaign_type": "Type C",
+          "start_date": "2017-11-27",
+          "end_date": "2018-02-05",
+          "exposures": 244,
+          "responses": 11,
+          "observed_rate": 0.045081967213114756,
+          "mean_score": 0.10271749702062155,
+          "average_precision": 0.24828784194911216,
+          "top_decile_response_rate": 0.28,
+          "top_decile_lift": 6.210909090909091
+        },
+        {
+          "campaign_id": 21,
+          "campaign_type": "Type B",
+          "start_date": "2017-12-06",
+          "end_date": "2018-01-07",
+          "exposures": 65,
+          "responses": 2,
+          "observed_rate": 0.03076923076923077,
+          "mean_score": 0.16253460928180097,
+          "average_precision": 0.1607142857142857,
+          "top_decile_response_rate": 0.14285714285714285,
+          "top_decile_lift": 4.642857142857142
+        },
+        {
+          "campaign_id": 22,
+          "campaign_type": "Type B",
+          "start_date": "2017-12-06",
+          "end_date": "2018-01-07",
+          "exposures": 276,
+          "responses": 15,
+          "observed_rate": 0.05434782608695652,
+          "mean_score": 0.17001866281191672,
+          "average_precision": 0.49064824956524045,
+          "top_decile_response_rate": 0.32142857142857145,
+          "top_decile_lift": 5.914285714285715
+        },
+        {
+          "campaign_id": 23,
+          "campaign_type": "Type B",
+          "start_date": "2017-12-28",
+          "end_date": "2018-02-04",
+          "exposures": 183,
+          "responses": 3,
+          "observed_rate": 0.01639344262295082,
+          "mean_score": 0.19352017476552544,
+          "average_precision": 0.02248062015503876,
+          "top_decile_response_rate": 0.0,
+          "top_decile_lift": 0.0
+        }
+      ]
+    },
+    {
+      "design": "forward temporal holdout; training campaigns must have ended before cutoff; test campaigns start on/after cutoff",
+      "cutoff": "2017-10-01",
+      "train": {
+        "rows": 3927,
+        "positive_pairs": 475,
+        "response_rate": 0.12095747389865037,
+        "campaigns": 17,
+        "last_training_campaign_end": "2017-09-24"
+      },
+      "excluded_in_flight_at_cutoff": {
+        "rows": 241,
+        "campaigns": 2
+      },
+      "test": {
+        "rows": 2421,
+        "positive_pairs": 297,
+        "response_rate": 0.12267657992565056,
+        "campaigns": 8,
+        "first_test_campaign_start": "2017-10-04",
+        "last_test_campaign_end": "2018-02-05"
+      },
+      "households_seen_in_training": {
+        "rows": 2208,
+        "positive_pairs": 269,
+        "households": 1083,
+        "campaigns": 8,
+        "roc_auc": 0.815583474408109,
+        "average_precision": 0.3985899115657854,
+        "brier": 0.10223188902613173,
+        "log_loss": 0.3538214195099132,
+        "top_decile_response_rate": 0.49321266968325794,
+        "base_response_rate": 0.12182971014492754,
+        "top_decile_lift": 4.048377600968898
+      },
+      "households_not_seen_in_training": {
+        "rows": 213,
+        "positive_pairs": 28,
+        "households": 156,
+        "campaigns": 8,
+        "roc_auc": 0.742084942084942,
+        "average_precision": 0.2827770348125282,
+        "brier": 0.11197751874404901,
+        "log_loss": 0.3762146217074159,
+        "top_decile_response_rate": 0.3181818181818182,
+        "base_response_rate": 0.13145539906103287,
+        "top_decile_lift": 2.4204545454545454
+      },
+      "all_test": {
+        "rows": 2421,
+        "positive_pairs": 297,
+        "households": 1239,
+        "campaigns": 8,
+        "roc_auc": 0.8025547375829862,
+        "average_precision": 0.3846667392233576,
+        "brier": 0.10308931121940575,
+        "log_loss": 0.3557915773240677,
+        "top_decile_response_rate": 0.4773662551440329,
+        "base_response_rate": 0.12267657992565056,
+        "top_decile_lift": 3.8912582616286318
+      },
+      "calibration": {
+        "method": "deciles of predicted probability, calculated on the held-out period; diagnostic only, not used to recalibrate",
+        "deciles": [
+          {
+            "rows": 243,
+            "observed_rate": 0.012345679012345678,
+            "mean_probability": 0.008973607706968754,
+            "min_probability": 0.0010416686964744364,
+            "max_probability": 0.013259911969635428
+          },
+          {
+            "rows": 242,
+            "observed_rate": 0.012396694214876033,
+            "mean_probability": 0.017288019313502333,
+            "min_probability": 0.013262066456143352,
+            "max_probability": 0.021333025852135167
+          },
+          {
+            "rows": 242,
+            "observed_rate": 0.0371900826446281,
+            "mean_probability": 0.027732351949817286,
+            "min_probability": 0.0213493344074346,
+            "max_probability": 0.035346890597969235
+          },
+          {
+            "rows": 242,
+            "observed_rate": 0.05785123966942149,
+            "mean_probability": 0.04431132841568665,
+            "min_probability": 0.035358597646849135,
+            "max_probability": 0.054047608824361826
+          },
+          {
+            "rows": 242,
+            "observed_rate": 0.07024793388429752,
+            "mean_probability": 0.06341904116210909,
+            "min_probability": 0.05418756784412109,
+            "max_probability": 0.07375615023856386
+          },
+          {
+            "rows": 242,
+            "observed_rate": 0.0743801652892562,
+            "mean_probability": 0.08692656895331179,
+            "min_probability": 0.07375749401735944,
+            "max_probability": 0.10175969511802989
+          },
+          {
+            "rows": 242,
+            "observed_rate": 0.1115702479338843,
+            "mean_probability": 0.12599675860936507,
+            "min_probability": 0.10196184561208112,
+            "max_probability": 0.1551627420851807
+          },
+          {
+            "rows": 242,
+            "observed_rate": 0.10743801652892562,
+            "mean_probability": 0.20024639669541366,
+            "min_probability": 0.15704373738823654,
+            "max_probability": 0.26783684550759335
+          },
+          {
+            "rows": 242,
+            "observed_rate": 0.2644628099173554,
+            "mean_probability": 0.39095163760968066,
+            "min_probability": 0.2678547543664068,
+            "max_probability": 0.5476783900752932
+          },
+          {
+            "rows": 242,
+            "observed_rate": 0.4793388429752066,
+            "mean_probability": 0.8009083362152438,
+            "min_probability": 0.5485342848810774,
+            "max_probability": 0.9994020795197287
+          }
+        ],
+        "campaign_mean_absolute_gap": 0.05392955509807227
+      },
+      "campaign_cluster_bootstrap": {
+        "cluster_unit": "campaign_id",
+        "campaign_clusters": 8,
+        "requested_resamples": 2000,
+        "intervals": {
+          "average_precision": {
+            "lower_2_5_pct": 0.12825112801154764,
+            "upper_97_5_pct": 0.5350967931651367,
+            "valid_resamples": 2000
+          },
+          "brier": {
+            "lower_2_5_pct": 0.0873292531140906,
+            "upper_97_5_pct": 0.11222301776576685,
+            "valid_resamples": 2000
+          },
+          "top_decile_lift": {
+            "lower_2_5_pct": 2.679368944889907,
+            "upper_97_5_pct": 4.354099098678922,
+            "valid_resamples": 2000
+          }
+        },
+        "caveat": "Households may recur across campaigns; this interval preserves within-campaign dependence but does not model cross-campaign household dependence."
+      },
+      "baselines_all_test": {
+        "campaign_type_rate": {
+          "roc_auc": 0.6487544940934771,
+          "average_precision": 0.17248637819339838,
+          "brier": 0.10429245736720262,
+          "log_loss": 0.3558078778655876
+        },
+        "prior_response_rate": {
+          "roc_auc": 0.731575801961866,
+          "average_precision": 0.2942111409384144,
+          "brier": 0.10832884258946597,
+          "log_loss": 1.934209912439063
+        }
+      },
+      "coverage": {
+        "test_exposures_with_prior_90d_transaction": 0.9979347377116894,
+        "test_exposures_with_demographics": 0.6080132176786451,
+        "test_rows_from_households_seen_in_train": 2208,
+        "test_rows_from_new_households": 213
+      },
+      "campaign_results": [
+        {
+          "campaign_id": 16,
+          "campaign_type": "Type B",
+          "start_date": "2017-10-04",
+          "end_date": "2017-11-05",
+          "exposures": 188,
+          "responses": 19,
+          "observed_rate": 0.10106382978723404,
+          "mean_score": 0.13132315519470011,
+          "average_precision": 0.22495776113944144,
+          "top_decile_response_rate": 0.2631578947368421,
+          "top_decile_lift": 2.6038781163434903
+        },
+        {
+          "campaign_id": 17,
+          "campaign_type": "Type B",
+          "start_date": "2017-10-18",
+          "end_date": "2017-11-19",
+          "exposures": 202,
+          "responses": 18,
+          "observed_rate": 0.0891089108910891,
+          "mean_score": 0.11820889475879513,
+          "average_precision": 0.23578154127546724,
+          "top_decile_response_rate": 0.3333333333333333,
+          "top_decile_lift": 3.740740740740741
+        },
+        {
+          "campaign_id": 18,
+          "campaign_type": "Type A",
+          "start_date": "2017-10-30",
+          "end_date": "2017-12-24",
+          "exposures": 1133,
+          "responses": 214,
+          "observed_rate": 0.18887908208296558,
+          "mean_score": 0.20635274988204233,
+          "average_precision": 0.6112580287969307,
+          "top_decile_response_rate": 0.7192982456140351,
+          "top_decile_lift": 3.808247253648139
+        },
+        {
+          "campaign_id": 19,
+          "campaign_type": "Type B",
+          "start_date": "2017-11-15",
+          "end_date": "2017-12-17",
+          "exposures": 130,
+          "responses": 15,
+          "observed_rate": 0.11538461538461539,
+          "mean_score": 0.14672861050041278,
+          "average_precision": 0.40269362961478883,
+          "top_decile_response_rate": 0.38461538461538464,
+          "top_decile_lift": 3.3333333333333335
+        },
+        {
+          "campaign_id": 20,
+          "campaign_type": "Type C",
+          "start_date": "2017-11-27",
+          "end_date": "2018-02-05",
+          "exposures": 244,
+          "responses": 11,
+          "observed_rate": 0.045081967213114756,
+          "mean_score": 0.11653561392588548,
+          "average_precision": 0.25591029269558124,
+          "top_decile_response_rate": 0.24,
+          "top_decile_lift": 5.323636363636363
+        },
+        {
+          "campaign_id": 21,
+          "campaign_type": "Type B",
+          "start_date": "2017-12-06",
+          "end_date": "2018-01-07",
+          "exposures": 65,
+          "responses": 2,
+          "observed_rate": 0.03076923076923077,
+          "mean_score": 0.17440698287287945,
+          "average_precision": 0.1607142857142857,
+          "top_decile_response_rate": 0.14285714285714285,
+          "top_decile_lift": 4.642857142857142
+        },
+        {
+          "campaign_id": 22,
+          "campaign_type": "Type B",
+          "start_date": "2017-12-06",
+          "end_date": "2018-01-07",
+          "exposures": 276,
+          "responses": 15,
+          "observed_rate": 0.05434782608695652,
+          "mean_score": 0.17685191872613562,
+          "average_precision": 0.4873415372599592,
+          "top_decile_response_rate": 0.32142857142857145,
+          "top_decile_lift": 5.914285714285715
+        },
+        {
+          "campaign_id": 23,
+          "campaign_type": "Type B",
+          "start_date": "2017-12-28",
+          "end_date": "2018-02-04",
+          "exposures": 183,
+          "responses": 3,
+          "observed_rate": 0.01639344262295082,
+          "mean_score": 0.2051466925687347,
+          "average_precision": 0.023531771501925543,
+          "top_decile_response_rate": 0.0,
+          "top_decile_lift": 0.0
+        }
+      ]
+    }
+  ],
+  "interpretation_limits": [
+    "The outcome is redemption among exposed households, not incremental campaign impact.",
+    "The test windows for different cutoffs overlap; they are sensitivity checks, not independent replications.",
+    "Households absent from supervised training may still have pre-cutoff transaction history; this is not a strict new-customer cold-start test.",
+    "Campaign bootstrap intervals preserve within-campaign clustering but do not account for households recurring across campaigns.",
+    "Results are conditional on the small historical campaign sample and are not evidence of market-wide transfer."
+  ]
+}

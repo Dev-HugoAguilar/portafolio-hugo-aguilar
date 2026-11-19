@@ -1,0 +1,12 @@
+archivo,bloque,contenido,estado,bytes
+reports/criteo_uplift_prototype.json,metrics,"Métricas por modelo del prototipo de muestra (AUUC, uplift@10)",disponible,2888
+reports/criteo_full_benchmark.json,outcomes[].models / random_ranking_20_draws,Benchmark completo: modelos y 20 sorteos aleatorios de referencia,disponible,5961
+reports/criteo_seed_stability.json,runs / summary_by_outcome,Tres repeticiones de partición: estabilidad entre semillas,disponible,6753
+reports/criteo_uplift_audit.json,schema / rows_with_missing,Auditoría del fichero fuente de Criteo,disponible,4618
+reports/robust_propensity_validation.json,cutoff_results[].campaign_cluster_bootstrap,Bootstrap por campaña del AP en tres cortes,disponible,35696
+reports/robust_propensity_validation.json,cutoff_results[].calibration,Calibración por deciles en los tres cortes (el tablero muestra solo uno),disponible,35696
+reports/behavior_segments_validation.json,per_cutoff[].candidate_k,Silueta y Davies-Bouldin por k candidato,disponible,19813
+reports/behavior_segments_validation.json,temporal_stability / selected_k_subsample_stability,ARI entre cortes y estabilidad en submuestras,disponible,19813
+reports/temporal_sensitivity.json,cortes[].top_decile / coverage,Sensibilidad temporal del decil superior y cobertura,disponible,3404
+reports/segment_campaign_experiment_power.json,scenarios / current_data_capacity,Diseño de potencia del experimento (fuente del bloque de experimentación),disponible,3868
+reports/behavior_segments.json,candidate_k / profiles,Selección de k por silueta y perfiles por cluster,disponible,2258

@@ -1,0 +1,9 @@
+/* Leyenda del mapa y encabezado de la ficha del sitio (etiquetas de grupo). */
+#legend{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:6px 20px;font-size:12px;margin:12px 0}
+#legend span{display:flex;align-items:flex-start;gap:7px;line-height:1.35}
+#legend .dot{flex:0 0 9px;margin-top:4px}
+#group{max-width:100%}
+#siteTitle{line-height:1.25;overflow-wrap:anywhere}
+#siteLocation{overflow-wrap:anywhere}
+#siteGroup{white-space:normal;max-width:100%;line-height:1.35}
+@media(max-width:850px){#legend{grid-template-columns:1fr;font-size:11.5px}}

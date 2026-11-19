@@ -1,0 +1,3 @@
+segmento_id,segmento,hogares,participacion_universo,participacion_gasto,mediana_canastas,mediana_gasto_usd,mediana_recencia_dias,mediana_productos,mediana_canasta_media_usd,mediana_tasa_cupon,mediana_descuento_linea
+0,Menor actividad,721,0.312,0.0503,4.0,66.94,17.1,20.0,14.47,0.0,0.4633
+1,Mayor actividad,1590,0.688,0.9497,17.0,509.64,3.4,131.0,32.13,0.0024,0.5129

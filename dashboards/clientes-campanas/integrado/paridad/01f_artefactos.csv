@@ -1,0 +1,6 @@
+Archivo,Contenido
+perfiles.json,"perfiles, distribuciones, departamentos y asignaciones por hogar y corte"
+evolucion.json,"transiciones entre cortes, entradas y salidas, permanencia y ARI"
+campanas.json,"propensión por corte: métricas, calibración, targeting y campañas"
+incrementalidad.json,"Criteo: AUUC por modelo y semilla, rangos y curvas"
+experimento.json,"diseño prospectivo, potencia y capacidad actual"

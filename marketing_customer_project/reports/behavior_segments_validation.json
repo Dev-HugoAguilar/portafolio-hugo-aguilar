@@ -1,0 +1,674 @@
+{
+  "source": "Complete Journey full transactions RDS + product department catalog",
+  "transaction_rows": 1469307,
+  "window_days": 90,
+  "cutoffs": [
+    "2017-07-01",
+    "2017-08-01",
+    "2017-09-01"
+  ],
+  "unit": "household; each snapshot includes households with at least one transaction in the trailing window",
+  "features_policy": "behavioral variables and department shares from transactions strictly before each cutoff; department vocabulary fixed from first pre-cutoff window (top 10 + OTHER); continuous features log-transformed where appropriate and winsorized at 0.5/99.5 percentiles; no campaign outcomes, demographics, or post-cutoff information enter clustering",
+  "candidate_selection_policy": "compare k=2..8; reject any solution with a cluster below 5% of households, then choose the highest silhouette among viable solutions; report all diagnostics and do not interpret this as a universal optimum",
+  "department_vocabulary": [
+    "GROCERY",
+    "DRUG GM",
+    "PRODUCE",
+    "MEAT-PCKGD",
+    "MEAT",
+    "DELI",
+    "PASTRY",
+    "NUTRITION",
+    "FUEL",
+    "SALAD BAR",
+    "OTHER"
+  ],
+  "per_cutoff": [
+    {
+      "cutoff": "2017-07-01",
+      "window_start": "2017-04-02",
+      "window_days": 90,
+      "households": 2300,
+      "features": [
+        "purchase_lines",
+        "baskets",
+        "sales",
+        "distinct_products",
+        "recency_days",
+        "sales_per_basket",
+        "lines_per_basket",
+        "coupon_line_rate",
+        "retail_discount_per_line",
+        "department_share::GROCERY",
+        "department_share::DRUG GM",
+        "department_share::PRODUCE",
+        "department_share::MEAT-PCKGD",
+        "department_share::MEAT",
+        "department_share::DELI",
+        "department_share::PASTRY",
+        "department_share::NUTRITION",
+        "department_share::FUEL",
+        "department_share::SALAD BAR",
+        "department_share::OTHER"
+      ],
+      "candidate_k": [
+        {
+          "k": 2,
+          "silhouette": 0.25761690735816956,
+          "davies_bouldin": 1.982773737534358,
+          "calinski_harabasz": 452.53748377876525,
+          "min_cluster_share": 0.33,
+          "cluster_sizes": [
+            759,
+            1541
+          ]
+        },
+        {
+          "k": 3,
+          "silhouette": 0.1153087466955185,
+          "davies_bouldin": 2.422383556600519,
+          "calinski_harabasz": 313.520745291088,
+          "min_cluster_share": 0.14521739130434783,
+          "cluster_sizes": [
+            1101,
+            865,
+            334
+          ]
+        },
+        {
+          "k": 4,
+          "silhouette": 0.10638640820980072,
+          "davies_bouldin": 1.9420311992510613,
+          "calinski_harabasz": 268.52533907688866,
+          "min_cluster_share": 0.00608695652173913,
+          "cluster_sizes": [
+            1017,
+            14,
+            403,
+            866
+          ]
+        },
+        {
+          "k": 5,
+          "silhouette": 0.10214600712060928,
+          "davies_bouldin": 2.1522798274760477,
+          "calinski_harabasz": 241.3701183948647,
+          "min_cluster_share": 0.00608695652173913,
+          "cluster_sizes": [
+            158,
+            663,
+            464,
+            1001,
+            14
+          ]
+        },
+        {
+          "k": 6,
+          "silhouette": 0.10359226167201996,
+          "davies_bouldin": 1.9997167838853744,
+          "calinski_harabasz": 222.06509710637476,
+          "min_cluster_share": 0.00608695652173913,
+          "cluster_sizes": [
+            408,
+            106,
+            643,
+            180,
+            14,
+            949
+          ]
+        },
+        {
+          "k": 7,
+          "silhouette": 0.10096824169158936,
+          "davies_bouldin": 1.9632171813757442,
+          "calinski_harabasz": 212.10069367513051,
+          "min_cluster_share": 0.00608695652173913,
+          "cluster_sizes": [
+            750,
+            155,
+            512,
+            587,
+            14,
+            265,
+            17
+          ]
+        },
+        {
+          "k": 8,
+          "silhouette": 0.10605575889348984,
+          "davies_bouldin": 1.7579183496167359,
+          "calinski_harabasz": 202.88779147760044,
+          "min_cluster_share": 0.00608695652173913,
+          "cluster_sizes": [
+            105,
+            509,
+            758,
+            14,
+            15,
+            587,
+            291,
+            21
+          ]
+        }
+      ],
+      "selected_k_minimum_5pct_cluster": 2,
+      "temporal_ari_comparison_k_common": 2,
+      "selected_k_subsample_stability": {
+        "method": "20 subsamples without replacement, 80% of households; refit scaler and KMeans, compare assignments by ARI",
+        "ari_mean": 0.9747211177850991,
+        "ari_min": 0.9444773484695389,
+        "ari_max": 0.9947159190544149,
+        "ari_values": [
+          0.965078587230986,
+          0.9684689989413379,
+          0.947678587749069,
+          0.9807057775818022,
+          0.9947159190544149,
+          0.9684689989413379,
+          0.9859348628163693,
+          0.9667294516264109,
+          0.9789331410764236,
+          0.9754874292198875,
+          0.9633461699957984,
+          0.9789680366650132,
+          0.9444773484695389,
+          0.975439973516967,
+          0.9929590909059143,
+          0.9720138572756393,
+          0.984186957506679,
+          0.9824509435194612,
+          0.9841957161916383,
+          0.9841825074172937
+        ]
+      },
+      "profiles": [
+        {
+          "cluster": 0,
+          "households": 759,
+          "median_baskets": 4.0,
+          "median_sales": 70.14,
+          "median_recency_days": 14.38585648148148,
+          "median_products": 21.0,
+          "median_coupon_line_rate": 0.0,
+          "median_sales_per_basket": 14.835
+        },
+        {
+          "cluster": 1,
+          "households": 1541,
+          "median_baskets": 17.0,
+          "median_sales": 526.2,
+          "median_recency_days": 3.3273148148148146,
+          "median_products": 136.0,
+          "median_coupon_line_rate": 0.003067484662576687,
+          "median_sales_per_basket": 32.227619047619044
+        }
+      ]
+    },
+    {
+      "cutoff": "2017-08-01",
+      "window_start": "2017-05-03",
+      "window_days": 90,
+      "households": 2317,
+      "features": [
+        "purchase_lines",
+        "baskets",
+        "sales",
+        "distinct_products",
+        "recency_days",
+        "sales_per_basket",
+        "lines_per_basket",
+        "coupon_line_rate",
+        "retail_discount_per_line",
+        "department_share::GROCERY",
+        "department_share::DRUG GM",
+        "department_share::PRODUCE",
+        "department_share::MEAT-PCKGD",
+        "department_share::MEAT",
+        "department_share::DELI",
+        "department_share::PASTRY",
+        "department_share::NUTRITION",
+        "department_share::FUEL",
+        "department_share::SALAD BAR",
+        "department_share::OTHER"
+      ],
+      "candidate_k": [
+        {
+          "k": 2,
+          "silhouette": 0.26549267768859863,
+          "davies_bouldin": 1.966989041784004,
+          "calinski_harabasz": 452.8712399798066,
+          "min_cluster_share": 0.32326283987915405,
+          "cluster_sizes": [
+            749,
+            1568
+          ]
+        },
+        {
+          "k": 3,
+          "silhouette": 0.12265413999557495,
+          "davies_bouldin": 2.502040629255768,
+          "calinski_harabasz": 305.7813226850018,
+          "min_cluster_share": 0.13638325420802763,
+          "cluster_sizes": [
+            1137,
+            316,
+            864
+          ]
+        },
+        {
+          "k": 4,
+          "silhouette": 0.12301502376794815,
+          "davies_bouldin": 2.0827815469865767,
+          "calinski_harabasz": 252.84393260439808,
+          "min_cluster_share": 0.004747518342684506,
+          "cluster_sizes": [
+            853,
+            1119,
+            334,
+            11
+          ]
+        },
+        {
+          "k": 5,
+          "silhouette": 0.09520609676837921,
+          "davies_bouldin": 2.268806569076047,
+          "calinski_harabasz": 225.34000981378347,
+          "min_cluster_share": 0.004747518342684506,
+          "cluster_sizes": [
+            705,
+            938,
+            142,
+            521,
+            11
+          ]
+        },
+        {
+          "k": 6,
+          "silhouette": 0.09404072165489197,
+          "davies_bouldin": 2.1426044107967894,
+          "calinski_harabasz": 207.34814444427712,
+          "min_cluster_share": 0.006042296072507553,
+          "cluster_sizes": [
+            870,
+            674,
+            434,
+            116,
+            209,
+            14
+          ]
+        },
+        {
+          "k": 7,
+          "silhouette": 0.09435269236564636,
+          "davies_bouldin": 2.0346412515526864,
+          "calinski_harabasz": 196.17157403073912,
+          "min_cluster_share": 0.006042296072507553,
+          "cluster_sizes": [
+            166,
+            513,
+            76,
+            539,
+            725,
+            284,
+            14
+          ]
+        },
+        {
+          "k": 8,
+          "silhouette": 0.095652736723423,
+          "davies_bouldin": 1.9083497227768094,
+          "calinski_harabasz": 190.99474667162528,
+          "min_cluster_share": 0.004747518342684506,
+          "cluster_sizes": [
+            698,
+            175,
+            502,
+            67,
+            555,
+            11,
+            297,
+            12
+          ]
+        }
+      ],
+      "selected_k_minimum_5pct_cluster": 2,
+      "temporal_ari_comparison_k_common": 2,
+      "selected_k_subsample_stability": {
+        "method": "20 subsamples without replacement, 80% of households; refit scaler and KMeans, compare assignments by ARI",
+        "ari_mean": 0.9865529734509689,
+        "ari_min": 0.9704331045827169,
+        "ari_max": 0.9964948941425403,
+        "ari_values": [
+          0.9860223127692243,
+          0.9825296369229416,
+          0.979060209931461,
+          0.9895044607757486,
+          0.9947450157226222,
+          0.9877632994546667,
+          0.9912506008985101,
+          0.975613601863818,
+          0.9947442079055375,
+          0.9895044607757486,
+          0.9704331045827169,
+          0.9964948941425403,
+          0.9790439062805155,
+          0.994742579622641,
+          0.9860159146006489,
+          0.9755800982954477,
+          0.9929958446234952,
+          0.9894979729224204,
+          0.9912438397817651,
+          0.9842735071469065
+        ]
+      },
+      "profiles": [
+        {
+          "cluster": 0,
+          "households": 749,
+          "median_baskets": 4.0,
+          "median_sales": 70.78,
+          "median_recency_days": 16.123657407407407,
+          "median_products": 21.0,
+          "median_coupon_line_rate": 0.0,
+          "median_sales_per_basket": 14.898333333333333
+        },
+        {
+          "cluster": 1,
+          "households": 1568,
+          "median_baskets": 17.0,
+          "median_sales": 519.735,
+          "median_recency_days": 3.114780092592593,
+          "median_products": 135.0,
+          "median_coupon_line_rate": 0.0034305418255425315,
+          "median_sales_per_basket": 32.67443287037037
+        }
+      ]
+    },
+    {
+      "cutoff": "2017-09-01",
+      "window_start": "2017-06-03",
+      "window_days": 90,
+      "households": 2311,
+      "features": [
+        "purchase_lines",
+        "baskets",
+        "sales",
+        "distinct_products",
+        "recency_days",
+        "sales_per_basket",
+        "lines_per_basket",
+        "coupon_line_rate",
+        "retail_discount_per_line",
+        "department_share::GROCERY",
+        "department_share::DRUG GM",
+        "department_share::PRODUCE",
+        "department_share::MEAT-PCKGD",
+        "department_share::MEAT",
+        "department_share::DELI",
+        "department_share::PASTRY",
+        "department_share::NUTRITION",
+        "department_share::FUEL",
+        "department_share::SALAD BAR",
+        "department_share::OTHER"
+      ],
+      "candidate_k": [
+        {
+          "k": 2,
+          "silhouette": 0.2619156539440155,
+          "davies_bouldin": 1.9766729432810337,
+          "calinski_harabasz": 449.11055797146065,
+          "min_cluster_share": 0.31977498918217223,
+          "cluster_sizes": [
+            739,
+            1572
+          ]
+        },
+        {
+          "k": 3,
+          "silhouette": 0.19215944409370422,
+          "davies_bouldin": 2.2861702879981696,
+          "calinski_harabasz": 309.95057601185385,
+          "min_cluster_share": 0.056252704456945045,
+          "cluster_sizes": [
+            1366,
+            815,
+            130
+          ]
+        },
+        {
+          "k": 4,
+          "silhouette": 0.09682691097259521,
+          "davies_bouldin": 1.9201989620391235,
+          "calinski_harabasz": 263.98019756860555,
+          "min_cluster_share": 0.004759844223279966,
+          "cluster_sizes": [
+            766,
+            1038,
+            496,
+            11
+          ]
+        },
+        {
+          "k": 5,
+          "silhouette": 0.10168741643428802,
+          "davies_bouldin": 2.0344059842566224,
+          "calinski_harabasz": 239.6805399340723,
+          "min_cluster_share": 0.005625270445694505,
+          "cluster_sizes": [
+            555,
+            651,
+            986,
+            106,
+            13
+          ]
+        },
+        {
+          "k": 6,
+          "silhouette": 0.10528643429279327,
+          "davies_bouldin": 1.961964308630826,
+          "calinski_harabasz": 222.03769826164051,
+          "min_cluster_share": 0.005625270445694505,
+          "cluster_sizes": [
+            924,
+            202,
+            105,
+            13,
+            440,
+            627
+          ]
+        },
+        {
+          "k": 7,
+          "silhouette": 0.11034966260194778,
+          "davies_bouldin": 1.7755963545484175,
+          "calinski_harabasz": 212.8334303661785,
+          "min_cluster_share": 0.0038944180008654264,
+          "cluster_sizes": [
+            101,
+            922,
+            629,
+            460,
+            177,
+            13,
+            9
+          ]
+        },
+        {
+          "k": 8,
+          "silhouette": 0.10469122231006622,
+          "davies_bouldin": 1.7753938916970522,
+          "calinski_harabasz": 202.34928918826543,
+          "min_cluster_share": 0.0038944180008654264,
+          "cluster_sizes": [
+            529,
+            786,
+            89,
+            13,
+            9,
+            463,
+            164,
+            258
+          ]
+        }
+      ],
+      "selected_k_minimum_5pct_cluster": 2,
+      "temporal_ari_comparison_k_common": 2,
+      "selected_k_subsample_stability": {
+        "method": "20 subsamples without replacement, 80% of households; refit scaler and KMeans, compare assignments by ARI",
+        "ari_mean": 0.9782402814550627,
+        "ari_min": 0.9459936353839673,
+        "ari_max": 0.9964801509869579,
+        "ari_values": [
+          0.9912154188901882,
+          0.9531050260163195,
+          0.98595950489754,
+          0.9929675592267966,
+          0.9824529675118135,
+          0.9894569989600291,
+          0.949442537438151,
+          0.989460483756675,
+          0.9824617310978564,
+          0.978954769202412,
+          0.9668479876014453,
+          0.9929687129286501,
+          0.9929652340132429,
+          0.959818391918287,
+          0.9459936353839673,
+          0.9720526226389481,
+          0.9667599751323058,
+          0.9824732085710182,
+          0.9964801509869579,
+          0.9929687129286501
+        ]
+      },
+      "profiles": [
+        {
+          "cluster": 0,
+          "households": 739,
+          "median_baskets": 4.0,
+          "median_sales": 69.11,
+          "median_recency_days": 17.0740625,
+          "median_products": 21.0,
+          "median_coupon_line_rate": 0.0,
+          "median_sales_per_basket": 14.709285714285715
+        },
+        {
+          "cluster": 1,
+          "households": 1572,
+          "median_baskets": 17.0,
+          "median_sales": 517.7950000000001,
+          "median_recency_days": 3.291140046296296,
+          "median_products": 133.0,
+          "median_coupon_line_rate": 0.002541332988891759,
+          "median_sales_per_basket": 32.12638580931264
+        }
+      ]
+    }
+  ],
+  "temporal_stability": [
+    {
+      "cutoff_a": "2017-07-01",
+      "cutoff_b": "2017-08-01",
+      "common_households": 2259,
+      "adjusted_rand_index_k2": 0.6371954997901724
+    },
+    {
+      "cutoff_a": "2017-07-01",
+      "cutoff_b": "2017-09-01",
+      "common_households": 2221,
+      "adjusted_rand_index_k2": 0.5017956070078649
+    },
+    {
+      "cutoff_a": "2017-08-01",
+      "cutoff_b": "2017-09-01",
+      "common_households": 2265,
+      "adjusted_rand_index_k2": 0.6650148990685425
+    }
+  ],
+  "future_campaign_response_check": {
+    "results": [
+      {
+        "cutoff": "2017-07-01",
+        "complete_outcome_through": "2017-12-31",
+        "eligible_pairs": 3334,
+        "campaigns": 8,
+        "segments": [
+          {
+            "cluster": 0,
+            "pairs": 200,
+            "responses": 11,
+            "rate": 0.055,
+            "households": 136,
+            "campaigns": 7
+          },
+          {
+            "cluster": 1,
+            "pairs": 3134,
+            "responses": 486,
+            "rate": 0.15507338864071474,
+            "households": 1235,
+            "campaigns": 8
+          }
+        ],
+        "interpretation": "descriptive future coupon redemption among exposed household-campaign pairs; campaigns and households repeat, and allocation was not established as randomized"
+      },
+      {
+        "cutoff": "2017-08-01",
+        "complete_outcome_through": "2017-12-31",
+        "eligible_pairs": 2951,
+        "campaigns": 6,
+        "segments": [
+          {
+            "cluster": 0,
+            "pairs": 201,
+            "responses": 10,
+            "rate": 0.04975124378109453,
+            "households": 140,
+            "campaigns": 5
+          },
+          {
+            "cluster": 1,
+            "pairs": 2750,
+            "responses": 470,
+            "rate": 0.1709090909090909,
+            "households": 1220,
+            "campaigns": 6
+          }
+        ],
+        "interpretation": "descriptive future coupon redemption among exposed household-campaign pairs; campaigns and households repeat, and allocation was not established as randomized"
+      },
+      {
+        "cutoff": "2017-09-01",
+        "complete_outcome_through": "2017-12-31",
+        "eligible_pairs": 1877,
+        "campaigns": 5,
+        "segments": [
+          {
+            "cluster": 0,
+            "pairs": 117,
+            "responses": 1,
+            "rate": 0.008547008547008548,
+            "households": 105,
+            "campaigns": 5
+          },
+          {
+            "cluster": 1,
+            "pairs": 1760,
+            "responses": 283,
+            "rate": 0.16079545454545455,
+            "households": 1102,
+            "campaigns": 5
+          }
+        ],
+        "interpretation": "descriptive future coupon redemption among exposed household-campaign pairs; campaigns and households repeat, and allocation was not established as randomized"
+      }
+    ],
+    "label_completeness_rule": "only future campaigns ending on/before last observed redemption date are included"
+  },
+  "limits": [
+    "Cutoffs and households overlap; temporal ARI is a stability diagnostic, not independent replication.",
+    "Subsample ARI measures assignment sensitivity under removal of 20% of households; it is not a confidence interval.",
+    "Future coupon response is descriptive, only among exposed household-campaign pairs, and not causal uplift.",
+    "Complete Journey covers one retailer and 2017-2018; profiles are behavioral patterns in this dataset, not universal customer types."
+  ]
+}

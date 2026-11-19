@@ -1,0 +1,133 @@
+{
+ "origen": "visual.json · report.profiles (modes y proportions del experimento ya ajustado)",
+ "evaluaciones": 7,
+ "total_sitios": 155112,
+ "grupos": [
+  {
+   "cluster": 0,
+   "etiqueta": "Grupo 1 · Destruido en las 7 evaluaciones",
+   "rasgo": "Destruido en las 7 evaluaciones",
+   "clase_dominante": 1,
+   "clase_nombre": "Destruido",
+   "evaluaciones_dominante": 7,
+   "evaluaciones": 7,
+   "media_proporcion": 0.9891,
+   "modos": [
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1
+   ],
+   "n": 51665,
+   "share_sitios": 0.3331
+  },
+  {
+   "cluster": 1,
+   "etiqueta": "Grupo 2 · Daño moderado en las 7 evaluaciones",
+   "rasgo": "Daño moderado en las 7 evaluaciones",
+   "clase_dominante": 3,
+   "clase_nombre": "Daño moderado",
+   "evaluaciones_dominante": 7,
+   "evaluaciones": 7,
+   "media_proporcion": 0.9781,
+   "modos": [
+    3,
+    3,
+    3,
+    3,
+    3,
+    3,
+    3
+   ],
+   "n": 27578,
+   "share_sitios": 0.1778
+  },
+  {
+   "cluster": 2,
+   "etiqueta": "Grupo 3 · Posible daño en las 7 evaluaciones",
+   "rasgo": "Posible daño en las 7 evaluaciones",
+   "clase_dominante": 4,
+   "clase_nombre": "Posible daño",
+   "evaluaciones_dominante": 7,
+   "evaluaciones": 7,
+   "media_proporcion": 0.9406,
+   "modos": [
+    4,
+    4,
+    4,
+    4,
+    4,
+    4,
+    4
+   ],
+   "n": 23077,
+   "share_sitios": 0.1488
+  },
+  {
+   "cluster": 3,
+   "etiqueta": "Grupo 4 · Daño severo en las 7 evaluaciones",
+   "rasgo": "Daño severo en las 7 evaluaciones",
+   "clase_dominante": 2,
+   "clase_nombre": "Daño severo",
+   "evaluaciones_dominante": 7,
+   "evaluaciones": 7,
+   "media_proporcion": 0.8781,
+   "modos": [
+    2,
+    2,
+    2,
+    2,
+    2,
+    2,
+    2
+   ],
+   "n": 16814,
+   "share_sitios": 0.1084
+  },
+  {
+   "cluster": 4,
+   "etiqueta": "Grupo 5 · Termina en destruido (últimas 5 de 7)",
+   "rasgo": "termina en destruido (últimas 5 de 7)",
+   "clase_dominante": 1,
+   "clase_nombre": "Destruido",
+   "evaluaciones_dominante": 5,
+   "evaluaciones": 7,
+   "media_proporcion": 0.542,
+   "modos": [
+    3,
+    3,
+    1,
+    1,
+    1,
+    1,
+    1
+   ],
+   "n": 15103,
+   "share_sitios": 0.0974
+  },
+  {
+   "cluster": 5,
+   "etiqueta": "Grupo 6 · Daño moderado en 5 de 7 evaluaciones",
+   "rasgo": "daño moderado en 5 de 7 evaluaciones",
+   "clase_dominante": 3,
+   "clase_nombre": "Daño moderado",
+   "evaluaciones_dominante": 5,
+   "evaluaciones": 7,
+   "media_proporcion": 0.7471,
+   "modos": [
+    3,
+    3,
+    3,
+    3,
+    3,
+    1,
+    1
+   ],
+   "n": 20875,
+   "share_sitios": 0.1346
+  }
+ ]
+}

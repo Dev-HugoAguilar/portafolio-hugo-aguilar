@@ -1,0 +1,701 @@
+resultado,modelo,modelo_id,fraccion_contactada,contactados,uplift_estimado,qini_por_usuario
+visit,S-learner,s_learner,0.01,2500,0.173763,0.00156
+visit,S-learner,s_learner,0.02,5000,0.142512,0.00254
+visit,S-learner,s_learner,0.03,7500,0.116646,0.003086
+visit,S-learner,s_learner,0.04,10000,0.087428,0.003074
+visit,S-learner,s_learner,0.05,12500,0.078809,0.003444
+visit,S-learner,s_learner,0.06,15000,0.066495,0.003469
+visit,S-learner,s_learner,0.07,17500,0.056808,0.003451
+visit,S-learner,s_learner,0.08,20000,0.056291,0.003896
+visit,S-learner,s_learner,0.09,22500,0.053546,0.00416
+visit,S-learner,s_learner,0.1,25000,0.05,0.004307
+visit,S-learner,s_learner,0.11,27500,0.049923,0.004725
+visit,S-learner,s_learner,0.12,30000,0.047058,0.004854
+visit,S-learner,s_learner,0.13,32500,0.042202,0.004713
+visit,S-learner,s_learner,0.14,35000,0.038856,0.004671
+visit,S-learner,s_learner,0.15,37500,0.037787,0.004862
+visit,S-learner,s_learner,0.16,40000,0.038176,0.005237
+visit,S-learner,s_learner,0.17,42500,0.035721,0.005205
+visit,S-learner,s_learner,0.18,45000,0.034131,0.005266
+visit,S-learner,s_learner,0.19,47500,0.033111,0.005387
+visit,S-learner,s_learner,0.2,50000,0.032829,0.005617
+visit,S-learner,s_learner,0.21,52500,0.03259,0.005854
+visit,S-learner,s_learner,0.22,55000,0.032077,0.006034
+visit,S-learner,s_learner,0.23,57500,0.030991,0.006094
+visit,S-learner,s_learner,0.24,60000,0.030296,0.006216
+visit,S-learner,s_learner,0.25,62500,0.029336,0.006269
+visit,S-learner,s_learner,0.26,65000,0.028518,0.006334
+visit,S-learner,s_learner,0.27,67500,0.028259,0.006515
+visit,S-learner,s_learner,0.28,70000,0.027685,0.006619
+visit,S-learner,s_learner,0.29,72500,0.027256,0.006747
+visit,S-learner,s_learner,0.3,75000,0.027153,0.006953
+visit,S-learner,s_learner,0.31,77500,0.026501,0.00701
+visit,S-learner,s_learner,0.32,80000,0.026478,0.007226
+visit,S-learner,s_learner,0.33,82500,0.025892,0.007288
+visit,S-learner,s_learner,0.34,85000,0.025417,0.007364
+visit,S-learner,s_learner,0.35,87500,0.024826,0.007401
+visit,S-learner,s_learner,0.36,90000,0.024157,0.007407
+visit,S-learner,s_learner,0.37,92500,0.023286,0.007339
+visit,S-learner,s_learner,0.38,95000,0.022504,0.007285
+visit,S-learner,s_learner,0.39,97500,0.021891,0.007272
+visit,S-learner,s_learner,0.4,100000,0.02137,0.00728
+visit,S-learner,s_learner,0.41,102500,0.020953,0.007315
+visit,S-learner,s_learner,0.42,105000,0.020345,0.007276
+visit,S-learner,s_learner,0.43,107500,0.019904,0.007286
+visit,S-learner,s_learner,0.44,110000,0.019712,0.00738
+visit,S-learner,s_learner,0.45,112500,0.019449,0.007446
+visit,S-learner,s_learner,0.46,115000,0.019129,0.007486
+visit,S-learner,s_learner,0.47,117500,0.018818,0.007525
+visit,S-learner,s_learner,0.48,120000,0.018716,0.007642
+visit,S-learner,s_learner,0.49,122500,0.0182,0.007587
+visit,S-learner,s_learner,0.5,125000,0.017917,0.007621
+visit,S-learner,s_learner,0.51,127500,0.017574,0.007624
+visit,S-learner,s_learner,0.52,130000,0.017445,0.007713
+visit,S-learner,s_learner,0.53,132500,0.017057,0.007687
+visit,S-learner,s_learner,0.54,135000,0.01682,0.007723
+visit,S-learner,s_learner,0.55,137500,0.016532,0.007731
+visit,S-learner,s_learner,0.56,140000,0.016315,0.007767
+visit,S-learner,s_learner,0.57,142500,0.01602,0.007763
+visit,S-learner,s_learner,0.58,145000,0.015725,0.007755
+visit,S-learner,s_learner,0.59,147500,0.015394,0.007723
+visit,S-learner,s_learner,0.6,150000,0.015126,0.007718
+visit,S-learner,s_learner,0.61,152500,0.014881,0.00772
+visit,S-learner,s_learner,0.62,155000,0.014666,0.007733
+visit,S-learner,s_learner,0.63,157500,0.014579,0.007808
+visit,S-learner,s_learner,0.64,160000,0.014268,0.007765
+visit,S-learner,s_learner,0.65,162500,0.014105,0.007794
+visit,S-learner,s_learner,0.66,165000,0.013887,0.007792
+visit,S-learner,s_learner,0.67,167500,0.013644,0.007773
+visit,S-learner,s_learner,0.68,170000,0.013499,0.007804
+visit,S-learner,s_learner,0.69,172500,0.013338,0.007824
+visit,S-learner,s_learner,0.7,175000,0.013138,0.007819
+visit,S-learner,s_learner,0.71,177500,0.012977,0.007832
+visit,S-learner,s_learner,0.72,180000,0.012775,0.00782
+visit,S-learner,s_learner,0.73,182500,0.012609,0.007825
+visit,S-learner,s_learner,0.74,185000,0.012504,0.007865
+visit,S-learner,s_learner,0.75,187500,0.012342,0.007868
+visit,S-learner,s_learner,0.76,190000,0.012142,0.007844
+visit,S-learner,s_learner,0.77,192500,0.012025,0.00787
+visit,S-learner,s_learner,0.78,195000,0.011897,0.007887
+visit,S-learner,s_learner,0.79,197500,0.011794,0.007918
+visit,S-learner,s_learner,0.8,200000,0.011702,0.007954
+visit,S-learner,s_learner,0.81,202500,0.011527,0.007933
+visit,S-learner,s_learner,0.82,205000,0.011399,0.007942
+visit,S-learner,s_learner,0.83,207500,0.011228,0.007918
+visit,S-learner,s_learner,0.84,210000,0.011087,0.007913
+visit,S-learner,s_learner,0.85,212500,0.010975,0.007926
+visit,S-learner,s_learner,0.86,215000,0.010827,0.007911
+visit,S-learner,s_learner,0.87,217500,0.010699,0.007908
+visit,S-learner,s_learner,0.88,220000,0.010547,0.007887
+visit,S-learner,s_learner,0.89,222500,0.01042,0.00788
+visit,S-learner,s_learner,0.9,225000,0.01032,0.007893
+visit,S-learner,s_learner,0.91,227500,0.010239,0.007917
+visit,S-learner,s_learner,0.92,230000,0.010151,0.007935
+visit,S-learner,s_learner,0.93,232500,0.010076,0.007961
+visit,S-learner,s_learner,0.94,235000,0.009977,0.007968
+visit,S-learner,s_learner,0.95,237500,0.009888,0.007981
+visit,S-learner,s_learner,0.96,240000,0.009769,0.007969
+visit,S-learner,s_learner,0.97,242500,0.009675,0.007975
+visit,S-learner,s_learner,0.98,245000,0.00973,0.008102
+visit,S-learner,s_learner,0.99,247500,0.009634,0.008104
+visit,S-learner,s_learner,1.0,250000,0.009763,0.008297
+visit,T-learner,t_learner,0.01,2500,0.164303,0.001449
+visit,T-learner,t_learner,0.02,5000,0.111457,0.001946
+visit,T-learner,t_learner,0.03,7500,0.102069,0.002664
+visit,T-learner,t_learner,0.04,10000,0.076419,0.002656
+visit,T-learner,t_learner,0.05,12500,0.072904,0.003155
+visit,T-learner,t_learner,0.06,15000,0.06628,0.003428
+visit,T-learner,t_learner,0.07,17500,0.059784,0.003606
+visit,T-learner,t_learner,0.08,20000,0.054416,0.003746
+visit,T-learner,t_learner,0.09,22500,0.044663,0.003462
+visit,T-learner,t_learner,0.1,25000,0.041844,0.0036
+visit,T-learner,t_learner,0.11,27500,0.041454,0.003916
+visit,T-learner,t_learner,0.12,30000,0.04089,0.00421
+visit,T-learner,t_learner,0.13,32500,0.039841,0.004442
+visit,T-learner,t_learner,0.14,35000,0.038375,0.004606
+visit,T-learner,t_learner,0.15,37500,0.036204,0.004655
+visit,T-learner,t_learner,0.16,40000,0.034711,0.00476
+visit,T-learner,t_learner,0.17,42500,0.033839,0.00493
+visit,T-learner,t_learner,0.18,45000,0.032203,0.004966
+visit,T-learner,t_learner,0.19,47500,0.030809,0.005016
+visit,T-learner,t_learner,0.2,50000,0.028951,0.00496
+visit,T-learner,t_learner,0.21,52500,0.028238,0.005078
+visit,T-learner,t_learner,0.22,55000,0.027845,0.005243
+visit,T-learner,t_learner,0.23,57500,0.026906,0.005295
+visit,T-learner,t_learner,0.24,60000,0.025557,0.005249
+visit,T-learner,t_learner,0.25,62500,0.024689,0.005281
+visit,T-learner,t_learner,0.26,65000,0.024259,0.005388
+visit,T-learner,t_learner,0.27,67500,0.023251,0.005363
+visit,T-learner,t_learner,0.28,70000,0.022642,0.005416
+visit,T-learner,t_learner,0.29,72500,0.022469,0.005563
+visit,T-learner,t_learner,0.3,75000,0.021746,0.00557
+visit,T-learner,t_learner,0.31,77500,0.021238,0.005618
+visit,T-learner,t_learner,0.32,80000,0.020723,0.005657
+visit,T-learner,t_learner,0.33,82500,0.0202,0.005685
+visit,T-learner,t_learner,0.34,85000,0.020023,0.005805
+visit,T-learner,t_learner,0.35,87500,0.019288,0.005758
+visit,T-learner,t_learner,0.36,90000,0.019011,0.005834
+visit,T-learner,t_learner,0.37,92500,0.018589,0.005863
+visit,T-learner,t_learner,0.38,95000,0.01805,0.005846
+visit,T-learner,t_learner,0.39,97500,0.01749,0.005812
+visit,T-learner,t_learner,0.4,100000,0.017171,0.005852
+visit,T-learner,t_learner,0.41,102500,0.016748,0.005851
+visit,T-learner,t_learner,0.42,105000,0.01628,0.005826
+visit,T-learner,t_learner,0.43,107500,0.015908,0.005828
+visit,T-learner,t_learner,0.44,110000,0.015739,0.005899
+visit,T-learner,t_learner,0.45,112500,0.015601,0.005978
+visit,T-learner,t_learner,0.46,115000,0.015149,0.005933
+visit,T-learner,t_learner,0.47,117500,0.014962,0.005986
+visit,T-learner,t_learner,0.48,120000,0.014786,0.006041
+visit,T-learner,t_learner,0.49,122500,0.014481,0.006038
+visit,T-learner,t_learner,0.5,125000,0.0143,0.006084
+visit,T-learner,t_learner,0.51,127500,0.014032,0.006091
+visit,T-learner,t_learner,0.52,130000,0.01382,0.006115
+visit,T-learner,t_learner,0.53,132500,0.013628,0.006145
+visit,T-learner,t_learner,0.54,135000,0.013361,0.006139
+visit,T-learner,t_learner,0.55,137500,0.013129,0.006143
+visit,T-learner,t_learner,0.56,140000,0.012909,0.00615
+visit,T-learner,t_learner,0.57,142500,0.01265,0.006135
+visit,T-learner,t_learner,0.58,145000,0.012446,0.006142
+visit,T-learner,t_learner,0.59,147500,0.012224,0.006137
+visit,T-learner,t_learner,0.6,150000,0.012067,0.00616
+visit,T-learner,t_learner,0.61,152500,0.011927,0.006188
+visit,T-learner,t_learner,0.62,155000,0.011762,0.006201
+visit,T-learner,t_learner,0.63,157500,0.011592,0.00621
+visit,T-learner,t_learner,0.64,160000,0.011515,0.006265
+visit,T-learner,t_learner,0.65,162500,0.011252,0.006218
+visit,T-learner,t_learner,0.66,165000,0.011186,0.006275
+visit,T-learner,t_learner,0.67,167500,0.01098,0.006254
+visit,T-learner,t_learner,0.68,170000,0.010802,0.006245
+visit,T-learner,t_learner,0.69,172500,0.010615,0.006228
+visit,T-learner,t_learner,0.7,175000,0.010549,0.006278
+visit,T-learner,t_learner,0.71,177500,0.010433,0.006297
+visit,T-learner,t_learner,0.72,180000,0.010239,0.006268
+visit,T-learner,t_learner,0.73,182500,0.010183,0.006319
+visit,T-learner,t_learner,0.74,185000,0.010058,0.006327
+visit,T-learner,t_learner,0.75,187500,0.009926,0.006328
+visit,T-learner,t_learner,0.76,190000,0.009824,0.006346
+visit,T-learner,t_learner,0.77,192500,0.009691,0.006343
+visit,T-learner,t_learner,0.78,195000,0.009587,0.006355
+visit,T-learner,t_learner,0.79,197500,0.009468,0.006357
+visit,T-learner,t_learner,0.8,200000,0.009345,0.006354
+visit,T-learner,t_learner,0.81,202500,0.009234,0.006356
+visit,T-learner,t_learner,0.82,205000,0.009122,0.006357
+visit,T-learner,t_learner,0.83,207500,0.009025,0.006365
+visit,T-learner,t_learner,0.84,210000,0.008889,0.006346
+visit,T-learner,t_learner,0.85,212500,0.008735,0.00631
+visit,T-learner,t_learner,0.86,215000,0.008641,0.006316
+visit,T-learner,t_learner,0.87,217500,0.008497,0.006283
+visit,T-learner,t_learner,0.88,220000,0.008437,0.006311
+visit,T-learner,t_learner,0.89,222500,0.008424,0.006374
+visit,T-learner,t_learner,0.9,225000,0.00834,0.006381
+visit,T-learner,t_learner,0.91,227500,0.008264,0.006392
+visit,T-learner,t_learner,0.92,230000,0.008207,0.006418
+visit,T-learner,t_learner,0.93,232500,0.008322,0.006578
+visit,T-learner,t_learner,0.94,235000,0.008318,0.006646
+visit,T-learner,t_learner,0.95,237500,0.007998,0.006458
+visit,T-learner,t_learner,0.96,240000,0.00819,0.006683
+visit,T-learner,t_learner,0.97,242500,0.008373,0.006903
+visit,T-learner,t_learner,0.98,245000,0.008754,0.00729
+visit,T-learner,t_learner,0.99,247500,0.00936,0.007875
+visit,T-learner,t_learner,1.0,250000,0.009763,0.008297
+visit,Ranking aleatorio,azar,0.01,2500,0.005461,4.6e-05
+visit,Ranking aleatorio,azar,0.02,5000,0.017522,0.000296
+visit,Ranking aleatorio,azar,0.03,7500,0.01445,0.000367
+visit,Ranking aleatorio,azar,0.04,10000,0.014478,0.000493
+visit,Ranking aleatorio,azar,0.05,12500,0.011227,0.000478
+visit,Ranking aleatorio,azar,0.06,15000,0.011422,0.000585
+visit,Ranking aleatorio,azar,0.07,17500,0.008987,0.000538
+visit,Ranking aleatorio,azar,0.08,20000,0.009685,0.000661
+visit,Ranking aleatorio,azar,0.09,22500,0.009633,0.00074
+visit,Ranking aleatorio,azar,0.1,25000,0.009945,0.000848
+visit,Ranking aleatorio,azar,0.11,27500,0.008913,0.000836
+visit,Ranking aleatorio,azar,0.12,30000,0.009661,0.000988
+visit,Ranking aleatorio,azar,0.13,32500,0.00865,0.000958
+visit,Ranking aleatorio,azar,0.14,35000,0.008468,0.00101
+visit,Ranking aleatorio,azar,0.15,37500,0.008617,0.001101
+visit,Ranking aleatorio,azar,0.16,40000,0.007927,0.001081
+visit,Ranking aleatorio,azar,0.17,42500,0.007553,0.001094
+visit,Ranking aleatorio,azar,0.18,45000,0.00783,0.001201
+visit,Ranking aleatorio,azar,0.19,47500,0.008814,0.001427
+visit,Ranking aleatorio,azar,0.2,50000,0.008096,0.00138
+visit,Ranking aleatorio,azar,0.21,52500,0.007764,0.001389
+visit,Ranking aleatorio,azar,0.22,55000,0.00816,0.001529
+visit,Ranking aleatorio,azar,0.23,57500,0.007913,0.001549
+visit,Ranking aleatorio,azar,0.24,60000,0.008608,0.001758
+visit,Ranking aleatorio,azar,0.25,62500,0.008417,0.00179
+visit,Ranking aleatorio,azar,0.26,65000,0.008883,0.001965
+visit,Ranking aleatorio,azar,0.27,67500,0.009131,0.002098
+visit,Ranking aleatorio,azar,0.28,70000,0.009972,0.002375
+visit,Ranking aleatorio,azar,0.29,72500,0.010312,0.002543
+visit,Ranking aleatorio,azar,0.3,75000,0.010228,0.00261
+visit,Ranking aleatorio,azar,0.31,77500,0.010316,0.002721
+visit,Ranking aleatorio,azar,0.32,80000,0.009945,0.002708
+visit,Ranking aleatorio,azar,0.33,82500,0.009915,0.002783
+visit,Ranking aleatorio,azar,0.34,85000,0.010182,0.002946
+visit,Ranking aleatorio,azar,0.35,87500,0.009913,0.002952
+visit,Ranking aleatorio,azar,0.36,90000,0.010086,0.00309
+visit,Ranking aleatorio,azar,0.37,92500,0.009765,0.003074
+visit,Ranking aleatorio,azar,0.38,95000,0.00935,0.003024
+visit,Ranking aleatorio,azar,0.39,97500,0.009355,0.003104
+visit,Ranking aleatorio,azar,0.4,100000,0.009386,0.003196
+visit,Ranking aleatorio,azar,0.41,102500,0.009178,0.003203
+visit,Ranking aleatorio,azar,0.42,105000,0.009332,0.003335
+visit,Ranking aleatorio,azar,0.43,107500,0.009032,0.003305
+visit,Ranking aleatorio,azar,0.44,110000,0.008627,0.00323
+visit,Ranking aleatorio,azar,0.45,112500,0.008704,0.003332
+visit,Ranking aleatorio,azar,0.46,115000,0.008722,0.003414
+visit,Ranking aleatorio,azar,0.47,117500,0.008887,0.003554
+visit,Ranking aleatorio,azar,0.48,120000,0.008742,0.003571
+visit,Ranking aleatorio,azar,0.49,122500,0.008802,0.003671
+visit,Ranking aleatorio,azar,0.5,125000,0.008549,0.003639
+visit,Ranking aleatorio,azar,0.51,127500,0.008494,0.003687
+visit,Ranking aleatorio,azar,0.52,130000,0.008494,0.003759
+visit,Ranking aleatorio,azar,0.53,132500,0.008213,0.003705
+visit,Ranking aleatorio,azar,0.54,135000,0.008217,0.003778
+visit,Ranking aleatorio,azar,0.55,137500,0.00855,0.004003
+visit,Ranking aleatorio,azar,0.56,140000,0.008511,0.004057
+visit,Ranking aleatorio,azar,0.57,142500,0.008682,0.004212
+visit,Ranking aleatorio,azar,0.58,145000,0.009052,0.004468
+visit,Ranking aleatorio,azar,0.59,147500,0.00934,0.004689
+visit,Ranking aleatorio,azar,0.6,150000,0.009184,0.004689
+visit,Ranking aleatorio,azar,0.61,152500,0.009378,0.004867
+visit,Ranking aleatorio,azar,0.62,155000,0.009395,0.004954
+visit,Ranking aleatorio,azar,0.63,157500,0.008923,0.004782
+visit,Ranking aleatorio,azar,0.64,160000,0.008897,0.004844
+visit,Ranking aleatorio,azar,0.65,162500,0.009012,0.004983
+visit,Ranking aleatorio,azar,0.66,165000,0.009395,0.005274
+visit,Ranking aleatorio,azar,0.67,167500,0.009329,0.005316
+visit,Ranking aleatorio,azar,0.68,170000,0.009588,0.005546
+visit,Ranking aleatorio,azar,0.69,172500,0.009068,0.005323
+visit,Ranking aleatorio,azar,0.7,175000,0.009377,0.005583
+visit,Ranking aleatorio,azar,0.71,177500,0.00949,0.005733
+visit,Ranking aleatorio,azar,0.72,180000,0.009477,0.005805
+visit,Ranking aleatorio,azar,0.73,182500,0.009023,0.005604
+visit,Ranking aleatorio,azar,0.74,185000,0.009078,0.005715
+visit,Ranking aleatorio,azar,0.75,187500,0.009187,0.005861
+visit,Ranking aleatorio,azar,0.76,190000,0.009072,0.005865
+visit,Ranking aleatorio,azar,0.77,192500,0.009045,0.005922
+visit,Ranking aleatorio,azar,0.78,195000,0.009228,0.006121
+visit,Ranking aleatorio,azar,0.79,197500,0.009433,0.006337
+visit,Ranking aleatorio,azar,0.8,200000,0.009419,0.006407
+visit,Ranking aleatorio,azar,0.81,202500,0.00952,0.006555
+visit,Ranking aleatorio,azar,0.82,205000,0.009538,0.006648
+visit,Ranking aleatorio,azar,0.83,207500,0.009502,0.006705
+visit,Ranking aleatorio,azar,0.84,210000,0.009504,0.006786
+visit,Ranking aleatorio,azar,0.85,212500,0.009379,0.006777
+visit,Ranking aleatorio,azar,0.86,215000,0.00943,0.006895
+visit,Ranking aleatorio,azar,0.87,217500,0.009342,0.006909
+visit,Ranking aleatorio,azar,0.88,220000,0.009438,0.007059
+visit,Ranking aleatorio,azar,0.89,222500,0.009328,0.007056
+visit,Ranking aleatorio,azar,0.9,225000,0.009528,0.007288
+visit,Ranking aleatorio,azar,0.91,227500,0.009536,0.007376
+visit,Ranking aleatorio,azar,0.92,230000,0.009569,0.007482
+visit,Ranking aleatorio,azar,0.93,232500,0.009713,0.007677
+visit,Ranking aleatorio,azar,0.94,235000,0.009732,0.007774
+visit,Ranking aleatorio,azar,0.95,237500,0.009792,0.007906
+visit,Ranking aleatorio,azar,0.96,240000,0.009925,0.008098
+visit,Ranking aleatorio,azar,0.97,242500,0.009857,0.008127
+visit,Ranking aleatorio,azar,0.98,245000,0.009705,0.008083
+visit,Ranking aleatorio,azar,0.99,247500,0.009818,0.008261
+visit,Ranking aleatorio,azar,1.0,250000,0.009763,0.008297
+conversion,S-learner,s_learner,0.01,2500,0.028963,0.000253
+conversion,S-learner,s_learner,0.02,5000,0.021127,0.000369
+conversion,S-learner,s_learner,0.03,7500,0.017018,0.000444
+conversion,S-learner,s_learner,0.04,10000,0.011894,0.000411
+conversion,S-learner,s_learner,0.05,12500,0.008531,0.000368
+conversion,S-learner,s_learner,0.06,15000,0.007801,0.000404
+conversion,S-learner,s_learner,0.07,17500,0.007591,0.000457
+conversion,S-learner,s_learner,0.08,20000,0.006074,0.000418
+conversion,S-learner,s_learner,0.09,22500,0.006176,0.000477
+conversion,S-learner,s_learner,0.1,25000,0.005612,0.000481
+conversion,S-learner,s_learner,0.11,27500,0.005027,0.000473
+conversion,S-learner,s_learner,0.12,30000,0.004848,0.000497
+conversion,S-learner,s_learner,0.13,32500,0.00419,0.000466
+conversion,S-learner,s_learner,0.14,35000,0.004133,0.000495
+conversion,S-learner,s_learner,0.15,37500,0.003845,0.000493
+conversion,S-learner,s_learner,0.16,40000,0.003609,0.000493
+conversion,S-learner,s_learner,0.17,42500,0.00338,0.00049
+conversion,S-learner,s_learner,0.18,45000,0.003036,0.000466
+conversion,S-learner,s_learner,0.19,47500,0.002941,0.000476
+conversion,S-learner,s_learner,0.2,50000,0.002836,0.000483
+conversion,S-learner,s_learner,0.21,52500,0.002674,0.000478
+conversion,S-learner,s_learner,0.22,55000,0.002594,0.000486
+conversion,S-learner,s_learner,0.23,57500,0.002509,0.000491
+conversion,S-learner,s_learner,0.24,60000,0.00213,0.000435
+conversion,S-learner,s_learner,0.25,62500,0.002059,0.000438
+conversion,S-learner,s_learner,0.26,65000,0.002064,0.000456
+conversion,S-learner,s_learner,0.27,67500,0.002042,0.000469
+conversion,S-learner,s_learner,0.28,70000,0.001985,0.000473
+conversion,S-learner,s_learner,0.29,72500,0.001874,0.000462
+conversion,S-learner,s_learner,0.3,75000,0.001979,0.000505
+conversion,S-learner,s_learner,0.31,77500,0.001749,0.000461
+conversion,S-learner,s_learner,0.32,80000,0.001608,0.000438
+conversion,S-learner,s_learner,0.33,82500,0.00166,0.000466
+conversion,S-learner,s_learner,0.34,85000,0.001632,0.000472
+conversion,S-learner,s_learner,0.35,87500,0.001544,0.00046
+conversion,S-learner,s_learner,0.36,90000,0.001619,0.000496
+conversion,S-learner,s_learner,0.37,92500,0.001626,0.000512
+conversion,S-learner,s_learner,0.38,95000,0.001668,0.00054
+conversion,S-learner,s_learner,0.39,97500,0.001727,0.000573
+conversion,S-learner,s_learner,0.4,100000,0.001757,0.000598
+conversion,S-learner,s_learner,0.41,102500,0.001764,0.000615
+conversion,S-learner,s_learner,0.42,105000,0.00175,0.000625
+conversion,S-learner,s_learner,0.43,107500,0.001746,0.000639
+conversion,S-learner,s_learner,0.44,110000,0.001703,0.000638
+conversion,S-learner,s_learner,0.45,112500,0.001719,0.000658
+conversion,S-learner,s_learner,0.46,115000,0.00173,0.000677
+conversion,S-learner,s_learner,0.47,117500,0.001746,0.000698
+conversion,S-learner,s_learner,0.48,120000,0.001766,0.000721
+conversion,S-learner,s_learner,0.49,122500,0.001776,0.00074
+conversion,S-learner,s_learner,0.5,125000,0.001761,0.000749
+conversion,S-learner,s_learner,0.51,127500,0.001778,0.000771
+conversion,S-learner,s_learner,0.52,130000,0.001814,0.000802
+conversion,S-learner,s_learner,0.53,132500,0.001799,0.000811
+conversion,S-learner,s_learner,0.54,135000,0.001703,0.000783
+conversion,S-learner,s_learner,0.55,137500,0.001659,0.000776
+conversion,S-learner,s_learner,0.56,140000,0.001607,0.000765
+conversion,S-learner,s_learner,0.57,142500,0.001556,0.000755
+conversion,S-learner,s_learner,0.58,145000,0.001525,0.000752
+conversion,S-learner,s_learner,0.59,147500,0.001526,0.000766
+conversion,S-learner,s_learner,0.6,150000,0.001545,0.000788
+conversion,S-learner,s_learner,0.61,152500,0.001557,0.000808
+conversion,S-learner,s_learner,0.62,155000,0.00153,0.000807
+conversion,S-learner,s_learner,0.63,157500,0.001459,0.000781
+conversion,S-learner,s_learner,0.64,160000,0.001479,0.000805
+conversion,S-learner,s_learner,0.65,162500,0.001494,0.000826
+conversion,S-learner,s_learner,0.66,165000,0.001457,0.000818
+conversion,S-learner,s_learner,0.67,167500,0.00147,0.000837
+conversion,S-learner,s_learner,0.68,170000,0.001478,0.000854
+conversion,S-learner,s_learner,0.69,172500,0.001492,0.000875
+conversion,S-learner,s_learner,0.7,175000,0.0015,0.000892
+conversion,S-learner,s_learner,0.71,177500,0.001509,0.00091
+conversion,S-learner,s_learner,0.72,180000,0.00153,0.000936
+conversion,S-learner,s_learner,0.73,182500,0.001488,0.000922
+conversion,S-learner,s_learner,0.74,185000,0.00149,0.000937
+conversion,S-learner,s_learner,0.75,187500,0.001495,0.000952
+conversion,S-learner,s_learner,0.76,190000,0.00152,0.000982
+conversion,S-learner,s_learner,0.77,192500,0.001496,0.000979
+conversion,S-learner,s_learner,0.78,195000,0.001461,0.000968
+conversion,S-learner,s_learner,0.79,197500,0.001472,0.000988
+conversion,S-learner,s_learner,0.8,200000,0.001411,0.000959
+conversion,S-learner,s_learner,0.81,202500,0.001402,0.000965
+conversion,S-learner,s_learner,0.82,205000,0.001347,0.000939
+conversion,S-learner,s_learner,0.83,207500,0.001351,0.000953
+conversion,S-learner,s_learner,0.84,210000,0.001353,0.000966
+conversion,S-learner,s_learner,0.85,212500,0.001359,0.000982
+conversion,S-learner,s_learner,0.86,215000,0.001369,0.001001
+conversion,S-learner,s_learner,0.87,217500,0.001382,0.001021
+conversion,S-learner,s_learner,0.88,220000,0.001344,0.001005
+conversion,S-learner,s_learner,0.89,222500,0.001357,0.001026
+conversion,S-learner,s_learner,0.9,225000,0.001378,0.001054
+conversion,S-learner,s_learner,0.91,227500,0.001385,0.001071
+conversion,S-learner,s_learner,0.92,230000,0.00139,0.001087
+conversion,S-learner,s_learner,0.93,232500,0.001388,0.001096
+conversion,S-learner,s_learner,0.94,235000,0.001358,0.001085
+conversion,S-learner,s_learner,0.95,237500,0.001337,0.001079
+conversion,S-learner,s_learner,0.96,240000,0.001352,0.001103
+conversion,S-learner,s_learner,0.97,242500,0.001324,0.001091
+conversion,S-learner,s_learner,0.98,245000,0.001334,0.001111
+conversion,S-learner,s_learner,0.99,247500,0.001324,0.001114
+conversion,S-learner,s_learner,1.0,250000,0.001341,0.00114
+conversion,T-learner,t_learner,0.01,2500,0.024571,0.000216
+conversion,T-learner,t_learner,0.02,5000,0.022739,0.000396
+conversion,T-learner,t_learner,0.03,7500,0.01985,0.000513
+conversion,T-learner,t_learner,0.04,10000,0.016634,0.000575
+conversion,T-learner,t_learner,0.05,12500,0.012634,0.000546
+conversion,T-learner,t_learner,0.06,15000,0.01065,0.00055
+conversion,T-learner,t_learner,0.07,17500,0.009354,0.000563
+conversion,T-learner,t_learner,0.08,20000,0.007219,0.000496
+conversion,T-learner,t_learner,0.09,22500,0.007251,0.00056
+conversion,T-learner,t_learner,0.1,25000,0.007531,0.000645
+conversion,T-learner,t_learner,0.11,27500,0.007412,0.000698
+conversion,T-learner,t_learner,0.12,30000,0.006639,0.000682
+conversion,T-learner,t_learner,0.13,32500,0.006388,0.00071
+conversion,T-learner,t_learner,0.14,35000,0.006014,0.00072
+conversion,T-learner,t_learner,0.15,37500,0.005637,0.000722
+conversion,T-learner,t_learner,0.16,40000,0.005212,0.000712
+conversion,T-learner,t_learner,0.17,42500,0.004837,0.000702
+conversion,T-learner,t_learner,0.18,45000,0.004605,0.000707
+conversion,T-learner,t_learner,0.19,47500,0.004443,0.00072
+conversion,T-learner,t_learner,0.2,50000,0.004233,0.000722
+conversion,T-learner,t_learner,0.21,52500,0.004091,0.000733
+conversion,T-learner,t_learner,0.22,55000,0.003923,0.000736
+conversion,T-learner,t_learner,0.23,57500,0.003827,0.00075
+conversion,T-learner,t_learner,0.24,60000,0.003726,0.000762
+conversion,T-learner,t_learner,0.25,62500,0.003446,0.000734
+conversion,T-learner,t_learner,0.26,65000,0.003333,0.000738
+conversion,T-learner,t_learner,0.27,67500,0.003257,0.000749
+conversion,T-learner,t_learner,0.28,70000,0.003141,0.000749
+conversion,T-learner,t_learner,0.29,72500,0.003141,0.000775
+conversion,T-learner,t_learner,0.3,75000,0.003087,0.000788
+conversion,T-learner,t_learner,0.31,77500,0.002993,0.00079
+conversion,T-learner,t_learner,0.32,80000,0.002901,0.00079
+conversion,T-learner,t_learner,0.33,82500,0.002826,0.000794
+conversion,T-learner,t_learner,0.34,85000,0.002741,0.000794
+conversion,T-learner,t_learner,0.35,87500,0.002659,0.000793
+conversion,T-learner,t_learner,0.36,90000,0.002589,0.000794
+conversion,T-learner,t_learner,0.37,92500,0.002518,0.000793
+conversion,T-learner,t_learner,0.38,95000,0.002469,0.000798
+conversion,T-learner,t_learner,0.39,97500,0.00242,0.000803
+conversion,T-learner,t_learner,0.4,100000,0.002363,0.000804
+conversion,T-learner,t_learner,0.41,102500,0.002307,0.000805
+conversion,T-learner,t_learner,0.42,105000,0.002192,0.000783
+conversion,T-learner,t_learner,0.43,107500,0.002141,0.000783
+conversion,T-learner,t_learner,0.44,110000,0.002103,0.000787
+conversion,T-learner,t_learner,0.45,112500,0.002051,0.000785
+conversion,T-learner,t_learner,0.46,115000,0.002009,0.000786
+conversion,T-learner,t_learner,0.47,117500,0.001975,0.00079
+conversion,T-learner,t_learner,0.48,120000,0.001953,0.000797
+conversion,T-learner,t_learner,0.49,122500,0.001911,0.000796
+conversion,T-learner,t_learner,0.5,125000,0.001875,0.000797
+conversion,T-learner,t_learner,0.51,127500,0.001851,0.000802
+conversion,T-learner,t_learner,0.52,130000,0.001814,0.000802
+conversion,T-learner,t_learner,0.53,132500,0.001782,0.000803
+conversion,T-learner,t_learner,0.54,135000,0.00175,0.000803
+conversion,T-learner,t_learner,0.55,137500,0.001716,0.000802
+conversion,T-learner,t_learner,0.56,140000,0.001684,0.000802
+conversion,T-learner,t_learner,0.57,142500,0.001657,0.000803
+conversion,T-learner,t_learner,0.58,145000,0.001631,0.000804
+conversion,T-learner,t_learner,0.59,147500,0.001602,0.000803
+conversion,T-learner,t_learner,0.6,150000,0.001576,0.000804
+conversion,T-learner,t_learner,0.61,152500,0.001557,0.000808
+conversion,T-learner,t_learner,0.62,155000,0.001534,0.000809
+conversion,T-learner,t_learner,0.63,157500,0.00151,0.000808
+conversion,T-learner,t_learner,0.64,160000,0.001492,0.000811
+conversion,T-learner,t_learner,0.65,162500,0.00147,0.000812
+conversion,T-learner,t_learner,0.66,165000,0.001447,0.000811
+conversion,T-learner,t_learner,0.67,167500,0.001426,0.000812
+conversion,T-learner,t_learner,0.68,170000,0.001404,0.000811
+conversion,T-learner,t_learner,0.69,172500,0.001384,0.000811
+conversion,T-learner,t_learner,0.7,175000,0.001366,0.000812
+conversion,T-learner,t_learner,0.71,177500,0.001346,0.000812
+conversion,T-learner,t_learner,0.72,180000,0.001326,0.000811
+conversion,T-learner,t_learner,0.73,182500,0.001307,0.000811
+conversion,T-learner,t_learner,0.74,185000,0.001296,0.000815
+conversion,T-learner,t_learner,0.75,187500,0.001281,0.000816
+conversion,T-learner,t_learner,0.76,190000,0.001262,0.000815
+conversion,T-learner,t_learner,0.77,192500,0.001247,0.000816
+conversion,T-learner,t_learner,0.78,195000,0.001231,0.000816
+conversion,T-learner,t_learner,0.79,197500,0.001215,0.000815
+conversion,T-learner,t_learner,0.8,200000,0.001209,0.000822
+conversion,T-learner,t_learner,0.81,202500,0.001201,0.000826
+conversion,T-learner,t_learner,0.82,205000,0.001192,0.00083
+conversion,T-learner,t_learner,0.83,207500,0.001178,0.00083
+conversion,T-learner,t_learner,0.84,210000,0.00117,0.000834
+conversion,T-learner,t_learner,0.85,212500,0.001165,0.000841
+conversion,T-learner,t_learner,0.86,215000,0.001152,0.000842
+conversion,T-learner,t_learner,0.87,217500,0.001147,0.000847
+conversion,T-learner,t_learner,0.88,220000,0.001133,0.000847
+conversion,T-learner,t_learner,0.89,222500,0.001125,0.000851
+conversion,T-learner,t_learner,0.9,225000,0.001114,0.000851
+conversion,T-learner,t_learner,0.91,227500,0.001114,0.00086
+conversion,T-learner,t_learner,0.92,230000,0.001106,0.000864
+conversion,T-learner,t_learner,0.93,232500,0.001108,0.000875
+conversion,T-learner,t_learner,0.94,235000,0.001103,0.00088
+conversion,T-learner,t_learner,0.95,237500,0.001092,0.000881
+conversion,T-learner,t_learner,0.96,240000,0.001078,0.000879
+conversion,T-learner,t_learner,0.97,242500,0.001066,0.000878
+conversion,T-learner,t_learner,0.98,245000,0.001078,0.000897
+conversion,T-learner,t_learner,0.99,247500,0.001196,0.001006
+conversion,T-learner,t_learner,1.0,250000,0.001341,0.00114
+conversion,Ranking aleatorio,azar,0.01,2500,0.003274,2.8e-05
+conversion,Ranking aleatorio,azar,0.02,5000,0.002868,4.9e-05
+conversion,Ranking aleatorio,azar,0.03,7500,0.002884,7.3e-05
+conversion,Ranking aleatorio,azar,0.04,10000,0.001869,6.3e-05
+conversion,Ranking aleatorio,azar,0.05,12500,0.000919,3.9e-05
+conversion,Ranking aleatorio,azar,0.06,15000,0.001131,5.8e-05
+conversion,Ranking aleatorio,azar,0.07,17500,0.001585,9.4e-05
+conversion,Ranking aleatorio,azar,0.08,20000,0.001711,0.000116
+conversion,Ranking aleatorio,azar,0.09,22500,0.001287,9.8e-05
+conversion,Ranking aleatorio,azar,0.1,25000,0.001526,0.00013
+conversion,Ranking aleatorio,azar,0.11,27500,0.001778,0.000166
+conversion,Ranking aleatorio,azar,0.12,30000,0.001423,0.000145
+conversion,Ranking aleatorio,azar,0.13,32500,0.001679,0.000185
+conversion,Ranking aleatorio,azar,0.14,35000,0.001642,0.000195
+conversion,Ranking aleatorio,azar,0.15,37500,0.001544,0.000197
+conversion,Ranking aleatorio,azar,0.16,40000,0.001587,0.000216
+conversion,Ranking aleatorio,azar,0.17,42500,0.001561,0.000225
+conversion,Ranking aleatorio,azar,0.18,45000,0.001783,0.000273
+conversion,Ranking aleatorio,azar,0.19,47500,0.001714,0.000277
+conversion,Ranking aleatorio,azar,0.2,50000,0.001714,0.000292
+conversion,Ranking aleatorio,azar,0.21,52500,0.001816,0.000324
+conversion,Ranking aleatorio,azar,0.22,55000,0.001875,0.000351
+conversion,Ranking aleatorio,azar,0.23,57500,0.001613,0.000316
+conversion,Ranking aleatorio,azar,0.24,60000,0.001702,0.000348
+conversion,Ranking aleatorio,azar,0.25,62500,0.001737,0.000369
+conversion,Ranking aleatorio,azar,0.26,65000,0.001618,0.000358
+conversion,Ranking aleatorio,azar,0.27,67500,0.001516,0.000348
+conversion,Ranking aleatorio,azar,0.28,70000,0.001565,0.000373
+conversion,Ranking aleatorio,azar,0.29,72500,0.001519,0.000375
+conversion,Ranking aleatorio,azar,0.3,75000,0.001478,0.000377
+conversion,Ranking aleatorio,azar,0.31,77500,0.001447,0.000381
+conversion,Ranking aleatorio,azar,0.32,80000,0.001424,0.000387
+conversion,Ranking aleatorio,azar,0.33,82500,0.001444,0.000405
+conversion,Ranking aleatorio,azar,0.34,85000,0.001539,0.000445
+conversion,Ranking aleatorio,azar,0.35,87500,0.001531,0.000455
+conversion,Ranking aleatorio,azar,0.36,90000,0.001471,0.00045
+conversion,Ranking aleatorio,azar,0.37,92500,0.001519,0.000477
+conversion,Ranking aleatorio,azar,0.38,95000,0.001469,0.000474
+conversion,Ranking aleatorio,azar,0.39,97500,0.001398,0.000463
+conversion,Ranking aleatorio,azar,0.4,100000,0.001359,0.000462
+conversion,Ranking aleatorio,azar,0.41,102500,0.001265,0.000441
+conversion,Ranking aleatorio,azar,0.42,105000,0.001254,0.000447
+conversion,Ranking aleatorio,azar,0.43,107500,0.001351,0.000493
+conversion,Ranking aleatorio,azar,0.44,110000,0.001341,0.000501
+conversion,Ranking aleatorio,azar,0.45,112500,0.001366,0.000522
+conversion,Ranking aleatorio,azar,0.46,115000,0.001332,0.00052
+conversion,Ranking aleatorio,azar,0.47,117500,0.001401,0.000559
+conversion,Ranking aleatorio,azar,0.48,120000,0.001288,0.000525
+conversion,Ranking aleatorio,azar,0.49,122500,0.00131,0.000545
+conversion,Ranking aleatorio,azar,0.5,125000,0.001406,0.000597
+conversion,Ranking aleatorio,azar,0.51,127500,0.001433,0.00062
+conversion,Ranking aleatorio,azar,0.52,130000,0.001417,0.000626
+conversion,Ranking aleatorio,azar,0.53,132500,0.001469,0.000661
+conversion,Ranking aleatorio,azar,0.54,135000,0.001477,0.000677
+conversion,Ranking aleatorio,azar,0.55,137500,0.001517,0.000708
+conversion,Ranking aleatorio,azar,0.56,140000,0.001495,0.000711
+conversion,Ranking aleatorio,azar,0.57,142500,0.00153,0.00074
+conversion,Ranking aleatorio,azar,0.58,145000,0.001537,0.000756
+conversion,Ranking aleatorio,azar,0.59,147500,0.001586,0.000795
+conversion,Ranking aleatorio,azar,0.6,150000,0.001664,0.000847
+conversion,Ranking aleatorio,azar,0.61,152500,0.001675,0.000867
+conversion,Ranking aleatorio,azar,0.62,155000,0.001724,0.000907
+conversion,Ranking aleatorio,azar,0.63,157500,0.001668,0.000892
+conversion,Ranking aleatorio,azar,0.64,160000,0.001589,0.000863
+conversion,Ranking aleatorio,azar,0.65,162500,0.001506,0.000831
+conversion,Ranking aleatorio,azar,0.66,165000,0.001526,0.000855
+conversion,Ranking aleatorio,azar,0.67,167500,0.001554,0.000884
+conversion,Ranking aleatorio,azar,0.68,170000,0.00151,0.000872
+conversion,Ranking aleatorio,azar,0.69,172500,0.001499,0.000878
+conversion,Ranking aleatorio,azar,0.7,175000,0.001491,0.000886
+conversion,Ranking aleatorio,azar,0.71,177500,0.001516,0.000914
+conversion,Ranking aleatorio,azar,0.72,180000,0.001485,0.000908
+conversion,Ranking aleatorio,azar,0.73,182500,0.00148,0.000917
+conversion,Ranking aleatorio,azar,0.74,185000,0.001448,0.00091
+conversion,Ranking aleatorio,azar,0.75,187500,0.001498,0.000954
+conversion,Ranking aleatorio,azar,0.76,190000,0.001519,0.00098
+conversion,Ranking aleatorio,azar,0.77,192500,0.001494,0.000977
+conversion,Ranking aleatorio,azar,0.78,195000,0.001482,0.000982
+conversion,Ranking aleatorio,azar,0.79,197500,0.001487,0.000998
+conversion,Ranking aleatorio,azar,0.8,200000,0.001448,0.000984
+conversion,Ranking aleatorio,azar,0.81,202500,0.001355,0.000932
+conversion,Ranking aleatorio,azar,0.82,205000,0.001356,0.000944
+conversion,Ranking aleatorio,azar,0.83,207500,0.001387,0.000978
+conversion,Ranking aleatorio,azar,0.84,210000,0.001402,0.001001
+conversion,Ranking aleatorio,azar,0.85,212500,0.001393,0.001006
+conversion,Ranking aleatorio,azar,0.86,215000,0.001404,0.001026
+conversion,Ranking aleatorio,azar,0.87,217500,0.001422,0.001051
+conversion,Ranking aleatorio,azar,0.88,220000,0.001443,0.001079
+conversion,Ranking aleatorio,azar,0.89,222500,0.001464,0.001107
+conversion,Ranking aleatorio,azar,0.9,225000,0.001446,0.001105
+conversion,Ranking aleatorio,azar,0.91,227500,0.001452,0.001122
+conversion,Ranking aleatorio,azar,0.92,230000,0.001426,0.001115
+conversion,Ranking aleatorio,azar,0.93,232500,0.001397,0.001103
+conversion,Ranking aleatorio,azar,0.94,235000,0.001322,0.001055
+conversion,Ranking aleatorio,azar,0.95,237500,0.001346,0.001087
+conversion,Ranking aleatorio,azar,0.96,240000,0.001356,0.001106
+conversion,Ranking aleatorio,azar,0.97,242500,0.001366,0.001126
+conversion,Ranking aleatorio,azar,0.98,245000,0.001399,0.001165
+conversion,Ranking aleatorio,azar,0.99,247500,0.001404,0.001181
+conversion,Ranking aleatorio,azar,1.0,250000,0.001341,0.00114
+conversion,Propensión,propension,0.01,2500,0.025557,0.000224
+conversion,Propensión,propension,0.02,5000,0.015165,0.000266
+conversion,Propensión,propension,0.03,7500,0.016496,0.000431
+conversion,Propensión,propension,0.04,10000,0.015973,0.000554
+conversion,Propensión,propension,0.05,12500,0.014245,0.000618
+conversion,Propensión,propension,0.06,15000,0.011252,0.000584
+conversion,Propensión,propension,0.07,17500,0.010793,0.000651
+conversion,Propensión,propension,0.08,20000,0.009107,0.000628
+conversion,Propensión,propension,0.09,22500,0.008404,0.000652
+conversion,Propensión,propension,0.1,25000,0.007831,0.000674
+conversion,Propensión,propension,0.11,27500,0.007281,0.000688
+conversion,Propensión,propension,0.12,30000,0.007241,0.000745
+conversion,Propensión,propension,0.13,32500,0.006947,0.000774
+conversion,Propensión,propension,0.14,35000,0.006378,0.000764
+conversion,Propensión,propension,0.15,37500,0.00625,0.000802
+conversion,Propensión,propension,0.16,40000,0.006111,0.000837
+conversion,Propensión,propension,0.17,42500,0.005535,0.000805
+conversion,Propensión,propension,0.18,45000,0.00549,0.000845
+conversion,Propensión,propension,0.19,47500,0.005,0.000813
+conversion,Propensión,propension,0.2,50000,0.004803,0.000822
+conversion,Propensión,propension,0.21,52500,0.004628,0.000831
+conversion,Propensión,propension,0.22,55000,0.004491,0.000844
+conversion,Propensión,propension,0.23,57500,0.00422,0.000829
+conversion,Propensión,propension,0.24,60000,0.004117,0.000844
+conversion,Propensión,propension,0.25,62500,0.004004,0.000854
+conversion,Propensión,propension,0.26,65000,0.003936,0.000873
+conversion,Propensión,propension,0.27,67500,0.003794,0.000874
+conversion,Propensión,propension,0.28,70000,0.003573,0.000853
+conversion,Propensión,propension,0.29,72500,0.003478,0.00086
+conversion,Propensión,propension,0.3,75000,0.00339,0.000867
+conversion,Propensión,propension,0.31,77500,0.003318,0.000877
+conversion,Propensión,propension,0.32,80000,0.003223,0.000879
+conversion,Propensión,propension,0.33,82500,0.003142,0.000884
+conversion,Propensión,propension,0.34,85000,0.00306,0.000886
+conversion,Propensión,propension,0.35,87500,0.002988,0.000891
+conversion,Propensión,propension,0.36,90000,0.002908,0.000891
+conversion,Propensión,propension,0.37,92500,0.00284,0.000895
+conversion,Propensión,propension,0.38,95000,0.002783,0.0009
+conversion,Propensión,propension,0.39,97500,0.002718,0.000902
+conversion,Propensión,propension,0.4,100000,0.002658,0.000905
+conversion,Propensión,propension,0.41,102500,0.002596,0.000906
+conversion,Propensión,propension,0.42,105000,0.002547,0.00091
+conversion,Propensión,propension,0.43,107500,0.002419,0.000885
+conversion,Propensión,propension,0.44,110000,0.002377,0.00089
+conversion,Propensión,propension,0.45,112500,0.002344,0.000897
+conversion,Propensión,propension,0.46,115000,0.002295,0.000898
+conversion,Propensión,propension,0.47,117500,0.002248,0.000899
+conversion,Propensión,propension,0.48,120000,0.002207,0.000902
+conversion,Propensión,propension,0.49,122500,0.002163,0.000902
+conversion,Propensión,propension,0.5,125000,0.00214,0.000911
+conversion,Propensión,propension,0.51,127500,0.002095,0.000909
+conversion,Propensión,propension,0.52,130000,0.002079,0.000919
+conversion,Propensión,propension,0.53,132500,0.002044,0.000922
+conversion,Propensión,propension,0.54,135000,0.001999,0.000919
+conversion,Propensión,propension,0.55,137500,0.00197,0.000922
+conversion,Propensión,propension,0.56,140000,0.00194,0.000924
+conversion,Propensión,propension,0.57,142500,0.001912,0.000927
+conversion,Propensión,propension,0.58,145000,0.00188,0.000927
+conversion,Propensión,propension,0.59,147500,0.001854,0.000931
+conversion,Propensión,propension,0.6,150000,0.001832,0.000935
+conversion,Propensión,propension,0.61,152500,0.001812,0.00094
+conversion,Propensión,propension,0.62,155000,0.001785,0.000942
+conversion,Propensión,propension,0.63,157500,0.001758,0.000942
+conversion,Propensión,propension,0.64,160000,0.001736,0.000945
+conversion,Propensión,propension,0.65,162500,0.001705,0.000943
+conversion,Propensión,propension,0.66,165000,0.00168,0.000943
+conversion,Propensión,propension,0.67,167500,0.001665,0.000949
+conversion,Propensión,propension,0.68,170000,0.001647,0.000952
+conversion,Propensión,propension,0.69,172500,0.001629,0.000956
+conversion,Propensión,propension,0.7,175000,0.001609,0.000957
+conversion,Propensión,propension,0.71,177500,0.001592,0.000961
+conversion,Propensión,propension,0.72,180000,0.001569,0.000961
+conversion,Propensión,propension,0.73,182500,0.001556,0.000966
+conversion,Propensión,propension,0.74,185000,0.001536,0.000966
+conversion,Propensión,propension,0.75,187500,0.001516,0.000966
+conversion,Propensión,propension,0.76,190000,0.001497,0.000967
+conversion,Propensión,propension,0.77,192500,0.001487,0.000973
+conversion,Propensión,propension,0.78,195000,0.001471,0.000975
+conversion,Propensión,propension,0.79,197500,0.001459,0.000979
+conversion,Propensión,propension,0.8,200000,0.001439,0.000979
+conversion,Propensión,propension,0.81,202500,0.001422,0.000979
+conversion,Propensión,propension,0.82,205000,0.001404,0.000978
+conversion,Propensión,propension,0.83,207500,0.001387,0.000978
+conversion,Propensión,propension,0.84,210000,0.001372,0.00098
+conversion,Propensión,propension,0.85,212500,0.001356,0.00098
+conversion,Propensión,propension,0.86,215000,0.001346,0.000984
+conversion,Propensión,propension,0.87,217500,0.001329,0.000983
+conversion,Propensión,propension,0.88,220000,0.001315,0.000983
+conversion,Propensión,propension,0.89,222500,0.0013,0.000983
+conversion,Propensión,propension,0.9,225000,0.001285,0.000983
+conversion,Propensión,propension,0.91,227500,0.001274,0.000985
+conversion,Propensión,propension,0.92,230000,0.001267,0.000991
+conversion,Propensión,propension,0.93,232500,0.001259,0.000995
+conversion,Propensión,propension,0.94,235000,0.001251,0.000999
+conversion,Propensión,propension,0.95,237500,0.001237,0.000998
+conversion,Propensión,propension,0.96,240000,0.001224,0.000999
+conversion,Propensión,propension,0.97,242500,0.001212,0.000999
+conversion,Propensión,propension,0.98,245000,0.001199,0.000998
+conversion,Propensión,propension,0.99,247500,0.001186,0.000998
+conversion,Propensión,propension,1.0,250000,0.001341,0.00114

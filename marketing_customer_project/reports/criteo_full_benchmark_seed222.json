@@ -1,0 +1,162 @@
+{
+  "status": "complete full-source holdout; bounded-sample model fit",
+  "source_rows": 13979592,
+  "training_rows": 11181383,
+  "training_sample_rows": 1098995,
+  "holdout_rows": 2798209,
+  "source_file": "marketing_customer_audit/raw/criteo-research-uplift-v2.1.csv.gz",
+  "metric_reference": "https://github.com/criteo-research/large-scale-ITE-UM-benchmark/blob/main/um_util.py",
+  "protocol": {
+    "split": "deterministic row-level 80/20 holdout; seed 111",
+    "fit_sample": "random thinning of training rows, target 1.1M",
+    "features": "12 anonymized numeric features, standardized using fit sample only",
+    "models": "logistic T learner by randomized arm; S learner with treatment-feature interactions; treated-arm response-propensity comparator; random ranking",
+    "metric": "Criteo separate-relative AUUC; uplift@10 is treated-control outcome rate difference among top 10%",
+    "seed": 222,
+    "elapsed_seconds": 95.2
+  },
+  "outcomes": [
+    {
+      "outcome": "visit",
+      "test_events": 131296,
+      "test_rate_by_treatment": {
+        "0": 0.03848221646097418,
+        "1": 0.048405600024204694
+      },
+      "test_ate_treatment_minus_control": 0.009923383563230512,
+      "models": {
+        "t_learner": {
+          "criteo_separate_relative_auuc": 0.009094693239424934,
+          "uplift_at_10pct": {
+            "rows": 279821,
+            "treated_rate": 0.26644917511511224,
+            "control_rate": 0.20493283066956938,
+            "uplift_pp": 6.151634444554285,
+            "approx_normal_95pct_ci_pp": [
+              5.707577056162866,
+              6.595691832945705
+            ],
+            "incremental_outcomes_estimate_if_all_selected_treated": 17213.565019096248
+          }
+        },
+        "s_learner": {
+          "criteo_separate_relative_auuc": 0.009039361586993663,
+          "uplift_at_10pct": {
+            "rows": 279821,
+            "treated_rate": 0.2771176886003494,
+            "control_rate": 0.21631017461918156,
+            "uplift_pp": 6.080751398116785,
+            "approx_normal_95pct_ci_pp": [
+              5.628419677708702,
+              6.533083118524869
+            ],
+            "incremental_outcomes_estimate_if_all_selected_treated": 17015.219369724367
+          }
+        },
+        "response_propensity": {
+          "criteo_separate_relative_auuc": 0.008817414576840167,
+          "uplift_at_10pct": {
+            "rows": 279821,
+            "treated_rate": 0.3616646884519294,
+            "control_rate": 0.31374314901062705,
+            "uplift_pp": 4.792153944130234,
+            "approx_normal_95pct_ci_pp": [
+              4.292515548304968,
+              5.2917923399555
+            ],
+            "incremental_outcomes_estimate_if_all_selected_treated": 13409.453088004662
+          }
+        }
+      },
+      "random_ranking_single_draw": {
+        "criteo_separate_relative_auuc": 0.00493081927491335,
+        "uplift_at_10pct": {
+          "rows": 279821,
+          "treated_rate": 0.04882160544171929,
+          "control_rate": 0.03870813967345966,
+          "uplift_pp": 1.011346576825963,
+          "approx_normal_95pct_ci_pp": [
+            0.8074570046947291,
+            1.2152361489571972
+          ],
+          "incremental_outcomes_estimate_if_all_selected_treated": 2829.9601047401784
+        }
+      },
+      "random_ranking_20_draws": {
+        "auuc_mean": 0.004912866482174978,
+        "auuc_sd": 9.109594452146716e-05
+      }
+    },
+    {
+      "outcome": "conversion",
+      "test_events": 8074,
+      "test_rate_by_treatment": {
+        "0": 0.0018255456924051088,
+        "1": 0.0030718106117399477
+      },
+      "test_ate_treatment_minus_control": 0.001246264919334839,
+      "models": {
+        "t_learner": {
+          "criteo_separate_relative_auuc": 0.001173356319193131,
+          "uplift_at_10pct": {
+            "rows": 279821,
+            "treated_rate": 0.02397278653197541,
+            "control_rate": 0.015031392997765245,
+            "uplift_pp": 0.8941393534210166,
+            "approx_normal_95pct_ci_pp": [
+              0.7568720281823071,
+              1.0314066786597262
+            ],
+            "incremental_outcomes_estimate_if_all_selected_treated": 2501.989680136223
+          }
+        },
+        "s_learner": {
+          "criteo_separate_relative_auuc": 0.0010891906577928728,
+          "uplift_at_10pct": {
+            "rows": 279821,
+            "treated_rate": 0.022703814108651313,
+            "control_rate": 0.014409145287784128,
+            "uplift_pp": 0.8294668820867185,
+            "approx_normal_95pct_ci_pp": [
+              0.6952163463221895,
+              0.9637174178512474
+            ],
+            "incremental_outcomes_estimate_if_all_selected_treated": 2321.0225241238763
+          }
+        },
+        "response_propensity": {
+          "criteo_separate_relative_auuc": 0.0011772169701153446,
+          "uplift_at_10pct": {
+            "rows": 279821,
+            "treated_rate": 0.026486526797255643,
+            "control_rate": 0.017111798819337894,
+            "uplift_pp": 0.937472797791775,
+            "approx_normal_95pct_ci_pp": [
+              0.7928812114479452,
+              1.0820643841356048
+            ],
+            "incremental_outcomes_estimate_if_all_selected_treated": 2623.2457575089225
+          }
+        }
+      },
+      "random_ranking_single_draw": {
+        "criteo_separate_relative_auuc": 0.0006233324930771251,
+        "uplift_at_10pct": {
+          "rows": 279821,
+          "treated_rate": 0.003128950562581111,
+          "control_rate": 0.0018215809405110015,
+          "uplift_pp": 0.13073696220701098,
+          "approx_normal_95pct_ci_pp": [
+            0.08407385372345248,
+            0.17740007069056946
+          ],
+          "incremental_outcomes_estimate_if_all_selected_treated": 365.8294750172802
+        }
+      },
+      "random_ranking_20_draws": {
+        "auuc_mean": 0.0006195010119159369,
+        "auuc_sd": 2.7134128073232295e-05
+      }
+    }
+  ]
+}

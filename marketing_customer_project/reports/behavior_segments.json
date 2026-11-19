@@ -1,0 +1,87 @@
+{
+  "cutoff": "2017-08-01",
+  "feature_window_start": "2017-01-01",
+  "transactions_before_cutoff": 853486,
+  "households_clustered": 2414,
+  "product_department_metadata_coverage": 0.9970919265225205,
+  "selection_rule": "highest silhouette over k=2..8; exploratory, not a business optimum",
+  "candidate_k": [
+    {
+      "k": 2,
+      "silhouette": 0.26786175580009564,
+      "davies_bouldin": 1.9407133222911335
+    },
+    {
+      "k": 3,
+      "silhouette": 0.11822146312633654,
+      "davies_bouldin": 2.3722925281019536
+    },
+    {
+      "k": 4,
+      "silhouette": 0.12103030484805119,
+      "davies_bouldin": 1.9620307231901206
+    },
+    {
+      "k": 5,
+      "silhouette": 0.1266828442652547,
+      "davies_bouldin": 1.9209674124374625
+    },
+    {
+      "k": 6,
+      "silhouette": 0.11373296562660837,
+      "davies_bouldin": 1.8132814976757174
+    },
+    {
+      "k": 7,
+      "silhouette": 0.11676737869737744,
+      "davies_bouldin": 1.638207978019297
+    },
+    {
+      "k": 8,
+      "silhouette": 0.11310623096215058,
+      "davies_bouldin": 1.7318706008697515
+    }
+  ],
+  "selected_k": 2,
+  "profiles": [
+    {
+      "cluster": 0,
+      "households": 1680,
+      "median_baskets": 37.5,
+      "median_sales": 1106.715,
+      "median_recency_days": 3.169525462962963,
+      "median_products": 260.0,
+      "median_coupon_line_rate": 0.0041841004184100415
+    },
+    {
+      "cluster": 1,
+      "households": 734,
+      "median_baskets": 7.0,
+      "median_sales": 144.37,
+      "median_recency_days": 23.165399305555553,
+      "median_products": 42.0,
+      "median_coupon_line_rate": 0.0
+    }
+  ],
+  "future_campaign_response_by_cluster": [
+    {
+      "cluster": 0,
+      "exposed_household_campaigns": 3665,
+      "responded_pairs": 510,
+      "response_rate": 0.13915416098226466
+    },
+    {
+      "cluster": 1,
+      "exposed_household_campaigns": 74,
+      "responded_pairs": 3,
+      "response_rate": 0.04054054054054054
+    }
+  ],
+  "future_campaign_response_overall": {
+    "exposed_pairs": 3739,
+    "responded_pairs": 513,
+    "rate": 0.13720246055094945,
+    "campaigns": 11
+  },
+  "interpretation_limit": "Response rates are descriptive among previously exposed households; this is not campaign uplift or causal impact."
+}

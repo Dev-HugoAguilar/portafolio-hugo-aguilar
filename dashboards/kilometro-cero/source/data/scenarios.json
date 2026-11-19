@@ -1,0 +1,73 @@
+{
+  "meta": {
+    "title": "Kilómetro Cero · red de envíos carreteros",
+    "version": "0.2.0",
+    "data_status": "synthetic_network_scenario",
+    "unit": "envíos agregados por corredor, no camiones únicos",
+    "notes": [
+      "642 envíos repartidos en 12 corredores, inventados como fixture para explorar la interfaz.",
+      "Origen, destino y volumen no corresponden a una empresa ni a operaciones observadas.",
+      "El mapa usa límites Natural Earth 1:50m y un snapshot de carreteras OSM ruteadas con OSRM; no incluye tráfico en vivo ni valida restricciones de carga pesada."
+    ],
+    "geometry": {
+      "base": "Natural Earth 1:50m admin 0, dominio público; descarga 2026-11-16",
+      "roads": "OpenStreetMap, ODbL 1.0; ruteo OSRM perfil automóvil; snapshot 2026-11-16",
+      "roads_file": "data/roads.geojson",
+      "not_validated": "restricciones de carga pesada, cierres activos, clima, seguridad y tráfico en vivo"
+    },
+    "references": [
+      {"name":"OpenStreetMap copyright","url":"https://www.openstreetmap.org/copyright"},
+      {"name":"MapLibre GL JS","url":"https://maplibre.org/"},
+      {"name":"INEGI Red Nacional de Caminos","url":"https://www.inegi.org.mx/programas/rnc/"},
+      {"name":"INEGI API de Ruteo","url":"https://www.inegi.org.mx/servicios/Ruteo/"},
+      {"name":"SICT Datos viales","url":"https://www.datos.gob.mx/dataset/datos_viales"},
+      {"name":"DataViz Inspiration · Mapas","url":"https://www.dataviz-inspiration.com/map"},
+      {"name":"DataViz Inspiration · Sankey","url":"https://www.dataviz-inspiration.com/sankey"}
+    ]
+  },
+  "cities": [
+    {"id":"tij","name":"Tijuana","coordinates":[-117.0382,32.5149],"role":"terminal"},
+    {"id":"her","name":"Hermosillo","coordinates":[-110.9559,29.0729],"role":"hub"},
+    {"id":"chh","name":"Chihuahua","coordinates":[-106.0889,28.6320],"role":"hub"},
+    {"id":"mty","name":"Monterrey","coordinates":[-100.3161,25.6866],"role":"hub"},
+    {"id":"tam","name":"Tampico","coordinates":[-97.8611,22.2331],"role":"hub"},
+    {"id":"slp","name":"San Luis Potosí","coordinates":[-100.9855,22.1565],"role":"hub"},
+    {"id":"zac","name":"Zacatecas","coordinates":[-102.5832,22.7709],"role":"hub"},
+    {"id":"ags","name":"Aguascalientes","coordinates":[-102.2916,21.8853],"role":"hub"},
+    {"id":"qro","name":"Querétaro","coordinates":[-100.3899,20.5888],"role":"hub"},
+    {"id":"leo","name":"León","coordinates":[-101.6841,21.1220],"role":"hub"},
+    {"id":"gdl","name":"Guadalajara","coordinates":[-103.3496,20.6597],"role":"hub"},
+    {"id":"mex","name":"Ciudad de México","coordinates":[-99.1332,19.4326],"role":"hub"},
+    {"id":"pue","name":"Puebla","coordinates":[-98.2063,19.0414],"role":"hub"},
+    {"id":"ver","name":"Veracruz","coordinates":[-96.1342,19.1738],"role":"terminal"},
+    {"id":"oax","name":"Oaxaca","coordinates":[-96.7266,17.0732],"role":"hub"},
+    {"id":"tgz","name":"Tuxtla Gutiérrez","coordinates":[-93.1150,16.7530],"role":"hub"},
+    {"id":"tap","name":"Tapachula","coordinates":[-92.2630,14.9030],"role":"terminal"}
+  ],
+  "network": {"shipment_count":642,"unit":"envíos del escenario","on_time":551,"delayed":68,"at_risk":23,"active_corridors":12},
+  "truck_profiles_note": "Perfiles sintéticos de referencia; no se usan para rutear ni representan la flota real.",
+  "truck_profiles": [
+    {"id":"rigid_3axle","label":"Camión rígido · 3 ejes","axles":3,"capacity":12},
+    {"id":"tractor_5axle","label":"Tractocamión · 5 ejes","axles":5,"capacity":30},
+    {"id":"tractor_9axle","label":"Tractocamión · 9 ejes","axles":9,"capacity":45}
+  ],
+  "incidents": [
+    {"id":"none","label":"Sin incidente · escenario base","type":"baseline","affected_corridors":[]},
+    {"id":"closure","label":"Cierre simulado · eje SLP–Querétaro","type":"closure","affected_corridors":["mty-mex","her-mex","tij-mex","gdl-mex","leo-mex"]},
+    {"id":"storm","label":"Demora simulada · acceso a Veracruz","type":"slowdown","affected_corridors":["mty-ver","mex-ver","pue-tap"]}
+  ],
+  "corridors": [
+    {"id":"tij-mty","origin":"tij","destination":"mty","shipments":58,"on_time":51,"delayed":5,"at_risk":2,"km":1840,"route_nodes":["tij","her","chh","mty"]},
+    {"id":"tij-mex","origin":"tij","destination":"mex","shipments":44,"on_time":38,"delayed":5,"at_risk":1,"km":2780,"route_nodes":["tij","her","chh","mty","slp","qro","mex"]},
+    {"id":"her-mty","origin":"her","destination":"mty","shipments":36,"on_time":31,"delayed":4,"at_risk":1,"km":1380,"route_nodes":["her","chh","mty"]},
+    {"id":"her-mex","origin":"her","destination":"mex","shipments":41,"on_time":35,"delayed":5,"at_risk":1,"km":2320,"route_nodes":["her","chh","mty","slp","qro","mex"]},
+    {"id":"mty-mex","origin":"mty","destination":"mex","shipments":96,"on_time":82,"delayed":10,"at_risk":4,"km":910,"route_nodes":["mty","slp","qro","mex"]},
+    {"id":"mty-ver","origin":"mty","destination":"ver","shipments":42,"on_time":35,"delayed":5,"at_risk":2,"km":980,"route_nodes":["mty","tam","ver"]},
+    {"id":"gdl-mex","origin":"gdl","destination":"mex","shipments":84,"on_time":74,"delayed":8,"at_risk":2,"km":540,"route_nodes":["gdl","leo","qro","mex"]},
+    {"id":"gdl-mty","origin":"gdl","destination":"mty","shipments":55,"on_time":48,"delayed":5,"at_risk":2,"km":790,"route_nodes":["gdl","ags","slp","mty"]},
+    {"id":"leo-mex","origin":"leo","destination":"mex","shipments":49,"on_time":43,"delayed":5,"at_risk":1,"km":420,"route_nodes":["leo","qro","mex"]},
+    {"id":"mex-ver","origin":"mex","destination":"ver","shipments":58,"on_time":50,"delayed":6,"at_risk":2,"km":410,"route_nodes":["mex","pue","ver"]},
+    {"id":"mex-oax","origin":"mex","destination":"oax","shipments":44,"on_time":37,"delayed":5,"at_risk":2,"km":460,"route_nodes":["mex","pue","oax"]},
+    {"id":"pue-tap","origin":"pue","destination":"tap","shipments":35,"on_time":27,"delayed":5,"at_risk":3,"km":930,"route_nodes":["pue","oax","tgz","tap"]}
+  ]
+}

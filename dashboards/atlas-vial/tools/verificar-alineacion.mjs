@@ -1,0 +1,36 @@
+import { chromium } from "@playwright/test";
+const b = await chromium.launch();
+const p = await b.newPage({ viewport: { width: 1000, height: 900 }, deviceScaleFactor: 2 });
+await p.goto("http://127.0.0.1:8000/#/area/dashboards/atlas-vial", { waitUntil: "domcontentloaded" });
+await p.waitForSelector(".at-kpi-valor", { timeout: 60000 });
+await p.getByRole("tab", { name: /Personas y veh/i }).click();
+await p.waitForSelector("[data-testid=panel-vehiculos] .at-veh-lienzo", { timeout: 60000 });
+await p.waitForTimeout(1800);
+const bloque = p.locator("[data-testid=panel-vehiculos]");
+await bloque.scrollIntoViewIfNeeded();
+await p.waitForTimeout(300);
+const alineacion = await p.evaluate(() => {
+  const panel = document.querySelector("[data-testid=panel-vehiculos]");
+  const segs = [...panel.querySelectorAll(".at-panel-head .at-segmentado")].map((s) => {
+    const r = s.getBoundingClientRect();
+    return { y: Math.round(r.y), alto: Math.round(r.height), derecha: Math.round(r.right) };
+  });
+  const nombres = [...panel.querySelectorAll(".at-veh-nombre")].map((n) => Math.round(n.getBoundingClientRect().y + n.getBoundingClientRect().height / 2));
+  const filas = [...panel.querySelectorAll(".at-veh-area svg > g")].map((g) => Math.round(g.getBoundingClientRect().y + g.getBoundingClientRect().height / 2));
+  const cambios = [...panel.querySelectorAll(".at-veh-cambios li")].map((li) => Math.round(li.getBoundingClientRect().y + li.getBoundingClientRect().height / 2));
+  const difs = nombres.map((y, i) => Math.abs(y - (filas[i] ?? y)) + Math.abs(y - (cambios[i] ?? y)));
+  return { segs, filas: nombres.length, maxDesalineacion: Math.max(...difs), muestras: difs.slice(0, 4) };
+});
+await bloque.screenshot({ path: "evidencias/personas/vehiculos-alineado.png" });
+const m = await b.newPage({ viewport: { width: 390, height: 844 } });
+await m.goto("http://127.0.0.1:8000/#/area/dashboards/atlas-vial", { waitUntil: "domcontentloaded" });
+await m.waitForSelector(".at-kpi-valor", { timeout: 60000 });
+await m.getByRole("tab", { name: /Personas y veh/i }).click();
+await m.waitForSelector("[data-testid=panel-vehiculos] .at-veh-lienzo", { timeout: 60000 });
+await m.waitForTimeout(1500);
+const y2 = await m.evaluate(() => { const n = document.querySelector("[data-testid=panel-vehiculos]"); return Math.max(0, n.getBoundingClientRect().top + window.scrollY - 8); });
+await m.evaluate((d) => window.scrollTo(0, d), y2);
+await m.waitForTimeout(400);
+await m.screenshot({ path: "evidencias/personas/vehiculos-alineado-movil.png" });
+console.log(JSON.stringify({ alineacion, movil: await m.evaluate(() => document.documentElement.scrollWidth) }));
+await b.close();

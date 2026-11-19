@@ -1,0 +1,22 @@
+metrica,grupo,n,p10,p25,p50,p75,p90,media
+canastas,universo,2311,2.0,5.0,11.0,22.0,37.0,17.0173
+canastas,Menor actividad,721,1.0,2.0,4.0,7.0,11.0,5.3675
+canastas,Mayor actividad,1590,6.0,10.0,17.0,27.0,43.0,22.3
+gasto,universo,2311,39.82,117.065,314.91,669.92,1166.5,488.9405
+gasto,Menor actividad,721,13.01,30.41,66.94,112.1,153.62,78.8544
+gasto,Mayor actividad,1590,193.848,296.2675,509.645,887.4,1385.828,674.8978
+recencia_dias,universo,2311,0.3234,2.0215,5.148,15.4101,34.8796,12.2419
+recencia_dias,Menor actividad,721,2.2345,5.4751,17.0924,36.9972,58.7276,24.1348
+recencia_dias,Mayor actividad,1590,0.2245,1.1695,3.3648,8.1062,18.2157,6.8489
+productos,universo,2311,12.0,35.0,88.0,164.0,253.0,115.1926
+productos,Menor actividad,721,3.0,9.0,20.0,33.0,43.0,22.0971
+productos,Mayor actividad,1590,60.0,84.0,131.0,202.0,293.0,157.4075
+canasta_media,universo,2311,9.3838,15.9458,25.7312,40.8959,59.6638,31.6871
+canasta_media,Menor actividad,721,5.644,9.0712,14.47,22.64,31.78,17.6052
+canasta_media,Mayor actividad,1590,15.1174,21.2693,32.1264,47.4617,67.8058,38.0727
+tasa_cupon,universo,2311,0.0,0.0,0.0,0.01,0.0303,0.0114
+tasa_cupon,Menor actividad,721,0.0,0.0,0.0,0.0,0.0217,0.0098
+tasa_cupon,Mayor actividad,1590,0.0,0.0,0.0024,0.0138,0.0336,0.0121
+descuento_linea,universo,2311,0.2745,0.3716,0.5042,0.6782,0.932,0.5946
+descuento_linea,Menor actividad,721,0.16,0.2877,0.4633,0.7129,1.1942,0.6488
+descuento_linea,Mayor actividad,1590,0.3264,0.4037,0.5129,0.6658,0.8619,0.57

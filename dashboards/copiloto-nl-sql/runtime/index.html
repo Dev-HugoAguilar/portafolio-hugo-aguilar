@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Copiloto NL-to-SQL: consulta en español tres indicadores económicos de México, revisa el plan léxico, el SQL parametrizado y las filas sobre SQLite de solo lectura.">
+  <title>Copiloto NL-to-SQL · indicadores económicos de México</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#consulta">Saltar al contenido</a>
+  <header class="topbar">
+    <a class="brand" href="#inicio" aria-label="Copiloto NL-to-SQL, inicio">
+      <span class="brand-mark" aria-hidden="true">Q</span>
+      <span>Copiloto NL-to-SQL<small>Indicadores de México · demo local</small></span>
+    </a>
+    <nav aria-label="Secciones de la demo">
+      <a class="nav-active" href="#consulta">Consulta</a>
+      <a href="#datos">Datos</a>
+      <a href="#metodo">Método</a>
+    </nav>
+    <span class="local-badge" id="local-badge"><i aria-hidden="true"></i> LOCAL · SIN DESPLIEGUE</span>
+  </header>
+
+  <main id="inicio">
+    <section class="hero" aria-labelledby="demo-title">
+      <div>
+        <p class="eyebrow">IA generativa y LLMs · NL-to-SQL acotado</p>
+        <h1 id="demo-title">De la pregunta<br><em>a la consulta.</em></h1>
+        <p class="lead">Consulta en español tres indicadores económicos de México. Revisa cómo el parser reconoce la intención, qué plantilla SQL parametrizada se construye y qué filas sostienen el resultado. El texto libre nunca se ejecuta como SQL.</p>
+      </div>
+      <aside class="snapshot-card">
+        <span>Corte de datos</span>
+        <strong>2019—2025</strong>
+        <small>Banco Mundial · World Development Indicators</small>
+        <small id="snapshot-date">Snapshot local · 15 nov 2026</small>
+        <a href="https://data.worldbank.org/" target="_blank" rel="noopener noreferrer">Abrir fuente de datos ↗</a>
+      </aside>
+    </section>
+
+    <section class="scope-note" aria-label="Alcance de la demo">
+      <span class="scope-icon" aria-hidden="true">i</span>
+      <p><strong>Alcance.</strong> Un país (México), tres indicadores anuales y siete años. El desempleo es una <strong>estimación modelada por la OIT</strong>; no representa informalidad ni subempleo. No se imputan faltantes ni se suman porcentajes.</p>
+    </section>
+
+    <div class="stack-line" aria-label="Tecnologías de la demo">
+      <span class="stack-label">Stack</span>
+      <span>Python · FastAPI</span><span>SQL parametrizado</span><span>SQLite de solo lectura</span><span>D3.js local</span><span>Atlas opcional</span>
+    </div>
+
+    <section class="workbench" id="consulta" aria-label="Copiloto de consultas">
+      <aside class="query-panel">
+        <p class="eyebrow">01 / Pregunta</p>
+        <h2>Consulta los indicadores</h2>
+        <form id="query-form">
+          <label for="question">Pregunta en español</label>
+          <textarea id="question" rows="4" maxlength="500" placeholder="Ej. ¿En qué año fue mayor la inflación en México?" aria-describedby="query-help"></textarea>
+          <p class="field-help" id="query-help">El parser solo reconoce PIB, inflación y desempleo entre 2019 y 2025. No es un intérprete libre.</p>
+          <button id="run" class="primary-button" type="submit">Interpretar y consultar <span aria-hidden="true">→</span></button>
+        </form>
+        <div class="examples" aria-label="Preguntas sugeridas">
+          <span class="micro-label">Prueba una pregunta</span>
+          <button type="button" data-q="¿Cómo cambió el crecimiento del PIB entre 2019 y 2025?">Evolución del PIB</button>
+          <button type="button" data-q="¿En qué año fue mayor la inflación entre 2019 y 2025?">Máximo de inflación</button>
+          <button type="button" data-q="Compara PIB e inflación durante 2020">PIB e inflación en 2020</button>
+          <button type="button" data-q="¿Cómo evolucionó el desempleo de 2019 a 2025?">Tendencia de desempleo</button>
+        </div>
+        <p class="privacy-note"><span aria-hidden="true">◇</span> La consulta analítica corre en SQLite local. Atlas es opcional y solo recibe metadatos de ejecución, nunca la pregunta libre.</p>
+        <p class="api-status" id="api-status" role="status" aria-live="polite">Comprobando API local y snapshot…</p>
+      </aside>
+
+      <section class="result-panel" aria-labelledby="result-title" aria-live="polite">
+        <div class="result-top">
+          <div>
+            <p class="eyebrow">02 / Resultado</p>
+            <h2 id="result-title">La consulta aparecerá aquí.</h2>
+          </div>
+          <span id="mode" class="mode-pill">ESPERANDO PREGUNTA</span>
+        </div>
+        <p id="summary" class="summary">Elige una pregunta de ejemplo o escribe una propia para ver la interpretación, las filas y la trazabilidad SQL.</p>
+        <p id="source-line" class="result-source" hidden></p>
+        <div id="interpretation" class="interpretation" aria-label="Interpretación de la pregunta" hidden></div>
+        <div id="chart" class="chart" role="group" aria-label="Gráfica del resultado consultado"></div>
+        <div id="chart-empty" class="empty-chart"><span aria-hidden="true">↗</span><p>El resultado se dibujará como una serie, un ranking o paneles separados por indicador.</p></div>
+        <div id="table-wrap" class="table-wrap" hidden></div>
+
+        <section id="sql-details" class="sql-details" hidden aria-labelledby="sql-title">
+          <div class="execution-heading">
+            <div>
+              <p class="eyebrow">03 / Ejecución</p>
+              <h3 id="sql-title">La consulta que produjo este resultado</h3>
+              <p id="sql-note" class="execution-note">Python ejecuta esta consulta con parámetros y conexión de solo lectura.</p>
+            </div>
+            <span id="execution-stack" class="execution-stack">Python · FastAPI · SQLite</span>
+          </div>
+          <div class="code-tabs" role="tablist" aria-label="Código de ejecución">
+            <button class="code-tab active" id="tab-sql" type="button" role="tab" aria-selected="true" aria-controls="sql-pane" data-code-tab="sql">SQL generado</button>
+            <button class="code-tab" id="tab-python" type="button" role="tab" aria-selected="false" aria-controls="python-pane" data-code-tab="python" tabindex="-1">Python ejecutor</button>
+          </div>
+          <div id="sql-pane" class="code-pane" role="tabpanel" aria-labelledby="tab-sql">
+            <pre><code id="sql-code"></code></pre>
+            <p class="parameter-line"><strong>Parámetros enlazados:</strong> <code id="sql-params"></code></p>
+          </div>
+          <div id="python-pane" class="code-pane" role="tabpanel" aria-labelledby="tab-python" hidden>
+            <pre><code id="python-code">spec, intent_mode = resolve_intent(body.question)
+sql, params = build_query(spec)
+
+# execute_readonly abre SQLite con mode=ro
+rows = execute_readonly(sql, params)</code></pre>
+            <p class="execution-note">Fragmento del backend Python: valida la intención, construye una plantilla y devuelve filas sin permitir escrituras.</p>
+          </div>
+        </section>
+      </section>
+    </section>
+
+    <section class="data-section" id="datos" aria-labelledby="data-title">
+      <div class="section-heading">
+        <div><p class="eyebrow">04 / Catálogo de datos</p><h2 id="data-title">Unidades y fuente visibles.</h2></div>
+        <p>Los valores se consultan por año e indicador. No sumamos porcentajes ni mezclamos unidades o denominadores.</p>
+      </div>
+      <div class="metric-cards">
+        <article>
+          <span>Crecimiento del PIB real</span>
+          <strong>NY.GDP.MKTP.KD.ZG</strong>
+          <p>Variación anual del PIB a precios constantes · <b>% anual</b></p>
+          <a href="https://data.worldbank.org/indicator/NY.GDP.MKTP.KD.ZG?locations=MX" target="_blank" rel="noopener noreferrer">Fuente y serie ↗</a>
+        </article>
+        <article>
+          <span>Inflación al consumidor</span>
+          <strong>FP.CPI.TOTL.ZG</strong>
+          <p>Variación anual de precios al consumidor · <b>% anual</b></p>
+          <a href="https://data.worldbank.org/indicator/FP.CPI.TOTL.ZG?locations=MX" target="_blank" rel="noopener noreferrer">Fuente y serie ↗</a>
+        </article>
+        <article>
+          <span>Desempleo total · OIT</span>
+          <strong>SL.UEM.TOTL.ZS</strong>
+          <p>Estimación modelada por la OIT · <b>% de la fuerza laboral</b></p>
+          <a href="https://data.worldbank.org/indicator/SL.UEM.TOTL.ZS?locations=MX" target="_blank" rel="noopener noreferrer">Fuente y serie ↗</a>
+        </article>
+      </div>
+    </section>
+
+    <section class="method" id="metodo" aria-labelledby="method-title">
+      <span class="method-number">Método</span>
+      <div>
+        <h2 id="method-title">SQL visible. Alcance controlado.</h2>
+        <p>Un parser léxico reconoce indicador, periodo y operación dentro de un catálogo cerrado. El SQL sale de plantillas permitidas con parámetros enlazados y se ejecuta en SQLite abierto en <code>mode=ro</code>. Si hay un modelo configurado, solo puede devolver un plan JSON validado; si falla, se usa el parser local. Atlas es opcional y no participa en la consulta analítica.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <span>Copiloto NL-to-SQL · indicadores económicos de México</span>
+    <span>Fuente: Banco Mundial · WDI · CC BY 4.0 · datos locales</span>
+  </footer>
+
+  <noscript><p class="noscript">Esta demo necesita JavaScript para consultar el snapshot local y dibujar la gráfica.</p></noscript>
+  <script src="vendor/d3.min.js" defer></script>
+  <script src="app.js" defer></script>
+</body>
+</html>

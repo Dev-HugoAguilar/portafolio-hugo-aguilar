@@ -1,0 +1,119 @@
+[
+  {
+    "cutoff": "2017-06-01",
+    "train": {
+      "rows": 2343,
+      "positive_pairs": 252,
+      "response_rate": 0.10755441741357234,
+      "campaigns": 13
+    },
+    "test": {
+      "rows": 4246,
+      "positive_pairs": 540,
+      "response_rate": 0.12717852096090437,
+      "campaigns": 14
+    },
+    "baseline_campaign_type": {
+      "roc_auc": 0.6367637065019688,
+      "average_precision": 0.17297070535368744,
+      "brier": 0.10874644161022218,
+      "log_loss": 0.37000563026484307
+    },
+    "logistic_regression": {
+      "roc_auc": 0.7979547680438128,
+      "average_precision": 0.38542625068844527,
+      "brier": 0.10050555067203847,
+      "log_loss": 0.3439596026622997
+    },
+    "top_decile": {
+      "rows": 425,
+      "observed_response_rate": 0.46588235294117647,
+      "test_base_rate": 0.12717852096090437,
+      "lift_vs_test_rate": 3.66321568627451
+    },
+    "coverage": {
+      "test_exposures_with_any_prior_90d_transaction": 0.9967027790861988,
+      "test_exposures_with_demographics": 0.595148374941121,
+      "overlapping_households_train_test": 1102,
+      "unique_test_households": 1400
+    }
+  },
+  {
+    "cutoff": "2017-08-01",
+    "train": {
+      "rows": 2850,
+      "positive_pairs": 279,
+      "response_rate": 0.09789473684210526,
+      "campaigns": 16
+    },
+    "test": {
+      "rows": 3739,
+      "positive_pairs": 513,
+      "response_rate": 0.13720246055094945,
+      "campaigns": 11
+    },
+    "baseline_campaign_type": {
+      "roc_auc": 0.6213991098155942,
+      "average_precision": 0.177352148833598,
+      "brier": 0.1166418185310519,
+      "log_loss": 0.3918545852174029
+    },
+    "logistic_regression": {
+      "roc_auc": 0.7967440472090194,
+      "average_precision": 0.41202903336503155,
+      "brier": 0.10129365872846183,
+      "log_loss": 0.3446439756567582
+    },
+    "top_decile": {
+      "rows": 374,
+      "observed_response_rate": 0.5053475935828877,
+      "test_base_rate": 0.13720246055094945,
+      "lift_vs_test_rate": 3.683225443287363
+    },
+    "coverage": {
+      "test_exposures_with_any_prior_90d_transaction": 0.9967905857181064,
+      "test_exposures_with_demographics": 0.5969510564322011,
+      "overlapping_households_train_test": 1127,
+      "unique_test_households": 1389
+    }
+  },
+  {
+    "cutoff": "2017-10-01",
+    "train": {
+      "rows": 4168,
+      "positive_pairs": 495,
+      "response_rate": 0.1187619961612284,
+      "campaigns": 19
+    },
+    "test": {
+      "rows": 2421,
+      "positive_pairs": 297,
+      "response_rate": 0.12267657992565056,
+      "campaigns": 8
+    },
+    "baseline_campaign_type": {
+      "roc_auc": 0.6391100268218912,
+      "average_precision": 0.17188627252968522,
+      "brier": 0.10434048416133322,
+      "log_loss": 0.3561602228111081
+    },
+    "logistic_regression": {
+      "roc_auc": 0.802286835714331,
+      "average_precision": 0.394347347215727,
+      "brier": 0.09800368383045421,
+      "log_loss": 0.3347989126484964
+    },
+    "top_decile": {
+      "rows": 243,
+      "observed_response_rate": 0.49382716049382713,
+      "test_base_rate": 0.12267657992565056,
+      "lift_vs_test_rate": 4.025439580995136
+    },
+    "coverage": {
+      "test_exposures_with_any_prior_90d_transaction": 0.9979347377116894,
+      "test_exposures_with_demographics": 0.6080132176786451,
+      "overlapping_households_train_test": 1084,
+      "unique_test_households": 1239
+    }
+  }
+]

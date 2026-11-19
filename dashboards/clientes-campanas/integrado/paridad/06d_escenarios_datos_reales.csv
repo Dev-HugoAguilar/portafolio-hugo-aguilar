@@ -1,0 +1,7 @@
+mde_relativo,segmento,tasa_base,tasa_objetivo,por_brazo_informe,por_brazo_recalculado,tres_brazos,total_informe,total_recalculado
+0.2,Menor actividad,0.03777,0.04532,13267,13267,39801,47739,47739
+0.2,Mayor actividad,0.16226,0.19471,2646,2646,7938,47739,47739
+0.3,Menor actividad,0.03777,0.0491,6152,6152,18456,22107,22107
+0.3,Mayor actividad,0.16226,0.21094,1217,1217,3651,22107,22107
+0.5,Menor actividad,0.03777,0.05665,2397,2397,7191,8589,8589
+0.5,Mayor actividad,0.16226,0.24339,466,466,1398,8589,8589

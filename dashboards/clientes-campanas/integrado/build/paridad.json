@@ -1,0 +1,177 @@
+{
+  "salida": "dist/dashboards/clientes-campanas/index.html",
+  "bytes": 836418,
+  "hogares": 2311,
+  "tablas": 23,
+  "derivadas_de_artefactos": 19,
+  "paridad": {
+    "02c2_hogares_datos_reales.csv": {
+      "clave": "hogares",
+      "origen": "artefactos JSON del repositorio",
+      "filas": 2311,
+      "sha256": "66a480376631c7bd148a41282673d4716892a9d9fa07ae6b5f2aea11600ed8b5",
+      "identica": true
+    },
+    "02a2_medianas_datos_reales.csv": {
+      "clave": "segmentos",
+      "origen": "artefactos JSON del repositorio",
+      "filas": 2,
+      "sha256": "2f96137b0b6e662ba8c02ce9c4cb4ea872b9d9851a765b3de2838b945b1cdadd",
+      "identica": true
+    },
+    "02b2_cuantiles_datos_reales.csv": {
+      "clave": "cuantiles",
+      "origen": "artefactos JSON del repositorio",
+      "filas": 21,
+      "sha256": "05dc9d865ff0b31137a9bad0160c507ca3c8064d574966366c31fe270c703a3e",
+      "identica": true
+    },
+    "02d2_departamentos_datos_reales.csv": {
+      "clave": "departamentos",
+      "origen": "artefactos JSON del repositorio",
+      "filas": 20,
+      "sha256": "fe2959cb7862082f1f402422565e71d95ab110703bc2dff3822d699ea87b2f36",
+      "identica": true
+    },
+    "02e_diagnostico_k_datos_reales.csv": {
+      "clave": "k",
+      "origen": "artefactos JSON del repositorio",
+      "filas": 7,
+      "sha256": "f4de9e1d9b66961f055400921fa000c97f0f0d96c75ddde7f215670109c251b6",
+      "identica": true
+    },
+    "03a2_transiciones_datos_reales.csv": {
+      "clave": "flujos",
+      "origen": "artefactos JSON del repositorio",
+      "filas": 8,
+      "sha256": "20a77af8c9f201a4b928688d67f4615763e2642f0b464ba7846bb90b839ada5b",
+      "identica": true
+    },
+    "03b_estabilidad_datos_reales.csv": {
+      "clave": "estabilidad",
+      "origen": "artefactos JSON del repositorio",
+      "filas": 5,
+      "sha256": "40c2c0933e2cb02283f17e90df7f0f30d1607e1253d5de657d94665bea8604b5",
+      "identica": true
+    },
+    "04a2_metricas_datos_reales.csv": {
+      "clave": "metricas",
+      "origen": "artefactos JSON del repositorio",
+      "filas": 117,
+      "sha256": "ca6cc2d90aabff13227c213746d1cbb0ae0afb7a4dd8e0d07bb43f6dc511dd31",
+      "identica": true
+    },
+    "04b_targeting_datos_reales.csv": {
+      "clave": "targeting",
+      "origen": "artefactos JSON del repositorio",
+      "filas": 303,
+      "sha256": "89cfed31fc8f3cd43acdcad5dc64820ae3891ea4ae2dc261aab7d49577c335e9",
+      "identica": true
+    },
+    "04c_calibracion_datos_reales.csv": {
+      "clave": "calibracion",
+      "origen": "artefactos JSON del repositorio",
+      "filas": 30,
+      "sha256": "71e58fcbcce9c814084fa3715c92b32eeaaf760a558dba65aa2413f84ac53409",
+      "identica": true
+    },
+    "04d_campanas_datos_reales.csv": {
+      "clave": "campanas",
+      "origen": "artefactos JSON del repositorio",
+      "filas": 34,
+      "sha256": "d50336fe3fef7c6b6a0a3b047517017b4da44829ab5d4652830bb6b039e7d95d",
+      "identica": true
+    },
+    "05b2_carreras_datos_reales.csv": {
+      "clave": "carreras",
+      "origen": "artefactos JSON del repositorio",
+      "filas": 18,
+      "sha256": "ed0ed21882542917711bc1b0d60d92464473e6fff844af7d54dc2e2dca5ac792",
+      "identica": true
+    },
+    "05b3_resumen_datos_reales.csv": {
+      "clave": "resumen",
+      "origen": "artefactos JSON del repositorio",
+      "filas": 6,
+      "sha256": "4797a87e6c0e294677d5a6817faf6180de85a3c56ef263fc45a01402afa72b92",
+      "identica": true
+    },
+    "05c_curvas_datos_reales.csv": {
+      "clave": "uplift",
+      "origen": "artefactos JSON del repositorio",
+      "filas": 700,
+      "sha256": "c5dae352e4209f5afcf07d09627107de8473072436b5ec558837df802b6c3d1a",
+      "identica": true
+    },
+    "05d2_rangos_datos_reales.csv": {
+      "clave": "rangos",
+      "origen": "artefactos JSON del repositorio",
+      "filas": 7,
+      "sha256": "bf3a9eecda3195f9f38322b313fc4467a8da08b7868e88150717ec0b211f9929",
+      "identica": true
+    },
+    "06d_escenarios_datos_reales.csv": {
+      "clave": "escenarios",
+      "origen": "artefactos JSON del repositorio",
+      "filas": 6,
+      "sha256": "550f62a76f4f87f3e326c2cb7fb8bd71ee079e912802f9654cb6702bed3629ee",
+      "identica": true
+    },
+    "06e_capacidad_datos_reales.csv": {
+      "clave": "capacidad",
+      "origen": "artefactos JSON del repositorio",
+      "filas": 6,
+      "sha256": "0f28eb7186d4253f29acbf5ea14619ff6beac59d6eb6e03546c106106bdb4625",
+      "identica": true
+    },
+    "01_indicadores.csv": {
+      "clave": "proyecto_kpis",
+      "origen": "referencia de la entrega (tabla narrativa o medida sobre el DOM servido)",
+      "filas": 8,
+      "sha256": "eccb8c619ef8fafd1c782ec2fda5339b4a0f23d809fbe700b452081ced31c88f",
+      "identica": true
+    },
+    "01f_artefactos.csv": {
+      "clave": "artefactos",
+      "origen": "referencia de la entrega (tabla narrativa o medida sobre el DOM servido)",
+      "filas": 5,
+      "sha256": "fe56eaca11ab4c8b7461d9110e47961b278b4caf1d4fb8a8dac3a644df0db983",
+      "identica": true
+    },
+    "05a_contexto_criteo.csv": {
+      "clave": "criteo_contexto",
+      "origen": "referencia de la entrega (tabla narrativa o medida sobre el DOM servido)",
+      "filas": 4,
+      "sha256": "096826b45bf6b0c6e97bf8c1ec608bf9f50c24bcf3bbde4bda0a683391850190",
+      "identica": true
+    },
+    "inventario_visualizaciones.csv": {
+      "clave": "inventario",
+      "origen": "referencia de la entrega (tabla narrativa o medida sobre el DOM servido)",
+      "filas": 52,
+      "sha256": "13cbf1896e5cf07baab16c1fc57b96dcaf2febed93f29d50f7cd36b2fedecc30",
+      "identica": true
+    },
+    "02a_indicadores_tamano_otro_corte.csv": {
+      "clave": "perfil_otro_corte",
+      "origen": "referencia de la entrega (tabla narrativa o medida sobre el DOM servido)",
+      "filas": 3,
+      "sha256": "c225ae87c00c7b25e3be70ec4748149a5385610ece361087fccd4d1b4619c25a",
+      "identica": true
+    },
+    "procedencia_analisis.csv": {
+      "clave": "procedencia",
+      "origen": "artefactos JSON del repositorio",
+      "filas": 11,
+      "sha256": "6ee0a2c57c6023f2c6020b310790e72c065f410cc1f8e92489cef21b704e7d20",
+      "identica": true
+    },
+    "00_manifiesto_artefactos.json": {
+      "clave": "manifiesto",
+      "origen": "artefactos JSON del repositorio",
+      "filas": 1,
+      "sha256": "cbc4654852c0c08a6a491d545b675aef112506733a93fc2a789fb70273ef6413",
+      "identica": true
+    }
+  }
+}

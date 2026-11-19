@@ -1,0 +1,65 @@
+# =============================================================================
+# PORTAFOLIO HUGO AGUILAR — servicios locales
+# -----------------------------------------------------------------------------
+#   backend  : API FastAPI, publicada solo en 127.0.0.1:8001.
+#   frontend : perfil opcional para servir el sitio estático existente (dist/).
+#
+# No hay servicio de base de datos: la persistencia de los tres tableros es el
+# clúster de MongoDB Atlas y la cadena llega por `MONGODB_URI`. Levantar un
+# MongoDB local sería un segundo juego de colecciones que el tablero no lee, y
+# el espacio del plan gratuito ya está medido (docs/ALMACENAMIENTO.md).
+#
+# El sitio del portafolio NO se modifica: se sigue sirviendo como hasta ahora.
+# =============================================================================
+
+name: hugo-portfolio
+
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    environment:
+      # Todos los tableros usan Atlas: la cadena viene del `.env` del proyecto.
+      # Sin respaldo silencioso a una instancia local: si falta, el arranque falla.
+      MONGODB_URI: ${MONGODB_URI:?define MONGODB_URI (Atlas) en el .env del proyecto}
+      MONGODB_DB: ${MONGODB_DB:-hugo_portfolio}
+      ALLOWED_ORIGINS: ${ALLOWED_ORIGINS:-http://localhost:8000,http://127.0.0.1:8000}
+      LOG_LEVEL: ${LOG_LEVEL:-info}
+    ports:
+      # Solo en el host, para desarrollo. Cambia BACKEND_HOST_PORT si el 8001 ya
+      # está ocupado por otro proyecto local.
+      - "127.0.0.1:${BACKEND_HOST_PORT:-8001}:8000"
+    healthcheck:
+      test:
+        - CMD
+        - python
+        - -c
+        - |
+          import urllib.request
+          urllib.request.urlopen("http://127.0.0.1:8000/api/v1/health/live", timeout=3)
+      interval: 15s
+      timeout: 5s
+      retries: 10
+      start_period: 20s
+    networks:
+      - internal
+
+  # Opcional: sirve el sitio estático existente en http://127.0.0.1:8080
+  #   docker compose --profile frontend up -d
+  frontend:
+    image: nginx:1.27-alpine
+    restart: unless-stopped
+    profiles:
+      - frontend
+    volumes:
+      - ./dist:/usr/share/nginx/html:ro
+    ports:
+      - "127.0.0.1:8080:80"
+    networks:
+      - internal
+
+networks:
+  internal:
+    driver: bridge

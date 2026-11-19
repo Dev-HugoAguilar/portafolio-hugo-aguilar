@@ -1,0 +1,21 @@
+departamento,segmento,hogares_segmento,share_medio_gasto,hogares_con_compra
+GROCERY,Menor actividad,721,0.5637,678
+DRUG GM,Menor actividad,721,0.1512,536
+PRODUCE,Menor actividad,721,0.0961,434
+MEAT-PCKGD,Menor actividad,721,0.033,295
+MEAT,Menor actividad,721,0.0294,253
+DELI,Menor actividad,721,0.0307,207
+PASTRY,Menor actividad,721,0.026,223
+NUTRITION,Menor actividad,721,0.0132,95
+FUEL,Menor actividad,721,0.0236,92
+SEAFOOD-PCKGD,Menor actividad,721,0.0028,39
+GROCERY,Mayor actividad,1590,0.6237,1590
+DRUG GM,Mayor actividad,1590,0.0976,1543
+PRODUCE,Mayor actividad,1590,0.1088,1562
+MEAT-PCKGD,Mayor actividad,1590,0.0495,1491
+MEAT,Mayor actividad,1590,0.0368,1426
+DELI,Mayor actividad,1590,0.0257,1183
+PASTRY,Mayor actividad,1590,0.0148,1119
+NUTRITION,Mayor actividad,1590,0.0118,688
+FUEL,Mayor actividad,1590,0.0089,636
+SEAFOOD-PCKGD,Mayor actividad,1590,0.0042,552

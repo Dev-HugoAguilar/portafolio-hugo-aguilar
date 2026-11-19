@@ -1,0 +1,50 @@
+.ageprofile-card{background:var(--card,#fff);color:var(--ink,#293447);border-color:var(--line,#d9dfee);padding:30px}
+.ageprofile-card h2{font-size:clamp(30px,3.4vw,44px);color:var(--ink,#293447);margin:10px 0}
+.ageprofile-card>.muted{color:var(--muted,#69768e);max-width:900px}
+.ageprofile-card .eyebrow{color:var(--muted,#69768e)}
+.ageprofile-layout{display:grid;grid-template-columns:minmax(0,1fr);gap:34px;align-items:center;margin:28px 0}
+.ageprofile-main{min-width:0}
+.age-waffle{display:grid;width:100%;grid-template-columns:repeat(25,minmax(0,1fr));gap:5px;padding:4px}
+.age-tile{aspect-ratio:1;border:1px solid #d9dfee;background:#c6cbe1;transition:transform .16s ease,filter .16s ease;border-radius:2px}
+.age-tile:nth-child(10n){margin-right:3px}
+.age-legend{display:flex;flex-wrap:wrap;gap:8px;margin:20px 0 10px}
+.age-legend button{display:flex;align-items:center;gap:9px;background:#fff;color:var(--ink,#293447);border:1px solid var(--line,#d9dfee);font-size:12px;padding:10px 12px;text-align:left;border-radius:7px}
+.age-legend button[aria-pressed=true]{border-color:var(--blue,#4b55ff);background:var(--soft,#eeefff)}
+.age-swatch{width:12px;height:12px;display:inline-block;flex:0 0 12px;border-radius:2px}
+.age-legend small{color:var(--muted,#69768e)}
+.age-detail{min-height:25px;color:var(--ink,#293447);font-size:14px}
+.ageprofile-note{background:var(--soft,#eeefff);border-left-color:var(--blue,#4b55ff);color:var(--muted,#69768e)}
+.ageprofile-note b{color:var(--ink,#293447)}
+.ageprofile-card .refline{border-color:var(--line,#d9dfee);color:var(--muted,#69768e)}
+.ageprofile-card .refline a{color:var(--blue,#4b55ff)}
+.age-tile:hover{filter:brightness(.96);transform:scale(1.08)}
+@media(max-width:850px){.ageprofile-layout{grid-template-columns:1fr;gap:22px}.age-waffle{grid-template-columns:repeat(15,minmax(0,1fr));gap:5px;width:100%}.ageprofile-card{padding:22px}}
+@media(max-width:480px){.ageprofile-card{padding:17px}.ageprofile-layout{margin:20px 0}.age-waffle{grid-template-columns:repeat(10,minmax(0,1fr));gap:4px;width:100%}.age-legend{display:grid;grid-template-columns:1fr 1fr}.age-legend button{padding:8px;font-size:11px}}
+
+.ageSwarmViewport{overflow-x:auto;overflow-y:hidden;width:100%;padding:8px 0}
+.ageSwarmViewport svg{display:block;width:100%;height:auto;min-width:760px}
+.age-swarm-row{outline:none;transition:opacity .15s ease}
+.age-swarm-row circle{transition:r .12s ease,opacity .12s ease}
+.age-swarm-row:hover circle,.age-swarm-row:focus circle{r:3.6px}
+.age-swarm-row:focus rect{stroke:var(--blue,#4b55ff);stroke-width:2}
+.ageSwarmCaption{font-size:12px;margin:8px 0 0}
+@media(max-width:600px){.ageSwarmViewport svg{min-width:820px}.ageSwarmCaption{font-size:11px}}
+
+/* Paginación de la vista «Edad por año»: quince edades legibles por vista. */
+.agePager{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin:16px 0 6px}
+.agePager[hidden]{display:none}
+.agePager button{border:1px solid var(--line,#d9dfee);background:#fff;color:var(--ink,#293447);border-radius:7px;padding:9px 15px;font:inherit;font-size:13px}
+.agePager button:hover:not(:disabled){background:var(--soft,#eeefff)}
+.agePager button:disabled{opacity:.45;cursor:default}
+.agePager button:focus-visible{outline:3px solid #777eff;outline-offset:2px}
+.ageRange{margin:0;font-size:13px;color:var(--muted,#69768e)}
+.ageAll{margin-top:16px}
+.ageAll summary{cursor:pointer;color:var(--blue,#4b55ff);padding:8px 0;font-size:13px}
+.ageSwarmViewport.is-individual svg{min-width:820px;max-width:1050px;margin:0 auto}
+@media(max-width:850px){.agePager{gap:10px}.agePager button{padding:8px 12px;font-size:12px}.ageRange{font-size:12px;order:3;flex-basis:100%}}
+@media(max-width:600px){.ageSwarmViewport.is-individual svg{min-width:820px;max-width:none}}
+
+/* Maqueta móvil de la pirámide: ancho natural, sin desplazamiento horizontal. */
+.ageSwarmViewport.is-movil{overflow:visible;padding:4px 0}
+.ageSwarmViewport.is-movil svg{min-width:0;max-width:100%;height:auto;margin:0 auto}
+@media(max-width:600px){.ageSwarmViewport.is-movil svg{min-width:0;max-width:none}}

@@ -1,0 +1,100 @@
+{
+  "purpose": "planning only; no randomized experiment was run",
+  "design": "3 arms within each behavior segment: holdout, generic campaign, segment-tailored campaign",
+  "primary_comparison": "tailored vs generic within each segment (two primary segment comparisons)",
+  "primary_outcome": "any coupon redemption within 30 days of assignment",
+  "baseline_proxies": {
+    "menor_actividad": {
+      "cutoff_rates": [
+        0.055,
+        0.04975124378109453,
+        0.008547008547008548
+      ],
+      "planning_baseline": 0.037766084109367694
+    },
+    "mayor_actividad": {
+      "cutoff_rates": [
+        0.15507338864071474,
+        0.1709090909090909,
+        0.16079545454545455
+      ],
+      "planning_baseline": 0.16225931136508673
+    }
+  },
+  "power_assumptions": {
+    "two_sided_alpha_per_primary_comparison": 0.025,
+    "power": 0.8,
+    "allocation": "equal per arm within segment",
+    "method": "normal approximation for two independent proportions, rounded up",
+    "lifts": "relative lift above historical descriptive proxy"
+  },
+  "scenarios": [
+    {
+      "relative_minimum_detectable_lift": 0.2,
+      "by_segment": {
+        "menor_actividad": {
+          "baseline_proxy": 0.037766084109367694,
+          "target_response_rate": 0.04531930093124123,
+          "households_per_arm": 13267,
+          "households_all_three_arms": 39801
+        },
+        "mayor_actividad": {
+          "baseline_proxy": 0.16225931136508673,
+          "target_response_rate": 0.19471117363810406,
+          "households_per_arm": 2646,
+          "households_all_three_arms": 7938
+        }
+      },
+      "total_households_all_segments_and_arms": 47739
+    },
+    {
+      "relative_minimum_detectable_lift": 0.3,
+      "by_segment": {
+        "menor_actividad": {
+          "baseline_proxy": 0.037766084109367694,
+          "target_response_rate": 0.049095909342178,
+          "households_per_arm": 6152,
+          "households_all_three_arms": 18456
+        },
+        "mayor_actividad": {
+          "baseline_proxy": 0.16225931136508673,
+          "target_response_rate": 0.21093710477461275,
+          "households_per_arm": 1217,
+          "households_all_three_arms": 3651
+        }
+      },
+      "total_households_all_segments_and_arms": 22107
+    },
+    {
+      "relative_minimum_detectable_lift": 0.5,
+      "by_segment": {
+        "menor_actividad": {
+          "baseline_proxy": 0.037766084109367694,
+          "target_response_rate": 0.056649126164051544,
+          "households_per_arm": 2397,
+          "households_all_three_arms": 7191
+        },
+        "mayor_actividad": {
+          "baseline_proxy": 0.16225931136508673,
+          "target_response_rate": 0.24338896704763008,
+          "households_per_arm": 466,
+          "households_all_three_arms": 1398
+        }
+      },
+      "total_households_all_segments_and_arms": 8589
+    }
+  ],
+  "current_data_capacity": {
+    "unique_households_in_august_90d_cohort": 2317,
+    "households_low_activity": 749,
+    "households_high_activity": 1568,
+    "can_support_30pct_mde": false,
+    "reason": "30% MDE requires 6,152 households per arm in the lower-activity segment and 1,217 per arm in the higher-activity segment; there are 749/1,568 households total in the respective segments at this cut and historical assignment cannot be randomized retroactively."
+  },
+  "limitations": [
+    "Historical campaign response rates are nonrandomized, repeated household-campaign observations and not causal baselines.",
+    "Cutoff rates overlap; their unweighted average is a planning proxy only.",
+    "The calculation does not account for noncompliance, attrition, interference or household-level clustering beyond one-row-per-household randomization.",
+    "A genuine campaign test requires a new prospective randomized assignment; no control assignment is fabricated from Complete Journey."
+  ]
+}

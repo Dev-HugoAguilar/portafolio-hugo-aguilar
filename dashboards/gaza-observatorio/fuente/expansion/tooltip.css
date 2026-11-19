@@ -1,0 +1,178 @@
+/* Tooltip compartido del observatorio.
+   Una sola pieza para todas las gráficas (SVG, HTML y lienzos). Paleta clara
+   del proyecto: tarjeta blanca, borde lavanda, tinta pizarra e índigo. */
+
+.gTip {
+  position: fixed;
+  z-index: 9000;
+  top: 0;
+  left: 0;
+  max-width: 320px;
+  padding: 12px 14px;
+  border: 1px solid #c9cdf0;
+  border-radius: 9px;
+  background: #fff;
+  color: #293447;
+  box-shadow: 0 10px 28px rgba(41, 52, 71, 0.16);
+  font: 13px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif;
+  pointer-events: none;
+  opacity: 0;
+  transform: translateY(3px);
+  transition: opacity 0.12s ease, transform 0.12s ease;
+}
+
+.gTip[data-visible="true"] {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.gTip[data-pin="true"] {
+  pointer-events: auto;
+}
+
+.gTip[hidden] {
+  display: none;
+}
+
+.gTip strong,
+.gTip b {
+  display: block;
+  font-size: 13.5px;
+  font-weight: 650;
+  color: #1f2a3d;
+  margin-bottom: 3px;
+}
+
+.gTip .gTipSerie {
+  display: inline-block;
+  margin-bottom: 4px;
+  font-size: 10.5px;
+  letter-spacing: 0.9px;
+  text-transform: uppercase;
+  color: #6f74c9;
+}
+
+.gTip p {
+  margin: 0 0 4px;
+  color: #3d4a60;
+}
+
+/* El nombre árabe conserva `dir="rtl"` para el orden del texto, pero se
+   alinea a la izquierda para acompañar a su transliteración. */
+.gTip [dir="rtl"] {
+  text-align: left;
+}
+
+.gTip p:last-child {
+  margin-bottom: 0;
+}
+
+.gTip .gTipRow {
+  display: flex;
+  justify-content: space-between;
+  gap: 14px;
+  margin: 2px 0;
+  color: #3d4a60;
+}
+
+.gTip .gTipRow b {
+  display: inline;
+  margin: 0;
+  font-weight: 600;
+  color: #1f2a3d;
+  font-variant-numeric: tabular-nums;
+}
+
+.gTip .gTipRow .gTipMin {
+  color: #4b55ff;
+}
+
+.gTip .gTipRow .gTipMax {
+  color: #7a6aa6;
+}
+
+.gTip .gTipFoot {
+  margin-top: 7px;
+  padding-top: 6px;
+  border-top: 1px solid #e6e9f2;
+  font-size: 11.5px;
+  color: #69768e;
+}
+
+.gTip .gTipHint {
+  margin-top: 5px;
+  font-size: 11px;
+  color: #8590a6;
+}
+
+.gTipClose {
+  position: absolute;
+  top: -9px;
+  right: -9px;
+  width: 22px;
+  height: 22px;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border: 1px solid #c9cdf0;
+  border-radius: 50%;
+  background: #fff;
+  color: #3d4a60;
+  font: 13px/1 system-ui, sans-serif;
+  cursor: pointer;
+}
+
+/* El cierre solo aparece con el globo fijado (tacto); si no, estorba. */
+.gTipClose[hidden] {
+  display: none;
+}
+
+.gTipClose:hover,
+.gTipClose:focus-visible {
+  background: #eef0fb;
+  color: #293447;
+}
+
+.gTipClose:focus-visible {
+  outline: 3px solid #777eff;
+  outline-offset: 1px;
+}
+
+/* Marcas consultables: foco visible sin alterar el dibujo. */
+[data-tip-scope] [data-tip],
+[data-tip-scope] [aria-label],
+[data-tip-scope] [tabindex] {
+  outline-offset: 0;
+}
+
+[data-tip-scope] [tabindex]:focus-visible,
+[data-tip-scope] [data-tip]:focus-visible {
+  outline: 3px solid #777eff;
+    outline-offset: 1px;
+}
+
+.gTipLive {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+@media (max-width: 560px) {
+  .gTip {
+    max-width: calc(100vw - 20px);
+    padding: 10px 12px;
+    font-size: 12.5px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gTip {
+    transition: none;
+  }
+}

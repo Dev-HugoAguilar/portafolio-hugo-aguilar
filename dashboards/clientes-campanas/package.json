@@ -1,0 +1,17 @@
+{
+  "name": "portafolio-clientes-campanas",
+  "private": true,
+  "version": "2.0.0",
+  "description": "Tablero «Clientes y campañas» — Customer Growth Intelligence. Rediseño integrado: página autónoma construida desde los artefactos JSON del repositorio y servida dentro de la ficha del portafolio.",
+  "type": "module",
+  "scripts": {
+    "build": "python integrado/tools/construir.py",
+    "verificar": "python integrado/tools/verificar.py",
+    "verificar-servido": "node integrado/tools/verificar-servido.mjs",
+    "cobertura": "node integrado/tools/informe-cobertura.mjs",
+    "portada": "node integrado/tools/capturar-portadas.mjs"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.64.1"
+  }
+}

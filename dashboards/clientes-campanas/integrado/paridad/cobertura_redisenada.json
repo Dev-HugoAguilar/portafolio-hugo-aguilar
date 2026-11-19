@@ -1,0 +1,207 @@
+{
+  "proyecto_kpi_pregunta": {
+    "view": "proyecto",
+    "target": "project-overview",
+    "note": "Conservado o reorganizado; cifras consultables"
+  },
+  "proyecto_proceso": {
+    "view": "proyecto",
+    "target": "project-overview",
+    "note": "Conservado o reorganizado; cifras consultables"
+  },
+  "proyecto_kpi_resultados": {
+    "view": "proyecto",
+    "target": "project-results",
+    "note": "Conservado o reorganizado; cifras consultables"
+  },
+  "proyecto_fuentes": {
+    "view": "proyecto",
+    "target": "project-sources",
+    "note": "Conservado o reorganizado; cifras consultables"
+  },
+  "proyecto_artefactos": {
+    "view": "proyecto",
+    "target": "project-sources",
+    "note": "Conservado o reorganizado; cifras consultables"
+  },
+  "proyecto_correcciones": {
+    "view": "proyecto",
+    "target": "project-corrections",
+    "note": "Conservado o reorganizado; cifras consultables"
+  },
+  "perfiles_kpi_tamano": {
+    "view": "perfiles",
+    "target": "profiles-context",
+    "note": "Detalle de septiembre; indicadores de julio conservados. Otros cortes de detalle no exportados."
+  },
+  "perfiles_medianas": {
+    "view": "perfiles",
+    "target": "distribution",
+    "note": "Conservado o reorganizado; cifras consultables"
+  },
+  "perfiles_beeswarm": {
+    "view": "perfiles",
+    "target": "distribution",
+    "note": "Conservado o reorganizado; cifras consultables"
+  },
+  "perfiles_paralelas": {
+    "view": "perfiles",
+    "target": "distribution",
+    "note": "Conservado o reorganizado; cifras consultables"
+  },
+  "perfiles_tabla_hogares": {
+    "view": "perfiles",
+    "target": "distribution",
+    "note": "Conservado o reorganizado; cifras consultables"
+  },
+  "perfiles_ficha_hogar": {
+    "view": "perfiles",
+    "target": "distribution",
+    "note": "Conservado o reorganizado; cifras consultables"
+  },
+  "perfiles_cuantiles": {
+    "view": "perfiles",
+    "target": "profile-quantiles",
+    "note": "Conservado o reorganizado; cifras consultables"
+  },
+  "perfiles_departamentos": {
+    "view": "perfiles",
+    "target": "affinity",
+    "note": "Conservado o reorganizado; cifras consultables"
+  },
+  "perfiles_tabla_departamentos": {
+    "view": "perfiles",
+    "target": "affinity",
+    "note": "Conservado o reorganizado; cifras consultables"
+  },
+  "perfiles_diagnostico_k": {
+    "view": "perfiles",
+    "target": "cluster-evidence",
+    "note": "Conservado o reorganizado; cifras consultables"
+  },
+  "evolucion_kpi": {
+    "view": "evolucion",
+    "target": "flows",
+    "note": "Conservado o reorganizado; cifras consultables"
+  },
+  "evolucion_alluvial": {
+    "view": "evolucion",
+    "target": "flows",
+    "note": "Conservado o reorganizado; cifras consultables"
+  },
+  "evolucion_tabla_transiciones": {
+    "view": "evolucion",
+    "target": "flows",
+    "note": "Conservado o reorganizado; cifras consultables"
+  },
+  "evolucion_estabilidad": {
+    "view": "evolucion",
+    "target": "stability",
+    "note": "Evidencia exportada conservada; silueta vacía declarada."
+  },
+  "campanas_kpi": {
+    "view": "campanas",
+    "target": "target",
+    "note": "Conservado o reorganizado; cifras consultables"
+  },
+  "campanas_targeting": {
+    "view": "campanas",
+    "target": "target",
+    "note": "Conservado o reorganizado; cifras consultables"
+  },
+  "campanas_targeting_tabla": {
+    "view": "campanas",
+    "target": "target",
+    "note": "Conservado o reorganizado; cifras consultables"
+  },
+  "campanas_metricas_tabla": {
+    "view": "campanas",
+    "target": "model-evidence",
+    "note": "Conservado o reorganizado; cifras consultables"
+  },
+  "campanas_calibracion": {
+    "view": "campanas",
+    "target": "calibration",
+    "note": "Conservado o reorganizado; cifras consultables"
+  },
+  "campanas_calibracion_tabla": {
+    "view": "campanas",
+    "target": "calibration",
+    "note": "Conservado o reorganizado; cifras consultables"
+  },
+  "campanas_lista": {
+    "view": "campanas",
+    "target": "campaign-calendar",
+    "note": "Conservado o reorganizado; cifras consultables"
+  },
+  "campanas_ficha": {
+    "view": "campanas",
+    "target": "campaign-calendar",
+    "note": "Conservado o reorganizado; cifras consultables"
+  },
+  "incrementalidad_contexto": {
+    "view": "incrementalidad",
+    "target": "causal-context",
+    "note": "Conservado o reorganizado; cifras consultables"
+  },
+  "incrementalidad_modelos": {
+    "view": "incrementalidad",
+    "target": "auuc",
+    "note": "Conservado o reorganizado; cifras consultables"
+  },
+  "incrementalidad_tabla_carreras": {
+    "view": "incrementalidad",
+    "target": "auuc",
+    "note": "Conservado o reorganizado; cifras consultables"
+  },
+  "incrementalidad_resumen": {
+    "view": "incrementalidad",
+    "target": "seed-ranges",
+    "note": "Conservado o reorganizado; cifras consultables"
+  },
+  "incrementalidad_curvas": {
+    "view": "incrementalidad",
+    "target": "uplift",
+    "note": "Curvas absolutas y diferencia frente al azar; misma muestra."
+  },
+  "incrementalidad_curvas_tabla": {
+    "view": "incrementalidad",
+    "target": "uplift",
+    "note": "Conservado o reorganizado; cifras consultables"
+  },
+  "incrementalidad_rangos": {
+    "view": "incrementalidad",
+    "target": "sample-ranges",
+    "note": "Conservado o reorganizado; cifras consultables"
+  },
+  "experimento_estado": {
+    "view": "experimento",
+    "target": "trial",
+    "note": "Conservado o reorganizado; cifras consultables"
+  },
+  "experimento_escenarios": {
+    "view": "experimento",
+    "target": "trial",
+    "note": "Conservado o reorganizado; cifras consultables"
+  },
+  "experimento_diseno": {
+    "view": "experimento",
+    "target": "design",
+    "note": "Conservado o reorganizado; cifras consultables"
+  },
+  "experimento_calculadora": {
+    "view": "experimento",
+    "target": "power-calculator",
+    "note": "Potencia/α ajustables; recálculo aproximado separado del conteo publicado."
+  },
+  "experimento_capacidad": {
+    "view": "experimento",
+    "target": "capacity-portrait",
+    "note": "Conservado o reorganizado; cifras consultables"
+  },
+  "experimento_herramientas": {
+    "view": "experimento",
+    "target": "experiment-tools",
+    "note": "Conservado o reorganizado; cifras consultables"
+  }
+}

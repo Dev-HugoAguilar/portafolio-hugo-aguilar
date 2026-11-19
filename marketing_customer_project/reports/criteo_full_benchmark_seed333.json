@@ -1,0 +1,162 @@
+{
+  "status": "complete full-source holdout; bounded-sample model fit",
+  "source_rows": 13979592,
+  "training_rows": 11183538,
+  "training_sample_rows": 1101806,
+  "holdout_rows": 2796054,
+  "source_file": "marketing_customer_audit/raw/criteo-research-uplift-v2.1.csv.gz",
+  "metric_reference": "https://github.com/criteo-research/large-scale-ITE-UM-benchmark/blob/main/um_util.py",
+  "protocol": {
+    "split": "deterministic row-level 80/20 holdout; seed 111",
+    "fit_sample": "random thinning of training rows, target 1.1M",
+    "features": "12 anonymized numeric features, standardized using fit sample only",
+    "models": "logistic T learner by randomized arm; S learner with treatment-feature interactions; treated-arm response-propensity comparator; random ranking",
+    "metric": "Criteo separate-relative AUUC; uplift@10 is treated-control outcome rate difference among top 10%",
+    "seed": 333,
+    "elapsed_seconds": 97.8
+  },
+  "outcomes": [
+    {
+      "outcome": "visit",
+      "test_events": 131614,
+      "test_rate_by_treatment": {
+        "0": 0.038216742845692146,
+        "1": 0.04863294775557394
+      },
+      "test_ate_treatment_minus_control": 0.010416204909881793,
+      "models": {
+        "t_learner": {
+          "criteo_separate_relative_auuc": 0.009314288651652059,
+          "uplift_at_10pct": {
+            "rows": 279606,
+            "treated_rate": 0.2729290674603175,
+            "control_rate": 0.2099453377912222,
+            "uplift_pp": 6.298372966909527,
+            "approx_normal_95pct_ci_pp": [
+              5.8504973094628685,
+              6.746248624356185
+            ],
+            "incremental_outcomes_estimate_if_all_selected_treated": 17610.628717857053
+          }
+        },
+        "s_learner": {
+          "criteo_separate_relative_auuc": 0.00926314950089668,
+          "uplift_at_10pct": {
+            "rows": 279606,
+            "treated_rate": 0.27718575675999785,
+            "control_rate": 0.21459011620212287,
+            "uplift_pp": 6.259564055787497,
+            "approx_normal_95pct_ci_pp": [
+              5.8087750950587544,
+              6.71035301651624
+            ],
+            "incremental_outcomes_estimate_if_all_selected_treated": 17502.116673825192
+          }
+        },
+        "response_propensity": {
+          "criteo_separate_relative_auuc": 0.009319248461593509,
+          "uplift_at_10pct": {
+            "rows": 279606,
+            "treated_rate": 0.3613925338849635,
+            "control_rate": 0.3088897465586003,
+            "uplift_pp": 5.250278732636321,
+            "approx_normal_95pct_ci_pp": [
+              4.752445057091175,
+              5.748112408181467
+            ],
+            "incremental_outcomes_estimate_if_all_selected_treated": 14680.09435317511
+          }
+        }
+      },
+      "random_ranking_single_draw": {
+        "criteo_separate_relative_auuc": 0.005234398089740834,
+        "uplift_at_10pct": {
+          "rows": 279606,
+          "treated_rate": 0.04884452897514012,
+          "control_rate": 0.03858988415884063,
+          "uplift_pp": 1.0254644816299487,
+          "approx_normal_95pct_ci_pp": [
+            0.8217932909505316,
+            1.2291356723093658
+          ],
+          "incremental_outcomes_estimate_if_all_selected_treated": 2867.260218506234
+        }
+      },
+      "random_ranking_20_draws": {
+        "auuc_mean": 0.005251165332134928,
+        "auuc_sd": 8.242813803918606e-05
+      }
+    },
+    {
+      "outcome": "conversion",
+      "test_events": 8196,
+      "test_rate_by_treatment": {
+        "0": 0.0018726681107283606,
+        "1": 0.003117971311803021
+      },
+      "test_ate_treatment_minus_control": 0.0012453032010746605,
+      "models": {
+        "t_learner": {
+          "criteo_separate_relative_auuc": 0.0011075418911650216,
+          "uplift_at_10pct": {
+            "rows": 279606,
+            "treated_rate": 0.02345975581015542,
+            "control_rate": 0.01488938932308915,
+            "uplift_pp": 0.857036648706627,
+            "approx_normal_95pct_ci_pp": [
+              0.7207749136986444,
+              0.9932983837146097
+            ],
+            "incremental_outcomes_estimate_if_all_selected_treated": 2396.3258919826517
+          }
+        },
+        "s_learner": {
+          "criteo_separate_relative_auuc": 0.0010755894444677912,
+          "uplift_at_10pct": {
+            "rows": 279606,
+            "treated_rate": 0.023369104480698056,
+            "control_rate": 0.014871265645259453,
+            "uplift_pp": 0.8497838835438603,
+            "approx_normal_95pct_ci_pp": [
+              0.7137023662603454,
+              0.985865400827375
+            ],
+            "incremental_outcomes_estimate_if_all_selected_treated": 2376.046725421646
+          }
+        },
+        "response_propensity": {
+          "criteo_separate_relative_auuc": 0.0011828891355938626,
+          "uplift_at_10pct": {
+            "rows": 279606,
+            "treated_rate": 0.0270867722322221,
+            "control_rate": 0.017717967369843084,
+            "uplift_pp": 0.9368804862379017,
+            "approx_normal_95pct_ci_pp": [
+              0.7900185166901043,
+              1.0837424557856992
+            ],
+            "incremental_outcomes_estimate_if_all_selected_treated": 2619.5740523503473
+          }
+        }
+      },
+      "random_ranking_single_draw": {
+        "criteo_separate_relative_auuc": 0.0006341280668711718,
+        "uplift_at_10pct": {
+          "rows": 279606,
+          "treated_rate": 0.003038042860809668,
+          "control_rate": 0.0017877148237313183,
+          "uplift_pp": 0.12503280370783496,
+          "approx_normal_95pct_ci_pp": [
+            0.0789495262761158,
+            0.1711160811395541
+          ],
+          "incremental_outcomes_estimate_if_all_selected_treated": 349.599221135329
+        }
+      },
+      "random_ranking_20_draws": {
+        "auuc_mean": 0.0006234083454788047,
+        "auuc_sd": 2.1381006432586506e-05
+      }
+    }
+  ]
+}

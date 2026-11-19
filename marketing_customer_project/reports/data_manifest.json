@@ -1,0 +1,35 @@
+{
+  "source": "https://raw.githubusercontent.com/bradleyboehmke/completejourney/master/data/transactions.rds",
+  "package": "completejourney 1.1.1",
+  "downloaded_format": "RDS",
+  "sha256": "1fa0700033f1e5d9bb6b09e2be063d8d68474d346e95c50f2833e09d083e0007",
+  "bytes": 12775661,
+  "rows": 1469307,
+  "columns": [
+    "household_id",
+    "store_id",
+    "basket_id",
+    "product_id",
+    "quantity",
+    "sales_value",
+    "retail_disc",
+    "coupon_disc",
+    "coupon_match_disc",
+    "week",
+    "transaction_timestamp"
+  ],
+  "households": 2469,
+  "baskets": 155848,
+  "products": 68509,
+  "stores": 457,
+  "weeks": 53,
+  "date_min": "2017-01-01 11:53:26",
+  "date_max": "2018-01-01 04:01:20",
+  "exact_duplicate_rows": 0,
+  "null_cells": 0,
+  "notes": [
+    "Raw RDS is not bundled in the project code archive.",
+    "Data are historical US retail and not representative of Mexico.",
+    "Review upstream terms before redistribution."
+  ]
+}

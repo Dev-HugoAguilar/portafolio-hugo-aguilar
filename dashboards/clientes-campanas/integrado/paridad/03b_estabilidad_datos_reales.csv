@@ -1,0 +1,6 @@
+campo,valor
+corte,2017-07-01
+k,2
+min_share_k,0.3217
+silhouette_proxy,
+nota,"submuestras del mismo corte (80 % de los hogares, 20 repeticiones): estabilidad interna, no validación externa"

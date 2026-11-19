@@ -1,0 +1,8 @@
+resultado,modelo,modelo_id,auuc_min,auuc_max,n_semillas,etiqueta
+conversion,Ranking aleatorio,azar,0.0006,0.0009,3,rango entre semillas; no es un intervalo de confianza
+conversion,Propensión,propension,0.0009,0.0013,3,rango entre semillas; no es un intervalo de confianza
+conversion,S-learner,s_learner,0.0006,0.0007,3,rango entre semillas; no es un intervalo de confianza
+conversion,T-learner,t_learner,0.0008,0.001,3,rango entre semillas; no es un intervalo de confianza
+visit,Ranking aleatorio,azar,0.0037,0.0045,3,rango entre semillas; no es un intervalo de confianza
+visit,S-learner,s_learner,0.0068,0.0078,3,rango entre semillas; no es un intervalo de confianza
+visit,T-learner,t_learner,0.0056,0.0066,3,rango entre semillas; no es un intervalo de confianza

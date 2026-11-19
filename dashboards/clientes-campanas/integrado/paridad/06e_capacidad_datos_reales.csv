@@ -1,0 +1,7 @@
+campo,valor
+hogares_disponibles,2317
+unique_households_in_august_90d_cohort,2317
+households_low_activity,749
+households_high_activity,1568
+can_support_30pct_mde,false
+reason,"30% MDE requires 6,152 households per arm in the lower-activity segment and 1,217 per arm in the higher-activity segment; there are 749/1,568 households total in the respective segments at this cut and historical assignment cannot be randomized retroactively."

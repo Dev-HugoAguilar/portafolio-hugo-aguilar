@@ -1,0 +1,8545 @@
+/* ==========================================================================
+   TABLERO — ATLAS VIAL · CIUDAD DE MÉXICO (SSC)
+   --------------------------------------------------------------------------
+   Superficie analítica compacta con prefijo `at-` y alcance en `.at-app`.
+   Reutiliza los tokens del portafolio: fondo claro, azul primario, violeta y
+   turquesa como acentos, bordes finos y etiquetas en monoespaciada. Los títulos
+   van en la serif del portafolio (Fraunces) y los controles repiten el lenguaje
+   lavanda + azul del comparativo bancario.
+
+   Colores semánticos fijos (no dependen de la selección):
+     hechos → azul  ·  personas lesionadas → turquesa  ·  fallecidas → violeta.
+   El color nunca es el único canal: siempre hay etiqueta, leyenda y cifra.
+
+   Contraste: el texto SVG lleva `fill` explícito y oscuro; la atenuación se
+   hace con color, nunca con `opacity` sobre el texto.
+   ========================================================================== */
+
+/* El portafolio monta la aplicación dentro de un contenedor display: grid
+   (.demo-host). Sin min-width: 0, el lienzo del mapa —que declara su ancho en
+   píxeles al medirse— fija el ancho máximo del elemento de rejilla y desborda la
+   columna en móvil. */
+.at-root {
+  width: 100%;
+  min-width: 0;
+}
+
+.at-app {
+  --at-bg: #f7f8fc;
+  --at-surface: #ffffff;
+  --at-text: #111318;
+  --at-text2: #596273;
+  --at-border: #dde2eb;
+  --at-primary: #3458f5;
+  --at-primary-hover: #2745d7;
+  --at-violeta: #8066e8;
+  --at-teal: #087f8c;
+  --at-tinte-azul: #eef1ff;
+  --at-tinte-violeta: #f2eefc;
+  --at-tinte-turquesa: #e9f5f6;
+  --at-soft: #f4f6fa;
+  --at-guia: #e7eaf1;
+  --at-guia-fuerte: #a9b3c6;
+
+  /* Lenguaje único de controles (mismo par que el comparativo bancario). */
+  --at-ctrl-bg: #eef1ff;
+  --at-ctrl-bg-hover: #e2e8ff;
+  --at-ctrl-border: #b8c5ff;
+  --at-ctrl-on-bg: #ffffff;
+  --at-ctrl-on-border: #3458f5;
+  --at-ctrl-t: 150ms ease;
+
+  --at-r-control: 8px;
+  --at-r-panel: 12px;
+
+  box-sizing: border-box;
+  width: 100%;
+  padding: 10px 12px 12px;
+  background: var(--at-bg);
+  color: var(--at-text);
+  font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  font-size: 12.5px;
+  line-height: 1.4;
+  text-align: left;
+  -webkit-font-smoothing: antialiased;
+}
+
+.at-app *,
+.at-app *::before,
+.at-app *::after {
+  box-sizing: border-box;
+}
+
+/* Reinicio con especificidad cero (:where) para que el estilo de cada
+   componente —por ejemplo el relleno de .at-aviso o de .at-folio— siempre
+   gane sobre el reinicio. */
+.at-app :where(h2, h3, h4, p, dl, dd, dt, ul, li, table) {
+  margin: 0;
+  padding: 0;
+}
+
+.at-app ul {
+  list-style: none;
+}
+
+.at-app svg text {
+  font-family: 'Inter', system-ui, sans-serif;
+  paint-order: normal;
+  text-shadow: none;
+  stroke: none;
+}
+
+.at-app button,
+.atf-panel button,
+.at-dialog button {
+  font: inherit;
+}
+
+/* Solo los <button> **sin** clase propia heredan el color: los que llevan
+   `.at-btn` fijan el suyo (`.at-btn--primario` es blanco sobre azul). Sin este
+   `:not()`, «Reintentar» quedaba en gris sobre el azul primario y su texto era
+   casi ilegible (contraste 1,9:1). */
+.at-app button:not(.at-btn),
+.atf-panel button:not(.at-btn),
+.at-dialog button:not(.at-btn) {
+  color: inherit;
+}
+
+.at-app :focus-visible,
+.at-pop :focus-visible,
+.atf-panel :focus-visible,
+.at-dialog :focus-visible {
+  outline: 2px solid var(--at-primary);
+  outline-offset: 2px;
+}
+
+.at-icono {
+  flex: none;
+  display: block;
+}
+
+.at-sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.at-mono {
+  font-family: 'IBM Plex Mono', ui-monospace, monospace;
+  font-size: 11px;
+  letter-spacing: 0.01em;
+}
+
+/* ------------------------------------------------------------------ botones */
+
+.at-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 10px;
+  border-radius: var(--at-r-control);
+  border: 1px solid var(--at-border);
+  background: var(--at-surface);
+  color: var(--at-text);
+  font-size: 11.5px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background var(--at-ctrl-t), border-color var(--at-ctrl-t), color var(--at-ctrl-t);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.at-btn:hover:not(:disabled) {
+  background: var(--at-ctrl-bg);
+  border-color: var(--at-ctrl-border);
+  color: var(--at-primary);
+}
+
+.at-btn:disabled {
+  opacity: 0.45;
+  cursor: default;
+}
+
+.at-btn--ghost {
+  background: var(--at-ctrl-bg);
+  border-color: var(--at-ctrl-border);
+  color: var(--at-primary);
+}
+
+.at-btn--ghost:hover:not(:disabled) {
+  background: var(--at-ctrl-bg-hover);
+}
+
+.at-btn--primario {
+  background: var(--at-primary);
+  border-color: var(--at-primary);
+  color: #ffffff;
+}
+
+.at-btn--primario:hover:not(:disabled) {
+  background: var(--at-primary-hover);
+  border-color: var(--at-primary-hover);
+  color: #ffffff;
+}
+
+.at-btn--link {
+  background: transparent;
+  border-color: transparent;
+  color: var(--at-text2);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.at-btn--link:hover {
+  background: transparent;
+  border-color: transparent;
+  color: var(--at-primary);
+}
+
+.at-btn--mini {
+  padding: 4px 8px;
+  font-size: 11px;
+}
+
+.at-btn--zona {
+  background: var(--at-surface);
+  border-color: var(--at-guia-fuerte);
+}
+
+.at-btn--zona.is-activo {
+  background: var(--at-ctrl-on-bg);
+  border-color: var(--at-ctrl-on-border);
+  color: var(--at-primary);
+  font-weight: 600;
+}
+
+/* ------------------------------------------------------------- encabezado */
+
+.at-head {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding-bottom: 9px;
+  border-bottom: 1px solid var(--at-border);
+}
+
+.at-head-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.at-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.at-brand-name {
+  font-family: 'Fraunces', Georgia, 'Times New Roman', serif;
+  font-size: 17px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.at-brand-chip {
+  padding: 2px 7px;
+  border: 1px solid var(--at-border);
+  border-radius: 999px;
+  background: var(--at-surface);
+  color: var(--at-text2);
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 9.5px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.at-nav {
+  display: inline-flex;
+  gap: 4px;
+  padding: 3px;
+  border: 1px solid var(--at-border);
+  border-radius: 10px;
+  background: var(--at-surface);
+}
+
+.at-nav-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 10px;
+  border: 1px solid transparent;
+  border-radius: 7px;
+  background: transparent;
+  color: var(--at-text2);
+  font-size: 11.5px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background var(--at-ctrl-t), color var(--at-ctrl-t), border-color var(--at-ctrl-t);
+}
+
+.at-nav-btn:hover {
+  background: var(--at-ctrl-bg);
+  color: var(--at-primary);
+}
+
+.at-nav-btn.is-activa {
+  background: var(--at-ctrl-on-bg);
+  border-color: var(--at-ctrl-on-border);
+  color: var(--at-primary);
+  font-weight: 600;
+}
+
+.at-head-body {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.at-head-text {
+  min-width: 260px;
+  flex: 1 1 380px;
+}
+
+.at-titulo {
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+}
+
+.at-sub {
+  margin-top: 3px;
+  color: var(--at-text2);
+  font-size: 11.5px;
+}
+
+.at-sub strong {
+  color: var(--at-text);
+  font-weight: 600;
+}
+
+.at-head-acciones {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+/* ---------------------------------------------------------------- filtros */
+/* Banda de filtros globales. Los tokens viven en la banda y en sus paneles
+   (que se montan en un portal) y no alcanzan al mapa, las tarjetas, las tablas
+   ni las gráficas: cada capa de control tiene su propio lenguaje. */
+.at-filtros,
+.atf-panel {
+  --filters-band: #edf1f7;
+  --filters-surface: #ffffff;
+  --filters-hover: #f3f5f9;
+  --filters-text: #17233d;
+  --filters-muted: #5f6b80;
+  --filters-border: #cbd2df;
+  --filters-accent: #3458f5;
+  --filters-selected: #eef2ff;
+  --filters-sombra: 0 12px 32px rgba(23, 35, 61, 0.12), 0 2px 6px rgba(23, 35, 61, 0.06);
+  --filters-t-hover: 120ms ease;
+  --filters-t-etiqueta: 160ms ease;
+  --filters-t-panel: 160ms cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+/* Marca de posición: la banda se vuelve compacta cuando este punto sale. */
+.at-banda-centinela {
+  height: 1px;
+}
+
+.at-filtros {
+  position: sticky;
+  z-index: 20;
+  margin-top: 12px;
+  padding: 10px 14px;
+  border-radius: 12px;
+  background: var(--filters-band);
+}
+
+.at-filtros.is-compacta {
+  display: flex;
+  align-items: center;
+  min-height: 56px;
+  padding: 8px 14px;
+}
+
+.at-banda-cuerpo {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.at-banda-fila {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.at-banda-etiqueta {
+  color: var(--filters-muted);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+
+.at-banda-ayuda:hover {
+  border-color: var(--filters-border);
+  background: var(--filters-surface);
+  color: var(--filters-text);
+}
+
+.at-banda-controles {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  min-width: 0;
+}
+
+/* Control: prefijo, valor y flecha en una sola línea sobre superficie blanca. */
+.at-filtros .at-ctrl {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 40px;
+  padding: 0 10px;
+  border: 1px solid transparent;
+  border-radius: 10px;
+  background: var(--filters-surface);
+  color: var(--filters-text);
+  font-size: 14px;
+  line-height: 1;
+  white-space: nowrap;
+  cursor: pointer;
+  max-width: 100%;
+  transition:
+    background var(--filters-t-hover),
+    border-color var(--filters-t-hover),
+    color var(--filters-t-hover);
+}
+
+.at-filtros .at-ctrl:hover {
+  border-color: var(--filters-border);
+  background: var(--filters-hover);
+}
+
+.at-filtros .at-ctrl.is-activo {
+  border-color: var(--filters-accent);
+  background: var(--filters-selected);
+}
+
+.at-filtros .at-ctrl[data-state='open'] {
+  border-color: var(--filters-accent);
+  background: var(--filters-selected);
+}
+
+.at-filtros .at-ctrl:focus-visible,
+.at-banda-ayuda:focus-visible,
+.at-banda-mas:focus-visible,
+.at-banda-editar:focus-visible {
+  outline: 2px solid var(--filters-accent);
+  outline-offset: 2px;
+}
+
+.at-filtros .at-ctrl-label {
+  color: var(--filters-muted);
+  font-size: 12px;
+  font-weight: 400;
+}
+
+.at-filtros .at-ctrl-separador {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 6px;
+  color: var(--filters-muted);
+  font-size: 12px;
+}
+
+.at-filtros .at-ctrl-punto {
+  display: block;
+  width: 6px;
+  height: 6px;
+  border-radius: 999px;
+  background: var(--filters-accent);
+}
+
+.at-filtros .at-ctrl-value {
+  color: var(--filters-muted);
+  font-size: 14px;
+  font-weight: 400;
+  font-variant-numeric: tabular-nums;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 220px;
+}
+
+/* El periodo no se recorta: es la única fecha de la banda. */
+.at-filtros .at-ctrl--compacto .at-ctrl-value {
+  max-width: none;
+}
+
+.at-filtros .at-ctrl.is-activo .at-ctrl-value,
+.at-filtros .at-ctrl[data-state='open'] .at-ctrl-value {
+  color: var(--filters-accent);
+  font-weight: 500;
+}
+
+.at-filtros .at-ctrl-chevron {
+  flex: none;
+  color: var(--filters-muted);
+  transition:
+    transform var(--filters-t-hover),
+    color var(--filters-t-hover);
+}
+
+.at-filtros .at-ctrl.is-activo .at-ctrl-chevron,
+.at-filtros .at-ctrl[data-state='open'] .at-ctrl-chevron {
+  color: var(--filters-accent);
+}
+
+.at-filtros .at-ctrl[data-state='open'] .at-ctrl-chevron {
+  transform: rotate(180deg);
+}
+
+/* «Más filtros»: botón de acción, no un campo. */
+.at-banda-mas {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 40px;
+  padding: 0 12px;
+  border: 1px solid transparent;
+  border-radius: 10px;
+  background: var(--filters-surface);
+  color: var(--filters-text);
+  font-size: 14px;
+  cursor: pointer;
+  transition:
+    background var(--filters-t-hover),
+    border-color var(--filters-t-hover);
+}
+
+.at-banda-mas:hover {
+  border-color: var(--filters-border);
+  background: var(--filters-hover);
+}
+
+.at-banda-mas.is-activo {
+  border-color: var(--filters-accent);
+  background: var(--filters-selected);
+  color: var(--filters-accent);
+}
+
+.at-banda-mas-globo {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 5px;
+  border-radius: 999px;
+  background: var(--filters-accent);
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+
+
+
+/* Etiquetas de filtros activos + acción única de limpieza. */
+
+.at-banda-pie {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.at-filtros .at-chips {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.at-filtros .at-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  min-height: 28px;
+  padding: 4px 8px 4px 10px;
+  border: 1px solid var(--filters-border);
+  border-radius: 999px;
+  background: var(--filters-surface);
+  color: var(--filters-text);
+  font-size: 12px;
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+  cursor: pointer;
+  max-width: 100%;
+  animation: at-chip-entrar var(--filters-t-etiqueta) ease both;
+  transition:
+    background var(--filters-t-etiqueta),
+    border-color var(--filters-t-etiqueta);
+}
+
+.at-filtros .at-chip:hover {
+  border-color: var(--filters-accent);
+  background: var(--filters-selected);
+}
+
+.at-filtros .at-chip:focus-visible {
+  outline: 2px solid var(--filters-accent);
+  outline-offset: 2px;
+}
+
+.at-chip-campo {
+  color: var(--filters-muted);
+  font-weight: 400;
+}
+
+.at-chip-campo::after {
+  content: ':';
+}
+
+.at-chip-texto {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.at-filtros .at-chip-x {
+  color: var(--filters-muted);
+  font-size: 14px;
+  line-height: 1;
+}
+
+@keyframes at-chip-entrar {
+  from {
+    opacity: 0;
+    transform: translateY(-2px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.at-filtros .at-btn--reset {
+  margin-left: auto;
+  height: 32px;
+  padding: 0 10px;
+  gap: 6px;
+  border: 1px solid var(--filters-border);
+  border-radius: 8px;
+  background: var(--filters-surface);
+  color: var(--filters-text);
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.at-filtros .at-btn--reset:hover:not(:disabled) {
+  border-color: var(--filters-accent);
+  background: var(--filters-selected);
+  color: var(--filters-accent);
+}
+
+/* Versión compacta (banda pegada al desplazar). */
+.at-banda-compacta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  min-width: 0;
+  flex-wrap: wrap;
+  row-gap: 6px;
+}
+
+.at-banda-compacta-periodo {
+  color: var(--filters-text);
+  font-size: 13px;
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.at-banda-compacta-resumen {
+  color: var(--filters-muted);
+  font-size: 12px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+
+.at-banda-editar {
+  margin-left: auto;
+  height: 32px;
+  padding: 0 12px;
+  border: 1px solid var(--filters-border);
+  border-radius: 8px;
+  background: var(--filters-surface);
+  color: var(--filters-text);
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition:
+    background var(--filters-t-hover),
+    border-color var(--filters-t-hover);
+}
+
+.at-banda-editar:hover {
+  border-color: var(--filters-accent);
+  color: var(--filters-accent);
+}
+/* ------------------------------------------------------------- indicadores */
+
+.at-kpis {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 8px;
+  margin-top: 9px;
+}
+
+.at-kpi {
+  padding: 8px 10px;
+  border: 1px solid var(--at-border);
+  border-radius: var(--at-r-panel);
+  background: var(--at-surface);
+  transition: opacity var(--at-ctrl-t);
+}
+
+.at-kpi.is-cargando {
+  opacity: 0.55;
+}
+
+.at-kpi-etiqueta {
+  color: var(--at-text2);
+  font-size: 10.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.at-kpi-valor {
+  font-size: 23px;
+  font-weight: 600;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  font-variant-numeric: tabular-nums;
+}
+
+.at-kpi-detalle {
+  margin-top: 1px;
+  font-size: 11px;
+  color: var(--at-text);
+}
+
+.at-kpi-base {
+  margin-top: 2px;
+  color: var(--at-text2);
+  font-size: 10px;
+  line-height: 1.3;
+}
+
+/* --------------------------------------------------------------- paneles */
+
+.at-panel {
+  position: relative;
+  padding: 10px 11px;
+  border: 1px solid var(--at-border);
+  border-radius: var(--at-r-panel);
+  background: var(--at-surface);
+  min-width: 0;
+}
+
+.at-panel-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+.at-panel-head h3 {
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: -0.005em;
+}
+
+.at-panel-sub {
+  margin-top: 1px;
+  color: var(--at-text2);
+  font-size: 10.5px;
+}
+
+.at-grid-mapa {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(280px, 1fr);
+  gap: 9px;
+  margin-top: 9px;
+  /* Las dos columnas comparten la altura de la fila: el detalle mide lo mismo
+     que el panel del mapa y sus bordes superior e inferior coinciden. */
+  align-items: stretch;
+}
+
+/* ------------------------------------------------------------------ mapa */
+
+/* Lista accesible de alcaldías: alternativa al clic en el polígono. */
+.at-mapa-select {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  flex: 0 1 268px;
+  min-width: 190px;
+  margin-left: 0;
+}
+
+.at-mapa-select select {
+  height: 32px;
+  width: 100%;
+  min-width: 0;
+  padding: 0 6px;
+  border: 1px solid var(--at-guia-fuerte);
+  border-radius: 6px;
+  background: var(--at-surface);
+  color: var(--at-text);
+  font-size: 11px;
+}
+
+.at-mapa-select select:focus-visible {
+  outline: 2px solid var(--at-primary);
+  outline-offset: 1px;
+}
+
+/* Muestra de «Sin dato»: la misma trama diagonal que usa el mapa. */
+.at-leyenda-sindato {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 10px;
+  color: var(--at-text2);
+}
+
+.at-leyenda-sindato-muestra {
+  display: inline-block;
+  width: 18px;
+  height: 10px;
+  border: 1px solid #b9c2d2;
+  border-radius: 2px;
+  background:
+    repeating-linear-gradient(135deg, #aeb8c7 0 1.5px, #edf0f5 1.5px 4px);
+}
+
+.at-mapa-acciones {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* Dos filas de controles: modos + selector de alcaldía, y métrica del mapa.
+   Todos los controles comparten alto (26 px) y línea base. */
+.at-mapa-barra {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin-bottom: 7px;
+}
+
+.at-mapa-fila {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.at-mapa-fila:first-child {
+  justify-content: space-between;
+}
+
+.at-mapa-barra .at-segmentado {
+  align-items: center;
+}
+
+.at-mapa-barra .at-seg {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 26px;
+  line-height: 1;
+}
+
+.at-mapa-etq {
+  display: inline-flex;
+  align-items: center;
+  line-height: 1;
+  font-family: var(--at-mono, ui-monospace, monospace);
+  font-size: 9.5px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--at-text2);
+  white-space: nowrap;
+}
+
+.at-segmentado {
+  display: inline-flex;
+  gap: 2px;
+  padding: 2px;
+  border: 1px solid var(--at-border);
+  border-radius: 8px;
+  background: var(--at-soft);
+}
+
+.at-seg {
+  padding: 4px 9px;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--at-text2);
+  font-size: 10.5px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background var(--at-ctrl-t), color var(--at-ctrl-t), border-color var(--at-ctrl-t);
+}
+
+.at-seg:hover {
+  background: var(--at-ctrl-bg);
+  color: var(--at-primary);
+}
+
+.at-seg.is-activa {
+  background: var(--at-ctrl-on-bg);
+  border-color: var(--at-ctrl-on-border);
+  color: var(--at-primary);
+  font-weight: 600;
+}
+
+.at-mapa-caja {
+  position: relative;
+  height: clamp(560px, 74vh, 760px);
+  border: 1px solid var(--at-border);
+  border-radius: 10px;
+  overflow: hidden;
+  background: var(--at-bg);
+  touch-action: none;
+}
+
+.at-mapa-caja:focus-visible {
+  outline: 2px solid var(--at-primary);
+  outline-offset: 2px;
+}
+
+.at-mapa-lienzo {
+  display: block;
+  cursor: grab;
+}
+
+.at-mapa-lienzo:active {
+  cursor: grabbing;
+}
+
+/* El pie del mapa vive fuera del lienzo (debajo): no tapa alcaldías. */
+.at-mapa-pie {
+  position: static;
+  margin-top: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  padding: 6px 8px;
+  border: 1px solid var(--at-border);
+  border-radius: 8px;
+  background: var(--at-surface);
+}
+
+.at-mapa-nota {
+  color: var(--at-text2);
+  font-size: 10px;
+  flex: 1 1 180px;
+}
+
+.at-mapa-cargando {
+  margin-top: 6px;
+  color: var(--at-text2);
+  font-size: 10.5px;
+}
+
+.at-mapa-atribucion {
+  margin-top: 5px;
+  color: var(--at-text2);
+  font-size: 9.5px;
+  line-height: 1.35;
+}
+
+.at-mapa-atribucion a {
+  color: var(--at-primary);
+}
+
+.at-leyenda {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 7px;
+}
+
+.at-leyenda-rampa {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 10px;
+  color: var(--at-text2);
+}
+
+.at-leyenda-titulo {
+  font-weight: 600;
+  color: var(--at-text);
+}
+
+.at-leyenda-barra {
+  display: inline-block;
+  width: 96px;
+  height: 8px;
+  border-radius: 999px;
+  border: 1px solid var(--at-border);
+}
+
+.at-leyenda-items {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  font-size: 10px;
+  color: var(--at-text2);
+}
+
+.at-leyenda-items li {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.at-punto {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.at-leyenda-celda {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 9.5px;
+}
+
+/* -------------------------------------------------------------- tooltips */
+
+.at-tooltip {
+  position: absolute;
+  z-index: var(--at-z-tooltip);
+  min-width: 132px;
+  padding: 6px 8px;
+  border: 1px solid var(--at-border);
+  border-radius: 8px;
+  background: var(--at-surface);
+  box-shadow: 0 6px 18px rgba(17, 19, 24, 0.12);
+  pointer-events: none;
+}
+
+.at-tooltip--mapa {
+  position: absolute;
+}
+
+.at-tooltip--izquierda {
+  transform: translateX(-100%);
+}
+
+.at-tooltip-title {
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.at-tooltip-lista {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  margin-top: 3px;
+}
+
+.at-tooltip-lista div {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  font-size: 10.5px;
+}
+
+.at-tooltip-lista dt {
+  color: var(--at-text2);
+}
+
+.at-tooltip-lista dd {
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.at-tooltip-nota {
+  margin-top: 3px;
+  color: var(--at-text2);
+  font-size: 9.5px;
+}
+
+/* ---------------------------------------------------- panel contextual */
+
+/* Panel de detalle: misma altura que el panel del mapa en escritorio. */
+.at-grid-mapa > .at-panel--contexto {
+  max-height: none;
+  height: 100%;
+  min-height: 0;
+}
+
+.at-panel--contexto {
+  display: flex;
+  flex-direction: column;
+}
+
+/* El botón «Cerrar» se alinea con la línea del título, no con el bloque entero. */
+.at-panel--contexto .at-panel-head {
+  align-items: flex-start;
+}
+
+.at-panel--contexto .at-panel-head > .at-btn--mini {
+  height: 18px;
+  padding: 0 8px;
+  margin-top: 1px;
+  line-height: 1;
+}
+
+/* El cuerpo usa el espacio que sobra sin deformar el contenido: crece, y si el
+   contenido no llena, la acción queda anclada al pie del panel. */
+.at-contexto-cuerpo {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  gap: 11px;
+  min-height: 0;
+  overflow-y: auto;
+  padding-right: 2px;
+}
+
+.at-contexto-cuerpo > .at-btn:last-child {
+  margin-top: auto;
+}
+
+/* En el panel alto los bloques existentes se reparten de forma uniforme por la
+   altura disponible —cifras arriba, comparación en medio, datos abajo y la
+   acción al pie—, separando bloques y nunca estirando el texto. */
+@media (min-width: 861px) {
+  .at-grid-mapa > .at-panel--contexto .at-contexto-cuerpo {
+    justify-content: space-between;
+    gap: 12px;
+  }
+
+  .at-grid-mapa > .at-panel--contexto .at-contexto-cuerpo > .at-mini-barras {
+    gap: 8px;
+  }
+
+  .at-grid-mapa > .at-panel--contexto .at-contexto-cuerpo > .at-datos {
+    align-content: start;
+    row-gap: 12px;
+  }
+
+  /* La acción ya no se ancla con margen automático: el reparto uniforme incluye
+     también ese hueco, así no queda una banda vacía al final. */
+  .at-grid-mapa > .at-panel--contexto .at-contexto-cuerpo > .at-btn:last-child {
+    margin-top: 0;
+  }
+
+  /* Las barras comparativas (datos ya existentes) ganan altura legible y
+     aprovechan el espacio vertical sin inventar información. */
+  .at-grid-mapa > .at-panel--contexto .at-mini-barra-pista {
+    min-height: 13px;
+  }
+}
+
+.at-contexto-cifras {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.at-contexto-cifras--tres {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.at-contexto-cifras > div {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.at-cifra-numero {
+  font-size: 19px;
+  font-weight: 600;
+  line-height: 1.1;
+  font-variant-numeric: tabular-nums;
+}
+
+.at-cifra-etiqueta {
+  color: var(--at-text2);
+  font-size: 10px;
+  line-height: 1.3;
+}
+
+.at-folio {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11.5px;
+  padding: 4px 7px;
+  border: 1px solid var(--at-border);
+  border-radius: 6px;
+  background: var(--at-soft);
+}
+
+.at-datos {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px 10px;
+}
+
+.at-datos > div {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  min-width: 0;
+}
+
+.at-datos--ancho {
+  grid-column: 1 / -1;
+}
+
+.at-datos dt {
+  color: var(--at-text2);
+  font-size: 10px;
+}
+
+.at-datos dd {
+  font-size: 11.5px;
+  font-weight: 500;
+  word-break: break-word;
+}
+
+.at-contexto-titulo {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--at-text2);
+}
+
+.at-mini-barras {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.at-mini-barra {
+  display: grid;
+  grid-template-columns: 1fr 66px;
+  align-items: center;
+  gap: 4px 6px;
+  font-size: 10px;
+}
+
+.at-mini-barra-etiqueta {
+  grid-column: 1 / -1;
+  color: var(--at-text2);
+}
+
+.at-mini-barra-pista {
+  height: 7px;
+  border-radius: 999px;
+  background: var(--at-soft);
+  overflow: hidden;
+}
+
+.at-mini-barra-valor {
+  display: block;
+  height: 100%;
+  border-radius: 999px;
+}
+
+.at-mini-barra-cifra {
+  text-align: right;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.at-ranking {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.at-ranking button {
+  display: grid;
+  grid-template-columns: minmax(84px, 1fr) minmax(50px, 1.3fr) 42px;
+  align-items: center;
+  gap: 6px;
+  width: 100%;
+  padding: 3px 4px;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  text-align: left;
+  font-size: 11px;
+  cursor: pointer;
+  transition: background var(--at-ctrl-t);
+}
+
+.at-ranking button:hover {
+  background: var(--at-ctrl-bg);
+  color: var(--at-primary);
+}
+
+.at-ranking-nombre {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.at-ranking-pista {
+  height: 6px;
+  border-radius: 999px;
+  background: var(--at-soft);
+  overflow: hidden;
+}
+
+.at-ranking-valor {
+  display: block;
+  height: 100%;
+  border-radius: 999px;
+  background: var(--at-primary);
+}
+
+.at-ranking-cifra {
+  text-align: right;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.at-cobertura {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding-top: 7px;
+  border-top: 1px solid var(--at-border);
+}
+
+/* ------------------------------------------------------- línea temporal */
+
+.at-panel--tiempo,
+.at-panel--tabla {
+  margin-top: 9px;
+}
+
+/* Cabecera de la gráfica temporal: título a la izquierda y los dos selectores
+   en una sola fila a la derecha, con la misma altura y 8 px de separación. */
+.at-tl-cab {
+  align-items: flex-end;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+  margin-bottom: 10px;
+}
+
+.at-tl-cab-texto {
+  flex: 1 1 260px;
+  min-width: 0;
+}
+
+.at-tl-controles {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin-left: auto;
+}
+
+.at-tl-controles .at-segmentado {
+  flex: none;
+}
+
+.at-tl-controles .at-seg {
+  display: inline-flex;
+  align-items: center;
+  min-height: 22px;
+}
+
+.at-tl-estado {
+  margin: -4px 0 8px;
+  font-size: 10.5px;
+  color: var(--at-text2);
+}
+
+@media (max-width: 720px) {
+  /* Si no caben junto al título, los dos selectores bajan juntos y siguen a la
+     derecha, sin cortar etiquetas ni generar desplazamiento horizontal. */
+  .at-tl-controles {
+    width: 100%;
+    justify-content: flex-end;
+  }
+  /* La cabecera pasa a columna: el bloque de texto no debe reservar 260 px de
+     alto (su flex-basis era horizontal). */
+  .at-tl-cab-texto {
+    flex: 0 0 auto;
+  }
+
+  .at-tl-controles .at-seg {
+    padding: 4px 7px;
+  }
+}
+
+.at-tl-lienzo {
+  position: relative;
+  outline: none;
+}
+
+.at-tl-lienzo:focus-visible {
+  outline: 2px solid var(--at-primary);
+  outline-offset: 3px;
+  border-radius: 8px;
+}
+
+.at-tl-lienzo svg {
+  display: block;
+  touch-action: pan-y;
+}
+
+/* Tres paneles en una sola tarjeta: sin bordes propios, separados por aire. */
+.at-tl-paneles {
+  display: flex;
+  flex-direction: column;
+}
+
+.at-tl-panel + .at-tl-panel {
+  margin-top: 6px;
+  padding-top: 10px;
+  border-top: 1px solid var(--at-border);
+}
+
+.at-tl-panel-cab {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 0 2px 1px;
+}
+
+.at-tl-panel-nombre {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  margin: 0;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 11.5px;
+  font-weight: 600;
+  letter-spacing: 0;
+  color: var(--at-text);
+}
+
+.at-tl-panel-total {
+  font-size: 12px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  color: var(--at-text);
+}
+
+.at-tl-muestra {
+  display: inline-block;
+  flex: none;
+  width: 16px;
+  height: 2.5px;
+  border-radius: 2px;
+}
+
+/* Comparar tendencias: las tres series superpuestas en índice. */
+.at-tl-tendencia {
+  padding-bottom: 2px;
+}
+
+.at-tl-leyenda-tendencia {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px 16px;
+  margin: 0 0 4px;
+  padding: 0;
+  list-style: none;
+  font-size: 10.5px;
+  color: var(--at-text2);
+}
+
+.at-tl-leyenda-tendencia li {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: opacity 180ms ease;
+}
+
+.at-tl-leyenda-tendencia li.is-inactiva {
+  opacity: 0.5;
+}
+
+.at-tl-leyenda-nota {
+  font-family: var(--at-mono, 'IBM Plex Mono', monospace);
+  font-size: 9px;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+.at-tl-panel g[data-serie],
+.at-tl-tendencia g[data-serie] {
+  transition: opacity 200ms ease;
+}
+
+.at-tl-vacio {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  text-align: center;
+}
+
+.at-tl-aviso {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  margin: 0;
+  padding: 14px 16px;
+  border: 1px solid var(--at-border);
+  border-radius: 10px;
+  background: var(--at-soft);
+  font-size: 11.5px;
+  line-height: 1.5;
+  color: var(--at-text2);
+}
+
+.at-tl-aviso p {
+  margin: 0;
+}
+
+/* Tooltip único para los tres paneles. */
+.at-tl-tooltip {
+  position: absolute;
+  top: 4px;
+  z-index: 3;
+  box-sizing: border-box;
+  padding: 8px 10px;
+  border: 1px solid var(--at-border);
+  border-radius: 9px;
+  background: var(--at-surface);
+  box-shadow: 0 8px 20px rgba(17, 19, 24, 0.13);
+  font-size: 11px;
+  color: var(--at-text);
+  transition: opacity 180ms ease;
+}
+
+.at-tl-tooltip-periodo {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  margin: 0 0 6px;
+  font-family: var(--at-mono, 'IBM Plex Mono', monospace);
+  font-size: 9.5px;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: var(--at-text2);
+}
+
+.at-tl-tooltip-parcial {
+  font-size: 8.5px;
+  padding: 1px 4px;
+  border-radius: 4px;
+  background: var(--at-soft);
+  color: var(--at-text2);
+}
+
+.at-tl-tooltip ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.at-tl-tooltip li {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: baseline;
+  gap: 2px 10px;
+}
+
+.at-tl-tooltip-etq {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--at-text2);
+  font-size: 10.5px;
+}
+
+.at-tl-tooltip-valor {
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  color: var(--at-text);
+}
+
+.at-tl-tooltip-indice {
+  grid-column: 2;
+  text-align: right;
+  font-size: 9.5px;
+  font-variant-numeric: tabular-nums;
+  color: var(--at-text2);
+}
+
+.at-tl-tooltip-accion {
+  display: inline-block;
+  margin-top: 7px;
+  padding: 4px 8px;
+  border: 1px solid var(--at-ctrl-border, var(--at-border));
+  border-radius: 7px;
+  background: var(--at-surface);
+  font: inherit;
+  font-size: 10.5px;
+  color: var(--at-text);
+  cursor: pointer;
+  transition: background var(--at-ctrl-t, 180ms ease);
+}
+
+.at-tl-tooltip-accion:hover {
+  background: var(--at-soft);
+}
+
+.at-linea-pie {
+  margin: 8px 0 0;
+  font-size: 10.5px;
+  line-height: 1.45;
+  color: var(--at-text2);
+}
+
+/* Lectura textual para lectores de pantalla (el tooltip es visual). */
+.at-tl-sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+@media (max-width: 640px) {
+  .at-tl-panel-cab {
+    gap: 8px;
+  }
+
+  .at-tl-panel-nombre {
+    font-size: 11px;
+  }
+
+  .at-tl-leyenda-tendencia {
+    gap: 4px 12px;
+  }
+
+  .at-tl-tooltip {
+    font-size: 10.5px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .at-tl-leyenda-tendencia li,
+  .at-tl-panel g[data-serie],
+  .at-tl-tendencia g[data-serie],
+  .at-tl-tooltip,
+  .at-tl-tooltip-accion {
+    transition: none;
+  }
+}
+
+/* ------------------------------------------------------------- tabla */
+
+.at-tabla-caja {
+  overflow-x: auto;
+  border: 1px solid var(--at-border);
+  border-radius: 10px;
+}
+
+.at-tabla {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 11px;
+}
+
+.at-tabla th,
+.at-tabla td {
+  padding: 6px 8px;
+  text-align: left;
+  border-bottom: 1px solid var(--at-border);
+  vertical-align: top;
+}
+
+.at-tabla thead th {
+  position: sticky;
+  top: 0;
+  background: var(--at-soft);
+  color: var(--at-text2);
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+  z-index: 1;
+}
+
+.at-tabla tbody tr {
+  cursor: pointer;
+  transition: background var(--at-ctrl-t);
+}
+
+.at-tabla tbody tr:hover {
+  background: var(--at-tinte-azul);
+}
+
+.at-tabla tbody tr.is-activa {
+  background: var(--at-tinte-azul);
+  box-shadow: inset 2px 0 0 var(--at-primary);
+}
+
+.at-tabla .at-num {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.at-orden {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  padding: 0;
+}
+
+.at-orden:hover,
+.at-orden.is-activa {
+  color: var(--at-primary);
+}
+
+.at-orden-flecha {
+  font-size: 9px;
+}
+
+.at-ubicacion {
+  max-width: 260px;
+  color: var(--at-text2);
+}
+
+.at-tabla-vacia {
+  padding: 16px 8px;
+  text-align: center;
+  color: var(--at-text2);
+}
+
+.at-paginacion {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 7px;
+}
+
+.at-paginacion-info {
+  color: var(--at-text2);
+  font-size: 10.5px;
+}
+
+.at-paginacion-botones {
+  display: inline-flex;
+  gap: 4px;
+}
+
+/* ----------------------------------------------- hallazgos del análisis */
+
+/* Este bloque vive dentro de la ficha del proyecto (dd.hallazgos-host), fuera de
+   .at-app: por eso se declara con sus propios colores y medidas. */
+.at-hallazgos {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* Todo el texto de este bloque va en negro (los títulos ya no llevan color por
+   métrica). Se repite el selector con `.hallazgos-host` para ganar a la regla de la
+   ficha del proyecto (`.hallazgos-host p { color: inherit }`), que si no impone el
+   gris heredado del contenedor. */
+.at-hallazgo-titulo,
+.hallazgos-host .at-hallazgo-titulo {
+  color: #111318;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.at-hallazgo-texto,
+.hallazgos-host .at-hallazgo-texto {
+  margin-top: 2px;
+  color: #111318;
+  font-size: 12.5px;
+  line-height: 1.5;
+}
+
+.at-hallazgos-vacio,
+.hallazgos-host .at-hallazgos-vacio {
+  color: #111318;
+  font-size: 12.5px;
+}
+
+.at-panel--hallazgos {
+  margin-top: 9px;
+}
+
+.at-panel--hallazgos .at-hallazgo-texto {
+  font-size: 11.5px;
+}
+
+/* ------------------------------------------------------------- vista tiempo */
+
+.at-vista {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  margin-top: 9px;
+}
+
+.at-serie-controles {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 4px;
+}
+
+.at-serie-ayuda {
+  color: var(--at-text2);
+  font-size: 10px;
+}
+
+.at-serie {
+  position: relative;
+  overflow: hidden;
+}
+
+.at-serie svg {
+  touch-action: none;
+  cursor: crosshair;
+}
+
+.at-grid-dos {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 9px;
+}
+
+.at-matriz {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.at-matriz-fila {
+  display: grid;
+  grid-template-columns: 30px repeat(24, minmax(0, 1fr));
+  gap: 2px;
+}
+
+.at-matriz-hora {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 8px;
+  color: var(--at-text2);
+  text-align: center;
+}
+
+.at-matriz-dia {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 9px;
+  color: var(--at-text2);
+  display: flex;
+  align-items: center;
+}
+
+.at-matriz-celda {
+  display: block;
+  height: 15px;
+  border-radius: 2px;
+  border: 1px solid rgba(221, 226, 235, 0.6);
+}
+
+.at-matriz-celda:hover {
+  outline: 1.5px solid var(--at-primary);
+  outline-offset: -1px;
+}
+
+.at-matriz-esquina {
+  display: block;
+}
+
+.at-matriz-leyenda {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 6px;
+  color: var(--at-text2);
+  font-size: 9.5px;
+}
+
+.at-matriz-rampa {
+  display: inline-block;
+  width: 90px;
+  height: 7px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #e9f5f6, #71c1c9, #087f8c);
+  border: 1px solid var(--at-border);
+}
+
+.at-dist {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.at-dist-fila {
+  display: grid;
+  grid-template-columns: minmax(96px, 1.2fr) minmax(40px, 1.6fr) 46px 44px;
+  align-items: center;
+  gap: 6px;
+  width: 100%;
+  padding: 3px 4px;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  background: transparent;
+  text-align: left;
+  font-size: 11px;
+  cursor: pointer;
+  transition: background var(--at-ctrl-t), border-color var(--at-ctrl-t);
+}
+
+.at-dist-fila:hover:not(:disabled) {
+  background: var(--at-ctrl-bg);
+  color: var(--at-primary);
+}
+
+.at-dist-fila.is-activa {
+  background: var(--at-ctrl-on-bg);
+  border-color: var(--at-ctrl-on-border);
+  color: var(--at-primary);
+  font-weight: 600;
+}
+
+.at-dist-fila--estatica {
+  cursor: default;
+}
+
+.at-dist-nombre {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.at-dist-pista {
+  height: 8px;
+  border-radius: 999px;
+  background: var(--at-soft);
+  overflow: hidden;
+}
+
+.at-dist-barra {
+  display: block;
+  height: 100%;
+  border-radius: 999px;
+}
+
+.at-dist-cifra {
+  text-align: right;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.at-dist-pct {
+  text-align: right;
+  color: var(--at-text2);
+  font-size: 10px;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------------------------------------------------------- vista personas */
+
+.at-barras {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.at-barra-fila {
+  display: grid;
+  grid-template-columns: minmax(90px, 1fr) minmax(50px, 1.8fr) 48px 46px;
+  align-items: center;
+  gap: 6px;
+  width: 100%;
+  padding: 5px 5px 4px;
+  border: 1px solid transparent;
+  border-radius: 7px;
+  background: transparent;
+  text-align: left;
+  font-size: 11.5px;
+  cursor: pointer;
+  transition: background var(--at-ctrl-t), border-color var(--at-ctrl-t);
+}
+
+.at-barra-fila:hover:not(:disabled) {
+  background: var(--at-ctrl-bg);
+  color: var(--at-primary);
+}
+
+.at-barra-fila.is-activa {
+  background: var(--at-ctrl-on-bg);
+  border-color: var(--at-ctrl-on-border);
+  color: var(--at-primary);
+  font-weight: 600;
+}
+
+.at-barra-fila--estatica {
+  cursor: default;
+}
+
+.at-barra-nombre {
+  font-weight: 500;
+}
+
+.at-barra-pista {
+  height: 9px;
+  border-radius: 999px;
+  background: var(--at-soft);
+  overflow: hidden;
+}
+
+.at-barra-valor {
+  display: block;
+  height: 100%;
+  border-radius: 999px;
+}
+
+.at-barra-cifra {
+  text-align: right;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.at-barra-pct {
+  text-align: right;
+  color: var(--at-text2);
+  font-size: 10px;
+  font-variant-numeric: tabular-nums;
+}
+
+.at-barra-extra {
+  grid-column: 1 / -1;
+  color: var(--at-text2);
+  font-size: 9.5px;
+}
+
+.at-cobertura-lista {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.at-cobertura-lista li {
+  display: grid;
+  grid-template-columns: 1fr 130px 52px;
+  align-items: baseline;
+  gap: 8px;
+  font-size: 11px;
+}
+
+.at-cobertura-nombre {
+  color: var(--at-text2);
+}
+
+.at-cobertura-valor {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.at-cobertura-pct {
+  text-align: right;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ------------------------------------------------------------------ notas */
+
+.at-nota {
+  color: var(--at-text2);
+  font-size: 10.5px;
+  line-height: 1.4;
+}
+
+.at-nota--error {
+  color: #a8231b;
+}
+
+.at-aviso {
+  padding: 8px 10px;
+  border: 1px solid var(--at-border);
+  border-left: 2px solid var(--at-primary);
+  border-radius: 8px;
+  background: var(--at-soft);
+  color: var(--at-text2);
+  font-size: 10.5px;
+  line-height: 1.45;
+}
+
+.at-aviso--error {
+  border-left-color: #a8231b;
+}
+
+.at-aviso-title {
+  margin-bottom: 3px;
+  color: var(--at-text);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+/* ------------------------------------------------------------------- pie */
+
+.at-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 10px;
+  padding-top: 8px;
+  border-top: 1px solid var(--at-border);
+}
+
+.at-foot-texto {
+  color: var(--at-text2);
+  font-size: 10.5px;
+}
+
+.at-foot-link {
+  border: 0;
+  background: transparent;
+  color: var(--at-primary);
+  font-size: 10.5px;
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+/* -------------------------------------------------------------- diálogo */
+
+.at-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: var(--at-z-velo);
+  background: rgba(17, 19, 24, 0.45);
+}
+
+.at-dialog {
+  position: fixed;
+  z-index: var(--at-z-dialogo);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: min(760px, calc(100vw - 32px));
+  max-height: min(86vh, 760px);
+  display: flex;
+  flex-direction: column;
+  padding: 14px 16px;
+  border: 1px solid var(--at-border);
+  border-radius: 14px;
+  background: var(--at-surface);
+  box-shadow: 0 24px 60px rgba(17, 19, 24, 0.24);
+}
+
+.at-dialog-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--at-border);
+}
+
+.at-dialog-title {
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: 17px;
+  font-weight: 600;
+}
+
+.at-dialog-sub {
+  margin-top: 2px;
+  color: var(--at-text2);
+  font-size: 11px;
+}
+
+.at-dialog-body {
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 10px 2px 4px;
+}
+
+.at-dialog-body h4 {
+  margin-bottom: 3px;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--at-text2);
+}
+
+.at-dialog-body p {
+  font-size: 11.5px;
+  line-height: 1.45;
+}
+
+.at-dialog-body a {
+  color: var(--at-primary);
+  word-break: break-all;
+}
+
+.at-dialog-nota {
+  margin-top: 4px;
+  color: var(--at-text2);
+  font-size: 11px;
+}
+
+.at-dialog-lista {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  margin-top: 3px;
+  font-size: 11.5px;
+  line-height: 1.45;
+}
+
+.at-dialog-lista li {
+  padding-left: 11px;
+  position: relative;
+}
+
+.at-dialog-lista li::before {
+  content: '·';
+  position: absolute;
+  left: 2px;
+  color: var(--at-guia-fuerte);
+}
+
+.at-dialog-lista--recursos li {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: baseline;
+}
+
+.at-dialog-recurso {
+  font-weight: 600;
+}
+
+.at-dialog-mono {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px;
+  color: var(--at-text2);
+}
+
+.at-dialog-lista--avisos li {
+  color: var(--at-text2);
+}
+
+.at-dialog-pie {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px solid var(--at-border);
+  color: var(--at-text2);
+  font-size: 10px;
+}
+
+/* -------------------------------------------------------- estados y carga */
+
+.at-cargando {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--at-text2);
+  font-size: 10.5px;
+  margin-top: 6px;
+}
+
+.at-spinner {
+  display: inline-block;
+  width: 11px;
+  height: 11px;
+  border: 1.6px solid var(--at-ctrl-border);
+  border-top-color: var(--at-primary);
+  border-radius: 50%;
+  animation: at-girar 900ms linear infinite;
+}
+
+@keyframes at-girar {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.at-skeleton {
+  border-radius: var(--at-r-panel);
+  background: linear-gradient(90deg, #eef1f6, #f6f8fb, #eef1f6);
+  background-size: 200% 100%;
+  animation: at-brillo 1400ms ease-in-out infinite;
+}
+
+.at-skeleton--head {
+  height: 74px;
+  margin-bottom: 9px;
+}
+
+.at-skeleton--kpis {
+  height: 78px;
+  margin-bottom: 9px;
+}
+
+.at-skeleton--mapa {
+  height: 460px;
+}
+
+.at-skeleton--panel {
+  height: 460px;
+}
+
+@keyframes at-brillo {
+  0% {
+    background-position: 0% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+/* --------------------------------------------------------------- móvil */
+
+@media (max-width: 980px) {
+  /* En pantallas estrechas el valor del periodo no se recorta. */
+  .at-filtros .at-ctrl-value {
+    max-width: 220px;
+  }
+
+  .at-kpis {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .at-grid-mapa {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  /* En pantallas estrechas los paneles se apilan y el detalle usa su altura
+     natural: no se impone altura fija ni scroll interno. */
+  .at-grid-mapa > .at-panel--contexto {
+    height: auto;
+  }
+
+  .at-contexto-cuerpo {
+    flex: 0 0 auto;
+    overflow: visible;
+  }
+
+  .at-mapa-fila:first-child {
+    justify-content: flex-start;
+  }
+
+  .at-mapa-select {
+    flex: 1 1 100%;
+    min-width: 0;
+  }
+
+  /* El ranking del detalle muestra el nombre completo: sin puntos suspensivos. */
+  .at-panel--contexto .at-ranking button {
+    grid-template-columns: minmax(0, 1.25fr) minmax(46px, 1fr) 40px;
+  }
+
+  .at-panel--contexto .at-ranking-nombre {
+    overflow: visible;
+    text-overflow: clip;
+    white-space: normal;
+    line-height: 1.2;
+  }
+
+  .at-mapa-caja {
+    height: 420px;
+  }
+
+  .at-grid-dos {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 620px) {
+  .at-app {
+    padding: 8px 8px 10px;
+  }
+
+  /* En móvil la cabecera de cada panel se apila: el título no compite con los
+     botones de acción y la lectura no se parte en columnas estrechas. */
+  .at-panel-head {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 6px;
+  }
+
+  .at-panel-head > :last-child:not(:first-child) {
+    align-self: flex-start;
+  }
+
+  .at-mapa-acciones,
+  .at-segmentado {
+    flex-wrap: wrap;
+  }
+
+  /* Las reglas móviles de la barra de filtros viven con el sistema de filtros,
+     al final de la hoja, para que el piloto tenga un único punto de verdad. */
+
+  /* Las etiquetas de las barras se parten en dos líneas: en una columna estrecha
+     es mejor que recortarlas con puntos suspensivos, porque el nombre completo
+     es el que explica la cifra. */
+  .at-dist-nombre,
+  .at-barra-nombre {
+    white-space: normal;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    line-height: 1.25;
+  }
+
+  .at-dist-fila {
+    grid-template-columns: minmax(76px, 1.1fr) minmax(34px, 1.4fr) 44px 42px;
+  }
+
+  .at-barra-fila {
+    grid-template-columns: minmax(72px, 1fr) minmax(40px, 1.5fr) 46px 42px;
+  }
+
+  .at-head-top {
+    align-items: flex-start;
+  }
+
+  .at-nav {
+    width: 100%;
+    overflow-x: auto;
+  }
+
+  .at-nav-btn span {
+    white-space: nowrap;
+  }
+
+  /* La marca y su insignia se apilan sin partir el texto en columnas estrechas. */
+  .at-brand {
+    flex-wrap: wrap;
+    row-gap: 4px;
+  }
+
+  .at-brand-name {
+    font-size: 15px;
+  }
+
+  .at-brand-chip {
+    white-space: nowrap;
+  }
+
+  .at-titulo {
+    font-size: 17px;
+  }
+
+  .at-kpis {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .at-kpi-valor {
+    font-size: 19px;
+  }
+
+  .at-btn--reset {
+    margin-left: 0;
+  }
+
+  .at-mapa-caja {
+    height: 360px;
+  }
+
+  .at-contexto-cifras--tres {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .at-matriz-fila {
+    grid-template-columns: 22px repeat(24, minmax(0, 1fr));
+  }
+
+  .at-matriz-celda {
+    height: 12px;
+  }
+
+  .at-ubicacion {
+    max-width: 160px;
+  }
+
+  .at-dialog {
+    width: calc(100vw - 16px);
+    max-height: 92vh;
+    padding: 12px;
+  }
+}
+
+/* ------------------------------------------------ preferencias del sistema */
+
+@media (prefers-reduced-motion: reduce) {
+  .at-app *,
+  .at-app *::before,
+  .at-app *::after,
+  .at-pop *,
+  .atf-panel *,
+  .at-dialog * {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+
+  .at-spinner {
+    animation: none;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+/* Nota de alcance del bloque de comparación. */
+.at-contexto-nota {
+  margin: -4px 0 2px;
+  font-size: 9.5px;
+  line-height: 1.35;
+  color: var(--at-text2);
+}
+
+/* Cabecera del panel de rankings por alcaldía. Sin caja adicional, sin
+   mayúsculas sostenidas y sin iconos: título, subtítulo y nota de alcance. */
+.at-panel--contexto.is-comparacion .at-panel-head {
+  margin-bottom: 12px;
+}
+
+.at-panel--contexto.is-comparacion .at-panel-head h3 {
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--at-text);
+}
+
+.at-panel--contexto.is-comparacion .at-panel-head .at-panel-sub {
+  margin-top: 4px;
+  font-size: 12.5px;
+  line-height: 1.35;
+  color: var(--at-text2);
+}
+
+.at-rankings-cab {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin: 0 0 4px;
+}
+
+.at-rankings-alcance {
+  margin: 0;
+  font-size: 11.5px;
+  line-height: 1.45;
+  color: var(--at-text2);
+}
+
+.at-rankings-etq {
+  font-weight: 500;
+  color: var(--at-text);
+}
+
+.at-rankings-escala {
+  margin: 0;
+  font-size: 11px;
+  line-height: 1.4;
+  color: var(--at-text2);
+}
+
+/* La tarjeta del ranking no se estira: mide su contenido y no abre huecos. */
+@media (min-width: 861px) {
+  .at-grid-mapa > .at-panel--contexto.is-comparacion {
+    height: auto;
+    align-self: start;
+  }
+
+  .at-grid-mapa > .at-panel--contexto.is-comparacion .at-contexto-cuerpo {
+    justify-content: flex-start;
+  }
+}
+
+/* ------------------------------------------------- rankings de alcaldías */
+/* Tres rankings independientes: una escala y una unidad por métrica. */
+.at-rankings {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-width: 0;
+}
+
+.at-ranking-metrica {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+}
+
+.at-ranking-metrica-cab {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.at-ranking-metrica-cab h4 {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  margin: 0;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--at-text);
+}
+
+.at-ranking-punto {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 2px;
+  flex: 0 0 auto;
+}
+
+.at-ranking-unidad {
+  font-family: var(--at-mono, ui-monospace, monospace);
+  font-size: 9px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--at-text2);
+  white-space: nowrap;
+}
+
+.at-ranking-lista {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.at-ranking-fila {
+  display: grid;
+  grid-template-columns: minmax(118px, 1.35fr) minmax(34px, 0.7fr) minmax(42px, auto);
+  align-items: center;
+  gap: 6px;
+  width: 100%;
+  padding: 3px 5px;
+  border: 1px solid transparent;
+  border-radius: 5px;
+  background: transparent;
+  text-align: left;
+  font-size: 11px;
+  color: var(--at-text);
+  cursor: pointer;
+  transition: background 120ms ease, border-color 120ms ease;
+}
+
+.at-ranking-fila:hover {
+  background: var(--at-soft);
+}
+
+.at-ranking-fila:focus-visible {
+  outline: 2px solid var(--at-primary);
+  outline-offset: 1px;
+}
+
+/* La alcaldía seleccionada se distingue por color **y** por contorno. */
+.at-ranking-fila.is-activa {
+  background: var(--at-ctrl-bg);
+  border-color: var(--at-primary);
+  font-weight: 600;
+}
+
+.at-ranking-nombre-corto {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.at-ranking-pista {
+  height: 7px;
+  border-radius: 999px;
+  background: var(--at-soft);
+  overflow: hidden;
+}
+
+.at-ranking-barra {
+  display: block;
+  height: 100%;
+  border-radius: 999px;
+}
+
+/* Cifra del ranking: fondo claro con el tinte de su métrica, texto oscuro de
+   alto contraste y números tabulares. Nunca azul saturado con texto blanco. */
+.at-ranking-valor {
+  display: inline-block;
+  min-width: 54px;
+  padding: 1px 7px;
+  border: 1px solid #d5dbe6;
+  border-radius: 6px;
+  background: #f4f6fa;
+  color: #111318;
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: 'tnum' 1;
+  font-weight: 600;
+  text-align: right;
+  line-height: 1.45;
+  white-space: nowrap;
+}
+
+/* Tinte y borde por métrica (las barras conservan su color). */
+[data-metrica='hechos'] .at-ranking-valor {
+  background: #eef1ff;
+  border-color: #b4c0fa;
+  color: #17233d;
+}
+
+[data-metrica='personas_lesionadas'] .at-ranking-valor {
+  background: #fff4e2;
+  border-color: #f2be68;
+  color: #3b2604;
+}
+
+[data-metrica='personas_fallecidas'] .at-ranking-valor {
+  background: #fdecea;
+  border-color: #f3b4ab;
+  color: #4a1310;
+}
+
+/* Hover y selección: el fondo cambia, la cifra sigue legible. */
+.at-ranking-fila:hover .at-ranking-valor {
+  border-color: #aab4c4;
+}
+
+.at-ranking-fila.is-activa .at-ranking-valor {
+  background: #ffffff;
+  border-color: #596273;
+  color: #111318;
+}
+
+.at-ranking-fila.is-activa:hover .at-ranking-valor {
+  border-color: #111318;
+}
+
+.at-ranking-nota {
+  margin: 2px 0 0;
+  font-size: 9.5px;
+  color: var(--at-text2);
+}
+
+.at-ranking-fuera {
+  margin-top: 3px;
+  padding-top: 3px;
+  border-top: 1px dashed var(--at-guia-fuerte);
+}
+
+.at-rankings-expandir {
+  align-self: flex-start;
+  font-size: 10.5px;
+}
+
+/* En pantallas estrechas el nombre de la alcaldía no se recorta. */
+@media (max-width: 620px) {
+  .at-ranking-fila {
+    grid-template-columns: minmax(0, 1fr) minmax(40px, 0.9fr) minmax(38px, auto);
+  }
+
+  .at-ranking-nombre-corto {
+    overflow: visible;
+    text-overflow: clip;
+    white-space: normal;
+    line-height: 1.2;
+  }
+}
+
+/* -------------------------------------------------------------------- Sheet */
+
+
+
+
+
+
+
+/* Detalle de la alcaldía filtrada: las tres métricas en el formato del ranking,
+   con una sola fila por métrica y su barra propia. */
+.at-detalle-metricas .at-ranking-fila {
+  cursor: default;
+}
+
+.at-detalle-metricas .at-ranking-fila:hover {
+  background: transparent;
+}
+
+/* Detalle compacto de la alcaldía: la tarjeta mide su contenido y no se estira. */
+.at-grid-mapa > .at-panel--contexto.is-alcaldia {
+  height: auto;
+  align-self: start;
+}
+
+/* Cifras de la alcaldía: misma iconografía que las tarjetas KPI.
+   Tres columnas icono | etiqueta | cifra, filas de 44 px, sin hover. */
+.at-cifras-metrica {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.at-cifras-metrica li {
+  display: grid;
+  grid-template-columns: 26px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 10px;
+  min-height: 44px;
+  padding: 4px 0;
+  border-bottom: 1px solid var(--at-border);
+}
+
+.at-cifras-metrica li:last-child {
+  border-bottom: 0;
+}
+
+.at-cifras-icono {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #374151;
+}
+
+.at-cifras-etiqueta {
+  font-size: 13.5px;
+  line-height: 1.3;
+  color: var(--at-text);
+}
+
+.at-cifras-valor {
+  font-size: 17.5px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  color: #111827;
+  white-space: nowrap;
+}
+
+/* Tipos de hecho de la alcaldía filtrada: icono gris, nombre legible,
+   cifra negra y barra azul. */
+.at-tipos-hecho {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-top: 12px;
+  padding-top: 10px;
+  border-top: 1px solid var(--at-border);
+}
+
+.at-tipos-hecho h4 {
+  margin: 0;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--at-text);
+}
+
+.at-tipos-lista {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.at-tipos-lista li {
+  display: grid;
+  grid-template-columns: 16px minmax(96px, 1.15fr) minmax(40px, 0.85fr) 46px 48px;
+  align-items: center;
+  gap: 8px;
+  min-height: 26px;
+  font-size: 11.5px;
+}
+
+.at-tipos-icono {
+  display: inline-flex;
+  align-items: center;
+  color: #374151;
+}
+
+.at-tipos-nombre {
+  color: var(--at-text);
+  line-height: 1.25;
+}
+
+.at-tipos-pista {
+  height: 7px;
+  border-radius: 999px;
+  background: var(--at-soft);
+  overflow: hidden;
+}
+
+.at-tipos-barra {
+  display: block;
+  height: 100%;
+  border-radius: 999px;
+  background: #3458f5;
+}
+
+.at-tipos-cifra,
+.at-tipos-pct {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  color: var(--at-text);
+}
+
+.at-tipos-cifra {
+  font-weight: 600;
+}
+
+.at-tipos-pct {
+  color: var(--at-text2);
+}
+
+@media (max-width: 620px) {
+  .at-tipos-nombre {
+    overflow: visible;
+    text-overflow: clip;
+    white-space: normal;
+    line-height: 1.2;
+  }
+}
+
+/* ---------------------------------------------- paneles de los filtros */
+/* Patrón común a todos los desplegables de la banda. */
+
+.atf-panel {
+  z-index: 60;
+  display: flex;
+  flex-direction: column;
+  width: min(320px, calc(100vw - 24px));
+  max-height: min(560px, var(--radix-popover-content-available-height, 560px));
+  overflow: hidden;
+  border: 1px solid var(--filters-border);
+  border-radius: 14px;
+  background: var(--filters-surface);
+  color: var(--filters-text);
+  box-shadow: var(--filters-sombra);
+  transform-origin: var(--radix-popover-content-transform-origin, top left);
+  animation: atf-entrar var(--filters-t-panel) both;
+}
+
+.atf-panel--ancho {
+  width: min(420px, calc(100vw - 24px));
+}
+
+
+.atf-panel[data-state='closed'] {
+  animation: atf-salir 120ms ease-in both;
+}
+
+@keyframes atf-entrar {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes atf-salir {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-2px);
+  }
+}
+
+.atf-vista {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.atf-head {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  flex: none;
+  padding: 12px 12px 8px;
+}
+
+.atf-head-texto {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.atf-titulo {
+  color: var(--filters-text);
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.atf-cuenta {
+  color: var(--filters-muted);
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+}
+
+.atf-volver,
+.atf-cerrar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  width: 28px;
+  height: 28px;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--filters-muted);
+  font-size: 18px;
+  line-height: 1;
+  cursor: pointer;
+  transition:
+    background var(--filters-t-hover),
+    border-color var(--filters-t-hover),
+    color var(--filters-t-hover);
+}
+
+.atf-volver:hover,
+.atf-cerrar:hover {
+  border-color: var(--filters-border);
+  background: var(--filters-hover);
+  color: var(--filters-text);
+}
+
+.atf-volver:focus-visible,
+.atf-cerrar:focus-visible,
+.atf-pie-accion:focus-visible,
+.atf-vacio-accion:focus-visible,
+.atf-fila:focus-visible {
+  outline: 2px solid var(--filters-accent);
+  outline-offset: 2px;
+}
+
+.atf-volver-icono {
+  transform: rotate(180deg);
+}
+
+.atf-cerrar {
+  margin-left: auto;
+}
+
+.atf-buscar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: none;
+  margin: 0 12px 8px;
+  padding: 6px 10px;
+  border: 1px solid var(--filters-border);
+  border-radius: 10px;
+  background: var(--filters-surface);
+  color: var(--filters-muted);
+  transition:
+    background var(--filters-t-hover),
+    border-color var(--filters-t-hover);
+}
+
+.atf-buscar:focus-within {
+  border-color: var(--at-primary);
+  outline: 2px solid var(--at-primary);
+  outline-offset: 0;
+}
+
+.atf-buscar input {
+  width: 100%;
+  min-width: 0;
+  border: 0;
+  background: transparent;
+  color: var(--filters-text);
+  font: inherit;
+  font-size: 14px;
+  outline: none;
+}
+
+.atf-buscar input::placeholder {
+  color: var(--filters-muted);
+}
+
+.atf-buscar-borrar {
+  flex: none;
+  padding: 0 2px;
+  border: 0;
+  background: transparent;
+  color: var(--filters-muted);
+  font-size: 16px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.atf-buscar-borrar:hover {
+  color: var(--filters-text);
+}
+
+.atf-opciones {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 1 1 auto;
+  min-height: 0;
+  max-height: 320px;
+  padding: 0 8px 4px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+.atf-grupos {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex: 1 1 auto;
+  min-height: 0;
+  padding: 0 12px 4px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+.atf-grupo {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.atf-grupo-titulo {
+  padding: 4px 2px 2px;
+  color: var(--filters-muted);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.atf-panel .at-opcion {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  min-height: 44px;
+  padding: 8px 10px;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--filters-text);
+  font-size: 14px;
+  font-weight: 400;
+  text-align: left;
+  cursor: pointer;
+  transition:
+    background var(--filters-t-hover),
+    border-color var(--filters-t-hover),
+    color var(--filters-t-hover);
+}
+
+.atf-panel .at-opcion:hover {
+  background: var(--filters-hover);
+  color: var(--filters-text);
+}
+
+.atf-panel .at-opcion.is-marcada {
+  border-color: var(--filters-accent);
+  background: var(--filters-selected);
+  color: var(--filters-text);
+  font-weight: 500;
+}
+
+.atf-panel .at-opcion.is-marcada:hover {
+  background: #e1e8ff;
+}
+
+.atf-panel .at-opcion:focus-visible {
+  outline: 2px solid var(--filters-accent);
+  outline-offset: -2px;
+}
+
+.atf-opcion-nombre {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.atf-panel .at-caja {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  width: 18px;
+  height: 18px;
+  border: 1.5px solid var(--filters-border);
+  border-radius: 5px;
+  background: var(--filters-surface);
+  color: #ffffff;
+  font-size: 11px;
+  transition:
+    background var(--filters-t-etiqueta),
+    border-color var(--filters-t-etiqueta);
+}
+
+.atf-panel .at-opcion.is-marcada .at-caja {
+  border-color: var(--filters-accent);
+  background: var(--filters-accent);
+}
+
+.atf-vacio {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 12px 10px;
+}
+
+.atf-vacio-texto {
+  color: var(--filters-muted);
+  font-size: 14px;
+  overflow-wrap: anywhere;
+}
+
+.atf-vacio-accion {
+  align-self: flex-start;
+  min-height: 32px;
+  padding: 6px 10px;
+  border: 1px solid var(--filters-border);
+  border-radius: 8px;
+  background: var(--filters-surface);
+  color: var(--filters-accent);
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    background var(--filters-t-hover),
+    border-color var(--filters-t-hover);
+}
+
+.atf-vacio-accion:hover {
+  border-color: var(--filters-accent);
+  background: var(--filters-selected);
+}
+
+.atf-pie {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: none;
+  flex-wrap: wrap;
+  padding: 8px 12px 12px;
+  border-top: 1px solid var(--filters-border);
+}
+
+.atf-pie-accion {
+  min-height: 28px;
+  padding: 6px 0;
+  border: 0;
+  background: transparent;
+  color: var(--filters-accent);
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.atf-pie-accion:hover:not(:disabled) {
+  text-decoration: underline;
+}
+
+.atf-pie-accion:disabled {
+  color: var(--filters-muted);
+  cursor: not-allowed;
+}
+
+.atf-pie-nota {
+  margin-left: auto;
+  color: var(--filters-muted);
+  font-size: 12px;
+}
+
+.atf-lista {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-height: 0;
+}
+
+.atf-fila {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  min-height: 44px;
+  padding: 4px 10px;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--filters-text);
+  font-size: 14px;
+  text-align: left;
+  cursor: pointer;
+  transition:
+    background var(--filters-t-hover),
+    border-color var(--filters-t-hover);
+}
+
+.atf-fila:hover {
+  background: var(--filters-hover);
+}
+
+.atf-fila.is-activo {
+  border-color: var(--filters-accent);
+  background: var(--filters-selected);
+}
+
+.atf-fila-texto {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.atf-fila-label {
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.2;
+}
+
+.atf-fila-valor {
+  color: var(--filters-muted);
+  font-size: 12px;
+  line-height: 1.2;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.atf-fila.is-activo .atf-fila-valor {
+  color: var(--filters-accent);
+  font-weight: 500;
+}
+
+.atf-fila-cuenta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 5px;
+  border-radius: 999px;
+  background: var(--filters-accent);
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.atf-chevron {
+  flex: none;
+  color: var(--filters-muted);
+  transform: rotate(-90deg);
+}
+
+.atf-campos {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  padding: 4px 12px 0;
+}
+
+.atf-campos label {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  color: var(--filters-muted);
+  font-size: 12px;
+}
+
+.atf-campos input {
+  min-height: 40px;
+  padding: 6px 10px;
+  border: 1px solid var(--filters-border);
+  border-radius: 10px;
+  background: var(--filters-surface);
+  color: var(--filters-text);
+  font: inherit;
+  font-size: 14px;
+  font-variant-numeric: tabular-nums;
+}
+
+.atf-campos input:focus-visible {
+  border-color: var(--filters-accent);
+  outline: 2px solid var(--filters-accent);
+  outline-offset: 1px;
+}
+
+.atf-nota {
+  padding: 8px 12px 0;
+  color: var(--filters-muted);
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+
+.atf-ayuda-lista li {
+  display: flex;
+  gap: 6px;
+}
+
+.atf-ayuda-lista li::before {
+  content: '·';
+  color: var(--filters-accent);
+  font-weight: 700;
+}
+
+.atf-ayuda-lista strong {
+  font-weight: 600;
+}
+
+/* ---------------------------------------------------- navegación de vistas */
+/* Capa de navegación: banda azul tinta con cápsula blanca en la vista activa. */
+.at-nav {
+  display: inline-flex;
+  gap: 4px;
+  padding: 4px;
+  border: 1px solid #17233d;
+  border-radius: 12px;
+  background: #17233d;
+}
+
+.at-nav-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border: 1px solid transparent;
+  border-radius: 9px;
+  background: transparent;
+  color: #c9d2e4;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition:
+    background 200ms ease,
+    color 200ms ease,
+    border-color 200ms ease;
+}
+
+.at-nav-btn:hover {
+  background: rgba(255, 255, 255, 0.12);
+  color: #ffffff;
+}
+
+.at-nav-btn.is-activa {
+  background: #ffffff;
+  color: #17233d;
+  font-weight: 600;
+}
+
+.at-nav-btn:focus-visible {
+  outline: 2px solid #ffffff;
+  outline-offset: 2px;
+}
+
+/* -------------------------------------------------- acciones de cabecera */
+/* Botones discretos: sin relleno hasta el hover, agrupados en una fila. */
+.at-head-acciones {
+  gap: 2px;
+  padding: 3px;
+  border-radius: 10px;
+  background: transparent;
+}
+
+.at-head-acciones .at-btn--ghost {
+  border-color: transparent;
+  background: transparent;
+  color: var(--at-text2);
+  font-size: 11.5px;
+}
+
+.at-head-acciones .at-btn--ghost:hover:not(:disabled) {
+  border-color: var(--at-border);
+  background: var(--at-soft);
+  color: var(--at-text);
+}
+
+/* --------------------------------------- controles locales del mapa y gráficas */
+/* Gris azulado con cápsula blanca: distinto de la banda y de la navegación. */
+.at-segmentado {
+  display: inline-flex;
+  gap: 2px;
+  padding: 3px;
+  border: 1px solid transparent;
+  border-radius: 10px;
+  background: #edf1f7;
+}
+
+.at-seg {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 4px 9px;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  background: transparent;
+  color: #5f6b80;
+  font-size: 10.5px;
+  font-weight: 500;
+  cursor: pointer;
+  transition:
+    background 120ms ease,
+    color 120ms ease,
+    border-color 120ms ease;
+}
+
+.at-seg:hover {
+  background: #f3f5f9;
+  color: #17233d;
+}
+
+.at-seg.is-activa {
+  background: #ffffff;
+  color: #17233d;
+  font-weight: 600;
+}
+
+.at-seg-punto {
+  width: 7px;
+  height: 7px;
+  border-radius: 999px;
+  flex: none;
+}
+
+/* ------------------------------------------------------------ responsive */
+@media (max-width: 980px) {
+  .at-filtros .at-ctrl-value {
+    max-width: 170px;
+  }
+}
+
+/* Pantallas táctiles (tableta incluida): superficie pulsable de 44px. */
+@media (max-width: 900px) {
+  .at-filtros .at-ctrl,
+  .at-banda-mas {
+    height: 44px;
+    min-height: 44px;
+  }
+
+  .atf-panel .at-opcion {
+    min-height: 44px;
+  }
+}
+
+@media (max-width: 720px) {
+  .at-filtros {
+    padding: 10px 12px;
+  }
+
+  .at-banda-fila {
+    gap: 8px;
+  }
+
+  .at-banda-controles {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 8px;
+    width: 100%;
+  }
+
+  .at-filtros .at-ctrl,
+  .at-banda-mas {
+    width: 100%;
+    height: 44px;
+    min-height: 44px;
+  }
+
+  .at-filtros .at-ctrl-value {
+    max-width: none;
+    flex: 1;
+    text-align: left;
+  }
+
+  .at-filtros .at-ctrl-chevron {
+    margin-left: auto;
+  }
+
+  .at-banda-mas {
+    justify-content: flex-start;
+  }
+
+  .at-banda-total {
+    align-self: center;
+    margin-left: 0;
+    justify-content: flex-end;
+  }
+
+  .at-banda-pie {
+    flex-wrap: wrap;
+    align-items: center;
+  }
+
+  .at-filtros .at-chips {
+    flex: 1 1 100%;
+  }
+
+  .at-filtros .at-chip {
+    min-height: 44px;
+    padding: 8px 12px;
+    font-size: 13px;
+  }
+
+  .at-filtros .at-btn--reset {
+    flex: 1 1 auto;
+    margin-left: 0;
+    height: 44px;
+    justify-content: center;
+  }
+
+  .at-banda-compacta {
+    row-gap: 4px;
+  }
+
+  .at-banda-compacta-periodo {
+    font-size: 12px;
+  }
+
+  .at-banda-compacta-resumen {
+    display: none;
+  }
+
+  .at-banda-compacta .at-banda-total {
+    margin-left: 0;
+  }
+
+  .at-banda-editar {
+    height: 40px;
+    margin-left: auto;
+  }
+
+  .atf-panel,
+  .atf-panel--ancho,
+  .atf-panel--ayuda {
+    width: calc(100vw - 24px);
+    max-height: min(72vh, var(--radix-popover-content-available-height, 72vh));
+  }
+
+  .atf-panel .at-opcion,
+  .atf-panel .atf-pie-accion {
+    min-height: 44px;
+  }
+
+  .atf-fila {
+    min-height: 48px;
+  }
+}
+
+/* ------------------------------------------------------- movimiento reducido */
+@media (prefers-reduced-motion: reduce) {
+  .atf-panel,
+  .atf-panel *,
+  .at-filtros *,
+  .at-seg,
+  .at-nav-btn {
+    animation: none !important;
+    transition: none !important;
+  }
+
+  .at-banda-cargando {
+    animation: none !important;
+    opacity: 0.6;
+  }
+}
+
+
+
+/* ==========================================================================
+   PILOTO — ENCABEZADO, PESTAÑAS Y BANDA DE FILTROS
+   --------------------------------------------------------------------------
+   Paleta derivada de los tokens del tablero:
+     · azul principal  #3458F5  (--at-primary)
+     · fondo página    #F7F8FC  (--at-bg)
+     · superficie      #FFFFFF  (--at-surface)
+     · superficie suave#F4F6FA  (--at-soft)
+     · texto           #111318  (--at-text) · secundario #596273 (--at-text2)
+     · borde           #DDE2EB  (--at-border) · guía #A9B3C6
+   Nada de esto alcanza tarjetas, gráficos ni el mapa.
+   ========================================================================== */
+
+.at-app {
+  --t-hover: 120ms cubic-bezier(0.22, 0.61, 0.36, 1);
+  --t-panel: 180ms cubic-bezier(0.22, 0.61, 0.36, 1);
+  --t-capsula: 240ms cubic-bezier(0.22, 0.61, 0.36, 1);
+  --tinta-suave: #eef2ff;
+  --tinta-base: #f4f6fa;
+  --sombra-capsula: 0 1px 2px rgba(17, 19, 24, 0.1), 0 1px 1px rgba(17, 19, 24, 0.05);
+  --sombra-panel: 0 12px 32px rgba(23, 35, 61, 0.12), 0 2px 6px rgba(23, 35, 61, 0.06);
+}
+
+/* --------------------------------------------------------------- encabezado */
+.at-head {
+  gap: 12px;
+  padding-bottom: 12px;
+}
+
+.at-head-top {
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.at-head-titulo {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+
+.at-head-titulo .at-titulo {
+  max-width: 100%;
+  line-height: 1.15;
+}
+
+.at-head-titulo .at-sub {
+  margin-top: 0;
+  max-width: 88ch;
+  line-height: 1.45;
+}
+
+.at-head-nav {
+  display: flex;
+  align-items: center;
+  padding-top: 4px;
+}
+
+.at-head-volver {
+  margin-left: 4px;
+}
+
+/* ----------------------------------------------------------- pestañas */
+/* Base con tinte muy suave del azul actual y cápsula blanca compartida. */
+.at-tabs {
+  position: relative;
+  display: inline-flex;
+  align-items: stretch;
+  gap: 0;
+  padding: 4px;
+  border: 1px solid var(--at-border);
+  border-radius: 12px;
+  background: var(--tinta-suave);
+  max-width: 100%;
+}
+
+.at-tabs-capsula {
+  position: absolute;
+  top: 4px;
+  bottom: 4px;
+  left: 0;
+  width: var(--w, 0px);
+  border-radius: 9px;
+  background: var(--at-surface);
+  box-shadow: var(--sombra-capsula);
+  transform: translateX(var(--x, 0px)) scale(var(--escala, 1));
+  transition:
+    transform var(--t-capsula),
+    width var(--t-capsula);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.at-tabs-btn {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 0 14px;
+  border: 0;
+  border-radius: 9px;
+  background: transparent;
+  color: var(--at-text);
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+  white-space: nowrap;
+  transition:
+    color var(--t-capsula),
+    background var(--t-hover);
+}
+
+.at-tabs-btn:hover {
+  background: rgba(255, 255, 255, 0.55);
+}
+
+.at-tabs-btn[aria-selected='true'] {
+  color: var(--at-primary);
+  font-weight: 600;
+}
+
+.at-tabs-btn[aria-selected='true']:hover {
+  background: transparent;
+}
+
+.at-tabs:active .at-tabs-capsula {
+  --escala: 0.985;
+  transition-duration: var(--t-hover);
+}
+
+.at-tabs-btn:focus-visible {
+  outline: 2px solid var(--at-primary);
+  outline-offset: 2px;
+}
+
+/* ------------------------------------------------------ acciones de cabecera */
+.at-head-acciones .at-btn--ghost {
+  font-size: 12px;
+}
+
+/* ------------------------------------------------------------ banda de filtros */
+/* Superficie clara y ligera, coherente con el fondo del tablero. */
+.at-filtros {
+  background: var(--tinta-base);
+  border: 1px solid var(--at-border);
+  border-radius: 12px;
+  padding: 12px 14px;
+}
+
+.at-filtros .at-ctrl,
+.at-banda-mas {
+  border: 1px solid var(--at-border);
+  background: var(--at-surface);
+  box-shadow: none;
+  transition:
+    background var(--t-hover),
+    border-color var(--t-hover),
+    color var(--t-hover);
+}
+
+.at-filtros .at-ctrl:hover,
+.at-banda-mas:hover {
+  background: #f8f9fc;
+  border-color: var(--at-guia-fuerte);
+}
+
+.at-filtros .at-ctrl.is-activo,
+.at-filtros .at-ctrl[data-state='open'] {
+  border-color: var(--at-primary);
+  background: var(--tinta-suave);
+}
+
+.at-banda-mas.is-activo {
+  border-color: var(--at-primary);
+  background: var(--tinta-suave);
+  color: var(--at-primary);
+}
+
+.at-filtros .at-ctrl:focus-visible,
+.at-banda-mas:focus-visible,
+.at-banda-ayuda:focus-visible,
+.at-banda-editar:focus-visible {
+  outline: 2px solid var(--at-primary);
+  outline-offset: 2px;
+}
+
+.at-banda-etiqueta {
+  color: var(--at-text2);
+}
+
+.at-banda-ayuda,
+.at-banda-editar {
+  border-color: var(--at-border);
+  background: var(--at-surface);
+  color: var(--at-text2);
+}
+
+.at-banda-ayuda:hover,
+.at-banda-editar:hover {
+  border-color: var(--at-guia-fuerte);
+  background: #f8f9fc;
+  color: var(--at-text);
+}
+
+/* ------------------------------------------------------------ paneles */
+.atf-panel {
+  border-color: var(--at-border);
+  box-shadow: var(--sombra-panel);
+  animation: atf-entrar var(--t-panel) both;
+  transform-origin: var(--radix-popover-content-transform-origin, top left);
+}
+
+@keyframes atf-entrar {
+  from {
+    opacity: 0;
+    transform: translateY(-4px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.atf-panel[data-state='closed'] {
+  animation: atf-salir 120ms ease-in both;
+}
+
+@keyframes atf-salir {
+  from {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-2px) scale(0.99);
+  }
+}
+
+/* Marca de selección animada en los desplegables. */
+.atf-panel .at-caja {
+  transition:
+    background var(--t-hover),
+    border-color var(--t-hover),
+    transform var(--t-hover);
+}
+
+.atf-panel .at-opcion.is-marcada .at-caja {
+  animation: at-marca 160ms cubic-bezier(0.22, 0.61, 0.36, 1) both;
+}
+
+@keyframes at-marca {
+  from {
+    transform: scale(0.7);
+    opacity: 0.4;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.atf-panel .at-opcion.is-marcada {
+  transition:
+    background var(--t-hover),
+    border-color var(--t-hover);
+}
+
+/* ------------------------------------------------- panel de periodo */
+.atf-panel--periodo {
+  width: min(340px, calc(100vw - 24px));
+}
+
+.atf-anio {
+  padding: 0 12px 8px;
+  color: var(--at-text2);
+  font-size: 12px;
+}
+
+.atf-anio strong {
+  color: var(--at-text);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.atf-aviso {
+  margin: 0 12px 8px;
+  padding: 8px 10px;
+  border: 1px solid var(--at-border);
+  border-left: 3px solid var(--at-primary);
+  border-radius: 8px;
+  background: var(--at-surface);
+  color: var(--at-text2);
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+.atf-aviso strong {
+  color: var(--at-text);
+  font-variant-numeric: tabular-nums;
+}
+
+.at-meses {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0;
+  padding: 0 12px 4px;
+}
+
+.at-mes {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--at-text);
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition:
+    background var(--t-hover),
+    color var(--t-hover);
+}
+
+.at-mes:hover {
+  background: var(--tinta-base);
+  color: var(--at-primary);
+}
+
+.at-mes.is-rango {
+  border-radius: 0;
+  background: var(--tinta-suave);
+  color: var(--at-primary);
+}
+
+.at-mes.is-rango:hover {
+  background: #e3e9ff;
+}
+
+.at-mes.is-inicio {
+  border-top-left-radius: 8px;
+  border-bottom-left-radius: 8px;
+}
+
+.at-mes.is-fin {
+  border-top-right-radius: 8px;
+  border-bottom-right-radius: 8px;
+}
+
+.at-mes.is-inicio .at-mes-nombre,
+.at-mes.is-fin .at-mes-nombre {
+  font-weight: 600;
+}
+
+.at-mes:focus-visible {
+  outline: 2px solid var(--at-primary);
+  outline-offset: -2px;
+}
+
+.at-mes-nombre {
+  font-variant-numeric: tabular-nums;
+}
+
+.atf-pie-sep {
+  flex: 1;
+}
+
+.atf-pie-primaria,
+.atf-pie-secundaria {
+  min-height: 32px;
+  padding: 0 12px;
+  border-radius: 8px;
+  border: 1px solid var(--at-border);
+  background: var(--at-surface);
+  color: var(--at-text);
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition:
+    background var(--t-hover),
+    border-color var(--t-hover),
+    color var(--t-hover);
+}
+
+.atf-pie-primaria {
+  border-color: var(--at-primary);
+  background: var(--at-primary);
+  color: #ffffff;
+}
+
+.atf-pie-primaria:hover {
+  background: var(--at-primary-hover);
+  border-color: var(--at-primary-hover);
+}
+
+.atf-pie-secundaria:hover {
+  border-color: var(--at-guia-fuerte);
+  background: var(--tinta-base);
+}
+
+.atf-pie-primaria:focus-visible,
+.atf-pie-secundaria:focus-visible {
+  outline: 2px solid var(--at-primary);
+  outline-offset: 2px;
+}
+
+/* ------------------------------------------------------------ responsive */
+@media (max-width: 900px) {
+  .at-head-top {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .at-head-acciones {
+    justify-content: flex-start;
+  }
+
+  .at-tabs {
+    width: 100%;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .at-tabs::-webkit-scrollbar {
+    display: none;
+  }
+
+  .at-tabs-btn {
+    flex: 1 1 auto;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 720px) {
+  .at-tabs-btn {
+    padding: 0 10px;
+  font-size: 13px;
+  }
+
+  .at-tabs-btn span {
+    white-space: nowrap;
+  }
+
+  .atf-panel--periodo {
+    width: calc(100vw - 24px);
+  }
+
+  .at-mes {
+    min-height: 44px;
+  }
+}
+
+/* --------------------------------------------------- movimiento reducido */
+@media (prefers-reduced-motion: reduce) {
+  .at-tabs-capsula,
+  .at-tabs-btn,
+  .at-mes,
+  .atf-panel,
+  .atf-panel *,
+  .at-filtros *,
+  .at-banda-ayuda,
+  .at-banda-editar {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+
+/* El panel se monta en un portal fuera de `.at-app`: repite los tokens que usa
+   (mismos valores, un solo origen de la paleta en todo el tablero). */
+.atf-panel {
+  --at-primary: #3458f5;
+  --at-primary-hover: #2745d7;
+  --at-text: #111318;
+  --at-text2: #596273;
+  --at-border: #dde2eb;
+  --at-guia-fuerte: #a9b3c6;
+  --at-surface: #ffffff;
+  --tinta-suave: #eef2ff;
+  --tinta-base: #f4f6fa;
+  --t-hover: 120ms cubic-bezier(0.22, 0.61, 0.36, 1);
+  --t-panel: 180ms cubic-bezier(0.22, 0.61, 0.36, 1);
+  --sombra-panel: 0 12px 32px rgba(23, 35, 61, 0.12), 0 2px 6px rgba(23, 35, 61, 0.06);
+}
+
+
+/* ==========================================================================
+   COMPOSICIÓN ALTERNATIVA (revisión) — ?proto=a
+   --------------------------------------------------------------------------
+   Propuesta A: navegación abierta sobre la página con indicador deslizante
+   (subrayado) y barra de filtros continua dividida por separadores suaves.
+   La propuesta implementada (B) es la que se ve sin el parámetro: navegación
+   segmentada con cápsula y controles sobre superficie clara.
+   ========================================================================== */
+
+/* --- navegación abierta, sin caja --- */
+.at-proto-a .at-head-nav {
+  border-bottom: 1px solid var(--at-border);
+  padding-top: 0;
+  margin-top: 4px;
+}
+
+.at-proto-a .at-tabs {
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  padding: 0;
+  gap: 4px;
+}
+
+.at-proto-a .at-tabs-capsula {
+  top: auto;
+  bottom: 0;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--at-primary);
+  box-shadow: none;
+}
+
+.at-proto-a .at-tabs-btn {
+  border-radius: 0;
+  padding: 0 10px;
+  font-size: 15px;
+  color: var(--at-text2);
+}
+
+.at-proto-a .at-tabs-btn:hover {
+  background: rgba(52, 88, 245, 0.06);
+  color: var(--at-text);
+}
+
+.at-proto-a .at-tabs-btn[aria-selected='true'] {
+  color: var(--at-primary);
+}
+
+/* --- filtros: una sola tira continua con separadores --- */
+.at-proto-a .at-filtros {
+  padding: 0;
+  border-radius: 14px;
+  background: var(--at-surface);
+}
+
+.at-proto-a .at-banda-cuerpo {
+  gap: 0;
+}
+
+.at-proto-a .at-banda-fila {
+  gap: 0;
+  padding: 0 4px;
+}
+
+.at-proto-a .at-banda-etiqueta {
+  display: inline-flex;
+  align-items: center;
+  height: 56px;
+  padding: 0 14px;
+  color: var(--at-text2);
+  font-size: 12px;
+  letter-spacing: 0.08em;
+}
+
+.at-proto-a .at-banda-ayuda {
+  border: 0;
+  border-radius: 0;
+  height: 56px;
+  padding: 0 14px;
+  background: transparent;
+  color: var(--at-text2);
+}
+
+.at-proto-a .at-banda-controles {
+  gap: 0;
+  flex: 1 1 auto;
+}
+
+.at-proto-a .at-filtros .at-ctrl {
+  height: 56px;
+  padding: 0 16px;
+  border: 0;
+  border-left: 1px solid var(--at-border);
+  border-radius: 0;
+  background: transparent;
+}
+
+.at-proto-a .at-filtros .at-ctrl:hover {
+  background: var(--at-soft);
+}
+
+.at-proto-a .at-filtros .at-ctrl.is-activo,
+.at-proto-a .at-filtros .at-ctrl[data-state='open'] {
+  background: var(--tinta-suave);
+  border-color: var(--at-border);
+}
+
+.at-proto-a .at-filtros .at-ctrl:focus-visible {
+  outline: 2px solid var(--at-primary);
+  outline-offset: -4px;
+}
+
+.at-proto-a .at-banda-mas {
+  height: 56px;
+  padding: 0 16px;
+  border: 0;
+  border-left: 1px solid var(--at-border);
+  border-radius: 0;
+  background: transparent;
+}
+
+.at-proto-a .at-banda-mas:hover {
+  background: var(--at-soft);
+}
+
+.at-proto-a .at-banda-mas.is-activo {
+  background: var(--tinta-suave);
+  border-color: var(--at-border);
+}
+
+.at-proto-a .at-banda-pie {
+  padding: 10px 16px;
+  border-top: 1px solid var(--at-border);
+}
+
+.at-proto-a .at-banda-compacta {
+  padding: 0 16px;
+}
+
+@media (max-width: 720px) {
+  .at-proto-a .at-banda-fila {
+    padding: 0;
+  }
+
+  .at-proto-a .at-banda-etiqueta,
+  .at-proto-a .at-banda-ayuda {
+    display: none;
+  }
+
+  .at-proto-a .at-banda-controles {
+    width: 100%;
+  }
+
+  .at-proto-a .at-filtros .at-ctrl,
+  .at-proto-a .at-banda-mas {
+    height: 48px;
+    border-left: 0;
+    border-top: 1px solid var(--at-border);
+  }
+
+  .at-proto-a .at-filtros .at-ctrl:first-child {
+    border-top: 0;
+  }
+
+  .at-proto-a .at-tabs-btn {
+    font-size: 13px;
+    padding: 0 8px;
+  }
+}
+
+
+/* Escala tipográfica de las pestañas (una sola fuente de verdad, al final). */
+.at-app .at-tabs .at-tabs-btn {
+  font-size: 15px;
+}
+
+@media (max-width: 900px) {
+  .at-app .at-tabs .at-tabs-btn {
+    font-size: 13px;
+  }
+}
+@media (max-width: 420px) {
+  .at-app .at-tabs .at-tabs-btn {
+    font-size: 12.5px;
+    padding: 0 10px;
+    gap: 6px;
+  }
+
+  .at-app .at-tabs .at-tabs-btn svg {
+    width: 15px;
+    height: 15px;
+  }
+}
+
+/* En pantallas muy estrechas la etiqueta larga se abrevia para que las tres
+   pestañas quepan sin desplazamiento horizontal. */
+.at-tabs-etq-corta {
+  display: none;
+}
+
+@media (max-width: 460px) {
+  .at-app .at-tabs-etq {
+    display: none;
+  }
+
+  .at-app .at-tabs-etq-corta {
+    display: inline;
+  }
+}
+
+/* ------------------------------------------------- pestañas (Walmex) */
+/* Mismo componente que «Pulso comercial · Walmex»: píldora con fondo gris muy
+   claro, indicador blanco con sombra que se desplaza por pasos y transición de
+   260ms. Los valores son los del tablero de Walmex; solo las etiquetas, los
+   iconos y el estado son del Atlas. */
+.at-head-nav .wm-tabs {
+  position: relative;
+  width: max-content;
+  max-width: 100%;
+  display: flex;
+  align-items: stretch;
+  gap: 4px;
+  padding: 3px;
+  margin-left: 0;
+  border-radius: 999px;
+  background: rgba(17, 19, 24, 0.04);
+  min-height: 44px;
+  max-width: 100%;
+}
+
+.at-head-nav .wm-tabs-indicador {
+  position: absolute;
+  top: 3px;
+  bottom: 3px;
+  left: 0;
+  border-radius: 999px;
+  background: var(--at-surface);
+  box-shadow: 0 1px 2px rgba(17, 19, 24, 0.1), 0 6px 18px -12px rgba(17, 19, 24, 0.4);
+  transition: transform 260ms cubic-bezier(0.22, 0.61, 0.36, 1);
+  pointer-events: none;
+}
+
+.at-head-nav .wm-tabs-indicador.sin-movimiento {
+  transition: none;
+}
+
+.at-head-nav .wm-tab {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  flex: 0 0 auto;
+  min-width: 0;
+  padding: 9px 16px;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--at-text2);
+  font: inherit;
+  font-size: 12px;
+  font-weight: 500;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: color 180ms ease;
+}
+
+.at-head-nav .wm-tab.is-activa {
+  color: var(--at-text);
+  font-weight: 600;
+}
+
+.at-head-nav .wm-tab:focus-visible {
+  outline: 2px solid var(--at-primary);
+  outline-offset: 2px;
+}
+
+@media (max-width: 720px) {
+  .at-head-nav .wm-tabs {
+    width: 100%;
+  }
+
+  .at-head-nav .wm-tab {
+    padding: 9px 6px;
+    flex: 1 1 auto;
+    min-width: 0;
+    white-space: normal;
+    line-height: 1.2;
+    font-size: 11px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .at-head-nav .wm-tab,
+  .at-head-nav .wm-tabs-indicador {
+    transition: none !important;
+  }
+}
+
+/* ----------------------------------------- pestañas: variante azul del Atlas */
+/* La cápsula toma el azul principal del aplicativo y el texto pasa a blanco.
+   Solo aplica a `.wm-tabs--atlas`: Walmex conserva su variante por omisión. */
+.at-head-nav .wm-tabs--atlas .wm-tabs-indicador {
+  background: var(--at-primary);
+  box-shadow: 0 2px 6px rgba(52, 88, 245, 0.32), 0 8px 20px -12px rgba(52, 88, 245, 0.55);
+}
+
+.at-head-nav .wm-tabs--atlas .wm-tab {
+  transition: color 260ms cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+.at-head-nav .wm-tabs--atlas .wm-tab.is-activa {
+  color: #ffffff;
+}
+
+.at-head-nav .wm-tabs--atlas .wm-tab.is-activa svg {
+  color: currentColor;
+}
+
+.at-head-nav .wm-tabs--atlas .wm-tab svg {
+  transition: color 260ms cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+/* Hover tenue solo en las inactivas: nunca compite con la cápsula azul. */
+.at-head-nav .wm-tabs--atlas .wm-tab:not(.is-activa):hover {
+  background: rgba(17, 19, 24, 0.06);
+  color: var(--at-text);
+}
+
+/* Foco legible sobre el fondo gris y sobre la cápsula azul. */
+.at-head-nav .wm-tabs--atlas .wm-tab:focus-visible {
+  outline: 2px solid var(--at-primary);
+  outline-offset: 2px;
+}
+
+.at-head-nav .wm-tabs--atlas .wm-tab.is-activa:focus-visible {
+  outline: 2px solid #ffffff;
+  outline-offset: -3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .at-head-nav .wm-tabs--atlas .wm-tab,
+  .at-head-nav .wm-tabs--atlas .wm-tab svg,
+  .at-head-nav .wm-tabs--atlas .wm-tabs-indicador {
+    transition: none !important;
+  }
+}
+
+/* ------------------------------------ navegación alineada al contenido */
+/* La píldora conserva su relleno interno de 3px (necesario para la cápsula),
+   así que se compensa con un desplazamiento negativo mínimo: la primera pestaña
+   y la cápsula activa arrancan en la misma vertical que la barra de filtros y
+   las tarjetas KPI. En móvil no se aplica para respetar el margen del tablero. */
+.at-head-nav .wm-tabs {
+  margin-left: -3px;
+  justify-content: flex-start;
+}
+
+@media (max-width: 720px) {
+  .at-head-nav .wm-tabs {
+    margin-left: 0;
+  }
+}
+
+/* -------------------------------------------- borrador de selección */
+.atf-borrar {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  width: 44px;
+  height: 44px;
+  margin: -8px -4px -8px 0;
+  border: 0;
+  border-radius: 10px;
+  background: transparent;
+  color: var(--filters-muted);
+  cursor: pointer;
+  transition:
+    background var(--filters-t-hover),
+    color var(--filters-t-hover);
+}
+
+.atf-borrar:hover {
+  background: var(--filters-hover);
+  color: var(--filters-text);
+}
+
+.atf-borrar:focus-visible {
+  outline: 2px solid var(--filters-accent);
+  outline-offset: -2px;
+}
+
+/* Tooltip propio: aparece al pasar el cursor y al enfocar con el teclado. */
+.atf-borrar::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  top: calc(100% + 6px);
+  right: 0;
+  z-index: 2;
+  padding: 4px 8px;
+  border-radius: 6px;
+  background: #17233d;
+  color: #ffffff;
+  font-size: 11px;
+  font-weight: 500;
+  line-height: 1.3;
+  white-space: nowrap;
+  opacity: 0;
+  transform: translateY(-2px);
+  pointer-events: none;
+  transition:
+    opacity 120ms ease,
+    transform 120ms ease;
+}
+
+.atf-borrar:hover::after,
+.atf-borrar:focus-visible::after {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .atf-borrar,
+  .atf-borrar::after {
+    transition: none !important;
+  }
+  .at-head-nav .wm-tabs {
+    transition: none !important;
+  }
+}
+
+/* ==========================================================================
+   CONTROLES — variante gris unificada del Atlas
+   --------------------------------------------------------------------------
+   Una sola familia para todos los grupos de selección exclusiva, filtros,
+   etiquetas y acciones. Los colores semánticos de datos (azul, ámbar, rojo)
+   NO se tocan: siguen en mapa, gráficas, leyendas e indicadores.
+   ========================================================================== */
+.at-app {
+  --control-track: #eef0f3;
+  --control-active: #374151;
+  --control-active-text: #ffffff;
+  --control-text: #374151;
+  --control-muted: #596273;
+  --control-hover: #e2e5ea;
+  --control-border: #cbd0d8;
+  --control-panel: #ffffff;
+  --control-selected-soft: #e8ebef;
+  --control-t: 220ms cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+/* --- navegación principal: cápsula grafito --- */
+.at-head-nav .wm-tabs--atlas .wm-tabs-indicador {
+  background: var(--control-active);
+  box-shadow: 0 2px 6px rgba(55, 65, 81, 0.28), 0 8px 20px -12px rgba(55, 65, 81, 0.5);
+}
+
+.at-head-nav .wm-tabs--atlas .wm-tab {
+  color: var(--control-text);
+  transition: color var(--control-t), background var(--control-t);
+}
+
+.at-head-nav .wm-tabs--atlas .wm-tab.is-activa {
+  color: var(--control-active-text);
+}
+
+.at-head-nav .wm-tabs--atlas .wm-tab:not(.is-activa):hover {
+  background: var(--control-hover);
+  color: var(--control-text);
+}
+
+.at-head-nav .wm-tabs--atlas .wm-tab.is-activa:focus-visible {
+  outline: 2px solid var(--control-active-text);
+  outline-offset: -3px;
+}
+
+/* --- grupos segmentados locales (mapa, métricas, granularidad, comparador) --- */
+.at-segmentado {
+  background: var(--control-track);
+  border-color: transparent;
+  transition: background var(--control-t);
+}
+
+.at-seg {
+  color: var(--control-muted);
+  transition:
+    background var(--control-t),
+    color var(--control-t);
+}
+
+.at-seg:hover {
+  background: var(--control-hover);
+  color: var(--control-text);
+}
+
+.at-seg.is-activa {
+  background: var(--control-active);
+  border-color: transparent;
+  color: var(--control-active-text);
+  font-weight: 600;
+}
+
+/* El punto semántico sube de luminosidad sobre la cápsula grafito. */
+.at-seg.is-activa .at-seg-punto {
+  filter: brightness(1.85) saturate(1.15);
+}
+
+/* --- filtros: superficie gris clara con texto oscuro --- */
+.at-filtros .at-ctrl,
+.at-banda-mas {
+  border-color: transparent;
+  background: var(--control-track);
+  color: var(--control-text);
+}
+
+.at-filtros .at-ctrl:hover,
+.at-banda-mas:hover {
+  background: var(--control-hover);
+  border-color: transparent;
+}
+
+.at-filtros .at-ctrl.is-activo,
+.at-filtros .at-ctrl[data-state='open'],
+.at-banda-mas.is-activo {
+  border-color: var(--control-border);
+  background: var(--control-selected-soft);
+}
+
+.at-filtros .at-ctrl.is-activo .at-ctrl-value,
+.at-filtros .at-ctrl[data-state='open'] .at-ctrl-value,
+.at-filtros .at-ctrl.is-activo .at-ctrl-chevron,
+.at-banda-mas.is-activo {
+  color: var(--control-text);
+}
+
+.at-filtros .at-ctrl-punto {
+  background: var(--control-active);
+}
+
+/* --- etiquetas de filtros activos y acción global --- */
+.at-filtros .at-chip {
+  border-color: var(--control-border);
+  background: var(--control-selected-soft);
+  color: var(--control-text);
+}
+
+.at-filtros .at-chip:hover {
+  border-color: var(--control-active);
+  background: var(--control-hover);
+}
+
+.at-chip-campo {
+  color: var(--control-muted);
+}
+
+.at-filtros .at-chip-x {
+  color: var(--control-muted);
+}
+
+.at-filtros .at-btn--reset {
+  border-color: var(--control-border);
+  background: var(--control-panel);
+  color: var(--control-text);
+}
+
+.at-filtros .at-btn--reset:hover:not(:disabled) {
+  border-color: var(--control-active);
+  background: var(--control-selected-soft);
+  color: var(--control-text);
+}
+
+/* --- paneles desplegables --- */
+.atf-panel {
+  border-color: var(--control-border);
+  background: var(--control-panel);
+}
+
+.atf-titulo {
+  color: var(--control-text);
+}
+
+.atf-cuenta,
+.atf-pie-nota,
+.atf-nota,
+.atf-anio,
+.atf-vacio-texto {
+  color: var(--control-muted);
+}
+
+.atf-panel .at-opcion {
+  color: var(--control-text);
+}
+
+.atf-panel .at-opcion:hover {
+  background: var(--control-track);
+  color: var(--control-text);
+}
+
+.atf-panel .at-opcion.is-marcada {
+  border-color: transparent;
+  background: var(--control-selected-soft);
+  color: var(--control-text);
+  font-weight: 500;
+}
+
+.atf-panel .at-opcion.is-marcada:hover {
+  background: var(--control-hover);
+}
+
+.atf-panel .at-opcion.is-marcada .at-caja {
+  border-color: var(--control-active);
+  background: var(--control-active);
+  color: var(--control-active-text);
+}
+
+.atf-borrar {
+  color: var(--control-muted);
+}
+
+.atf-borrar:hover {
+  background: var(--control-hover);
+  color: var(--control-text);
+}
+
+.atf-borrar::after {
+  background: var(--control-active);
+  color: var(--control-active-text);
+}
+
+.atf-pie-accion,
+.atf-vacio-accion {
+  color: var(--control-text);
+}
+
+.atf-pie-primaria {
+  border-color: var(--control-active);
+  background: var(--control-active);
+  color: var(--control-active-text);
+}
+
+.atf-pie-primaria:hover {
+  background: #2c3444;
+  border-color: #2c3444;
+}
+
+.atf-pie-secundaria {
+  border-color: var(--control-border);
+  background: var(--control-panel);
+  color: var(--control-text);
+}
+
+.atf-pie-secundaria:hover {
+  background: var(--control-track);
+}
+
+/* Meses del periodo: misma familia gris. */
+.at-mes {
+  color: var(--control-text);
+}
+
+.at-mes:hover {
+  background: var(--control-hover);
+  color: var(--control-text);
+}
+
+.at-mes.is-rango {
+  background: var(--control-selected-soft);
+  color: var(--control-text);
+}
+
+.at-mes.is-rango:hover {
+  background: var(--control-hover);
+}
+
+.atf-campos input {
+  border-color: var(--control-border);
+  background: var(--control-panel);
+  color: var(--control-text);
+}
+
+.atf-buscar {
+  border-color: var(--control-border);
+  background: var(--control-panel);
+}
+
+.atf-buscar:focus-within {
+  border-color: var(--control-active);
+  outline-color: var(--control-active);
+}
+
+@media (max-width: 900px) {
+  .at-seg,
+  .at-filtros .at-ctrl,
+  .at-banda-mas {
+    min-height: 44px;
+  }
+}
+
+/* Navegación alineada al borde derecho del contenido: la píldora termina en la
+   misma vertical que la barra de filtros y las tarjetas KPI. Se compensa el
+   relleno interno de 3px para que la cápsula no quede 3px adentro. */
+.at-head-nav {
+  justify-content: flex-end;
+}
+
+.at-head-nav .wm-tabs {
+  margin-left: auto;
+  margin-right: 0;
+}
+
+@media (max-width: 720px) {
+  .at-head-nav .wm-tabs {
+    margin-right: 0;
+  }
+}
+
+/* --- panels opacos: el portal queda fuera de .at-app, así que repiten los
+   tokens de control (causa de la transparencia: variables sin definir allí). */
+.atf-panel {
+  --control-track: #eef0f3;
+  --control-active: #374151;
+  --control-active-text: #ffffff;
+  --control-text: #374151;
+  --control-muted: #596273;
+  --control-hover: #e2e5ea;
+  --control-border: #cbd0d8;
+  --control-panel: #ffffff;
+  --control-selected-soft: #e8ebef;
+  background: #ffffff;
+  opacity: 1;
+  border: 1px solid #cbd0d8;
+  box-shadow:
+    0 12px 32px rgba(23, 35, 61, 0.12),
+    0 2px 6px rgba(23, 35, 61, 0.06);
+  z-index: 80;
+}
+
+.atf-panel .atf-vista,
+.atf-panel .atf-head,
+.atf-panel .atf-opciones,
+.atf-panel .atf-grupos,
+.atf-panel .atf-pie,
+.atf-panel .atf-buscar {
+  background: #ffffff;
+  opacity: 1;
+}
+
+@keyframes atf-entrar {
+  from {
+    opacity: 0;
+    transform: translateY(-4px) scale(0.985);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* --- controles cerrados: solo el título; grafito solo si hay restricción --- */
+.at-filtros .at-ctrl {
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.at-filtros .at-ctrl.is-activo,
+.at-banda-mas.is-activo {
+  background: var(--control-active);
+  border-color: var(--control-active);
+  color: var(--control-active-text);
+}
+
+.at-filtros .at-ctrl.is-activo .at-ctrl-label,
+.at-filtros .at-ctrl.is-activo .at-ctrl-chevron,
+.at-banda-mas.is-activo,
+.at-banda-mas.is-activo .at-banda-mas-texto {
+  color: var(--control-active-text);
+}
+
+.at-filtros .at-ctrl.is-activo:hover,
+.at-banda-mas.is-activo:hover {
+  background: #2c3444;
+  border-color: #2c3444;
+}
+
+/* Abierto sin restricción: se distingue por el contorno, no por el color de
+   filtro aplicado. */
+.at-filtros .at-ctrl[data-state='open']:not(.is-activo) {
+  background: var(--control-track);
+  border-color: var(--control-active);
+  box-shadow: inset 0 0 0 1px var(--control-active);
+}
+
+.at-filtros .at-ctrl[data-state='open'].is-activo {
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.55);
+}
+
+.at-filtros .at-ctrl:focus-visible,
+.at-banda-mas:focus-visible {
+  outline: 2px solid var(--control-active);
+  outline-offset: 2px;
+}
+
+.at-filtros .at-ctrl.is-activo:focus-visible,
+.at-banda-mas.is-activo:focus-visible {
+  outline: 2px solid var(--control-active);
+  outline-offset: 3px;
+}
+
+/* La barra ya no lleva la etiqueta «Filtros». */
+.at-banda-fila {
+  gap: 8px;
+}
+
+/* Selector de métrica sin círculos: espaciado reajustado. */
+.at-seg {
+  gap: 0;
+}
+
+.at-seg-punto {
+  display: none;
+}
+
+/* Cabecera de panel: título y recuento siempre en columna. */
+.atf-panel .atf-head {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.atf-panel .atf-head-texto {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.atf-panel .atf-cuenta {
+  font-size: 12px;
+}
+
+/* --------------------------------------------------- botones de filtros */
+/* Borde definido y fondo blanco: cada control se distingue de la superficie
+   exterior sin pasar el cursor. Iconos de 16px a 8px del título. */
+.at-filtros .at-ctrl,
+.at-banda-mas {
+  gap: 8px;
+  border: 1px solid #a8b0bd;
+  background: #ffffff;
+  color: #374151;
+}
+
+.at-filtros .at-ctrl:hover,
+.at-banda-mas:hover {
+  border-color: #7c8798;
+  background: #f1f3f6;
+  color: #374151;
+}
+
+.at-filtros .at-ctrl.is-activo,
+.at-banda-mas.is-activo {
+  border-color: #374151;
+  background: #374151;
+  color: #ffffff;
+}
+
+.at-filtros .at-ctrl.is-activo .at-ctrl-label,
+.at-filtros .at-ctrl.is-activo .at-ctrl-chevron,
+.at-filtros .at-ctrl.is-activo .at-ctrl-icono,
+.at-banda-mas.is-activo,
+.at-banda-mas.is-activo .at-banda-mas-texto,
+.at-banda-mas.is-activo svg {
+  color: #ffffff;
+}
+
+.at-filtros .at-ctrl.is-activo:hover,
+.at-banda-mas.is-activo:hover {
+  border-color: #2c3444;
+  background: #2c3444;
+}
+
+.at-filtros .at-ctrl-icono,
+.at-banda-mas .at-ctrl-icono {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  width: 16px;
+  height: 16px;
+  color: currentColor;
+}
+
+.at-filtros .at-ctrl-icono svg,
+.at-banda-mas svg {
+  display: block;
+  color: currentColor;
+}
+
+.at-filtros .at-ctrl-chevron {
+  margin-left: auto;
+  color: #596273;
+}
+
+.at-filtros .at-ctrl:focus-visible,
+.at-banda-mas:focus-visible {
+  outline: 2px solid #374151;
+  outline-offset: 2px;
+}
+
+@media (max-width: 720px) {
+  .at-filtros .at-ctrl,
+  .at-banda-mas {
+    justify-content: flex-start;
+  }
+
+  .at-filtros .at-ctrl-chevron {
+    margin-left: auto;
+  }
+}
+
+/* ------------------------------------------ rankings del panel derecho */
+/* Cifras sin recuadro: columna numérica propia, tabular y alineada a la
+   derecha. La fila se organiza en tres columnas: nombre | barra | cifra. */
+.at-ranking-icono {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  width: 24px;
+  height: 24px;
+  color: currentColor;
+}
+
+.at-ranking-icono svg {
+  display: block;
+  color: currentColor;
+}
+
+.at-ranking-metrica-cab h4 {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.at-ranking-fila,
+.at-ranking-fila.is-activa {
+  grid-template-columns: minmax(0, 1fr) minmax(42px, 72px) minmax(52px, auto);
+  column-gap: 10px;
+  border-radius: 6px;
+}
+
+.at-ranking-valor,
+.at-ranking-fila .at-ranking-valor,
+.at-ranking-fila.is-activa .at-ranking-valor {
+  justify-self: end;
+  min-width: 52px;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  color: #374151;
+  font-size: 12px;
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+  white-space: nowrap;
+}
+
+.at-ranking-fila.is-activa {
+  background: #f1f3f6;
+}
+
+.at-ranking-fila.is-activa .at-ranking-valor {
+  color: #111318;
+  font-weight: 600;
+}
+
+.at-ranking-fila:focus-visible {
+  outline: 2px solid #374151;
+  outline-offset: 2px;
+}
+
+.at-rankings-expandir {
+  display: none;
+}
+
+@media (max-width: 620px) {
+  .at-ranking-fila,
+  .at-ranking-fila.is-activa {
+    grid-template-columns: minmax(0, 1fr) minmax(34px, 54px) minmax(48px, auto);
+    column-gap: 8px;
+  }
+
+  .at-ranking-valor {
+    min-width: 44px;
+    font-size: 11.5px;
+  }
+}
+
+/* ------------------------------------------------ tarjetas KPI del tablero */
+/* Icono grafito en una superficie muy tenue, cifra en negro y profundidad
+   compartida. Solo afecta a las cuatro tarjetas de indicadores. */
+.at-kpi {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 40px;
+  align-items: start;
+  column-gap: 12px;
+  padding: 16px;
+  border: 1px solid #dde2eb;
+  border-radius: 12px;
+  background: #ffffff;
+  box-shadow: 0 1px 2px rgba(17, 19, 24, 0.05);
+  transition:
+    transform 200ms cubic-bezier(0.22, 0.61, 0.36, 1),
+    box-shadow 200ms cubic-bezier(0.22, 0.61, 0.36, 1),
+    border-color 200ms cubic-bezier(0.22, 0.61, 0.36, 1);
+  overflow: hidden;
+}
+
+.at-kpi-texto {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+
+.at-kpi-icono {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  background: #f4f6fa;
+  color: #374151;
+  transition:
+    background 200ms ease,
+    color 200ms ease;
+}
+
+.at-kpi-icono svg {
+  display: block;
+  color: currentColor;
+}
+
+.at-kpi-valor {
+  color: #111827;
+  font-size: 28px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+}
+
+.at-kpi-detalle,
+.at-kpi-base {
+  grid-column: 1 / -1;
+}
+
+.at-kpi-brillo {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  border-radius: inherit;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.9), rgba(244, 246, 250, 0.55));
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 200ms ease;
+}
+
+.at-kpi:hover {
+  transform: translateY(-2px);
+  border-color: #c2c9d4;
+  box-shadow: 0 10px 24px -14px rgba(17, 19, 24, 0.3), 0 2px 6px rgba(17, 19, 24, 0.08);
+}
+
+.at-kpi:hover .at-kpi-brillo {
+  opacity: 1;
+}
+
+.at-kpi:hover .at-kpi-icono {
+  background: #e8ebef;
+  color: #111827;
+}
+
+.at-kpi > *:not(.at-kpi-brillo) {
+  position: relative;
+  z-index: 1;
+}
+
+@media (max-width: 620px) {
+  .at-kpi {
+    padding: 14px;
+    grid-template-columns: minmax(0, 1fr) 36px;
+  }
+
+  .at-kpi-icono {
+    width: 36px;
+    height: 36px;
+  }
+
+  .at-kpi-valor {
+    font-size: 26px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .at-kpi,
+  .at-kpi-brillo,
+  .at-kpi-icono {
+    transition: none !important;
+  }
+
+  .at-kpi:hover {
+    transform: none;
+  }
+}
+
+/* Etiqueta de dos líneas reservadas: las cuatro cifras quedan alineadas. */
+.at-kpi .at-kpi-etiqueta {
+  min-height: 2.5em;
+}
+
+/* ------------------------------------------------- selector de periodo */
+.at-meses {
+  gap: 8px;
+  padding: 0 16px 4px;
+}
+
+.at-mes {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 40px;
+  font-size: 13px;
+  text-align: center;
+}
+
+.atf-panel--periodo .atf-anio,
+.atf-panel--periodo .atf-nota,
+.atf-panel--periodo .atf-aviso {
+  padding-inline: 16px;
+}
+
+/* Pie del periodo: «Todo el año» a la izquierda y acciones de icono a la
+   derecha, sin textos redundantes. */
+.atf-panel--periodo .atf-pie {
+  align-items: center;
+  padding: 10px 16px 14px;
+}
+
+.atf-icono-accion {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  width: 40px;
+  height: 40px;
+  border: 1px solid #cbd0d8;
+  border-radius: 8px;
+  background: #ffffff;
+  color: #374151;
+  cursor: pointer;
+  transition:
+    background 160ms ease,
+    border-color 160ms ease,
+    color 160ms ease;
+}
+
+.atf-icono-accion:hover {
+  border-color: #7c8798;
+  background: #f1f3f6;
+}
+
+.atf-icono-accion--primaria {
+  border-color: #374151;
+  background: #374151;
+  color: #ffffff;
+}
+
+.atf-icono-accion--primaria:hover {
+  border-color: #2c3444;
+  background: #2c3444;
+  color: #ffffff;
+}
+
+.atf-icono-accion:focus-visible {
+  outline: 2px solid #374151;
+  outline-offset: 2px;
+}
+
+/* Tooltip propio, igual que el del borrador. */
+.atf-icono-accion::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: calc(100% + 6px);
+  left: 50%;
+  transform: translate(-50%, 2px);
+  padding: 4px 8px;
+  border-radius: 6px;
+  background: #374151;
+  color: #ffffff;
+  font-size: 11px;
+  font-weight: 500;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    opacity 120ms ease,
+    transform 120ms ease;
+}
+
+.atf-icono-accion:hover::after,
+.atf-icono-accion:focus-visible::after {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+
+@media (max-width: 900px) {
+  .at-mes {
+    min-height: 44px;
+  }
+
+  .atf-icono-accion {
+    width: 44px;
+    height: 44px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .atf-icono-accion,
+  .atf-icono-accion::after {
+    transition: none !important;
+  }
+}
+
+/* Escala de los meses del periodo (una sola fuente de verdad). */
+.atf-panel .at-mes,
+.atf-panel--periodo .at-mes {
+  font-size: 13px;
+  font-weight: 500;
+  text-align: center;
+}
+
+/* ---------------------------------- acciones del panel de Periodo */
+.atf-head-acciones {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  flex: none;
+}
+
+.atf-icono-accion {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  width: 44px;
+  height: 44px;
+  border: 1px solid #cbd0d8;
+  border-radius: 8px;
+  background: #ffffff;
+  color: #374151;
+  cursor: pointer;
+  transition:
+    background 160ms ease,
+    border-color 160ms ease,
+    color 160ms ease;
+}
+
+.atf-icono-accion:hover {
+  border-color: #a8b0bd;
+  background: #f4f6fa;
+}
+
+/* Aplicar: gris claro con icono oscuro (sin fondo grafito). */
+.atf-icono-accion--aplicar {
+  border-color: transparent;
+  background: #e5e7eb;
+  color: #374151;
+}
+
+.atf-icono-accion--aplicar:hover {
+  border-color: transparent;
+  background: #d1d5db;
+  color: #1f2937;
+}
+
+.atf-icono-accion:disabled {
+  border-color: #e5e7eb;
+  background: #f4f6fa;
+  color: #a8b0bd;
+  cursor: not-allowed;
+}
+
+.atf-icono-accion:focus-visible {
+  outline: 2px solid #374151;
+  outline-offset: 2px;
+}
+
+.atf-icono-accion::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  top: calc(100% + 6px);
+  right: 0;
+  padding: 4px 8px;
+  border-radius: 6px;
+  background: #374151;
+  color: #ffffff;
+  font-size: 11px;
+  font-weight: 500;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    opacity 120ms ease,
+    transform 120ms ease;
+}
+
+.atf-icono-accion:hover::after,
+.atf-icono-accion:focus-visible::after {
+  opacity: 1;
+}
+
+/* ---------------------------------------- barra de filtros en cinco columnas */
+.at-banda-controles {
+  display: grid;
+  grid-template-columns:
+    minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1.18fr) minmax(0, 1.18fr)
+    minmax(0, 1fr);
+  gap: 8px;
+  width: 100%;
+}
+
+.at-filtros .at-banda-fila {
+  padding-inline: 0;
+}
+
+.at-filtros .at-banda-cuerpo {
+  padding: 0;
+}
+
+.at-filtros {
+  padding: 12px;
+}
+
+.at-filtros .at-ctrl,
+.at-banda-mas {
+  width: 100%;
+  min-width: 0;
+  justify-content: flex-start;
+}
+
+.at-filtros .at-ctrl-chevron {
+  margin-left: auto;
+}
+
+.at-banda-mas {
+  justify-content: flex-start;
+}
+
+.at-banda-mas .at-banda-mas-globo {
+  margin-left: auto;
+}
+
+.at-banda-mas-texto {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.at-filtros .at-ctrl-label {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+@media (max-width: 980px) {
+  .at-banda-controles {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .at-banda-mas .at-banda-mas-globo {
+    margin-left: auto;
+  }
+}
+
+@media (max-width: 620px) {
+  .at-banda-controles {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* El icono de las acciones hereda el color del botón, no el del panel. */
+.atf-head-acciones .atf-icono-accion,
+.atf-head-acciones .atf-icono-accion svg {
+  color: #374151;
+}
+
+.atf-head-acciones .atf-icono-accion--aplicar,
+.atf-head-acciones .atf-icono-accion--aplicar svg {
+  color: #374151;
+}
+
+.atf-head-acciones .atf-icono-accion--aplicar:hover,
+.atf-head-acciones .atf-icono-accion--aplicar:hover svg {
+  color: #1f2937;
+}
+
+/* --------------------------------------------------- encabezado del tablero */
+.at-head {
+  gap: 10px;
+  padding-bottom: 10px;
+}
+
+.at-brand-eyebrow {
+  color: #596273;
+  font-family: 'IBM Plex Mono', ui-monospace, monospace;
+  font-size: 11.5px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.at-head-titulo .at-titulo {
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: clamp(26px, 2.2vw, 30px);
+  font-weight: 600;
+  line-height: 1.12;
+  letter-spacing: -0.015em;
+  color: #111318;
+}
+
+.at-head-titulo .at-subtitulo {
+  max-width: 74ch;
+  color: #374151;
+  font-size: 14px;
+  line-height: 1.45;
+}
+
+.at-head-titulo .at-sub {
+  margin-top: 2px;
+  color: #596273;
+  font-size: 12px;
+}
+
+.at-head-titulo .at-sub strong {
+  color: #111318;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+@media (max-width: 900px) {
+  .at-head-titulo .at-titulo {
+    font-size: 24px;
+  }
+
+  .at-head-titulo .at-subtitulo {
+    font-size: 13.5px;
+  }
+}
+
+/* ----------------------------------- zonas con mayor concentración (etapa 1) */
+.at-zonas {
+  padding: 16px;
+  border: 1px solid #dde2eb;
+  border-radius: 12px;
+  background: #ffffff;
+}
+
+.at-zonas-cab {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 12px;
+  margin-bottom: 10px;
+}
+
+.at-zonas-titulo {
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: 16px;
+  font-weight: 600;
+  color: #111318;
+}
+
+.at-zonas-descripcion {
+  flex: 1 1 260px;
+  color: #596273;
+  font-size: 11.5px;
+  line-height: 1.4;
+}
+
+.at-zonas-lista {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  counter-reset: zona;
+}
+
+.at-zonas-fila {
+  display: grid;
+  grid-template-columns: 20px minmax(0, 1fr) auto auto;
+  align-items: center;
+  column-gap: 10px;
+  padding: 6px 8px;
+  border-radius: 6px;
+}
+
+.at-zonas-puesto {
+  color: #596273;
+  font-family: 'IBM Plex Mono', ui-monospace, monospace;
+  font-size: 10.5px;
+  text-align: right;
+}
+
+.at-zonas-id {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+
+.at-zonas-id-texto {
+  color: #374151;
+  font-family: 'IBM Plex Mono', ui-monospace, monospace;
+  font-size: 11.5px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.at-zonas-barra {
+  display: block;
+  height: 6px;
+  border-radius: 999px;
+  background: #eef0f3;
+  overflow: hidden;
+}
+
+.at-zonas-barra-relleno {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: #3458f5;
+  transition: width 200ms cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+.at-zonas-cifra {
+  color: #111827;
+  font-size: 14px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.at-zonas-pct {
+  min-width: 56px;
+  color: #596273;
+  font-size: 11.5px;
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+}
+
+.at-zonas-pie {
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid #eef0f3;
+  color: #596273;
+  font-size: 11.5px;
+}
+
+.at-zonas-estado {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  color: #596273;
+  font-size: 12px;
+}
+
+.at-zonas-estado .at-btn {
+  align-self: flex-start;
+}
+
+.at-zonas-esqueleto {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.at-zonas-esqueleto li {
+  height: 14px;
+  border-radius: 6px;
+  background: #f4f6fa;
+}
+
+@media (max-width: 620px) {
+  .at-zonas-fila {
+    grid-template-columns: 18px minmax(0, 1fr) auto;
+    row-gap: 4px;
+  }
+
+  .at-zonas-pct {
+    grid-column: 2 / -1;
+    min-width: 0;
+    text-align: left;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .at-zonas-barra-relleno {
+    transition: none !important;
+  }
+}
+
+/* ---------------------------------- hechos y personas por colonia (Territorio) */
+.at-colonias {
+  padding: 16px;
+  border: 1px solid #dde2eb;
+  border-radius: 12px;
+  background: #ffffff;
+}
+
+.at-col-cab {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.at-col-titulo {
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: 16px;
+  font-weight: 600;
+  color: #111318;
+}
+
+.at-col-subtitulo {
+  margin-top: 2px;
+  color: #596273;
+  font-size: 11.5px;
+}
+
+.at-col-controles {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.at-col-segmentado {
+  display: inline-flex;
+  gap: 2px;
+  padding: 3px;
+  border-radius: 10px;
+  background: #eef0f3;
+}
+
+.at-col-seg {
+  padding: 5px 10px;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: #596273;
+  font-size: 11.5px;
+  font-weight: 500;
+  cursor: pointer;
+  transition:
+    background 200ms cubic-bezier(0.22, 0.61, 0.36, 1),
+    color 200ms cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+.at-col-seg.is-activa {
+  background: #374151;
+  color: #ffffff;
+  font-weight: 600;
+}
+
+.at-col-seg:focus-visible {
+  outline: 2px solid #374151;
+  outline-offset: 2px;
+}
+
+.at-col-leyenda {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-top: 12px;
+  color: #374151;
+  font-size: 11.5px;
+}
+
+.at-col-leyenda li {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.at-col-muestra {
+  width: 10px;
+  height: 10px;
+  border-radius: 3px;
+}
+
+.at-col-nota {
+  margin-top: 4px;
+  color: #596273;
+  font-size: 11px;
+  line-height: 1.4;
+}
+
+/* Cabeceras de las tres cifras: mismas columnas que cada fila del ranking. */
+.at-col-cab-figuras,
+.at-col-fila {
+  display: grid;
+  grid-template-columns: 20px 18px minmax(0, 1fr) repeat(3, minmax(52px, 86px));
+  align-items: center;
+  gap: 10px;
+}
+
+.at-col-cab-figuras {
+  margin-top: 12px;
+  padding: 0 4px 5px;
+  border-bottom: 1px solid #eef0f3;
+  color: #596273;
+  font-family: 'IBM Plex Mono', ui-monospace, monospace;
+  font-size: 9.5px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.at-col-cab-nombre {
+  text-align: left;
+}
+
+.at-col-cab-cifra {
+  text-align: right;
+}
+
+.at-col-lista {
+  display: flex;
+  flex-direction: column;
+  margin-top: 2px;
+  padding: 0;
+  list-style: none;
+}
+
+.at-col-fila {
+  position: relative;
+  min-height: 44px;
+  padding: 6px 4px;
+  border-bottom: 1px solid #eef0f3;
+  transition: background 180ms ease;
+}
+
+.at-col-lista > .at-col-fila:last-child {
+  border-bottom: 0;
+}
+
+.at-col-fila:hover {
+  background: #f7f8fc;
+}
+
+.at-col-expandir {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  padding: 0;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  color: #374151;
+  cursor: pointer;
+}
+
+.at-col-expandir:hover {
+  background: #eef0f3;
+}
+
+.at-col-expandir:focus-visible {
+  outline: 2px solid #3458f5;
+  outline-offset: 1px;
+}
+
+.at-col-chevron {
+  display: inline-flex;
+  transition: transform 200ms ease;
+}
+
+.at-col-chevron.is-abierta {
+  transform: rotate(180deg);
+}
+
+.at-col-puesto {
+  color: #a9b3c6;
+  font-family: 'IBM Plex Mono', ui-monospace, monospace;
+  font-size: 10px;
+  font-variant-numeric: tabular-nums;
+}
+
+.at-col-texto {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  min-width: 0;
+}
+
+.at-col-colonia {
+  color: #111318;
+  font-size: 12.5px;
+  font-weight: 500;
+  line-height: 1.25;
+}
+
+.at-col-alcaldia {
+  color: #596273;
+  font-size: 10.5px;
+  line-height: 1.2;
+}
+
+/* Cifra colapsada: trazo de color + valor negro tabular. */
+.at-col-cifra {
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 6px;
+  min-width: 0;
+}
+
+.at-col-trazo {
+  display: inline-block;
+  flex: none;
+  width: 12px;
+  height: 2.5px;
+  border-radius: 2px;
+}
+
+.at-col-cifra-valor {
+  color: #111827;
+  font-size: 12.5px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+/* En escritorio la métrica la dice la cabecera común; en móvil, la etiqueta. */
+.at-col-cifra-etq {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* Contenido expandido: alto animado sin recortar las barras. */
+.at-col-detalle-caja {
+  display: grid;
+  grid-template-rows: 0fr;
+  grid-column: 1 / -1;
+  transition: grid-template-rows 200ms ease;
+}
+
+.at-col-detalle-caja.is-abierta {
+  grid-template-rows: 1fr;
+}
+
+.at-col-detalle-interior {
+  min-height: 0;
+  overflow: hidden;
+}
+
+.at-col-paneles {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 10px;
+  padding: 6px 2px 2px;
+}
+
+.at-col-paneles.is-por-metrica {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.at-col-detalle-grupo {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.at-col-serie {
+  display: grid;
+  grid-template-columns: minmax(84px, 118px) minmax(0, 1fr) 58px;
+  align-items: center;
+  gap: 8px;
+}
+
+.at-col-serie-etq {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: #596273;
+  font-size: 10.5px;
+}
+
+.at-col-escala {
+  margin: 0;
+  color: #a9b3c6;
+  font-size: 9.5px;
+  font-variant-numeric: tabular-nums;
+}
+
+.at-col-pista {
+  display: block;
+  height: 7px;
+  border-radius: 999px;
+  background: #eef0f3;
+  overflow: hidden;
+}
+
+.at-col-barra {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  transition: width 200ms cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+.at-col-valor {
+  color: #111827;
+  font-size: 11.5px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+  white-space: nowrap;
+}
+
+.at-col-ejes {
+  display: grid;
+  gap: 4px;
+  margin-top: 6px;
+  color: #a9b3c6;
+  font-size: 10px;
+  font-variant-numeric: tabular-nums;
+}
+
+.at-col-eje {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+  border-top: 1px solid #eef0f3;
+  padding-top: 2px;
+}
+
+.at-col-eje-etq {
+  margin-right: auto;
+  font-family: 'IBM Plex Mono', ui-monospace, monospace;
+  font-size: 9.5px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.at-col-global {
+  padding: 4px 8px;
+  border: 1px solid #cbd0d8;
+  border-radius: 7px;
+  background: #fff;
+  color: #374151;
+  font: inherit;
+  font-size: 11px;
+  cursor: pointer;
+  transition: background 180ms ease;
+}
+
+.at-col-global:hover {
+  background: #eef0f3;
+}
+
+.at-col-global:disabled {
+  opacity: 0.55;
+  cursor: default;
+}
+
+.at-col-pie {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.at-col-detalle {
+  margin-top: 10px;
+  color: #596273;
+  font-size: 11px;
+}
+
+.at-col-pie .at-col-detalle {
+  margin-top: 0;
+}
+
+.at-col-limitacion {
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px solid #eef0f3;
+  color: #596273;
+  font-size: 10.5px;
+  line-height: 1.4;
+}
+
+.at-col-estado {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 12px;
+  color: #596273;
+  font-size: 12px;
+}
+
+.at-col-estado .at-btn {
+  align-self: flex-start;
+}
+
+.at-col-esqueleto {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.at-col-esqueleto li {
+  height: 30px;
+  border-radius: 6px;
+  background: #f4f6fa;
+}
+
+/* Modo «por métrica» dentro de una colonia abierta: tres paneles alineados. */
+.at-col-paneles.is-por-metrica {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+@media (max-width: 900px) {
+  .at-col-cab-figuras {
+    display: none;
+  }
+
+  /* Dos líneas por colonia: identidad arriba; tres cifras etiquetadas abajo. */
+  .at-col-fila {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 4px 10px;
+    padding: 8px 4px;
+  }
+
+  .at-col-expandir {
+    order: 1;
+  }
+
+  .at-col-puesto {
+    order: 2;
+  }
+
+  .at-col-texto {
+    order: 3;
+    flex: 1 1 55%;
+  }
+
+  .at-col-cifra {
+    order: 4;
+    justify-content: flex-start;
+    flex: 0 0 auto;
+  }
+
+  .at-col-detalle-caja {
+    order: 5;
+    flex: 1 1 100%;
+  }
+
+  /* En móvil la métrica se nombra en cada cifra: la cabecera está oculta. */
+  .at-col-cifra-etq {
+    position: static;
+    width: auto;
+    height: auto;
+    overflow: visible;
+    clip-path: none;
+    color: #596273;
+    font-size: 10px;
+    line-height: 1.2;
+  }
+
+  .at-col-paneles.is-por-metrica {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .at-col-serie {
+    grid-template-columns: minmax(72px, 92px) minmax(0, 1fr) 52px;
+  }
+}
+
+@media (max-width: 620px) {
+  .at-col-cifra {
+    flex: 1 1 auto;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .at-col-barra,
+  .at-col-seg,
+  .at-col-fila,
+  .at-col-detalle-caja,
+  .at-col-chevron,
+  .at-col-global {
+    transition: none !important;
+  }
+}
+
+/* Etiquetas de control y estado de actualización del bloque por colonia */
+.at-col-etiqueta-control {
+  display: inline-flex;
+  align-items: center;
+  color: #596273;
+  font-size: 11px;
+  font-weight: 500;
+}
+
+.at-col-actualizando {
+  margin-top: 8px;
+  color: #596273;
+  font-size: 11px;
+}
+
+/* Cabecera del bloque por colonia: controles alineados a la derecha. */
+.at-col-cab-texto {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.at-col-controles {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-left: auto;
+}
+
+@media (max-width: 900px) {
+  .at-col-cab {
+    align-items: stretch;
+  }
+
+  .at-col-controles {
+    width: 100%;
+    margin-left: 0;
+    justify-content: flex-start;
+  }
+}
+
+/* Controles del mapa: una sola fila, alineados a la derecha del panel. */
+.at-mapa-barra {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.at-mapa-barra .at-mapa-fila {
+  flex: 0 0 auto;
+  flex-wrap: nowrap;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.at-mapa-barra .at-mapa-fila:first-child {
+  justify-content: flex-end;
+}
+
+@media (max-width: 620px) {
+  /* En pantalla estrecha los dos grupos se apilan, pero siguen a la derecha. */
+  .at-mapa-barra {
+    justify-content: flex-end;
+  }
+}
+
+
+/* ============================ tiempo: cruces reales ============================ */
+/* Bloque A: matriz de círculos proporcionales (tipo de hecho × vialidad). */
+/* Bloque B: barras divergentes (tipo de intersección × semáforo). */
+
+.at-panel--matriz-circulos,
+.at-panel--barras-semaforo {
+  margin-top: 9px;
+  min-width: 0;
+  background: var(--at-surface);
+  border: 1px solid var(--at-border);
+  border-radius: var(--at-r-panel, 12px);
+  padding: 12px 14px 14px;
+}
+
+.at-mx-caja {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-width: 0;
+}
+
+.at-mx-scroll {
+  min-width: 0;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding-bottom: 2px;
+}
+
+.at-mx-grid {
+  display: flex;
+  flex-direction: column;
+  outline: none;
+}
+
+.at-mx-grid:focus-visible {
+  outline: 2px solid var(--at-primary);
+  outline-offset: 3px;
+  border-radius: 8px;
+}
+
+.at-mx-cabecera,
+.at-mx-fila,
+.at-mx-pie {
+  display: grid;
+  grid-template-columns: 148px;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(68px, 96px);
+  align-items: center;
+  gap: 2px;
+}
+
+.at-mx-cabecera {
+  border-bottom: 1px solid var(--at-border);
+  padding-bottom: 4px;
+  margin-bottom: 2px;
+}
+
+.at-mx-esquina {
+  position: sticky;
+  left: 0;
+  z-index: 2;
+  background: var(--at-surface);
+  font-family: 'IBM Plex Mono', ui-monospace, monospace;
+  font-size: 9.5px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--at-text2);
+}
+
+.at-mx-cab-col {
+  font-size: 10.5px;
+  line-height: 1.2;
+  color: var(--at-text2);
+  text-align: center;
+  align-self: end;
+  padding: 0 2px 2px;
+  transition: color 180ms ease;
+}
+
+.at-mx-cab-col.is-resaltada {
+  color: var(--at-text);
+  font-weight: 600;
+}
+
+.at-mx-fila {
+  border-bottom: 1px solid #f1f3f7;
+}
+
+.at-mx-fila:last-of-type {
+  border-bottom: 1px solid var(--at-border);
+}
+
+.at-mx-cab-fila {
+  position: sticky;
+  left: 0;
+  z-index: 2;
+  background: var(--at-surface);
+  padding-right: 8px;
+  font-size: 11.5px;
+  line-height: 1.25;
+  color: var(--at-text);
+}
+
+.at-mx-fila.is-resaltada .at-mx-cab-fila {
+  font-weight: 600;
+}
+
+.at-mx-fila.is-resaltada {
+  background: #f7f8fc;
+}
+
+.at-mx-celda {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 54px;
+  border-radius: 6px;
+  transition: background 180ms ease, box-shadow 180ms ease;
+}
+
+.at-mx-celda.is-activa {
+  background: #eef1ff;
+  box-shadow: inset 0 0 0 1px #c7d0fb;
+}
+
+.at-mx-celda.is-fijada {
+  box-shadow: inset 0 0 0 2px var(--at-primary);
+}
+
+.at-mx-punto {
+  transition: r 200ms ease;
+}
+
+.at-mx-cero {
+  width: 4px;
+  height: 4px;
+  border-radius: 999px;
+  background: #e2e5ea;
+}
+
+.at-mx-ausente {
+  color: var(--at-text2);
+  font-size: 12px;
+}
+
+.at-mx-cifra {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  padding: 0 3px;
+  border-radius: 4px;
+  background: #ffffff;
+  color: #111827;
+  font-size: 9.5px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  pointer-events: none;
+}
+
+.at-mx-blanco {
+  position: absolute;
+  inset: 0;
+  border: 0;
+  padding: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+.at-mx-blanco:focus-visible {
+  outline: 2px solid var(--at-primary);
+  outline-offset: -2px;
+  border-radius: 6px;
+}
+
+.at-mx-pie {
+  margin-top: 4px;
+}
+
+.at-mx-total-etq {
+  font-family: 'IBM Plex Mono', ui-monospace, monospace;
+  font-size: 9px;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: var(--at-text2);
+}
+
+.at-mx-total {
+  text-align: center;
+  font-size: 10.5px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  color: var(--at-text);
+}
+
+.at-mx-leyenda {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 14px;
+  font-size: 10.5px;
+  color: var(--at-text2);
+}
+
+.at-mx-leyenda-etq {
+  font-family: 'IBM Plex Mono', ui-monospace, monospace;
+  font-size: 9px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.at-mx-referencia {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1px;
+  font-variant-numeric: tabular-nums;
+  color: var(--at-text);
+}
+
+.at-mx-leyenda-nota {
+  margin-left: auto;
+  font-size: 10px;
+}
+
+.at-mx-detalle {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px 12px;
+  padding: 8px 10px;
+  border: 1px solid var(--at-border);
+  border-radius: 10px;
+  background: #f7f8fc;
+}
+
+.at-mx-detalle-titulo {
+  margin: 0 0 2px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--at-text);
+}
+
+.at-mx-detalle-cifras {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 14px;
+  margin: 0;
+  font-size: 11px;
+  color: var(--at-text2);
+  font-variant-numeric: tabular-nums;
+}
+
+.at-mx-detalle-cifras strong {
+  color: #111827;
+  font-weight: 600;
+}
+
+.at-mx-detalle-aviso {
+  margin: 4px 0 0;
+  font-size: 10.5px;
+  line-height: 1.35;
+  color: var(--at-text2);
+}
+
+.at-mx-detalle-acciones {
+  display: inline-flex;
+  gap: 8px;
+}
+
+/* Bloque B: barras divergentes con origen común. */
+
+.at-div-barras {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.at-div-leyenda {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 16px;
+  font-size: 10.5px;
+  color: var(--at-text2);
+}
+
+.at-div-clave {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.at-div-clave--nota {
+  margin-left: auto;
+  font-style: italic;
+}
+
+.at-div-muestra {
+  width: 12px;
+  height: 8px;
+  border-radius: 2px;
+}
+
+.at-div-cab,
+.at-div-fila {
+  display: grid;
+  grid-template-columns: minmax(120px, 220px) minmax(0, 1fr) 64px;
+  align-items: center;
+  gap: 10px;
+}
+
+.at-div-cab {
+  padding-bottom: 4px;
+  border-bottom: 1px solid var(--at-border);
+  font-family: 'IBM Plex Mono', ui-monospace, monospace;
+  font-size: 9px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--at-text2);
+}
+
+.at-div-cab-eje {
+  text-align: center;
+}
+
+.at-div-cab-num {
+  text-align: right;
+}
+
+.at-div-lista {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.at-div-fila {
+  border-bottom: 1px solid #f1f3f7;
+  transition: background 180ms ease;
+}
+
+.at-div-fila.is-activa {
+  background: #f7f8fc;
+}
+
+.at-div-nombre {
+  font-size: 11.5px;
+  line-height: 1.25;
+  color: var(--at-text);
+  padding: 4px 0;
+}
+
+.at-div-area {
+  display: block;
+  min-width: 0;
+}
+
+.at-div-area svg {
+  display: block;
+  outline: none;
+}
+
+.at-div-area svg:focus-visible {
+  outline: 2px solid var(--at-primary);
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
+.at-div-barra {
+  transition: width 200ms ease, x 200ms ease;
+}
+
+.at-div-sindato {
+  text-align: right;
+  font-size: 11px;
+  font-variant-numeric: tabular-nums;
+  color: var(--at-text2);
+  padding-right: 2px;
+}
+
+.at-div-eje {
+  display: grid;
+  grid-template-columns: minmax(120px, 220px) minmax(0, 1fr) 64px;
+  gap: 10px;
+  color: var(--at-text2);
+  font-size: 9.5px;
+  font-variant-numeric: tabular-nums;
+}
+
+.at-div-eje-etq {
+  font-family: 'IBM Plex Mono', ui-monospace, monospace;
+  font-size: 9px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.at-div-eje-marcas {
+  display: flex;
+  justify-content: space-between;
+  border-top: 1px solid #eef0f3;
+  padding-top: 2px;
+}
+
+.at-div-tooltip {
+  align-self: flex-start;
+  min-width: 220px;
+  padding: 8px 10px;
+  border: 1px solid var(--at-border);
+  border-radius: 9px;
+  background: var(--at-surface);
+  box-shadow: 0 8px 20px rgba(17, 19, 24, 0.12);
+  font-size: 11px;
+}
+
+.at-div-tooltip-titulo {
+  margin: 0 0 5px;
+  font-size: 11.5px;
+  font-weight: 600;
+  color: var(--at-text);
+}
+
+.at-div-tooltip ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.at-div-tooltip li {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  color: var(--at-text2);
+}
+
+.at-div-tooltip strong {
+  color: #111827;
+  font-variant-numeric: tabular-nums;
+}
+
+.at-div-tooltip-nota {
+  margin: 6px 0 0;
+  padding-top: 5px;
+  border-top: 1px solid var(--at-border);
+  font-size: 10px;
+  color: var(--at-text2);
+}
+
+/* Metodología discreta de los dos bloques. */
+.at-metodo {
+  font-size: 10.5px;
+  color: var(--at-text2);
+}
+
+.at-metodo summary {
+  cursor: pointer;
+  font-weight: 500;
+  color: var(--at-text);
+}
+
+.at-metodo p {
+  margin: 6px 0 0;
+  line-height: 1.45;
+}
+
+@media (max-width: 720px) {
+  .at-div-cab,
+  .at-div-fila,
+  .at-div-eje {
+    grid-template-columns: minmax(96px, 140px) minmax(0, 1fr) 52px;
+    gap: 6px;
+  }
+
+  .at-div-clave--nota {
+    margin-left: 0;
+  }
+
+  .at-mx-cabecera,
+  .at-mx-fila,
+  .at-mx-pie {
+    grid-template-columns: 132px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .at-mx-punto,
+  .at-div-barra,
+  .at-mx-celda,
+  .at-div-fila,
+  .at-mx-cab-col {
+    transition: none !important;
+  }
+}
+
+
+
+
+/* Columna y fila «Sin dato» de la matriz: no son celdas de combinación. */
+.at-mx-cab-sindato {
+  color: var(--at-text2);
+  font-style: italic;
+}
+
+.at-mx-celda--sindato {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 54px;
+  border-left: 1px dashed var(--at-border);
+  color: var(--at-text2);
+  font-size: 10.5px;
+}
+
+.at-mx-fila--sindato {
+  color: var(--at-text2);
+}
+
+.at-mx-dato {
+  font-size: 10.5px;
+  font-variant-numeric: tabular-nums;
+}
+
+
+/* La cabecera de estos dos bloques no se estira dentro del panel. */
+.at-panel--matriz-circulos,
+.at-panel--barras-semaforo {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.at-panel--matriz-circulos > .at-panel-head,
+.at-panel--barras-semaforo > .at-panel-head {
+  flex: 0 0 auto;
+  align-items: flex-end;
+  height: auto;
+}
+
+/* En móvil las barras necesitan su propio renglón: la etiqueta y la columna de
+   «sin dato» arriba, las barras a todo el ancho debajo. */
+@media (max-width: 720px) {
+  .at-div-cab {
+    display: none;
+  }
+
+  .at-div-fila {
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-areas:
+      'nombre sindato'
+      'area area';
+    row-gap: 2px;
+    padding-bottom: 4px;
+  }
+
+  .at-div-nombre {
+    grid-area: nombre;
+  }
+
+  .at-div-area {
+    grid-area: area;
+  }
+
+  .at-div-sindato {
+    grid-area: sindato;
+  }
+
+  .at-div-eje {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .at-div-eje-etq,
+  .at-div-eje-num {
+    display: none;
+  }
+}
+
+/* ===================== tiempo: matriz horaria ampliada ===================== */
+.at-matriz-scroll {
+  position: relative;
+  max-width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+.at-matriz {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 660px;
+}
+
+.at-matriz-fila {
+  display: grid;
+  grid-template-columns: 62px repeat(24, minmax(0, 1fr));
+  gap: 2px;
+  align-items: center;
+}
+
+.at-matriz-cabecera .at-matriz-hora,
+.at-matriz-hora {
+  font-size: 8.5px;
+  font-variant-numeric: tabular-nums;
+  color: var(--at-text2);
+  text-align: center;
+}
+
+.at-matriz-dia {
+  position: sticky;
+  left: 0;
+  z-index: 2;
+  background: #ffffff;
+  padding-right: 6px;
+  text-align: right;
+  font-size: 11px;
+  white-space: nowrap;
+  color: var(--at-text);
+}
+
+.at-matriz-celda {
+  display: block;
+  width: 100%;
+  height: 30px;
+  padding: 0;
+  border: 1px solid transparent;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: box-shadow 200ms ease, border-color 200ms ease;
+}
+
+.at-matriz-celda.is-activa {
+  box-shadow: 0 0 0 2px rgba(52, 88, 245, 0.45);
+}
+
+.at-matriz-celda.is-fijada {
+  border-color: #3458f5;
+  box-shadow: 0 0 0 2px #3458f5;
+}
+
+.at-matriz-celda:focus-visible {
+  outline: 2px solid #3458f5;
+  outline-offset: 1px;
+}
+
+.at-matriz-tip {
+  position: absolute;
+  top: 4px;
+  right: 8px;
+  z-index: 4;
+  padding: 6px 9px;
+  border: 1px solid var(--at-border);
+  border-radius: 8px;
+  background: #ffffff;
+  box-shadow: 0 8px 18px rgba(17, 19, 24, 0.14);
+  font-size: 10.5px;
+  line-height: 1.35;
+  pointer-events: none;
+}
+
+.at-matriz-tip p {
+  margin: 0;
+}
+
+.at-matriz-tip-dia {
+  font-weight: 600;
+  color: var(--at-text);
+}
+
+.at-matriz-tip-franja {
+  color: var(--at-text2);
+  font-variant-numeric: tabular-nums;
+}
+
+.at-matriz-tip-valor {
+  color: var(--at-text2);
+}
+
+.at-matriz-tip-valor strong {
+  color: #111827;
+  font-variant-numeric: tabular-nums;
+}
+
+.at-matriz-leyenda-num {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 12px;
+  margin-top: 8px;
+  padding-top: 6px;
+  border-top: 1px solid var(--at-border);
+  font-size: 10.5px;
+  color: var(--at-text2);
+}
+
+.at-matriz-leyenda-unidad {
+  font-weight: 500;
+  color: var(--at-text);
+}
+
+.at-matriz-leyenda-escala {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 10px;
+}
+
+.at-matriz-leyenda-paso {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-variant-numeric: tabular-nums;
+}
+
+.at-matriz-leyenda-cubo {
+  display: inline-block;
+  width: 16px;
+  height: 10px;
+  border-radius: 2px;
+}
+
+/* ===================== matriz de círculos: cifras y leyenda ===================== */
+.at-mx-cifra {
+  background: transparent;
+  padding: 0;
+  border: 0;
+  font-size: 11.5px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  pointer-events: none;
+}
+
+.at-mx-cifra--dentro {
+  color: #ffffff;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.18);
+}
+
+.at-mx-cifra--fuera {
+  color: #111827;
+  top: calc(50% + 30px);
+}
+
+.at-mx-halo {
+  fill: none;
+  stroke-width: 2;
+  opacity: 0;
+  transition: opacity 180ms ease;
+  pointer-events: none;
+}
+
+.at-mx-celda.is-activa .at-mx-halo {
+  opacity: 0.55;
+}
+
+.at-mx-punto {
+  transition: r 220ms ease, fill 220ms ease;
+}
+
+.at-mx-cab-fila,
+.at-mx-esquina {
+  background: transparent;
+}
+
+.at-mx-cab-fila {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 11.5px;
+  text-transform: none;
+  letter-spacing: 0;
+  color: var(--at-text);
+}
+
+.at-mx-esquina,
+.at-mx-total-etq {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 10px;
+  text-transform: none;
+  letter-spacing: 0;
+  color: var(--at-text2);
+}
+
+.at-mx-total {
+  font-weight: 500;
+  color: var(--at-text2);
+}
+
+.at-mx-leyenda {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 14px;
+  margin-top: 8px;
+  padding-top: 6px;
+  border-top: 1px solid var(--at-border);
+  font-size: 10.5px;
+  color: var(--at-text2);
+}
+
+.at-mx-leyenda-titulo {
+  font-weight: 600;
+  color: var(--at-text);
+}
+
+.at-mx-leyenda-nota {
+  margin-left: auto;
+  font-size: 10px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .at-matriz-celda,
+  .at-mx-halo,
+  .at-mx-punto {
+    transition: none !important;
+  }
+}
+
+/* Ajustes finales: tipografía discreta, cifras externas sin invadir la fila
+   siguiente y tooltip de la matriz horaria dentro del bloque. */
+.at-mx-esquina,
+.at-mx-total-etq,
+.at-mx-cab-col {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 10px;
+  letter-spacing: 0;
+  text-transform: none;
+  color: var(--at-text2);
+}
+
+.at-mx-cab-fila {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 11.5px;
+  letter-spacing: 0;
+  text-transform: none;
+  color: var(--at-text);
+}
+
+.at-mx-pie {
+  margin-top: 10px;
+}
+
+.at-mx-fila {
+  min-height: 64px;
+}
+
+.at-matriz-tip {
+  left: 8px;
+  right: auto;
+}
+
+/* Barras: detalle integrado en la fila (sin tarjeta inferior ni tooltip). */
+.at-div-info {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  min-width: 0;
+  padding: 4px 0;
+}
+
+.at-div-detalle {
+  min-height: 14px;
+  font-size: 10.5px;
+  line-height: 1.25;
+  font-variant-numeric: tabular-nums;
+  color: var(--at-text2);
+  opacity: 0;
+  transition: opacity 150ms ease;
+}
+
+.at-div-detalle.is-visible {
+  opacity: 1;
+}
+
+.at-div-fila.is-fijada {
+  background: #f2f4f8;
+  box-shadow: inset 2px 0 0 var(--at-primary);
+}
+
+.at-div-sindato.is-cero {
+  color: #b6bcc7;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .at-div-detalle {
+    transition: none;
+  }
+}
+
+/* Leyenda compacta de tamaños: recuadro abajo a la derecha de la matriz. */
+.at-mx-leyenda {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 6px 10px;
+  width: min(260px, 100%);
+  margin: 10px 0 0 auto;
+  padding: 9px 10px;
+  border: 1px solid var(--at-border);
+  border-radius: 8px;
+  background: #ffffff;
+  box-shadow: none;
+}
+
+.at-mx-leyenda-etq {
+  flex: 1 1 100%;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0;
+  text-transform: none;
+  color: var(--at-text);
+}
+
+.at-mx-referencia {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  font-size: 10.5px;
+  font-variant-numeric: tabular-nums;
+  color: var(--at-text2);
+}
+
+.at-mx-referencia svg {
+  display: block;
+  height: 30px;
+}
+
+.at-mx-leyenda-nota {
+  flex: 1 1 100%;
+  margin: 0;
+  font-size: 9.5px;
+  line-height: 1.3;
+  color: var(--at-text2);
+}
+
+.at-matriz-leyenda-rampa {
+  display: inline-flex;
+  overflow: hidden;
+  border-radius: 3px;
+}
+
+.at-matriz-leyenda-rampa span {
+  display: block;
+  width: 12px;
+  height: 8px;
+}
+
+.at-matriz-tip-otras {
+  margin-top: 2px;
+  font-size: 9.5px;
+  color: var(--at-text2);
+}
+
+/* ===================== personas: una categoría, tres lecturas ===================== */
+/* Rejilla de altura fija: los conectores se dibujan bajo las píldoras. */
+.at-pos-scroll {
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding-bottom: 2px;
+}
+
+.at-pos-lienzo {
+  position: relative;
+  margin: 0 auto;
+}
+
+.at-pos-lineas {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.at-pos-rejilla {
+  position: relative;
+  z-index: 1;
+  display: grid;
+}
+
+.at-pos-columna {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.at-pos-cabecera {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 26px;
+  margin-bottom: 10px;
+  border-radius: 6px;
+  background: #eef0f3;
+  color: var(--at-text);
+  font-size: 11.5px;
+  font-weight: 600;
+  text-align: center;
+}
+
+.at-pos-lista {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.at-pos-pildora {
+  display: grid;
+  grid-template-columns: 18px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  height: 28px;
+  padding: 0 10px;
+  border: 1px solid var(--at-border);
+  border-radius: 14px;
+  background: #ffffff;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition: border-color 180ms ease, background 180ms ease, box-shadow 180ms ease;
+}
+
+.at-pos-pildora:hover {
+  border-color: #c7d0e8;
+}
+
+.at-pos-pildora.is-activa {
+  border-color: var(--at-primary);
+  background: #e8eefe;
+  box-shadow: 0 0 0 1px rgba(52, 88, 245, 0.25);
+}
+
+.at-pos-pildora:focus-visible {
+  outline: 2px solid var(--at-primary);
+  outline-offset: 1px;
+}
+
+.at-pos-indice {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  border: 1px solid #c2cbdc;
+  border-radius: 999px;
+  color: var(--at-text2);
+  font-size: 9px;
+  font-variant-numeric: tabular-nums;
+}
+
+.at-pos-pildora.is-activa .at-pos-indice {
+  border-color: var(--at-primary);
+  color: var(--at-primary);
+}
+
+.at-pos-nombre {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: var(--at-text);
+  font-size: 11.5px;
+}
+
+.at-pos-valor {
+  color: #111827;
+  font-size: 11.5px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .at-pos-pildora {
+    transition: none;
+  }
+}
+
+/* ===================== personas: burbujas edad × sexo ===================== */
+.at-bur-grupos {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px 26px;
+  align-items: flex-start;
+}
+
+.at-bur-grupo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 0;
+}
+
+.at-bur-grupo-titulo {
+  margin: 0 0 6px;
+  padding: 3px 12px;
+  border-radius: 6px;
+  background: #eef0f3;
+  color: var(--at-text);
+  font-size: 11.5px;
+  font-weight: 600;
+}
+
+.at-bur-punto {
+  cursor: pointer;
+  outline: none;
+  transition: stroke 180ms ease;
+}
+
+.at-bur-punto:focus-visible {
+  stroke: #111318;
+  stroke-width: 2;
+}
+
+.at-bur-detalle {
+  margin-top: 10px;
+  padding: 6px 10px;
+  border: 1px solid var(--at-border);
+  border-radius: 8px;
+  background: #ffffff;
+  font-size: 11px;
+  color: var(--at-text2);
+  font-variant-numeric: tabular-nums;
+}
+
+.at-bur-detalle strong {
+  color: var(--at-text);
+}
+
+.at-bur-leyenda {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 4px 12px;
+  width: min(280px, 100%);
+  margin: 10px 0 6px auto;
+  padding: 8px 10px;
+  border: 1px solid var(--at-border);
+  border-radius: 8px;
+  background: #ffffff;
+}
+
+.at-bur-leyenda-titulo {
+  flex: 1 1 100%;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--at-text);
+}
+
+.at-bur-referencia {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 10px;
+  color: var(--at-text2);
+  font-variant-numeric: tabular-nums;
+}
+
+.at-bur-leyenda-nota {
+  flex: 1 1 100%;
+  font-size: 9.5px;
+  color: var(--at-text2);
+}
+
+/* ===================== personas: vehículos A/B ===================== */
+.at-veh-leyenda {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 16px;
+  margin-bottom: 6px;
+  font-size: 10.5px;
+  color: var(--at-text2);
+}
+
+.at-veh-clave {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.at-veh-clave--nota {
+  margin-left: auto;
+  font-style: italic;
+}
+
+.at-veh-lista {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.at-veh-fila {
+  display: grid;
+  grid-template-columns: minmax(140px, 200px) minmax(0, 1fr);
+  align-items: center;
+  gap: 10px;
+  padding: 2px 0;
+  border-bottom: 1px solid #f1f3f7;
+  transition: background 180ms ease;
+}
+
+.at-veh-fila.is-activa {
+  background: #f7f8fc;
+}
+
+.at-veh-nombre {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+
+.at-veh-icono {
+  flex: none;
+  color: #596273;
+}
+
+.at-veh-texto {
+  overflow-wrap: anywhere;
+  font-size: 11.5px;
+  color: var(--at-text);
+}
+
+.at-veh-area svg {
+  display: block;
+  outline: none;
+}
+
+.at-veh-area svg:focus-visible {
+  outline: 2px solid var(--at-primary);
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
+.at-veh-detalle {
+  grid-column: 2;
+  min-height: 0;
+  font-size: 10.5px;
+  color: var(--at-text2);
+  font-variant-numeric: tabular-nums;
+  opacity: 0;
+  transition: opacity 150ms ease;
+}
+
+.at-veh-detalle.is-visible {
+  opacity: 1;
+}
+
+.at-veh-eje {
+  display: grid;
+  grid-template-columns: minmax(140px, 200px) minmax(0, 1fr);
+  gap: 10px;
+  color: var(--at-text2);
+  font-size: 9.5px;
+  font-variant-numeric: tabular-nums;
+}
+
+.at-veh-eje-etq,
+.at-veh-eje span {
+  text-align: left;
+}
+
+.at-veh-eje span:nth-child(2) {
+  justify-self: center;
+}
+
+.at-veh-eje span:nth-child(3) {
+  justify-self: end;
+}
+
+/* cobertura compacta */
+@media (prefers-reduced-motion: reduce) {
+  .at-bur-punto,
+  .at-veh-fila,
+  .at-veh-detalle {
+    transition: none;
+  }
+}
+
+/* Ajustes para igualar la maqueta: pie de burbujas, leyenda y controles A/B. */
+.at-bur-grupos {
+  gap: 14px 22px;
+}
+
+.at-bur-pie {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 8px 16px;
+  margin-top: 6px;
+}
+
+.at-bur-aparte {
+  margin: 0;
+  font-size: 11px;
+  color: var(--at-text2);
+}
+
+.at-bur-aparte strong {
+  color: var(--at-text);
+  font-weight: 600;
+}
+
+.at-bur-leyenda {
+  border: 0;
+  padding: 0;
+  background: transparent;
+  width: auto;
+  margin: 0;
+  gap: 6px 14px;
+}
+
+.at-bur-leyenda-titulo {
+  flex: 1 1 100%;
+  font-size: 10.5px;
+  font-weight: 500;
+  color: var(--at-text2);
+}
+
+.at-bur-referencia {
+  font-size: 10px;
+}
+
+.at-veh-cab {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px 14px;
+  margin-bottom: 6px;
+}
+
+.at-veh-leyenda {
+  margin: 0;
+}
+
+.at-veh-cuerpo {
+  display: flex;
+  flex-direction: column;
+}
+
+.at-veh-fila {
+  display: grid;
+  grid-template-columns: minmax(130px, 190px) minmax(0, 1fr);
+  align-items: center;
+  gap: 0;
+  padding: 0;
+  border-bottom: 0;
+}
+
+.at-veh-detalle {
+  grid-column: 1 / -1;
+  padding: 2px 0 4px;
+}
+
+.at-veh-eje {
+  display: grid;
+  grid-template-columns: minmax(130px, 190px) minmax(0, 1fr);
+  align-items: start;
+  gap: 0;
+  margin-top: 2px;
+}
+
+.at-veh-eje-vacio {
+  display: block;
+}
+.at-veh-area svg { max-width: 100%; }
+.at-veh-eje svg { max-width: 100%; }
+.at-bur-grupo { max-width: 100%; }
+.at-bur-grupo svg { max-width: 100%; height: auto; }
+
+/* Burbujas: rejilla de tres grupos y leyenda compacta. */
+.at-bur-grupos {
+  display: grid;
+  align-items: start;
+}
+
+.at-bur-grupo svg {
+  display: block;
+  max-width: 100%;
+}
+
+.at-bur-grupo-titulo {
+  align-self: stretch;
+  text-align: center;
+}
+
+.at-bur-leyenda {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 4px 10px;
+  width: min(240px, 100%);
+  margin: 8px 0 0 auto;
+  padding: 8px 10px;
+  border: 1px solid var(--at-border);
+  border-radius: 8px;
+  background: #ffffff;
+}
+
+/* Vehículos: columna de nombres + un solo lienzo. */
+.at-veh-lienzo {
+  display: grid;
+  grid-template-columns: minmax(120px, 190px) minmax(0, 1fr);
+  align-items: start;
+  overflow-x: auto;
+}
+
+.at-veh-nombres {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.at-veh-nombre {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 40px;
+  font-size: 11.5px;
+  color: var(--at-text);
+}
+
+.at-veh-nombre.is-activa {
+  font-weight: 600;
+}
+
+.at-veh-area {
+  min-width: 0;
+}
+
+.at-veh-area svg {
+  display: block;
+  max-width: 100%;
+}
+
+
+
+/* Burbujas por edad con sectores de sexo (presentación aprobada). */
+.at-bur-leyenda-sexo {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 14px;
+  margin-bottom: 4px;
+  font-size: 10.5px;
+  color: var(--at-text2);
+}
+
+.at-bur-sexo {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.at-bur-sexo-color {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 2px;
+}
+
+.at-bur-lienzo svg {
+  display: block;
+  max-width: 100%;
+}
+
+.at-bur-sector {
+  transition: opacity 200ms ease;
+}
+
+.at-bur-detalle {
+  width: min(320px, 100%);
+}
+
+.at-bur-detalle-titulo {
+  margin: 0 0 4px;
+  font-size: 11px;
+  color: var(--at-text);
+}
+
+.at-bur-detalle ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.at-bur-detalle li {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto auto;
+  gap: 10px;
+  align-items: baseline;
+  font-variant-numeric: tabular-nums;
+}
+
+.at-bur-detalle-etq {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.at-bur-detalle-pct {
+  color: var(--at-text2);
+}
+
+.at-bur-detalle-nota {
+  margin: 5px 0 0;
+  padding-top: 4px;
+  border-top: 1px solid var(--at-border);
+  font-size: 9.5px;
+  color: var(--at-text2);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .at-bur-sector {
+    transition: none;
+  }
+}
+.at-bur-lienzo { overflow: hidden; max-width: 100%; }
+.at-bur-leyenda { max-width: 100%; }
+.at-panel--burbujas { overflow: hidden; }
+
+/* Vehículos: dos columnas numéricas y vistas Volumen / Cambio. */
+.at-veh-cab2 {
+  margin-bottom: 2px;
+}
+
+.at-veh-periodos {
+  margin: 0;
+  font-size: 10px;
+  color: var(--at-text2);
+}
+
+.at-veh-lienzo--3 {
+  display: grid;
+  grid-template-columns: minmax(110px, 170px) minmax(0, 1fr) 132px;
+  align-items: start;
+  overflow-x: auto;
+}
+
+.at-veh-cambios {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: 10.5px;
+  font-variant-numeric: tabular-nums;
+}
+
+.at-veh-cambios li {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 62px;
+  align-items: center;
+  gap: 6px;
+  height: 38px;
+  padding-right: 2px;
+  border-bottom: 1px solid #f1f3f7;
+  color: #111318;
+  text-align: right;
+}
+
+.at-veh-cambios li.is-activa {
+  background: #f7f8fc;
+}
+
+.at-veh-cambios-cab {
+  height: 22px !important;
+  border-bottom: 1px solid var(--at-border) !important;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 9.5px;
+  color: var(--at-text2) !important;
+}
+
+.at-veh-sinbase {
+  margin-top: 8px;
+  padding-top: 6px;
+  border-top: 1px solid var(--at-border);
+}
+
+.at-veh-sinbase h4 {
+  margin: 0 0 4px;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--at-text);
+}
+
+.at-veh-sinbase ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: 10.5px;
+  color: var(--at-text2);
+}
+
+.at-veh-sinbase li {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto auto;
+  gap: 10px;
+  padding: 2px 0;
+  font-variant-numeric: tabular-nums;
+}
+.at-bur-franja { transition: opacity 200ms ease; }
+.at-bur-leyenda-nota { flex: 1 1 100%; font-size: 9.5px; color: var(--at-text2); }
+
+/* Alineación de la comparación: una fila por vehículo en las cuatro columnas. */
+.at-veh-cabeceras {
+  display: grid;
+  grid-template-columns: minmax(110px, 170px) minmax(0, 1fr) 64px 68px;
+  gap: 6px;
+  margin-top: 6px;
+  padding-bottom: 2px;
+  border-bottom: 1px solid var(--at-border);
+  font-size: 9.5px;
+  color: var(--at-text2);
+  text-align: right;
+}
+
+.at-veh-cabeceras span:first-child {
+  text-align: left;
+}
+
+.at-veh-lienzo--3 {
+  grid-template-columns: minmax(110px, 170px) minmax(0, 1fr) 64px 68px;
+  gap: 6px;
+}
+
+.at-veh-nombre {
+  height: 38px;
+}
+
+.at-veh-cambios li {
+  height: 38px;
+  grid-template-columns: minmax(0, 1fr) 62px;
+}
+
+.at-veh-cambios {
+  font-size: 10px;
+}
+
+/* Las dos columnas numéricas ocupan su propio bloque a la derecha. */
+.at-veh-lienzo--3 {
+  grid-template-columns: minmax(110px, 170px) minmax(0, 1fr) 132px;
+}
+
+.at-veh-cambios {
+  grid-column: 3;
+  min-width: 132px;
+}
+
+.at-veh-cambios li {
+  grid-template-columns: 58px 74px;
+  gap: 0;
+  justify-content: end;
+  text-align: right;
+  white-space: nowrap;
+}
+
+.at-veh-cabeceras {
+  grid-template-columns: minmax(110px, 170px) minmax(0, 1fr) 58px 74px;
+}
+
+/* Burbujas arrastrables: distribución orgánica, halo, cursor y leyendas. */
+.at-bur-acciones {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px 12px;
+  margin-bottom: 4px;
+}
+
+.at-bur-ayuda {
+  margin: 0;
+  font-size: 10.5px;
+  color: var(--at-text2);
+}
+
+.at-bur-grupo-svg {
+  transition: transform 200ms ease;
+  cursor: grab;
+  touch-action: pan-y;
+}
+
+.at-bur-grupo-svg.is-arrastrando {
+  transition: none;
+  cursor: grabbing;
+}
+
+.at-bur-grupo-svg.is-arrastrando .at-bur-franja {
+  filter: drop-shadow(0 6px 12px rgba(17, 19, 24, 0.28));
+}
+
+.at-bur-halo {
+  stroke: #3458f5;
+  opacity: 0;
+  transition: opacity 160ms ease;
+}
+
+.at-bur-grupo-svg.is-activa .at-bur-halo,
+.at-bur-grupo-svg.is-teclado .at-bur-halo {
+  opacity: 0.35;
+}
+
+.at-bur-interaccion {
+  cursor: grab;
+}
+
+.at-bur-interaccion:focus-visible {
+  outline: 2px solid var(--at-primary);
+  outline-offset: 3px;
+}
+
+.at-bur-leyendas {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 6px 14px;
+  margin-top: 8px;
+}
+
+.at-bur-leyenda {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 12px;
+  width: min(260px, 100%);
+  padding: 8px 10px;
+  border: 1px solid var(--at-border);
+  border-radius: 8px;
+  background: #ffffff;
+  font-size: 10.5px;
+  color: var(--at-text2);
+}
+
+.at-bur-leyenda-titulo {
+  flex: 1 1 100%;
+  font-size: 10.5px;
+  font-weight: 600;
+  color: var(--at-text);
+}
+
+.at-bur-referencias {
+  display: inline-flex;
+  align-items: flex-end;
+  gap: 8px;
+}
+
+.at-bur-referencia {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  font-variant-numeric: tabular-nums;
+}
+
+@media (max-width: 640px) {
+  .at-bur-leyendas {
+    justify-content: flex-end;
+  }
+
+  .at-bur-leyenda {
+    width: min(260px, 100%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .at-bur-grupo-svg,
+  .at-bur-halo {
+    transition: none;
+  }
+
+  .at-bur-grupo-svg.is-arrastrando .at-bur-franja {
+    filter: none;
+  }
+}
+.at-bur-interior { transition: stroke 160ms ease; }
+
+/* Burbujas reagrupables: empaquetado circular, columna explicativa y región de dibujo. */
+.at-nr-acciones {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+.at-nr-acciones .at-segmentado {
+  margin: 0;
+}
+
+.at-nr-cuerpo {
+  display: flex;
+  align-items: flex-start;
+  gap: 22px;
+}
+
+.at-nr-guia {
+  flex: 0 0 200px;
+  max-width: 200px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+}
+
+.at-nr-guia h4 {
+  margin: 0 0 2px;
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--at-text2);
+}
+
+.at-nr-guia p {
+  margin: 0;
+  font-size: 11.5px;
+  line-height: 1.45;
+  color: var(--at-text2);
+}
+
+.at-nr-punto {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  flex: 0 0 auto;
+}
+
+.at-nr-pista {
+  font-size: 10.5px;
+  color: var(--at-text2);
+}
+
+.at-nr-region {
+  position: relative;
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.at-nr-region svg {
+  display: block;
+  max-width: 100%;
+  overflow: hidden;
+}
+
+.at-nr-nodo text {
+  font-variant-numeric: tabular-nums;
+}
+
+.at-nr-nodo {
+  transition: transform 420ms cubic-bezier(0.33, 0.05, 0.2, 1);
+  will-change: transform;
+}
+
+.at-nr-nodo.is-arrastrando {
+  transition: none;
+}
+
+.at-nr-circulo {
+  cursor: grab;
+  outline: none;
+  transition: stroke 160ms ease;
+}
+
+.at-nr-nodo.is-arrastrando .at-nr-circulo {
+  cursor: grabbing;
+}
+
+.at-nr-circulo:focus-visible {
+  stroke: #111318;
+  stroke-width: 2;
+}
+
+.at-nr-tooltip {
+  position: absolute;
+  width: 186px;
+  padding: 7px 9px;
+  border: 1px solid var(--at-border);
+  border-radius: 8px;
+  background: #ffffff;
+  box-shadow: 0 4px 14px rgba(17, 19, 24, 0.1);
+  pointer-events: none;
+  z-index: 3;
+}
+
+.at-nr-tooltip p {
+  margin: 0;
+}
+
+.at-nr-tooltip-titulo {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--at-text);
+}
+
+.at-nr-tooltip-valor {
+  font-size: 11.5px;
+  color: var(--at-text);
+}
+
+.at-nr-tooltip-nota {
+  font-size: 10.5px;
+  line-height: 1.35;
+  color: var(--at-text2);
+}
+
+/* Leyendas compactas bajo el dibujo: tamaños arriba, sexo registrado debajo. */
+.at-nr-leyendas {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 3px;
+  padding-top: 4px;
+}
+
+.at-nr-leyenda {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 3px 10px;
+  min-height: 22px;
+}
+
+.at-nr-leyenda-titulo {
+  font-size: 10px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--at-text2);
+}
+
+.at-nr-leyenda-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11px;
+  color: var(--at-text2);
+  white-space: nowrap;
+}
+
+.at-nr-leyenda--tamano .at-nr-leyenda-item {
+  gap: 4px;
+  font-family: 'IBM Plex Mono', ui-monospace, monospace;
+  font-size: 10px;
+}
+
+.at-nr-notas {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  margin-top: 10px;
+}
+
+.at-nr-notas p {
+  margin: 0;
+  font-size: 10.5px;
+  color: var(--at-text2);
+}
+
+@media (max-width: 760px) {
+  .at-nr-acciones {
+    justify-content: flex-start;
+  }
+
+  .at-nr-acciones .at-segmentado {
+    width: 100%;
+  }
+
+  .at-nr-acciones .at-seg {
+    flex: 1 1 0;
+    text-align: center;
+  }
+
+  .at-nr-cuerpo {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .at-nr-guia {
+    flex: 1 1 auto;
+    max-width: none;
+    width: 100%;
+  }
+
+  .at-nr-region {
+    width: 100%;
+  }
+
+  .at-nr-tooltip {
+    width: 168px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .at-nr-nodo {
+    transition: none;
+  }
+}
+
+/* ============== controles unificados: cápsula deslizante y cabeceras ============== */
+/* Una sola cápsula grafito se desplaza dentro del selector segmentado; su posición y
+   ancho se miden por instancia, así que mover un selector no anima a otro. */
+.at-segmentado--capsula {
+  position: relative;
+  isolation: isolate;
+}
+
+.at-seg-capsula {
+  position: absolute;
+  top: 3px;
+  bottom: 3px;
+  left: 0;
+  width: var(--w, 0px);
+  border-radius: 8px;
+  background: var(--control-active, #374151);
+  opacity: 0;
+  pointer-events: none;
+  transform: translateX(var(--x, 0px));
+  transition:
+    transform 0.2s cubic-bezier(0.22, 0.61, 0.36, 1),
+    width 0.2s cubic-bezier(0.22, 0.61, 0.36, 1);
+  z-index: 0;
+}
+
+.at-seg-capsula[data-medida='si'] {
+  opacity: 1;
+}
+
+.at-segmentado[data-con-capsula] .at-seg {
+  position: relative;
+  z-index: 1;
+  background: transparent;
+  color: var(--control-muted, #596273);
+}
+
+.at-segmentado[data-con-capsula] .at-seg:hover:not(.is-activa) {
+  background: var(--control-hover, #e2e5ea);
+  color: var(--control-text, #374151);
+}
+
+.at-segmentado[data-con-capsula] .at-seg.is-activa {
+  background: transparent;
+  border-color: transparent;
+  color: var(--control-active-text, #ffffff);
+}
+
+.at-segmentado[data-con-capsula] .at-seg:focus-visible {
+  outline: 2px solid var(--control-active, #374151);
+  outline-offset: 1px;
+}
+
+/* Cabecera de tarjeta: título a la izquierda y selectores juntos a la derecha. */
+.at-tl-cab {
+  align-items: center;
+}
+
+.at-tl-controles {
+  align-items: center;
+  gap: 12px;
+}
+
+/* La navegación conserva su cápsula grafito y su movimiento, en 220 ms. */
+.at-head-nav .wm-tabs--atlas .wm-tabs-indicador {
+  transition: transform 0.22s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+/* Barra de filtros: los controles cubren el ancho con separaciones uniformes. */
+@media (min-width: 901px) {
+  .at-banda-fila {
+    gap: 12px;
+  }
+
+  .at-banda-controles {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 12px;
+    flex: 1 1 auto;
+  }
+
+  .at-filtros .at-ctrl,
+  .at-banda-mas {
+    flex: 1 1 0;
+    min-width: 0;
+  }
+
+  .at-filtros .at-ctrl-value {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .at-seg-capsula,
+  .at-head-nav .wm-tabs--atlas .wm-tabs-indicador {
+    transition: none !important;
+  }
+}

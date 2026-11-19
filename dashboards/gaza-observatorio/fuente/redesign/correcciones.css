@@ -1,0 +1,35 @@
+/* Correcciones de la cartografía bivariada: mapa al ancho de su sección, leyenda y
+   detalle debajo, y ampliación con desplazamiento interno.
+   Se inyecta desde construir_redesign.py; no cambia colores, celdas ni denominadores. */
+
+.bicard .bigrid{display:block}
+.bimapbar{display:flex;align-items:center;gap:16px;flex-wrap:wrap;margin:14px 0 10px;padding:12px 14px;background:#f7f8fd;border:1px solid var(--line);border-radius:9px}
+.bimapbar label{display:flex;align-items:center;gap:9px;color:var(--muted);font-size:12px}
+.bimapbar input[type=range]{width:190px;accent-color:#4b55ff}
+.bimapbar output{font-variant-numeric:tabular-nums;font-size:13px;color:var(--ink);min-width:46px}
+.bimapbar button{font-size:12px;padding:8px 12px}
+.bimapbar .zoomhint{font-size:11.5px;color:var(--muted);margin-left:auto}
+
+#biMap svg{max-height:none}
+.bimapscroll{width:100%;max-width:100%;min-width:0;overflow:auto;border:1px solid var(--line);border-radius:10px;background:#f0f3fa;overscroll-behavior:contain}
+.bimapscroll:focus-visible{outline:3px solid #777eff;outline-offset:2px}
+.bimapscroll.is-zoomed{max-height:78vh}
+.bimapscroll svg{display:block}
+.bimapscroll .cell{cursor:pointer}
+.bimapscroll .cell:focus-visible{outline:3px solid #777eff;outline-offset:-2px}
+
+.bibelow{display:grid;grid-template-columns:minmax(0,300px) minmax(0,1fr);gap:22px;margin-top:18px;align-items:start}
+.bibelow h3{font:16px/1.3 system-ui,sans-serif;font-weight:600;margin:0 0 8px}
+.bikey{background:#f7f8fd;border:1px solid var(--line);border-radius:9px;padding:14px 16px}
+.bikey svg{max-width:100%;height:auto}
+.bidetail{background:#f7f8fd;border:1px solid var(--line);border-radius:9px;padding:14px 16px;min-height:150px}
+.bidetail hr{display:none}
+.bidetail table td:first-child{white-space:nowrap}
+.bidetail .miniCoverage{margin-top:10px}
+.bidetail .empty{color:var(--muted);font-size:12.5px}
+
+@media(max-width:850px){
+  .bibelow{grid-template-columns:1fr}
+  .bimapbar input[type=range]{width:130px}
+  .bimapbar .zoomhint{display:none}
+}

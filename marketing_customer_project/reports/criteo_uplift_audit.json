@@ -1,0 +1,152 @@
+{
+  "source": "https://huggingface.co/datasets/criteo/criteo-uplift/resolve/main/criteo-research-uplift-v2.1.csv.gz",
+  "license": "CC BY-NC-SA 4.0",
+  "attribution": "Criteo AI Lab, Diemert et al. (2018), A Large Scale Benchmark for Uplift Modeling; dataset v2.1.",
+  "audited_at_utc": "2026-11-10T05:03:36.123875+00:00",
+  "schema": [
+    "f0",
+    "f1",
+    "f2",
+    "f3",
+    "f4",
+    "f5",
+    "f6",
+    "f7",
+    "f8",
+    "f9",
+    "f10",
+    "f11",
+    "treatment",
+    "conversion",
+    "visit",
+    "exposure"
+  ],
+  "rows": 13979592,
+  "valid_rows": 13979592,
+  "rows_with_missing": 0,
+  "rows_with_nonfinite_features": 0,
+  "invalid_rows": [],
+  "invalid_row_count": 0,
+  "treatment_ratio": 0.8500001287591226,
+  "arms": {
+    "0": {
+      "rows": 2096937,
+      "conversions": 4063,
+      "conversion_rate": 0.0019375880152813366,
+      "visits": 80105,
+      "visit_rate": 0.03820095691954503,
+      "exposure_rate": 0.0
+    },
+    "1": {
+      "rows": 11882655,
+      "conversions": 36711,
+      "conversion_rate": 0.0030894610674129645,
+      "visits": 576824,
+      "visit_rate": 0.048543360048743316,
+      "exposure_rate": 0.036036727482199896
+    }
+  },
+  "conversion_itt_difference_treatment_minus_control": 0.0011518730521316279,
+  "visit_itt_difference_treatment_minus_control": 0.010342403129198284,
+  "treatment_by_exposure_counts": {
+    "treatment=0,exposure=0": 2096937,
+    "treatment=1,exposure=0": 11454443,
+    "treatment=1,exposure=1": 428212
+  },
+  "feature_summary": {
+    "f0": {
+      "min": 12.616364906986497,
+      "max": 26.74525510669564,
+      "count": 13979592,
+      "mean": 19.620297485103208
+    },
+    "f1": {
+      "min": 10.059654474774547,
+      "max": 16.34418683323554,
+      "count": 13979592,
+      "mean": 10.06997650901321
+    },
+    "f2": {
+      "min": 8.214382844395335,
+      "max": 9.051961945804948,
+      "count": 13979592,
+      "mean": 8.446582306376586
+    },
+    "f3": {
+      "min": -8.39838674285089,
+      "max": 4.679881620097284,
+      "count": 13979592,
+      "mean": 4.178923067122046
+    },
+    "f4": {
+      "min": 10.280525225748212,
+      "max": 21.123507734315055,
+      "count": 13979592,
+      "mean": 10.33883729353412
+    },
+    "f5": {
+      "min": -9.011891520498516,
+      "max": 4.115453421277861,
+      "count": 13979592,
+      "mean": 4.0285129238071455
+    },
+    "f6": {
+      "min": -31.429783775633886,
+      "max": 0.29444271125560606,
+      "count": 13979592,
+      "mean": -4.155355514967517
+    },
+    "f7": {
+      "min": 4.833814577796811,
+      "max": 11.998400591725755,
+      "count": 13979592,
+      "mean": 5.10176464549338
+    },
+    "f8": {
+      "min": 3.63510661177053,
+      "max": 3.971857989350875,
+      "count": 13979592,
+      "mean": 3.9335808379383845
+    },
+    "f9": {
+      "min": 13.190055934673358,
+      "max": 75.29501735734412,
+      "count": 13979592,
+      "mean": 16.0276383311844
+    },
+    "f10": {
+      "min": 5.300374864042156,
+      "max": 6.473917229316857,
+      "count": 13979592,
+      "mean": 5.333395558063948
+    },
+    "f11": {
+      "min": -1.383940669255639,
+      "max": -0.16867922100056124,
+      "count": 13979592,
+      "mean": -0.1709672477066135
+    }
+  },
+  "sample": {
+    "path": "marketing_customer_project/data/criteo_uplift_sample_100k.csv.gz",
+    "rows": 10000,
+    "sampling": "uniform reservoir sample over all source rows",
+    "seed": 20261110,
+    "sha256": "d9c2e09a28b8fd9ecfd4e3e6727c492b8fa697aa5f0fc99d3f4c344273d9dbbe",
+    "compressed_bytes": 231241
+  },
+  "limits": [
+    "Criteo v2.1 combines several incrementality tests; it has no advertiser, campaign, calendar, geography, or interpretable customer identity fields.",
+    "The randomized assignment is treatment. Analyze intention-to-treat by treatment; exposure is a post-assignment delivery variable and conditioning on it changes the estimand.",
+    "The published sample is deliberately non-uniformly subsampled, so arm differences describe this benchmark version and must not be reported as original campaign ROI or lift.",
+    "Conversion is rare; small samples are suitable for schema and pipeline checks, not stable heterogeneous-effect estimates.",
+    "The license is noncommercial share-alike; inspect it before redistributing data or using derived artifacts in a commercial setting."
+  ],
+  "archive": {
+    "path": "marketing_customer_audit/raw/criteo-research-uplift-v2.1.csv.gz",
+    "compressed_bytes": 311422618,
+    "sha256": "2716e1bf0fd157a93b5bf86924d9088419dfbac2022c6cd90030220634f616dc",
+    "source_etag": null,
+    "expected_rows_from_source_card": 13979592
+  }
+}

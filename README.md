@@ -137,7 +137,7 @@ existe, de modo que una fila nunca apunta a un destino inexistente.
 |---|---|---|
 | D3.js | ✅ | 10 repositorios: [`vidas-en-transito`](https://github.com/Dev-HugoAguilar/vidas-en-transito), [`dockmind-demand-planning`](https://github.com/Dev-HugoAguilar/dockmind-demand-planning), [`cdmx-traffic-atlas`](https://github.com/Dev-HugoAguilar/cdmx-traffic-atlas), [`banxico-evidence-briefing`](https://github.com/Dev-HugoAguilar/banxico-evidence-briefing) y el resto |
 | React | ✅ | [`cdmx-traffic-atlas`](https://github.com/Dev-HugoAguilar/cdmx-traffic-atlas), [`mexican-banking-analytics`](https://github.com/Dev-HugoAguilar/mexican-banking-analytics), [`ga4-marketing-analytics`](https://github.com/Dev-HugoAguilar/ga4-marketing-analytics), [`walmex-financial-pulse`](https://github.com/Dev-HugoAguilar/walmex-financial-pulse), [`demand-forecasting-m5`](https://github.com/Dev-HugoAguilar/demand-forecasting-m5) |
-| Vite | ✅ | Los cinco proyectos React anteriores, con build verificado en CI |
+| Vite | ✅ | Los cuatro tableros React (`cdmx-traffic-atlas`, `mexican-banking-analytics`, `ga4-marketing-analytics`, `walmex-financial-pulse`) con build verificado en CI; `demand-forecasting-m5` incluye la fuente de su interfaz, sin build en CI |
 | HTML5 / CSS3 moderno | ✅ | Todos los sitios: sistema visual propio, sin frameworks de UI |
 | MapLibre GL · Three.js · SGP4 | ✅ | [`kilometro-cero-logistics`](https://github.com/Dev-HugoAguilar/kilometro-cero-logistics) (mapa vectorial), [`orbita-orbital-intelligence`](https://github.com/Dev-HugoAguilar/orbita-orbital-intelligence) (Tierra 3D y propagación orbital) |
 | Playwright · jsdom | ✅ | Verificadores de navegador de los repositorios y pruebas de interfaz en CI |
@@ -145,6 +145,83 @@ existe, de modo que una fila nunca apunta a un destino inexistente.
 ## Ejecutar
 
 ```bash
-git clone [https://github.com/Dev-HugoAguilar/portafolio-hugo-aguilar.git](https://github.com/Dev-HugoAguilar/portafolio-hugo-aguilar.git)
+git clone https://github.com/Dev-HugoAguilar/portafolio-hugo-aguilar.git
 cd portafolio-hugo-aguilar
 python -m http.server 8000 --directory dist
+```
+
+Abre <http://127.0.0.1:8000/>. Las rutas son *hash*
+(`#/area/<id>/<proyecto>`), así que el sitio funciona desde cualquier servidor de
+archivos. No hay compilación, dependencias ni backend.
+
+## Estructura
+
+```text
+dist/                  Sitio servible
+  index.html           Documento único del sitio
+  app.js               Navegación, vistas y renderizado
+  content.js           Contenido: áreas, fichas, estados, categorías y enlaces
+  style.css            Sistema visual
+  projects/            Módulos que montan cada demo en su ficha
+  dashboards/          Demos publicadas (una carpeta por proyecto)
+  img/                 Capturas de tarjeta y ficha
+tools/
+  verificar-taxonomia.mjs   Comprueba categorías, estados, enlaces y roadmap
+```
+
+## Verificación
+
+```bash
+node tools/verificar-taxonomia.mjs
+```
+
+Comprueba en un navegador real el orden de las cinco áreas, sus etiquetas, el
+recuento de casos por estado, las fichas de cada área, los 17 enlaces a
+repositorio, los 12 enlaces a demo, el tratamiento de *roadmap* y la ausencia de
+desbordes a 390 px. Última ejecución local: **246 comprobaciones, 0 fallos**.
+
+La integración continua ejecuta la comprobación de sintaxis del JavaScript del
+sitio, la validación de la taxonomía (5 áreas, etiquetas, estados y URL de
+repositorio) y el escaneo de credenciales.
+
+## Evidencia por repositorio
+
+Lo que verifica la integración continua de cada proyecto, con el resultado
+observado al revisar la migración:
+
+| Repositorio | Verificación en CI | Resultado observado |
+|---|---|---|
+| `portfolio-api` | `pytest -q` (ejecución real) | 362 pasan · 11 omitidas por falta de boletines CNBV |
+| `customer-growth-intelligence` | `pytest` de artefactos y plantillas | 18 pasan |
+| `vidas-en-transito` | `pytest` de contrato de datos y no redistribución | 8 pasan |
+| `gaza-humanitarian-observatory` | `pytest` de contrato y guarda de la lista nominal | 8 pasan |
+| `nl2sql-economic-copilot` | `pytest` del dominio | 11 pasan |
+| `banxico-evidence-briefing` | `pytest` del dominio | 6 pasan |
+| `data-incident-commander` | `pytest` del dominio | 8 pasan |
+| `demand-forecasting-m5` | `pytest` de contratos estáticos + `compileall` | 8 pasan |
+| `dockmind-demand-planning` | `npm ci` + simulación (36 escenarios) + interfaz (jsdom) | verde |
+| `retailops-unified` | integridad del HTML y escaneo de credenciales | verde |
+| `orbita-orbital-intelligence` | integridad y escaneo de credenciales | verde |
+| cuatro tableros React | `npm ci` + `tsc` + build + artefacto | verde |
+
+Las mejoras de `dockmind-demand-planning`, `ripple-room-supply-chain`,
+`kilometro-cero-logistics`, `portfolio-api`, los cuatro tableros React y los
+repositorios de dominio están en revisión en sus respectivos *pull requests*.
+
+## Límites
+
+- Sitio estático sin backend: las demos funcionan con archivos del mismo origen.
+- Algunas demos se montan dentro de la ficha y no se abren fuera del sitio; la
+  tarjeta ofrece el enlace directo cuando existe una demo publicada.
+- Dos fichas comparten repositorio (*Clientes y campañas* y *Clientes en
+  movimiento* documentan dos enfoques del mismo trabajo).
+- Los tres casos *Próximamente* no tienen repositorio: solo tienen caso definido.
+- El contenido de las fichas describe lo que cada repositorio demuestra; las
+  tecnologías sin repositorio público están marcadas como experiencia profesional
+  en la sección de stack.
+- No hay analítica ni seguimiento de usuarios.
+
+## Seguridad y contribución
+
+El repositorio no contiene credenciales ni datos personales. Ver
+[`SECURITY.md`](SECURITY.md) y [`CONTRIBUTING.md`](CONTRIBUTING.md).

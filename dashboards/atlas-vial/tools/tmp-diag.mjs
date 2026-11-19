@@ -1,0 +1,12 @@
+import { chromium } from "@playwright/test";
+const b = await chromium.launch();
+const p = await b.newPage({ viewport: { width: 1440, height: 1000 } });
+p.on("pageerror", (e) => console.log("PAGEERR", String(e).slice(0, 400)));
+p.on("console", (m) => { if (m.type() === "error") console.log("ERR", m.text().slice(0, 300)); });
+await p.goto("http://127.0.0.1:8000/#/area/dashboards/atlas-vial", { waitUntil: "domcontentloaded" });
+await p.waitForSelector(".at-kpi-valor", { timeout: 60000 });
+await p.getByRole("tab", { name: /Tiempo y entorno vial/i }).click();
+await p.waitForTimeout(5000);
+const t = await p.locator("[data-testid=panel-semaforo]").innerText().catch(() => "(sin panel)");
+console.log("PANEL:", t.replace(/\s+/g, " ").slice(0, 200));
+await b.close();

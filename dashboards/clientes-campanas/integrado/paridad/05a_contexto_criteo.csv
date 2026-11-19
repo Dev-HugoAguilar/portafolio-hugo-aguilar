@@ -1,0 +1,5 @@
+etiqueta,valor,pie
+Fuente,Criteo Uplift v2.1,muestra reproducible de 500 000 filas · uso educativo
+Unidad,impresión,impresión/usuario con tratamiento aleatorizado (columna treatment)
+ATE observado en prueba (visitas),1.02 pp,"diferencia tratado − control del benchmark completo; no es efecto sobre los segmentos"
+Filas del benchmark completo,"13,979,592","el paquete ajusta con ~1,1 M y evalúa con ~2,8 M por semilla"

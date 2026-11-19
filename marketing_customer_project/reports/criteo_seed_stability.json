@@ -1,0 +1,211 @@
+{
+  "status": "three repeated random train/holdout splits over the same source; not independent external replications",
+  "source_rows": 13979592,
+  "runs": [
+    {
+      "seed": 111,
+      "training_sample_rows": 1101851,
+      "holdout_rows": 2795252,
+      "outcomes": [
+        {
+          "outcome": "visit",
+          "ate_treatment_minus_control": 0.010394874523909844,
+          "models": {
+            "t_learner": {
+              "auuc": 0.009435489887548623,
+              "top10_uplift_pp": 6.279280607629012
+            },
+            "s_learner": {
+              "auuc": 0.00932535127486872,
+              "top10_uplift_pp": 5.923004947825023
+            },
+            "response_propensity": {
+              "auuc": 0.009308969455815993,
+              "top10_uplift_pp": 5.087192697306592
+            }
+          },
+          "random_auuc_mean_20_draws": 0.005185943847841174
+        },
+        {
+          "outcome": "conversion",
+          "ate_treatment_minus_control": 0.0011451171307791767,
+          "models": {
+            "t_learner": {
+              "auuc": 0.001040905883745784,
+              "top10_uplift_pp": 0.774824570436006
+            },
+            "s_learner": {
+              "auuc": 0.0010466516506525952,
+              "top10_uplift_pp": 0.7944503102851757
+            },
+            "response_propensity": {
+              "auuc": 0.0010815825704694605,
+              "top10_uplift_pp": 0.8471541377581503
+            }
+          },
+          "random_auuc_mean_20_draws": 0.0005684126101112418
+        }
+      ]
+    },
+    {
+      "seed": 222,
+      "training_sample_rows": 1098995,
+      "holdout_rows": 2798209,
+      "outcomes": [
+        {
+          "outcome": "visit",
+          "ate_treatment_minus_control": 0.009923383563230512,
+          "models": {
+            "t_learner": {
+              "auuc": 0.009094693239424934,
+              "top10_uplift_pp": 6.151634444554285
+            },
+            "s_learner": {
+              "auuc": 0.009039361586993663,
+              "top10_uplift_pp": 6.080751398116785
+            },
+            "response_propensity": {
+              "auuc": 0.008817414576840167,
+              "top10_uplift_pp": 4.792153944130234
+            }
+          },
+          "random_auuc_mean_20_draws": 0.004912866482174978
+        },
+        {
+          "outcome": "conversion",
+          "ate_treatment_minus_control": 0.001246264919334839,
+          "models": {
+            "t_learner": {
+              "auuc": 0.001173356319193131,
+              "top10_uplift_pp": 0.8941393534210166
+            },
+            "s_learner": {
+              "auuc": 0.0010891906577928728,
+              "top10_uplift_pp": 0.8294668820867185
+            },
+            "response_propensity": {
+              "auuc": 0.0011772169701153446,
+              "top10_uplift_pp": 0.937472797791775
+            }
+          },
+          "random_auuc_mean_20_draws": 0.0006195010119159369
+        }
+      ]
+    },
+    {
+      "seed": 333,
+      "training_sample_rows": 1101806,
+      "holdout_rows": 2796054,
+      "outcomes": [
+        {
+          "outcome": "visit",
+          "ate_treatment_minus_control": 0.010416204909881793,
+          "models": {
+            "t_learner": {
+              "auuc": 0.009314288651652059,
+              "top10_uplift_pp": 6.298372966909527
+            },
+            "s_learner": {
+              "auuc": 0.00926314950089668,
+              "top10_uplift_pp": 6.259564055787497
+            },
+            "response_propensity": {
+              "auuc": 0.009319248461593509,
+              "top10_uplift_pp": 5.250278732636321
+            }
+          },
+          "random_auuc_mean_20_draws": 0.005251165332134928
+        },
+        {
+          "outcome": "conversion",
+          "ate_treatment_minus_control": 0.0012453032010746605,
+          "models": {
+            "t_learner": {
+              "auuc": 0.0011075418911650216,
+              "top10_uplift_pp": 0.857036648706627
+            },
+            "s_learner": {
+              "auuc": 0.0010755894444677912,
+              "top10_uplift_pp": 0.8497838835438603
+            },
+            "response_propensity": {
+              "auuc": 0.0011828891355938626,
+              "top10_uplift_pp": 0.9368804862379017
+            }
+          },
+          "random_auuc_mean_20_draws": 0.0006234083454788047
+        }
+      ]
+    }
+  ],
+  "summary_by_outcome": [
+    {
+      "outcome": "visit",
+      "ate_pp": {
+        "mean": 1.0244820999007385,
+        "min": 0.9923383563230512,
+        "max": 1.0416204909881794
+      },
+      "models": {
+        "t_learner": {
+          "auuc_mean": 0.009281490592875205,
+          "auuc_min": 0.009094693239424934,
+          "auuc_max": 0.009435489887548623,
+          "top10_uplift_pp_mean": 6.243096006364275,
+          "top10_uplift_pp_min": 6.151634444554285,
+          "top10_uplift_pp_max": 6.298372966909527
+        },
+        "s_learner": {
+          "auuc_mean": 0.00920928745425302,
+          "auuc_min": 0.009039361586993663,
+          "auuc_max": 0.00932535127486872,
+          "top10_uplift_pp_mean": 6.087773467243101,
+          "top10_uplift_pp_min": 5.923004947825023,
+          "top10_uplift_pp_max": 6.259564055787497
+        },
+        "response_propensity": {
+          "auuc_mean": 0.009148544164749889,
+          "auuc_min": 0.008817414576840167,
+          "auuc_max": 0.009319248461593509,
+          "top10_uplift_pp_mean": 5.043208458024383,
+          "top10_uplift_pp_min": 4.792153944130234,
+          "top10_uplift_pp_max": 5.250278732636321
+        }
+      }
+    },
+    {
+      "outcome": "conversion",
+      "ate_pp": {
+        "mean": 0.12122284170628922,
+        "min": 0.11451171307791767,
+        "max": 0.1246264919334839
+      },
+      "models": {
+        "t_learner": {
+          "auuc_mean": 0.001107268031367979,
+          "auuc_min": 0.001040905883745784,
+          "auuc_max": 0.001173356319193131,
+          "top10_uplift_pp_mean": 0.8420001908545499,
+          "top10_uplift_pp_min": 0.774824570436006,
+          "top10_uplift_pp_max": 0.8941393534210166
+        },
+        "s_learner": {
+          "auuc_mean": 0.0010704772509710864,
+          "auuc_min": 0.0010466516506525952,
+          "auuc_max": 0.0010891906577928728,
+          "top10_uplift_pp_mean": 0.8245670253052515,
+          "top10_uplift_pp_min": 0.7944503102851757,
+          "top10_uplift_pp_max": 0.8497838835438603
+        },
+        "response_propensity": {
+          "auuc_mean": 0.0011472295587262227,
+          "auuc_min": 0.0010815825704694605,
+          "auuc_max": 0.0011828891355938626,
+          "top10_uplift_pp_mean": 0.9071691405959423,
+          "top10_uplift_pp_min": 0.8471541377581503,
+          "top10_uplift_pp_max": 0.937472797791775
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+bloque,etiqueta,valor,pie
+pregunta,Hogares en el corte,"2,311","ventana de 90 días hasta 1 sep 2017 · 359,376 líneas de compra"
+pregunta,Compra observada,"1,129,941.59 USD","39,327 canastas en el conjunto filtrado"
+pregunta,Segmentos del corte,2,"menor k con al menos 5 % de los hogares en cada segmento; asignación por hogar alineada entre cortes"
+pregunta,Campañas en prueba,10,"holdout temporal al 1 sep 2017: 2,662 pares hogar × campaña"
+resultados,Ordenamiento de propensión (AP),0.379,"2,662 pares de prueba · tasa base 11.9 % · lift del decil superior ×3.84"
+resultados,Permanencia entre cortes,90.2 %,"2,259 hogares comunes entre 1 jul 2017 y 1 ago 2017"
+resultados,Uplift en visitas (Criteo),6.28 pp,"decil superior del benchmark completo, semilla 111 · Criteo es un módulo aparte"
+resultados,Muestra para 30 % de mejora,"22,107 hogares","diseño prospectivo de tres brazos; experimento no ejecutado"

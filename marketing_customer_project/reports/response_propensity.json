@@ -1,0 +1,154 @@
+{
+  "cutoff": "2017-08-01",
+  "train": {
+    "rows": 2850,
+    "positive_pairs": 279,
+    "response_rate": 0.09789473684210526,
+    "campaigns": 16
+  },
+  "test": {
+    "rows": 3739,
+    "positive_pairs": 513,
+    "response_rate": 0.13720246055094945,
+    "campaigns": 11
+  },
+  "baseline_campaign_type": {
+    "roc_auc": 0.6213991098155942,
+    "average_precision": 0.177352148833598,
+    "brier": 0.1166418185310519,
+    "log_loss": 0.3918545852174029
+  },
+  "baseline_prevalence": {
+    "roc_auc": 0.5,
+    "average_precision": 0.13720246055094945,
+    "brier": 0.11992304251288544,
+    "log_loss": 0.4077285624538917
+  },
+  "logistic_regression": {
+    "roc_auc": 0.7967440472090194,
+    "average_precision": 0.41202903336503155,
+    "brier": 0.10129365872846183,
+    "log_loss": 0.3446439756567582
+  },
+  "top_decile": {
+    "rows": 374,
+    "observed_response_rate": 0.5053475935828877,
+    "test_base_rate": 0.13720246055094945,
+    "lift_vs_test_rate": 3.683225443287363
+  },
+  "campaign_results": [
+    {
+      "campaign_id": 13,
+      "campaign_type": "Type A",
+      "start_date": "2017-08-08",
+      "exposures": 1077,
+      "responses": 196,
+      "observed_rate": 0.18198700092850512,
+      "mean_score": 0.16229304032869402
+    },
+    {
+      "campaign_id": 14,
+      "campaign_type": "Type C",
+      "start_date": "2017-09-04",
+      "exposures": 224,
+      "responses": 18,
+      "observed_rate": 0.08035714285714286,
+      "mean_score": 0.06231639035386587
+    },
+    {
+      "campaign_id": 15,
+      "campaign_type": "Type C",
+      "start_date": "2017-09-20",
+      "exposures": 17,
+      "responses": 2,
+      "observed_rate": 0.11764705882352941,
+      "mean_score": 0.029148916612866144
+    },
+    {
+      "campaign_id": 16,
+      "campaign_type": "Type B",
+      "start_date": "2017-10-04",
+      "exposures": 188,
+      "responses": 19,
+      "observed_rate": 0.10106382978723404,
+      "mean_score": 0.11400267830477498
+    },
+    {
+      "campaign_id": 17,
+      "campaign_type": "Type B",
+      "start_date": "2017-10-18",
+      "exposures": 202,
+      "responses": 18,
+      "observed_rate": 0.0891089108910891,
+      "mean_score": 0.10385948168019866
+    },
+    {
+      "campaign_id": 18,
+      "campaign_type": "Type A",
+      "start_date": "2017-10-30",
+      "exposures": 1133,
+      "responses": 214,
+      "observed_rate": 0.18887908208296558,
+      "mean_score": 0.18284364864054695
+    },
+    {
+      "campaign_id": 19,
+      "campaign_type": "Type B",
+      "start_date": "2017-11-15",
+      "exposures": 130,
+      "responses": 15,
+      "observed_rate": 0.11538461538461539,
+      "mean_score": 0.1284796879478538
+    },
+    {
+      "campaign_id": 20,
+      "campaign_type": "Type C",
+      "start_date": "2017-11-27",
+      "exposures": 244,
+      "responses": 11,
+      "observed_rate": 0.045081967213114756,
+      "mean_score": 0.09765743778358353
+    },
+    {
+      "campaign_id": 21,
+      "campaign_type": "Type B",
+      "start_date": "2017-12-06",
+      "exposures": 65,
+      "responses": 2,
+      "observed_rate": 0.03076923076923077,
+      "mean_score": 0.14128867084351135
+    },
+    {
+      "campaign_id": 22,
+      "campaign_type": "Type B",
+      "start_date": "2017-12-06",
+      "exposures": 276,
+      "responses": 15,
+      "observed_rate": 0.05434782608695652,
+      "mean_score": 0.15225322780579464
+    },
+    {
+      "campaign_id": 23,
+      "campaign_type": "Type B",
+      "start_date": "2017-12-28",
+      "exposures": 183,
+      "responses": 3,
+      "observed_rate": 0.01639344262295082,
+      "mean_score": 0.17237421195015587
+    }
+  ],
+  "coverage": {
+    "test_exposures_with_any_prior_90d_transaction": 0.9967905857181064,
+    "test_exposures_with_demographics": 0.5969510564322011,
+    "overlapping_households_train_test": 1127,
+    "unique_test_households": 1389
+  },
+  "dataset": {
+    "source": "Complete Journey / 84.51°, via completejourney R package public repository",
+    "transaction_rows": 1469307,
+    "exposure_rows": 6589,
+    "unique_households_in_exposure": 1559,
+    "unique_campaigns": 27,
+    "positive_household_campaign_pairs": 792
+  }
+}

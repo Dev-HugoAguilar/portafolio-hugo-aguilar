@@ -1,0 +1,11 @@
+{
+  "name": "dockmind-prototype",
+  "private": true,
+  "version": "0.5.0",
+  "scripts": {
+    "verify": "node qa/verify_runtime.cjs && node qa/verify_ui.cjs"
+  },
+  "devDependencies": {
+    "jsdom": "31.0.1"
+  }
+}

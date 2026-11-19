@@ -1,0 +1,67 @@
+{
+  "status": "sample prototype; not final evidence",
+  "dataset": "marketing_customer_project/data/criteo_uplift_sample_500k.csv.gz",
+  "rows": 500000,
+  "train_rows": 350000,
+  "test_rows": 150000,
+  "train_treatment_rate": 0.85038,
+  "test_treatment_rate": 0.85038,
+  "train_conversion_rate_by_arm": {
+    "0": 0.00196688754368209,
+    "1": 0.0031179338312619905
+  },
+  "test_conversion_rate_by_arm": {
+    "0": 0.0014703916588691352,
+    "1": 0.0034964760852011258
+  },
+  "metrics": {
+    "t_learner": {
+      "qini_area_per_test_user": 0.0003445512841430548,
+      "auuc_area_per_test_user": 0.0013574921930877334,
+      "uplift_top_10pct": 0.009857699388440111,
+      "incremental_conversions_estimate_top_10pct": 147.86549082660167,
+      "test_ate_treatment_minus_control": 0.0020260844263319906,
+      "top_10pct_rows": 15000,
+      "top_10pct_treated": 12968,
+      "top_10pct_control": 2032
+    },
+    "s_learner": {
+      "qini_area_per_test_user": 0.00024402570622381425,
+      "auuc_area_per_test_user": 0.001256966615168493,
+      "uplift_top_10pct": 0.009319293749230906,
+      "incremental_conversions_estimate_top_10pct": 139.78940623846358,
+      "test_ate_treatment_minus_control": 0.0020260844263319906,
+      "top_10pct_rows": 15000,
+      "top_10pct_treated": 12964,
+      "top_10pct_control": 2036
+    },
+    "treated_propensity": {
+      "qini_area_per_test_user": 0.000823298372262929,
+      "auuc_area_per_test_user": 0.001836239281207608,
+      "uplift_top_10pct": 0.015568497492069022,
+      "incremental_conversions_estimate_top_10pct": 233.52746238103532,
+      "test_ate_treatment_minus_control": 0.0020260844263319906,
+      "top_10pct_rows": 15000,
+      "top_10pct_treated": 12963,
+      "top_10pct_control": 2037
+    },
+    "random_targeting": {
+      "qini_area_per_test_user": 0.00011301722330185768,
+      "auuc_area_per_test_user": 0.0011259581322465362,
+      "uplift_top_10pct": 0.004446177847113884,
+      "incremental_conversions_estimate_top_10pct": 66.69266770670826,
+      "test_ate_treatment_minus_control": 0.0020260844263319906,
+      "top_10pct_rows": 15000,
+      "top_10pct_treated": 12820,
+      "top_10pct_control": 2180
+    }
+  },
+  "interpretation": [
+    "Qini/AUUC use the held-out randomized treatment/control outcomes after ranking by predicted uplift.",
+    "The metric implementation is preliminary and must be cross-checked against Criteo's reference benchmark before comparing published values.",
+    "This random split evaluates individual rows; the source has no user, campaign, advertiser, or time identifiers for grouped or temporal holdouts.",
+    "The 500k sample has few conversion events. Results are an implementation check and must not be used to declare a winning uplift model.",
+    "Criteo v2.1 is deliberately subsampled; effects are benchmark diagnostics, not original campaign ROI."
+  ],
+  "warnings": []
+}

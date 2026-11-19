@@ -1,0 +1,3416 @@
+/* ==========================================================================
+   Atlas comercial · Demanda y ventas
+   Mismos tokens y controles que el Atlas vial: fondo claro, cifras negras
+   tabulares, controles segmentados grises con cápsula grafito y tooltips opacos.
+   ========================================================================== */
+
+.ac-app {
+  --at-primary: #3458f5;
+  --at-bg: #f7f8fc;
+  --at-surface: #ffffff;
+  --at-soft: #f4f6fa;
+  --at-text: #111318;
+  --at-text2: #596273;
+  --at-border: #dde2eb;
+  --at-guia: #a9b3c6;
+  --control-track: #eef0f3;
+  --control-active: #374151;
+  --control-active-text: #ffffff;
+  --control-text: #374151;
+  --control-muted: #596273;
+  --control-hover: #e2e5ea;
+  --control-border: #cbd0d8;
+
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 18px;
+  background: var(--at-bg);
+  color: var(--at-text);
+  font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  font-variant-numeric: tabular-nums;
+  /* Como elemento de una rejilla externa, el tablero no debe crecer más allá de su
+     columna: las tablas y los selectores largos se desplazan dentro de su panel. */
+  min-width: 0;
+  max-width: 100%;
+}
+
+/* --- cabecera ------------------------------------------------------------ */
+.ac-cab {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.ac-cab-texto {
+  min-width: 240px;
+  flex: 1 1 320px;
+}
+
+.ac-sobrelinea {
+  margin: 0 0 3px;
+  font-size: 10.5px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--at-text2);
+}
+
+.ac-titulo {
+  margin: 0;
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+.ac-sub {
+  margin: 4px 0 0;
+  font-size: 11.5px;
+  color: var(--at-text2);
+}
+
+/* Nombre del caso en dos líneas: la marca arriba y el propósito debajo, sin
+   perder el nombre completo accesible dentro del propio encabezado. */
+.ac-titulo-caso {
+  display: block;
+  margin-top: 1px;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0;
+  line-height: 1.35;
+  color: var(--at-text2);
+}
+
+/* Aclaración de afiliación: visible y breve, nunca en letra diminuta. */
+.ac-nota-afiliacion {
+  max-width: 62ch;
+  margin: 6px 0 0;
+  font-size: 10.5px;
+  line-height: 1.45;
+  color: var(--at-text2);
+}
+
+.ac-cab-controles {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+}
+
+/* --- selector segmentado del Atlas (cápsula grafito deslizante) ---------- */
+.at-segmentado {
+  position: relative;
+  display: inline-flex;
+  gap: 2px;
+  padding: 3px;
+  border-radius: 10px;
+  background: var(--control-track);
+  isolation: isolate;
+}
+
+.at-seg-capsula {
+  position: absolute;
+  top: 3px;
+  bottom: 3px;
+  left: 0;
+  width: var(--w, 0px);
+  border-radius: 8px;
+  background: var(--control-active);
+  opacity: 0;
+  pointer-events: none;
+  transform: translateX(var(--x, 0px));
+  transition:
+    transform 0.2s cubic-bezier(0.22, 0.61, 0.36, 1),
+    width 0.2s cubic-bezier(0.22, 0.61, 0.36, 1);
+  z-index: 0;
+}
+
+.at-seg-capsula[data-medida='si'] {
+  opacity: 1;
+}
+
+.at-segmentado .at-seg {
+  position: relative;
+  z-index: 1;
+  padding: 4px 9px;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--control-muted);
+  font: inherit;
+  font-size: 12.5px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.at-segmentado .at-seg:hover:not(.is-activa) {
+  background: var(--control-hover);
+  color: var(--control-text);
+}
+
+.at-segmentado .at-seg.is-activa {
+  background: transparent;
+  color: var(--control-active-text);
+  font-weight: 600;
+}
+
+.at-segmentado .at-seg:focus-visible {
+  outline: 2px solid var(--control-active);
+  outline-offset: 1px;
+}
+
+/* --- filtros ------------------------------------------------------------- */
+.ac-filtros {
+  padding: 10px 12px;
+  border: 1px solid var(--at-border);
+  border-radius: 12px;
+  background: var(--at-surface);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.ac-filtros-fila {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+}
+
+.ac-filtros-etq {
+  font-size: 10.5px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--at-text2);
+}
+
+.ac-filtros-nota {
+  margin: 0;
+  font-size: 10.5px;
+  color: var(--at-text2);
+}
+
+.ac-ctrl-caja {
+  position: relative;
+}
+
+.ac-ctrl {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  height: 34px;
+  padding: 0 10px;
+  border: 1px solid var(--control-border);
+  border-radius: 10px;
+  background: var(--at-surface);
+  color: var(--control-text);
+  font: inherit;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.ac-ctrl:hover {
+  border-color: var(--at-guia);
+  background: #f1f3f6;
+}
+
+.ac-ctrl.is-activo {
+  border-color: var(--control-active);
+  background: var(--control-active);
+  color: var(--control-active-text);
+}
+
+.ac-ctrl-label {
+  font-size: 10.5px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: inherit;
+  opacity: 0.85;
+}
+
+.ac-ctrl-valor {
+  font-weight: 600;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.ac-ctrl-flecha {
+  font-size: 10px;
+  opacity: 0.7;
+}
+
+.ac-ctrl:focus-visible {
+  outline: 2px solid var(--control-active);
+  outline-offset: 2px;
+}
+
+.ac-pop {
+  position: absolute;
+  z-index: 30;
+  top: calc(100% + 6px);
+  left: 0;
+  min-width: 220px;
+  max-height: 280px;
+  overflow: auto;
+  border: 1px solid var(--control-border);
+  border-radius: 10px;
+  background: #ffffff;
+  box-shadow: 0 12px 32px rgba(23, 35, 61, 0.12), 0 2px 6px rgba(23, 35, 61, 0.06);
+}
+
+.ac-pop-lista {
+  margin: 0;
+  padding: 6px;
+  list-style: none;
+}
+
+.ac-opcion {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  padding: 6px 8px;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--control-text);
+  font: inherit;
+  font-size: 12px;
+  text-align: left;
+  cursor: pointer;
+}
+
+.ac-opcion:hover {
+  background: var(--control-track);
+}
+
+.ac-opcion.is-marcada {
+  background: #e8ebef;
+  font-weight: 500;
+}
+
+.ac-caja {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  border: 1px solid var(--control-border);
+  border-radius: 4px;
+  font-size: 11px;
+  line-height: 1;
+}
+
+.ac-opcion.is-marcada .ac-caja {
+  border-color: var(--control-active);
+  background: var(--control-active);
+  color: #ffffff;
+}
+
+.ac-pop-pie {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 8px;
+  border-top: 1px solid var(--at-border);
+}
+
+.ac-pop-accion,
+.ac-pop-primaria,
+.ac-accion {
+  padding: 5px 10px;
+  border: 1px solid var(--control-border);
+  border-radius: 8px;
+  background: #ffffff;
+  color: var(--control-text);
+  font: inherit;
+  font-size: 11.5px;
+  cursor: pointer;
+}
+
+.ac-pop-primaria,
+.ac-accion {
+  border-color: var(--control-active);
+  background: var(--control-active);
+  color: #ffffff;
+}
+
+.ac-campo {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  color: var(--at-text2);
+}
+
+.ac-campo input {
+  height: 34px;
+  padding: 0 8px;
+  border: 1px solid var(--control-border);
+  border-radius: 10px;
+  background: #ffffff;
+  color: var(--control-text);
+  font: inherit;
+  font-size: 12px;
+}
+
+.ac-campo input:focus-visible {
+  outline: 2px solid var(--control-active);
+  outline-offset: 2px;
+}
+
+.ac-campo-etq {
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+/* --- paneles y gráficas -------------------------------------------------- */
+.ac-bloques {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  min-width: 0;
+}
+
+.ac-dos {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 14px;
+  align-items: start;
+}
+
+.ac-panel {
+  padding: 14px;
+  border: 1px solid var(--at-border);
+  border-radius: 12px;
+  background: var(--at-surface);
+  min-width: 0;
+}
+
+.ac-panel--pendiente h3,
+.ac-panel--error h3 {
+  margin: 0 0 6px;
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: 17px;
+}
+
+.ac-panel--pendiente p,
+.ac-panel--pendiente ol,
+.ac-panel--error p {
+  margin: 0 0 8px;
+  font-size: 12.5px;
+  line-height: 1.5;
+  color: var(--at-text);
+}
+
+.ac-panel--pendiente ol {
+  padding-left: 18px;
+}
+
+.ac-panel--pendiente code {
+  padding: 1px 4px;
+  border-radius: 4px;
+  background: var(--at-soft);
+  font-family: 'IBM Plex Mono', ui-monospace, monospace;
+  font-size: 11.5px;
+}
+
+.ac-panel-cab {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px 12px;
+  margin-bottom: 8px;
+}
+
+.ac-panel-cab h3 {
+  margin: 0;
+  font-size: 13.5px;
+  font-weight: 600;
+}
+
+.ac-panel-sub {
+  margin: 2px 0 0;
+  font-size: 11px;
+  color: var(--at-text2);
+}
+
+.ac-guia {
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 10px;
+  font-size: 11px;
+  color: var(--at-text2);
+}
+
+.ac-guia strong {
+  color: var(--at-text);
+}
+
+.ac-guia-item {
+  padding: 1px 6px;
+  border: 1px solid var(--at-border);
+  border-radius: 6px;
+  background: var(--at-soft);
+  font-variant-numeric: tabular-nums;
+}
+
+.ac-multiples {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: 8px 14px;
+}
+
+.ac-multiples:focus-visible {
+  outline: 2px solid var(--control-active);
+  outline-offset: 2px;
+}
+
+.ac-panel-mini {
+  margin: 0;
+  min-width: 0;
+}
+
+.ac-panel-mini figcaption {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  font-size: 11px;
+  color: var(--at-text2);
+}
+
+.ac-mini-nombre {
+  color: var(--at-text);
+  font-weight: 600;
+}
+
+.ac-panel-mini svg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.ac-eje-linea {
+  stroke: #eef0f3;
+  stroke-width: 1;
+}
+
+.ac-eje-base {
+  stroke: var(--at-border);
+  stroke-width: 1;
+}
+
+.ac-eje-texto {
+  fill: var(--at-text2);
+  font-size: 7px;
+  font-family: 'Inter', system-ui, sans-serif;
+}
+
+.ac-linea {
+  fill: none;
+  stroke: var(--at-primary);
+  stroke-width: 1.4;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+
+.ac-linea--pronostico {
+  stroke-dasharray: 4 3;
+}
+
+.ac-linea--concentracion {
+  stroke: var(--control-active);
+}
+
+.ac-guia-linea {
+  stroke: #9aa4b5;
+  stroke-width: 1;
+  stroke-dasharray: 2 2;
+}
+
+.ac-nota {
+  margin: 8px 0 0;
+  font-size: 10.5px;
+  line-height: 1.45;
+  color: var(--at-text2);
+}
+
+.ac-vacio {
+  margin: 4px 0;
+  font-size: 12px;
+  color: var(--at-text2);
+}
+
+.ac-ab svg,
+.ac-panel svg {
+  width: 100%;
+  height: auto;
+}
+
+.ac-ab-linea {
+  stroke: #b9c3d6;
+  stroke-width: 1.2;
+}
+
+.ac-ab-punto--a {
+  fill: #ffffff;
+  stroke: var(--at-primary);
+  stroke-width: 1.5;
+}
+
+.ac-ab-punto--b {
+  fill: var(--at-primary);
+}
+
+.ac-ab-etq,
+.ac-ab-valor {
+  font-size: 8.5px;
+  fill: var(--at-text2);
+  font-family: 'Inter', system-ui, sans-serif;
+}
+
+.ac-ab-valor {
+  fill: var(--at-text);
+  font-weight: 600;
+}
+
+.ac-ab-leyenda {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 12px;
+  margin: 6px 0 0;
+  padding: 0;
+  list-style: none;
+  font-size: 10.5px;
+  color: var(--at-text2);
+}
+
+.ac-ab-marca {
+  display: inline-block;
+  width: 9px;
+  height: 9px;
+  margin-right: 4px;
+  border-radius: 50%;
+  vertical-align: -1px;
+}
+
+.ac-ab-marca--a {
+  border: 1.5px solid var(--at-primary);
+  background: #ffffff;
+}
+
+.ac-ab-marca--b {
+  background: var(--at-primary);
+}
+
+/* --- demanda futura ------------------------------------------------------ */
+.ac-insignia {
+  margin: 0;
+  padding: 3px 8px;
+  border: 1px solid var(--at-border);
+  border-radius: 999px;
+  background: var(--at-soft);
+  font-size: 10.5px;
+  color: var(--at-text2);
+}
+
+.ac-corte {
+  stroke: #b42318;
+  stroke-width: 1;
+  stroke-dasharray: 3 3;
+}
+
+.ac-corte-etq {
+  fill: #b42318;
+  font-size: 8px;
+}
+
+.ac-metricas {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+  gap: 8px;
+  margin: 6px 0 10px;
+}
+
+.ac-metricas div {
+  padding: 8px 10px;
+  border: 1px solid var(--at-border);
+  border-radius: 10px;
+  background: var(--at-soft);
+}
+
+.ac-metricas dt {
+  font-size: 10px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--at-text2);
+}
+
+.ac-metricas dd {
+  margin: 2px 0 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: #111827;
+  font-variant-numeric: tabular-nums;
+}
+
+.ac-tabla {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 11.5px;
+}
+
+.ac-tabla caption {
+  text-align: left;
+  padding-bottom: 4px;
+  font-size: 10.5px;
+  color: var(--at-text2);
+}
+
+.ac-tabla th,
+.ac-tabla td {
+  padding: 4px 6px;
+  border-bottom: 1px solid #f1f3f7;
+  text-align: left;
+  font-variant-numeric: tabular-nums;
+}
+
+.ac-tabla th {
+  font-size: 10px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--at-text2);
+  border-bottom-color: var(--at-border);
+}
+
+.ac-limites {
+  margin: 10px 0 0;
+  padding-left: 18px;
+  font-size: 10.5px;
+  line-height: 1.5;
+  color: var(--at-text2);
+}
+
+/* --- responsive ---------------------------------------------------------- */
+@media (max-width: 860px) {
+  .ac-app {
+    padding: 14px;
+  }
+
+  .ac-dos {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .ac-cab-controles {
+    width: 100%;
+    justify-content: flex-end;
+  }
+
+  .ac-filtros-fila {
+    gap: 8px;
+  }
+
+  .ac-campo input {
+    width: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .at-seg-capsula {
+    transition: none;
+  }
+}
+.ac-eje-texto { font-size: 9px; }
+.ac-ab-etq { font-size: 9px; }
+.ac-ab-valor { font-size: 9px; }
+
+/* ==========================================================================
+   Pulso de ventas · retícula, detalles de exploración y metodología
+   ========================================================================== */
+
+.ac-cobertura {
+  margin: 4px 0 0;
+  font-size: 11px;
+  color: var(--at-text2);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Retícula de pequeños múltiplos: los bloques se apilan y cada bloque usa la retícula
+   (5 columnas en escritorio amplio, 2 en anchos intermedios, 1 en móvil). */
+.ac-rejilla-tiendas {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.ac-grupo-series {
+  display: block;
+  min-width: 0;
+}
+
+.ac-grupo-series--con-titulo {
+  padding-top: 4px;
+  border-top: 1px solid var(--at-border);
+}
+
+.ac-grupo-series:first-child {
+  border-top: 0;
+  padding-top: 0;
+}
+
+.ac-grupo-cab {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 10px;
+  margin: 0 0 6px;
+}
+
+.ac-grupo-cab h4 {
+  margin: 0;
+  font-size: 11.5px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  color: var(--at-text);
+}
+
+.ac-grupo-cab span {
+  font-size: 10.5px;
+  color: var(--at-text2);
+  font-variant-numeric: tabular-nums;
+}
+
+.ac-grupo-rejilla {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 14px 14px;
+  align-items: start;
+}
+
+@media (max-width: 1120px) {
+  .ac-grupo-rejilla {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 640px) {
+  .ac-grupo-rejilla {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.ac-mini {
+  margin: 0;
+  min-width: 0;
+}
+
+.ac-mini figcaption {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+  font-size: 11px;
+  color: var(--at-text2);
+}
+
+.ac-mini-nombre {
+  color: var(--at-text);
+  font-weight: 600;
+}
+
+.ac-mini-total {
+  color: #111318;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.ac-mini svg {
+  display: block;
+  max-width: 100%;
+  touch-action: pan-y;
+}
+
+.ac-punto-cursor {
+  fill: var(--at-primary);
+  stroke: #ffffff;
+  stroke-width: 1.2;
+}
+
+.ac-guia-100 {
+  stroke: #c2c9d4;
+  stroke-width: 1;
+  stroke-dasharray: 4 3;
+}
+
+.ac-guia-100-texto {
+  fill: var(--at-text2);
+  font-size: 8px;
+  font-family: 'IBM Plex Mono', ui-monospace, monospace;
+}
+
+.ac-guia-80 {
+  stroke: #b42318;
+  stroke-width: 1;
+  stroke-dasharray: 3 3;
+  opacity: 0.6;
+}
+
+.ac-marca-80 {
+  fill: #ffffff;
+  stroke: #b42318;
+  stroke-width: 1.6;
+}
+
+.ac-marca-80-texto {
+  fill: #b42318;
+  font-size: 8.5px;
+  font-family: 'Inter', system-ui, sans-serif;
+}
+
+/* Detalle del periodo explorado: una sola tira compacta bajo la retícula. */
+.ac-detalle {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 8px;
+  margin-top: 10px;
+  padding: 7px 9px;
+  border: 1px solid var(--at-border);
+  border-radius: 9px;
+  background: var(--at-soft);
+  font-size: 10.5px;
+  color: var(--at-text2);
+  min-height: 32px;
+}
+
+.ac-detalle-periodo {
+  color: var(--at-text);
+  margin-right: 4px;
+}
+
+.ac-detalle-item {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 5px;
+  padding: 2px 7px;
+  border: 1px solid var(--at-border);
+  border-radius: 999px;
+  background: #ffffff;
+  font-variant-numeric: tabular-nums;
+  color: var(--at-text);
+}
+
+.ac-detalle-tienda {
+  font-weight: 600;
+  color: var(--at-text2);
+  font-size: 10px;
+}
+
+.ac-detalle-sin {
+  color: #9aa3b2;
+}
+
+.ac-detalle-ayuda {
+  color: var(--at-text2);
+}
+
+.ac-actualizando {
+  color: var(--at-primary);
+}
+
+.ac-esqueleto {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 320px;
+  border: 1px dashed var(--at-border);
+  border-radius: 12px;
+  background: var(--at-surface);
+  color: var(--at-text2);
+  font-size: 12px;
+}
+
+.ac-aviso-inline {
+  margin: 0 0 8px;
+  padding: 6px 9px;
+  border: 1px solid var(--at-border);
+  border-left: 3px solid var(--at-primary);
+  border-radius: 8px;
+  background: var(--at-surface);
+  font-size: 11px;
+  line-height: 1.45;
+  color: var(--at-text);
+}
+
+/* Comparación A/B: tres filas con eje común y columnas numéricas alineadas. */
+.ac-ab-filas {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.ac-ab-cab,
+.ac-ab-fila {
+  display: grid;
+  grid-template-columns: 88px minmax(0, 1fr) 72px 72px 72px 60px;
+  align-items: center;
+  gap: 8px;
+}
+
+.ac-ab-cab {
+  font-size: 9.5px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--at-text2);
+  border-bottom: 1px solid var(--at-border);
+  padding-bottom: 4px;
+  margin-bottom: 4px;
+}
+
+.ac-ab-cab-eje {
+  min-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  font-size: 8.5px;
+  letter-spacing: 0;
+  text-transform: none;
+  font-variant-numeric: tabular-nums;
+}
+
+.ac-ab-fila {
+  padding: 4px 0;
+  border-bottom: 1px solid #f1f3f7;
+}
+
+.ac-ab-nombre {
+  font-size: 11.5px;
+  color: var(--at-text);
+}
+
+.ac-ab-pista {
+  display: block;
+  width: 100%;
+  height: 22px;
+}
+
+.ac-ab-base {
+  stroke: #eef0f3;
+  stroke-width: 1;
+}
+
+.ac-ab-conector {
+  stroke: #b9c3d6;
+  stroke-width: 1.4;
+}
+
+.ac-ab-punto--a {
+  fill: #ffffff;
+  stroke: var(--at-primary);
+  stroke-width: 1.6;
+}
+
+.ac-ab-punto--b {
+  fill: var(--at-primary);
+}
+
+.ac-ab-num {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  font-size: 11px;
+  color: #111318;
+}
+
+.ac-ab-cifra {
+  font-weight: 600;
+}
+
+.ac-ab-tag {
+  display: inline-block;
+  padding: 1px 5px;
+  border: 1px solid var(--at-border);
+  border-radius: 6px;
+  font-size: 9.5px;
+  font-weight: 500;
+  color: var(--at-text2);
+}
+
+.ac-ab-leyenda {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 12px;
+  margin: 8px 0 0;
+  padding: 0;
+  list-style: none;
+  font-size: 10.5px;
+  color: var(--at-text2);
+}
+
+.ac-ab-marca {
+  display: inline-block;
+  width: 9px;
+  height: 9px;
+  margin-right: 4px;
+  border-radius: 50%;
+  vertical-align: -1px;
+}
+
+.ac-ab-marca--a {
+  border: 1.5px solid var(--at-primary);
+  background: #ffffff;
+}
+
+.ac-ab-marca--b {
+  background: var(--at-primary);
+}
+
+/* Concentración: lectura calculada + detalle del punto explorado. */
+.ac-lectura {
+  margin: 0 0 4px;
+  font-size: 12px;
+  color: var(--at-text);
+}
+
+.ac-lectura-detalle {
+  color: var(--at-text2);
+  font-size: 11px;
+}
+
+.ac-concentracion svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.ac-detalle-concentracion {
+  margin: 6px 0 0;
+  padding: 6px 8px;
+  border: 1px solid var(--at-border);
+  border-radius: 8px;
+  background: var(--at-soft);
+  font-size: 10.5px;
+  color: var(--at-text2);
+  font-variant-numeric: tabular-nums;
+  min-height: 28px;
+}
+
+.ac-detalle-concentracion strong {
+  color: #111318;
+}
+
+/* Filtros compactos y paneles del Atlas. */
+.ac-filtros--compacta {
+  padding: 9px 12px;
+}
+
+.ac-filtros-resumen {
+  margin: 6px 0 0;
+  font-size: 10.5px;
+  color: var(--at-text2);
+  font-variant-numeric: tabular-nums;
+}
+
+.ac-ctrl.is-abierto {
+  border-color: var(--control-active);
+}
+
+.ac-pop--periodo,
+.ac-pop--comparar {
+  min-width: 300px;
+  padding: 10px;
+  max-height: min(70vh, 460px);
+  overflow: auto;
+}
+
+.ac-pop-cab h4 {
+  margin: 0 0 2px;
+  font-size: 12.5px;
+  color: var(--at-text);
+}
+
+.ac-pop-cab p {
+  margin: 0 0 8px;
+  font-size: 10.5px;
+  color: var(--at-text2);
+  line-height: 1.4;
+}
+
+.ac-pop-campos {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.ac-pop-grupo {
+  margin-bottom: 8px;
+}
+
+.ac-pop-grupo-titulo {
+  display: block;
+  font-size: 10px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--at-text2);
+  margin-bottom: 4px;
+}
+
+.ac-pop-duracion {
+  margin: 3px 0 0;
+  font-size: 10px;
+  color: var(--at-text2);
+  font-variant-numeric: tabular-nums;
+}
+
+.ac-pop-aviso {
+  margin: 6px 0 0;
+  padding: 5px 8px;
+  border: 1px solid #f0d9b5;
+  border-radius: 7px;
+  background: #fdf6ec;
+  font-size: 10.5px;
+  color: #8a5b12;
+}
+
+.ac-pop-pie {
+  margin-top: 10px;
+  padding-top: 8px;
+  border-top: 1px solid var(--at-border);
+}
+
+.ac-pop-primaria:disabled {
+  opacity: 0.55;
+  cursor: default;
+}
+
+.ac-error-acciones {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.ac-accion--secundaria {
+  border-color: var(--control-border);
+  background: #ffffff;
+  color: var(--control-text);
+}
+
+/* Fuente y metodología. */
+.ac-metodologia {
+  margin-top: 12px;
+  border: 1px solid var(--at-border);
+  border-radius: 12px;
+  background: var(--at-surface);
+  padding: 10px 12px;
+}
+
+.ac-metodologia summary {
+  cursor: pointer;
+  font-size: 11.5px;
+  font-weight: 600;
+  color: var(--at-text);
+}
+
+.ac-metodologia-cuerpo {
+  margin-top: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.ac-metodologia-cuerpo p {
+  margin: 0;
+  font-size: 10.5px;
+  line-height: 1.5;
+  color: var(--at-text2);
+  max-width: 96ch;
+}
+
+.ac-metodologia-cuerpo strong {
+  color: var(--at-text);
+}
+
+@media (max-width: 640px) {
+  .ac-ab-cab {
+    display: none;
+  }
+
+  .ac-ab-fila {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    row-gap: 4px;
+    padding: 6px 0 8px;
+  }
+
+  .ac-ab-nombre {
+    grid-column: 1 / -1;
+    font-size: 11.5px;
+    font-weight: 600;
+  }
+
+  .ac-ab-pista {
+    grid-column: 1 / -1;
+    order: 2;
+    height: 20px;
+  }
+
+  .ac-ab-num {
+    order: 3;
+    text-align: left;
+    font-size: 10.5px;
+  }
+
+  .ac-ab-num::before {
+    content: attr(data-etq);
+    display: block;
+    font-size: 8.5px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--at-text2);
+    font-weight: 500;
+  }
+
+  .ac-detalle {
+    font-size: 10px;
+  }
+}
+
+/* ==========================================================================
+   Refinamiento de trazos, último valor, banda de pronóstico y KPI
+   ========================================================================== */
+
+/* Área opcional (variante B): mismo color que la línea, muy tenue, sin borde. */
+.ac-relleno {
+  stroke: none;
+}
+
+/* Marcador del último periodo con dato: relleno sólido, distinto del cursor. */
+.ac-punto-final {
+  fill: var(--at-primary);
+  stroke: #ffffff;
+  stroke-width: 1;
+}
+
+.ac-etiqueta-final {
+  fill: #111318;
+  font-size: 8.5px;
+  font-weight: 600;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-variant-numeric: tabular-nums;
+  paint-order: stroke;
+  stroke: #ffffff;
+  stroke-width: 2.2px;
+  stroke-linejoin: round;
+}
+
+/* Punto de exploración: anillo hueco, nunca confundible con el marcador final. */
+.ac-punto-cursor {
+  fill: #ffffff;
+  stroke: var(--at-primary);
+  stroke-width: 1.8;
+}
+
+/* A/B: conector neutro, sin pista que se extienda fuera del intervalo. */
+.ac-ab-conector {
+  stroke: #a9b3c6;
+  stroke-width: 2.4;
+  stroke-linecap: round;
+}
+
+.ac-ab-base {
+  display: none;
+}
+
+/* Demanda futura: zona del horizonte pronosticado. */
+.ac-banda-pronostico {
+  fill: #f1f3f7;
+}
+
+.ac-banda-etq {
+  fill: var(--at-text2);
+  font-size: 8px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  font-family: 'Inter', system-ui, sans-serif;
+}
+
+/* Corte histórico: guía pizarra discreta + anotación opaca. */
+.ac-corte {
+  stroke: #6b7583;
+  stroke-width: 1;
+  stroke-dasharray: 3 4;
+  opacity: 0.75;
+}
+
+.ac-corte-etq {
+  fill: #6b7583;
+  font-size: 8px;
+}
+
+.ac-anotacion-caja {
+  fill: #ffffff;
+  stroke: var(--at-border);
+  stroke-width: 1;
+}
+
+.ac-anotacion-titulo {
+  fill: var(--at-text);
+  font-size: 8.5px;
+  font-weight: 600;
+  font-family: 'Inter', system-ui, sans-serif;
+}
+
+.ac-anotacion-fecha {
+  fill: var(--at-text2);
+  font-size: 8.5px;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Línea pronosticada: discontinua con extremos redondeados, sin suavizado. */
+.ac-linea--pronostico {
+  stroke-dasharray: 5 4;
+  stroke-linecap: round;
+}
+
+/* KPI de evaluación: fondo blanco, borde sutil, cifras negras tabulares. */
+.ac-metricas div {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 9px 10px;
+  border: 1px solid var(--at-border);
+  border-radius: 10px;
+  background: #ffffff;
+}
+
+.ac-metricas dt {
+  font-size: 10px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--at-text2);
+}
+
+.ac-metricas dd {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: #111318;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.15;
+}
+
+.ac-kpi-pie {
+  margin: 0;
+  font-size: 9.5px;
+  line-height: 1.3;
+  color: var(--at-text2);
+}
+
+.ac-kpi-alcance {
+  margin: 6px 0 10px;
+  font-size: 10.5px;
+  line-height: 1.45;
+  color: var(--at-text2);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ac-punto-final,
+  .ac-punto-cursor {
+    transition: none;
+  }
+}
+
+@media (max-width: 640px) {
+  .ac-filtros-fila {
+    gap: 8px;
+  }
+
+  /* En móvil el control de periodo puede ocupar dos líneas sin recortar el texto. */
+  .ac-ctrl {
+    height: auto;
+    min-height: 34px;
+    padding: 6px 9px;
+    flex-wrap: wrap;
+    row-gap: 2px;
+  }
+
+  .ac-ctrl-valor {
+    white-space: normal;
+    overflow: visible;
+    text-overflow: clip;
+    flex: 1 1 100%;
+    order: 3;
+    text-align: left;
+  }
+
+  .ac-ctrl-flecha {
+    order: 2;
+  }
+}
+
+/* ==========================================================================
+   Exploración: tiendas → departamentos → productos
+   ========================================================================== */
+
+/* Migas compactas: una sola línea, sin caja propia. */
+.ac-migas {
+  margin: 0 2px 8px;
+}
+
+.ac-migas ol {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 2px 4px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ac-migas li {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.ac-miga {
+  padding: 2px 6px;
+  border: 1px solid transparent;
+  border-radius: 7px;
+  background: transparent;
+  color: var(--at-text2);
+  font-size: 11px;
+  font-family: inherit;
+  cursor: pointer;
+}
+
+.ac-miga:hover {
+  background: var(--at-soft);
+  color: var(--at-text);
+}
+
+.ac-miga:focus-visible {
+  outline: 2px solid var(--control-active);
+  outline-offset: 1px;
+}
+
+.ac-miga.is-actual {
+  border-color: var(--at-border);
+  background: var(--at-soft);
+  color: var(--at-text);
+  font-weight: 600;
+  cursor: default;
+}
+
+.ac-miga-sep {
+  color: #b9c1ce;
+  font-size: 11px;
+}
+
+/* Encabezado de panel como control de exploración. */
+.ac-mini-nombre--control {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  padding: 1px 4px 1px 3px;
+  margin-left: -3px;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--at-text);
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.ac-mini-nombre--control:hover {
+  border-color: var(--at-border);
+  background: var(--at-soft);
+}
+
+.ac-mini-nombre--control:focus-visible {
+  outline: 2px solid var(--control-active);
+  outline-offset: 1px;
+}
+
+.ac-mini-flecha {
+  color: #9aa3b2;
+  font-size: 11px;
+  line-height: 1;
+}
+
+/* Alcance del nivel de producto: total del departamento vs selección. */
+.ac-alcance {
+  margin: 0 0 8px;
+  padding: 6px 9px;
+  border: 1px solid var(--at-border);
+  border-left: 3px solid var(--control-active);
+  border-radius: 8px;
+  background: var(--at-surface);
+  font-size: 11px;
+  line-height: 1.45;
+  color: var(--at-text);
+  font-variant-numeric: tabular-nums;
+}
+
+.ac-alcance--nota {
+  border-left-color: var(--at-border);
+  color: var(--at-text2);
+}
+
+/* Barra de selección de productos. */
+.ac-explorador {
+  margin-bottom: 12px;
+  padding: 10px 12px;
+  border: 1px solid var(--at-border);
+  border-radius: 12px;
+  background: var(--at-surface);
+}
+
+.ac-explorador-fila {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px 12px;
+}
+
+.ac-explorador-texto {
+  margin: 0;
+  font-size: 11.5px;
+  color: var(--at-text2);
+}
+
+.ac-explorador-texto strong {
+  color: var(--at-text);
+  font-variant-numeric: tabular-nums;
+}
+
+.ac-explorador-acciones {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+/* Buscador de productos. */
+.ac-buscador {
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid var(--at-border);
+}
+
+.ac-buscador-cab {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 8px 12px;
+}
+
+.ac-buscador-cab h4 {
+  margin: 0;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--at-text);
+}
+
+.ac-buscador-sub {
+  margin: 2px 0 0;
+  font-size: 10.5px;
+  color: var(--at-text2);
+}
+
+.ac-buscador-acciones {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.ac-buscador-filtros {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 8px 14px;
+  margin-top: 8px;
+}
+
+.ac-campo--texto {
+  flex: 1 1 220px;
+  min-width: 180px;
+}
+
+.ac-campo--texto input {
+  width: 100%;
+  height: 30px;
+  padding: 4px 8px;
+  border: 1px solid var(--at-border);
+  border-radius: 8px;
+  background: #ffffff;
+  color: var(--at-text);
+  font: inherit;
+  font-size: 11.5px;
+}
+
+.ac-campo--texto input:focus-visible {
+  outline: 2px solid var(--control-active);
+  outline-offset: 1px;
+}
+
+.ac-buscador-orden {
+  display: inline-flex;
+  gap: 2px;
+  padding: 2px;
+  border-radius: 9px;
+  background: var(--control-track);
+}
+
+.ac-buscador-orden-btn {
+  padding: 4px 9px;
+  border: 0;
+  border-radius: 7px;
+  background: transparent;
+  color: var(--at-text2);
+  font: inherit;
+  font-size: 10.5px;
+  cursor: pointer;
+}
+
+.ac-buscador-orden-btn.is-activo {
+  background: var(--control-active);
+  color: var(--control-active-text);
+}
+
+.ac-buscador-orden-btn:focus-visible {
+  outline: 2px solid var(--control-active);
+  outline-offset: 1px;
+}
+
+.ac-buscador-limite {
+  margin: 8px 0 4px;
+  font-size: 10.5px;
+  color: var(--at-text2);
+}
+
+.ac-buscador-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 6px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ac-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  padding: 2px 8px;
+  border: 1px solid var(--at-border);
+  border-radius: 999px;
+  background: var(--at-soft);
+  color: var(--at-text);
+  font-family: 'IBM Plex Mono', ui-monospace, monospace;
+  font-size: 10.5px;
+  cursor: pointer;
+}
+
+.ac-chip:hover {
+  border-color: #c2c9d4;
+}
+
+.ac-chip:focus-visible {
+  outline: 2px solid var(--control-active);
+  outline-offset: 1px;
+}
+
+.ac-chip--referencia {
+  background: #ffffff;
+  color: var(--at-text2);
+  font-family: 'Inter', system-ui, sans-serif;
+  cursor: default;
+}
+
+.ac-buscador-lista {
+  margin: 8px 0 0;
+  padding: 0;
+  list-style: none;
+  max-height: 262px;
+  overflow-y: auto;
+  border: 1px solid var(--at-border);
+  border-radius: 9px;
+  background: #ffffff;
+}
+
+.ac-buscador-lista li + li {
+  border-top: 1px solid var(--at-soft);
+}
+
+.ac-buscador-fila {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 9px;
+  cursor: pointer;
+  font-size: 11px;
+}
+
+.ac-buscador-fila:hover {
+  background: var(--at-soft);
+}
+
+.ac-buscador-fila.is-marcada {
+  background: #f2f5fd;
+}
+
+.ac-buscador-fila input {
+  accent-color: var(--control-active);
+  margin: 0;
+}
+
+.ac-buscador-id {
+  font-family: 'IBM Plex Mono', ui-monospace, monospace;
+  color: var(--at-text);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.ac-buscador-unidades {
+  color: var(--at-text);
+  font-variant-numeric: tabular-nums;
+}
+
+.ac-buscador-aviso {
+  margin: 8px 0 0;
+  font-size: 11px;
+  color: var(--at-text2);
+}
+
+.ac-buscador-pie {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px 12px;
+  margin-top: 8px;
+}
+
+.ac-buscador-rango {
+  font-size: 10.5px;
+  color: var(--at-text2);
+  font-variant-numeric: tabular-nums;
+}
+
+.ac-buscador-paginacion {
+  display: flex;
+  gap: 8px;
+}
+
+.ac-buscador-tope {
+  margin: 6px 0 0;
+  font-size: 10px;
+  color: var(--at-text2);
+}
+
+@media (max-width: 640px) {
+  .ac-explorador-fila {
+    align-items: flex-start;
+  }
+
+  .ac-buscador-fila {
+    grid-template-columns: auto minmax(0, 1fr);
+    row-gap: 2px;
+  }
+
+  .ac-buscador-unidades {
+    grid-column: 2;
+    font-size: 10.5px;
+    color: var(--at-text2);
+  }
+}
+
+/* ==========================================================================
+   Territorio, composición, comparación histórica y exploración de productos
+   ========================================================================== */
+
+/* --- rutas de contexto ---------------------------------------------------- */
+.ac-rutas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 26px;
+  margin: 0 2px 8px;
+}
+
+.ac-ruta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+}
+
+.ac-ruta-etq {
+  font-size: 9.5px;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--at-text2);
+}
+
+.ac-ruta nav ol {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 2px 3px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ac-ruta nav li {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+}
+
+/* --- panorama territorial ------------------------------------------------- */
+.ac-panorama {
+  margin-bottom: 12px;
+}
+
+.ac-tarjetas {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+@media (max-width: 860px) {
+  .ac-tarjetas {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.ac-tarjeta {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  width: 100%;
+  padding: 11px 12px;
+  border: 1px solid var(--at-border);
+  border-radius: 11px;
+  background: var(--at-surface);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition: border-color 160ms ease, background-color 160ms ease;
+}
+
+.ac-tarjeta:hover {
+  border-color: #c2c9d4;
+  background: var(--at-soft);
+}
+
+.ac-tarjeta:focus-visible {
+  outline: 2px solid var(--control-active);
+  outline-offset: 2px;
+}
+
+.ac-tarjeta.is-activo {
+  border-color: var(--control-active);
+  box-shadow: inset 0 0 0 1px var(--control-active);
+}
+
+.ac-tarjeta-cab {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.ac-tarjeta-nombre {
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--at-text);
+}
+
+.ac-tarjeta-codigo {
+  font-family: 'IBM Plex Mono', ui-monospace, monospace;
+  font-size: 10px;
+  color: var(--at-text2);
+}
+
+.ac-tarjeta-unidades {
+  font-size: 19px;
+  font-weight: 600;
+  color: #111318;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.01em;
+}
+
+.ac-tarjeta-pie {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 4px 10px;
+  font-size: 10.5px;
+  color: var(--at-text2);
+  font-variant-numeric: tabular-nums;
+}
+
+.ac-tarjeta-barra {
+  display: block;
+  height: 4px;
+  border-radius: 999px;
+  background: var(--control-track);
+  overflow: hidden;
+}
+
+.ac-tarjeta-barra span {
+  display: block;
+  height: 100%;
+  border-radius: 999px;
+  background: var(--at-primary);
+}
+
+/* --- composición comercial ------------------------------------------------ */
+.ac-composicion {
+  margin-bottom: 14px;
+}
+
+.ac-composicion-lista {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.ac-comp-grupo {
+  border: 1px solid transparent;
+  border-radius: 10px;
+  padding: 2px;
+}
+
+.ac-comp-grupo.is-activo {
+  border-color: var(--at-border);
+  background: #fafbfe;
+}
+
+.ac-comp-fila {
+  display: grid;
+  grid-template-columns: minmax(140px, 230px) minmax(0, 1fr) 108px 72px;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 5px 7px;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  background: transparent;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.ac-comp-fila:hover {
+  background: var(--at-soft);
+}
+
+.ac-comp-fila:focus-visible {
+  outline: 2px solid var(--control-active);
+  outline-offset: 1px;
+}
+
+.ac-comp-fila.is-activo {
+  border-color: var(--control-active);
+  background: #f2f5fd;
+}
+
+.ac-comp-fila--categoria .ac-comp-nombre {
+  font-weight: 600;
+  color: var(--at-text);
+}
+
+.ac-comp-nombre {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  font-size: 11.5px;
+  color: var(--at-text);
+}
+
+.ac-comp-nombre--dept {
+  padding-left: 16px;
+  font-family: 'IBM Plex Mono', ui-monospace, monospace;
+  font-size: 11px;
+  color: var(--at-text);
+}
+
+.ac-comp-codigo {
+  font-family: 'IBM Plex Mono', ui-monospace, monospace;
+  font-size: 9.5px;
+  color: var(--at-text2);
+}
+
+.ac-comp-barra {
+  display: block;
+  height: 9px;
+  border-radius: 5px;
+  background: var(--control-track);
+  overflow: hidden;
+}
+
+.ac-comp-barra span {
+  display: block;
+  height: 100%;
+  border-radius: 5px;
+  background: var(--at-primary);
+}
+
+.ac-comp-barra--dept {
+  height: 7px;
+}
+
+.ac-comp-barra--dept span {
+  background: #8fa3d8;
+}
+
+.ac-comp-unidades,
+.ac-comp-pct {
+  text-align: right;
+  font-size: 11px;
+  color: #111318;
+  font-variant-numeric: tabular-nums;
+}
+
+.ac-comp-pct {
+  color: var(--at-text2);
+}
+
+.ac-comp-departamentos {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ac-comp-leyenda {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 18px;
+  margin: 10px 0 0;
+  font-size: 10.5px;
+  color: var(--at-text2);
+}
+
+@media (max-width: 640px) {
+  .ac-comp-fila {
+    grid-template-columns: minmax(0, 1fr) 84px 58px;
+  }
+
+  .ac-comp-barra {
+    grid-column: 1 / -1;
+    order: 3;
+  }
+}
+
+/* --- gráfica editorial de comparación histórica --------------------------- */
+.ac-historico {
+  margin: 14px 0;
+}
+
+.ac-historico-cab {
+  align-items: flex-start;
+}
+
+.ac-hx-alcance {
+  margin: 3px 0 0;
+  font-size: 11px;
+  color: var(--at-text);
+  font-variant-numeric: tabular-nums;
+}
+
+.ac-hx-controles {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px 12px;
+}
+
+.ac-hx-anios {
+  display: inline-flex;
+  gap: 2px;
+  padding: 2px;
+  border-radius: 9px;
+  background: var(--control-track);
+}
+
+.ac-hx-anio {
+  padding: 4px 9px;
+  border: 0;
+  border-radius: 7px;
+  background: transparent;
+  color: var(--at-text2);
+  font: inherit;
+  font-size: 11px;
+  font-variant-numeric: tabular-nums;
+  cursor: pointer;
+}
+
+.ac-hx-anio.is-activo {
+  background: var(--control-active);
+  color: var(--control-active-text);
+}
+
+.ac-hx-anio:focus-visible {
+  outline: 2px solid var(--control-active);
+  outline-offset: 1px;
+}
+
+.ac-hx-aviso {
+  margin: 0 0 8px;
+  padding: 6px 9px;
+  border: 1px solid var(--at-border);
+  border-left: 3px solid var(--control-active);
+  border-radius: 8px;
+  background: var(--at-surface);
+  font-size: 11px;
+  line-height: 1.45;
+  color: var(--at-text);
+}
+
+.ac-hx-marco {
+  position: relative;
+  transition: opacity 160ms ease;
+}
+
+.ac-hx-marco.is-cargando {
+  opacity: 0.55;
+}
+
+.ac-hx-centro {
+  width: 100%;
+  overflow: hidden;
+}
+
+.ac-hx-centro:focus-visible {
+  outline: 2px solid var(--control-active);
+  outline-offset: 2px;
+  border-radius: 8px;
+}
+
+.ac-hx-centro svg {
+  display: block;
+  max-width: 100%;
+  touch-action: pan-y;
+}
+
+.ac-hx-banda {
+  fill: #dde2eb;
+  opacity: 0.55;
+}
+
+.ac-hx-relleno {
+  fill: var(--at-primary);
+  opacity: 0.08;
+}
+
+.ac-hx-promedio {
+  fill: none;
+  stroke: #98a2b3;
+  stroke-width: 1.6;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+
+.ac-hx-observado {
+  fill: none;
+  stroke: var(--at-primary);
+  stroke-width: 2.2;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+
+.ac-hx-punto-final {
+  fill: var(--at-primary);
+  stroke: #ffffff;
+  stroke-width: 1.4;
+}
+
+.ac-hx-etiqueta {
+  font-family: 'IBM Plex Mono', ui-monospace, monospace;
+  font-size: 9.5px;
+}
+
+.ac-hx-etiqueta--observado {
+  fill: var(--at-primary);
+  font-weight: 600;
+}
+
+.ac-hx-etiqueta--promedio {
+  fill: #6b7583;
+}
+
+.ac-hx-anotacion-punto {
+  fill: #ffffff;
+  stroke: var(--control-active);
+  stroke-width: 1.4;
+}
+
+.ac-hx-anotacion-guia {
+  stroke: #b9c1ce;
+  stroke-width: 1;
+  stroke-dasharray: 3 3;
+}
+
+.ac-hx-anotacion-caja {
+  fill: #ffffff;
+  stroke: var(--at-border);
+  stroke-width: 1;
+}
+
+.ac-hx-anotacion-titulo {
+  fill: var(--at-text2);
+  font-size: 9px;
+  font-family: 'Inter', system-ui, sans-serif;
+  letter-spacing: 0.02em;
+}
+
+.ac-hx-anotacion-detalle {
+  fill: #111318;
+  font-size: 10px;
+  font-family: 'IBM Plex Mono', ui-monospace, monospace;
+}
+
+.ac-hx-guia {
+  stroke: #c2c9d4;
+  stroke-width: 1;
+}
+
+.ac-hx-punto-activo {
+  fill: var(--at-primary);
+  stroke: #ffffff;
+  stroke-width: 1.4;
+}
+
+.ac-hx-punto-activo--promedio {
+  fill: #6b7583;
+  stroke: #ffffff;
+  stroke-width: 1.2;
+}
+
+.ac-hx-leyenda {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 16px;
+  margin: 8px 0 0;
+  padding: 0;
+  list-style: none;
+  font-size: 10.5px;
+  color: var(--at-text2);
+}
+
+.ac-hx-leyenda li {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.ac-hx-muestra {
+  display: inline-block;
+  width: 18px;
+  height: 3px;
+  border-radius: 2px;
+}
+
+.ac-hx-muestra--observado {
+  background: var(--at-primary);
+  height: 4px;
+}
+
+.ac-hx-muestra--promedio {
+  background: #98a2b3;
+}
+
+.ac-hx-muestra--banda {
+  height: 10px;
+  border-radius: 3px;
+  background: #dde2eb;
+}
+
+.ac-hx-lectura {
+  margin: 8px 0 0;
+  min-height: 32px;
+  padding: 7px 9px;
+  border: 1px solid var(--at-border);
+  border-radius: 9px;
+  background: var(--at-soft);
+  font-size: 10.5px;
+  line-height: 1.5;
+  color: var(--at-text2);
+  font-variant-numeric: tabular-nums;
+}
+
+.ac-hx-lectura strong {
+  color: var(--at-text);
+}
+
+.ac-hx-tabla {
+  margin-top: 10px;
+}
+
+.ac-hx-tabla summary {
+  font-size: 11px;
+  color: var(--at-text2);
+  cursor: pointer;
+}
+
+.ac-hx-tabla summary:focus-visible {
+  outline: 2px solid var(--control-active);
+  outline-offset: 2px;
+}
+
+.ac-hx-tabla-marco {
+  margin-top: 8px;
+  max-height: 320px;
+  overflow: auto;
+  border: 1px solid var(--at-border);
+  border-radius: 9px;
+}
+
+.ac-hx-tabla table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 10.5px;
+  font-variant-numeric: tabular-nums;
+}
+
+.ac-hx-tabla caption {
+  padding: 7px 9px;
+  text-align: left;
+  font-size: 10px;
+  color: var(--at-text2);
+}
+
+.ac-hx-tabla th,
+.ac-hx-tabla td {
+  padding: 4px 9px;
+  border-top: 1px solid var(--at-soft);
+  text-align: right;
+  color: #111318;
+  white-space: nowrap;
+}
+
+.ac-hx-tabla thead th {
+  position: sticky;
+  top: 0;
+  background: var(--at-soft);
+  color: var(--at-text2);
+  font-weight: 600;
+}
+
+.ac-hx-tabla th:first-child,
+.ac-hx-tabla td:first-child,
+.ac-hx-tabla th:nth-child(2),
+.ac-hx-tabla td:nth-child(2) {
+  text-align: left;
+}
+
+.ac-hx-tabla tr.is-parcial td,
+.ac-hx-tabla tr.is-parcial th {
+  color: var(--at-text2);
+}
+
+/* --- explorador de productos --------------------------------------------- */
+.ac-explorador--productos {
+  margin-bottom: 0;
+}
+
+.ac-explorador-cab {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 8px 16px;
+}
+
+.ac-explorador-cab h4 {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--at-text);
+}
+
+.ac-explorador-sub {
+  margin: 3px 0 0;
+  font-size: 10.8px;
+  line-height: 1.45;
+  color: var(--at-text2);
+  font-variant-numeric: tabular-nums;
+}
+
+.ac-explorador-sub--alcance {
+  color: var(--at-text);
+}
+
+.ac-explorador-filtros {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 8px 14px;
+  margin-top: 10px;
+}
+
+.ac-explorador-contador {
+  align-self: center;
+  font-size: 10.5px;
+  color: var(--at-text);
+  font-variant-numeric: tabular-nums;
+}
+
+.ac-tabla-marco {
+  margin-top: 10px;
+  max-height: 420px;
+  overflow: auto;
+  border: 1px solid var(--at-border);
+  border-radius: 9px;
+  background: #ffffff;
+}
+
+.ac-tabla-productos {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 11px;
+  font-variant-numeric: tabular-nums;
+}
+
+.ac-tabla-productos caption {
+  padding: 8px 10px;
+  text-align: left;
+  font-size: 10px;
+  color: var(--at-text2);
+}
+
+.ac-tabla-productos th,
+.ac-tabla-productos td {
+  padding: 5px 10px;
+  border-top: 1px solid var(--at-soft);
+  text-align: left;
+  color: var(--at-text);
+}
+
+.ac-tabla-productos thead th {
+  position: sticky;
+  top: 0;
+  background: var(--at-soft);
+  font-size: 10px;
+  color: var(--at-text2);
+  font-weight: 600;
+}
+
+.ac-tabla-productos tr.is-marcada {
+  background: #f2f5fd;
+}
+
+.ac-tabla-id {
+  font-family: 'IBM Plex Mono', ui-monospace, monospace;
+  font-weight: 500;
+}
+
+.ac-tabla-num {
+  text-align: right !important;
+  color: #111318 !important;
+}
+
+.ac-tabla-sel {
+  width: 60px;
+}
+
+.ac-tabla-check {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+}
+
+.ac-tabla-check input {
+  accent-color: var(--control-active);
+  margin: 0;
+}
+
+.ac-tabla-vacia {
+  padding: 14px 10px !important;
+  color: var(--at-text2) !important;
+  text-align: left !important;
+}
+
+.ac-mini-pie {
+  margin: 1px 0 2px;
+  font-size: 9.5px;
+  color: var(--at-text2);
+  font-variant-numeric: tabular-nums;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ac-tarjeta,
+  .ac-hx-marco {
+    transition: none;
+  }
+}
+
+.ac-hx-etiqueta-fondo {
+  fill: #ffffff;
+  opacity: 0.82;
+}
+
+.ac-hx-anotacion-diferencia {
+  fill: var(--at-text);
+  font-size: 9.5px;
+  font-family: 'IBM Plex Mono', ui-monospace, monospace;
+  font-weight: 600;
+}
+
+/* ==========================================================================
+   Demanda futura · pronóstico diario a 28 días y su evaluación
+   ========================================================================== */
+
+.ac-df-cab {
+  align-items: flex-start;
+}
+
+.ac-df-datos {
+  margin: 3px 0 0;
+  font-size: 11px;
+  color: var(--at-text);
+  font-variant-numeric: tabular-nums;
+}
+
+.ac-df-datos strong {
+  font-weight: 600;
+}
+
+.ac-df-controles {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 8px 12px;
+  min-width: 0;
+}
+
+/* Un selector con muchas opciones no puede ensanchar la página: si no cabe, se
+   desplaza en horizontal dentro de su propia pista (la cápsula se mueve con él). */
+.ac-df-controles .at-segmentado,
+.ac-df-segmentos-cab .at-segmentado {
+  max-width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-width: thin;
+}
+
+@media (max-width: 860px) {
+  .ac-df-controles {
+    justify-content: flex-start;
+  }
+
+  .ac-df-controles .at-segmentado {
+    flex-wrap: nowrap;
+  }
+}
+
+.ac-insignia--evaluacion {
+  border-color: var(--control-active);
+  color: var(--at-text);
+}
+
+.ac-df-grafico {
+  margin-top: 6px;
+}
+
+.ac-df-grafico svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.ac-df-observado {
+  fill: none;
+  stroke: var(--at-primary);
+  stroke-width: 2;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+
+.ac-df-modelo {
+  fill: none;
+  stroke: var(--control-active);
+  stroke-width: 2.1;
+  stroke-dasharray: 6 3;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+
+.ac-df-baseline {
+  fill: none;
+  stroke: #9aa3b2;
+  stroke-width: 1.6;
+  stroke-dasharray: 3 3;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+
+.ac-df-real {
+  fill: none;
+  stroke: #b42318;
+  stroke-width: 1.5;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+
+.ac-df-punto {
+  fill: var(--at-primary);
+  stroke: #ffffff;
+  stroke-width: 1.3;
+}
+
+.ac-df-punto--modelo {
+  fill: var(--control-active);
+  stroke: #ffffff;
+  stroke-width: 1.3;
+}
+
+.ac-df-punto--base {
+  fill: #9aa3b2;
+  stroke: #ffffff;
+  stroke-width: 1.1;
+}
+
+.ac-df-punto--real {
+  fill: #b42318;
+  stroke: #ffffff;
+  stroke-width: 1.3;
+}
+
+.ac-df-leyenda {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 18px;
+  margin: 8px 0 0;
+  padding: 0;
+  list-style: none;
+  font-size: 10.5px;
+  color: var(--at-text2);
+}
+
+.ac-df-leyenda li {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.ac-df-muestra {
+  display: inline-block;
+  width: 20px;
+  height: 2px;
+  border-radius: 2px;
+}
+
+.ac-df-muestra--observado {
+  background: var(--at-primary);
+  height: 3px;
+}
+
+.ac-df-muestra--modelo {
+  background: repeating-linear-gradient(90deg, var(--control-active) 0 6px, transparent 6px 9px);
+  height: 3px;
+}
+
+.ac-df-muestra--baseline {
+  background: repeating-linear-gradient(90deg, #9aa3b2 0 3px, transparent 3px 6px);
+}
+
+.ac-df-muestra--real {
+  background: #b42318;
+  height: 3px;
+}
+
+.ac-metricas--modelo {
+  margin-top: 10px;
+}
+
+.ac-tabla--comparativa td,
+.ac-tabla--comparativa th {
+  font-variant-numeric: tabular-nums;
+}
+
+.ac-df-horizontes {
+  margin-top: 14px;
+}
+
+.ac-df-horizontes-cab h4,
+.ac-df-segmentos-cab h4 {
+  margin: 0;
+  font-size: 12.5px;
+  font-weight: 600;
+}
+
+.ac-df-barras {
+  display: grid;
+  grid-template-columns: repeat(28, minmax(0, 1fr));
+  align-items: end;
+  gap: 3px;
+  height: 120px;
+  margin-top: 8px;
+  padding-top: 6px;
+  border-top: 1px solid var(--at-border);
+}
+
+.ac-df-barra-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  height: 100%;
+  justify-content: flex-end;
+}
+
+.ac-df-barra-par {
+  display: flex;
+  align-items: flex-end;
+  gap: 2px;
+  height: 100%;
+  width: 100%;
+  justify-content: center;
+}
+
+.ac-df-barra {
+  display: block;
+  width: 42%;
+  border-radius: 2px 2px 0 0;
+}
+
+.ac-df-barra--modelo {
+  background: var(--control-active);
+}
+
+.ac-df-barra--baseline {
+  background: #c2c9d4;
+}
+
+.ac-df-barra-etq {
+  font-size: 8px;
+  color: var(--at-text2);
+  font-variant-numeric: tabular-nums;
+}
+
+.ac-df-segmentos {
+  margin-top: 16px;
+}
+
+.ac-df-segmentos-cab {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 8px 12px;
+  margin-bottom: 6px;
+}
+
+.ac-tabla-marco--segmentos {
+  max-height: 340px;
+}
+
+/* La tabla de métricas puede ser más ancha que la columna en móvil: se desplaza. */
+.ac-tabla-marco--comparativa {
+  max-height: none;
+}
+
+.ac-df-segmento-detalle {
+  margin-top: 10px;
+  padding: 10px 12px;
+  border: 1px solid var(--at-border);
+  border-radius: 10px;
+  background: var(--at-soft);
+}
+
+.ac-df-segmento-detalle h5 {
+  margin: 0 0 6px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--at-text);
+}
+
+.ac-df-ventanas {
+  margin-top: 14px;
+  overflow-x: auto;
+}
+
+.ac-df-metodo p {
+  margin: 0 0 8px;
+  font-size: 11.5px;
+  line-height: 1.55;
+  color: var(--at-text);
+  max-width: 92ch;
+}
+
+.ac-df-importancias {
+  margin: 4px 0 10px;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  max-width: 460px;
+}
+
+.ac-df-importancias li {
+  display: grid;
+  grid-template-columns: 130px minmax(0, 1fr);
+  align-items: center;
+  gap: 8px;
+  font-size: 10.5px;
+  color: var(--at-text2);
+}
+
+.ac-df-imp-nombre {
+  font-family: 'IBM Plex Mono', ui-monospace, monospace;
+  color: var(--at-text);
+}
+
+.ac-df-imp-barra {
+  display: block;
+  height: 7px;
+  border-radius: 4px;
+  background: var(--control-track);
+  overflow: hidden;
+}
+
+.ac-df-imp-barra span {
+  display: block;
+  height: 100%;
+  border-radius: 4px;
+  background: var(--slate-500, #6b7583);
+}
+
+@media (max-width: 640px) {
+  .ac-df-barras {
+    gap: 1px;
+    height: 96px;
+  }
+
+  .ac-df-barra-etq {
+    font-size: 0;
+  }
+
+  .ac-df-barra-etq::after {
+    content: '';
+  }
+
+  .ac-df-importancias li {
+    grid-template-columns: 104px minmax(0, 1fr);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ac-df-observado,
+  .ac-df-modelo,
+  .ac-df-baseline {
+    transition: none;
+  }
+}
+
+/* ==========================================================================
+   Navegación secundaria de «Pulso de ventas» (Panorama · Estacionalidad ·
+   Precios · Detalle de artículo)
+   ========================================================================== */
+.ac-sec-nav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  gap: 10px;
+  padding: 2px 0 8px;
+  border-bottom: 1px solid var(--at-border);
+  min-width: 0;
+  max-width: 100%;
+}
+
+.ac-sec-nav > * {
+  min-width: 0;
+  max-width: 100%;
+}
+
+.ac-sec-nav .at-segmentado {
+  max-width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-width: thin;
+}
+
+@media (max-width: 720px) {
+  .ac-sec-nav {
+    padding-bottom: 6px;
+  }
+}
+
+/* Composición: controles de ámbito y matriz tienda × categoría. */
+.ac-comp-controles {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 8px 12px;
+  min-width: 0;
+}
+
+.ac-comp-controles .at-segmentado {
+  max-width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-width: thin;
+}
+
+.ac-comp-matriz-marco {
+  margin-top: 10px;
+  overflow-x: auto;
+  border: 1px solid var(--at-border);
+  border-radius: 10px;
+  background: #ffffff;
+}
+
+.ac-comp-matriz-nota {
+  margin: 0;
+  padding: 10px 12px 4px;
+}
+
+.ac-comp-matriz {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 11.5px;
+  font-variant-numeric: tabular-nums;
+}
+
+.ac-comp-matriz caption {
+  caption-side: top;
+  padding: 4px 12px 8px;
+  text-align: left;
+  font-size: 11px;
+  color: var(--at-text2);
+}
+
+.ac-comp-matriz th,
+.ac-comp-matriz td {
+  padding: 6px 10px;
+  border-top: 1px solid #f0f2f6;
+  text-align: left;
+}
+
+.ac-comp-matriz thead th {
+  font-size: 10px;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: var(--at-text2);
+  border-top: 0;
+}
+
+.ac-comp-matriz tfoot th,
+.ac-comp-matriz tfoot td {
+  border-top: 1px solid var(--at-border);
+  background: var(--at-soft);
+}
+
+.ac-comp-celda {
+  padding: 2px 6px;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  font: inherit;
+  color: var(--at-text);
+  cursor: pointer;
+  font-variant-numeric: tabular-nums;
+}
+
+.ac-comp-celda:hover,
+.ac-comp-celda:focus-visible {
+  background: rgba(52, 88, 245, 0.1);
+  outline: none;
+}
+
+.ac-comp-celda:focus-visible {
+  box-shadow: 0 0 0 2px var(--control-active);
+}
+
+.ac-comp-sin-dato {
+  color: var(--at-text2);
+}
+
+@media (max-width: 720px) {
+  .ac-comp-controles {
+    justify-content: flex-start;
+  }
+}
+
+/* ======================================================= navegación de pantallas */
+/*
+ * Seis pantallas con una sola tira de pestañas (nunca filas apiladas) y una
+ * cápsula grafito compartida, como el resto de controles del proyecto. En
+ * pantallas estrechas la tira se desplaza en horizontal y la etiqueta se acorta.
+ */
+.ac-nav-pantallas {
+  display: flex;
+  min-width: 0;
+}
+
+.ac-tabs {
+  position: relative;
+  display: inline-flex;
+  align-items: stretch;
+  gap: 0;
+  max-width: 100%;
+  padding: 4px;
+  border: 1px solid var(--at-border);
+  border-radius: 12px;
+  background: var(--at-soft);
+  overflow-x: auto;
+  scrollbar-width: thin;
+}
+
+.ac-tabs-capsula {
+  position: absolute;
+  top: 4px;
+  bottom: 4px;
+  left: 0;
+  width: var(--w, 0px);
+  border-radius: 9px;
+  background: var(--control-active);
+  opacity: 0;
+  pointer-events: none;
+  transform: translateX(var(--x, 0px));
+  transition:
+    transform 0.2s cubic-bezier(0.22, 0.61, 0.36, 1),
+    width 0.2s cubic-bezier(0.22, 0.61, 0.36, 1);
+  z-index: 0;
+}
+
+.ac-tabs-capsula[data-medida='si'] {
+  opacity: 1;
+}
+
+.ac-tabs-btn {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  min-height: 40px;
+  padding: 0 12px;
+  border: 0;
+  border-radius: 9px;
+  background: transparent;
+  color: var(--control-text);
+  font: inherit;
+  font-size: 13.5px;
+  font-weight: 500;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.ac-tabs-btn:hover {
+  background: var(--control-hover);
+}
+
+.ac-tabs-btn.is-activa,
+.ac-tabs-btn[aria-selected='true'] {
+  color: var(--control-active-text);
+  font-weight: 600;
+}
+
+.ac-tabs-btn[aria-selected='true']:hover {
+  background: transparent;
+}
+
+.ac-tabs-btn:focus-visible {
+  outline: 2px solid var(--control-active);
+  outline-offset: 2px;
+}
+
+.ac-tabs-btn svg {
+  flex: 0 0 auto;
+}
+
+.ac-tabs-etq-corta {
+  display: none;
+}
+
+@media (max-width: 720px) {
+  .ac-nav-pantallas {
+    width: 100%;
+  }
+
+  .ac-tabs {
+    width: 100%;
+  }
+
+  .ac-tabs-btn {
+    padding: 0 9px;
+    gap: 5px;
+    font-size: 12.5px;
+  }
+
+  .ac-tabs-etq {
+    display: none;
+  }
+
+  .ac-tabs-etq-corta {
+    display: inline;
+  }
+}
+
+/* ------------------------------------------------- estados de una consulta */
+/*
+ * Un estado por vez: carga, selección incompleta, error de validación, error de conexión,
+ * consulta válida sin resultados o resultado. Cada bloque declara qué puede hacer el
+ * usuario para salir de él.
+ */
+.ac-estado {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 14px 16px;
+  border: 1px solid var(--at-border);
+  border-radius: 12px;
+  background: var(--at-soft);
+}
+
+.ac-estado h4 {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 650;
+  color: var(--at-text);
+}
+
+.ac-estado p {
+  margin: 0;
+  max-width: 78ch;
+  font-size: 12.5px;
+  line-height: 1.55;
+  color: var(--at-text);
+}
+
+.ac-estado--error {
+  border-color: #e8c9c4;
+  background: #fdf5f4;
+}
+
+.ac-vacio {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+
+/* ------------------------------------------------------------------------- */
+/* Evaluación reorganizada: controles de segmento, metodología y auditoría    */
+/* ------------------------------------------------------------------------- */
+
+.ac-df-segmentos-controles {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 16px;
+  align-items: end;
+  margin: 8px 0 10px;
+}
+
+.ac-df-segmentos-controles .ac-campo {
+  min-width: 0;
+}
+
+.ac-campo--casilla {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  color: var(--at-text);
+}
+
+.ac-campo--casilla input {
+  width: 14px;
+  height: 14px;
+  accent-color: var(--at-accent, #3458f5);
+}
+
+.ac-df-agregacion {
+  margin: 6px 0 0;
+  font-size: 10.5px;
+  color: var(--at-muted, #5b6472);
+}
+
+.ac-df-agregacion summary {
+  cursor: pointer;
+  font-weight: 600;
+  color: var(--at-text);
+}
+
+.ac-df-agregacion p {
+  margin: 4px 0 0;
+}
+
+.ac-evaluacion-metodologia {
+  display: block;
+}
+
+.ac-evaluacion-metodologia > summary {
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 2px 0;
+}
+
+.ac-evaluacion-metodologia > summary:focus-visible {
+  outline: 2px solid var(--at-accent, #3458f5);
+  outline-offset: 2px;
+  border-radius: 8px;
+}
+
+.ac-evaluacion-metodologia[open] > summary {
+  margin-bottom: 10px;
+}
+
+.ac-panel--anidado {
+  margin-top: 10px;
+  background: color-mix(in srgb, var(--at-surface) 92%, var(--at-border));
+}
+
+.ac-panel--anidado h4 {
+  margin: 0 0 6px;
+}
+
+.ac-auditoria {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.ac-auditoria-estado {
+  display: inline-block;
+  padding: 1px 7px;
+  border-radius: 999px;
+  border: 1px solid var(--at-border);
+  font-size: 10.5px;
+  font-weight: 600;
+}
+
+.ac-auditoria-estado.is-verificada {
+  border-color: #1a7f4b;
+  color: #1a7f4b;
+}
+
+.ac-auditoria-estado.is-contaminada {
+  border-color: #b42318;
+  color: #b42318;
+}
+
+.ac-auditoria-estado.is-no-verificable {
+  border-color: #8a6d1f;
+  color: #8a6d1f;
+}
+
+.ac-auditoria-detalle {
+  display: block;
+  margin-top: 3px;
+  font-size: 10px;
+  color: var(--at-muted, #5b6472);
+  max-width: 46ch;
+}
+
+.ac-auditoria-tabla summary,
+.ac-auditoria-fuentes summary {
+  cursor: pointer;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.ac-auditoria-tabla .ac-tabla-marco,
+.ac-auditoria-fuentes .ac-dl {
+  margin-top: 8px;
+}
+
+.ac-auditoria-tabla td:last-child {
+  min-width: 230px;
+}
+
+.ac-auditoria-tabla th,
+.ac-auditoria-tabla td {
+  vertical-align: top;
+}
+
+/* Controles locales de «Evaluación»: viven dentro del bloque que modifican. */
+.ac-controles-locales {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 14px;
+  align-items: center;
+  margin: 4px 0 10px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--at-border);
+}
+
+.ac-controles-locales {
+  max-width: 100%;
+  /* Alineados a la izquierda: el control se lee justo antes de su gráfica, no al final de la fila. */
+  justify-content: flex-start;
+}
+
+.ac-controles-locales > * {
+  min-width: 0;
+  max-width: 100%;
+}
+
+.ac-controles-locales .at-segmentado {
+  max-width: 100%;
+  min-width: 0;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-width: thin;
+}
+
+.ac-controles-nota {
+  margin: 0;
+  flex: 1 1 220px;
+  min-width: 0;
+  font-size: 10.5px;
+  line-height: 1.45;
+  color: var(--at-text2);
+}
+
+.ac-df-segmentos-controles .at-segmentado {
+  max-width: 100%;
+  min-width: 0;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-width: thin;
+}
+
+.ac-df-segmentos-controles > * {
+  min-width: 0;
+  max-width: 100%;
+}
+
+@media (max-width: 640px) {
+  .ac-controles-locales {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .ac-controles-nota {
+    flex: 1 1 auto;
+  }
+}
