@@ -102,3 +102,58 @@ Comandos realmente ejecutados sobre el sitio servido en local (Python http.serve
 
 Lo que no se declara superado: mensaje de error en API caída, fin de espera en
 Marketing y Walmex, escenario de API vacía y revisión móvil.
+
+## Verificación funcional versionada (HEAD final)
+
+Verificador en `tools/verificar-fichas.mjs`, evidencia en
+`docs/verificacion-fichas.json`. Comando único:
+
+```bash
+python -m http.server 8000 --directory dist   # terminal 1
+SITE_BASE=http://127.0.0.1:8000 node tools/verificar-fichas.mjs
+```
+
+Cubre entrada directa de las 20 fichas con recarga completa, en 1440 × 900 y
+390 × 844; navegación SPA por clic y atrás; y los cuatro tableros con API caída
+simulada y recuperación. Sale con código 1 si hay fallos.
+
+**Resultado observado**: 122 APROBADO · 9 FALLIDO · 2 BLOQUEADO (exit 1).
+
+### Aprobado
+
+- 20 de 20 fichas con los ocho bloques editoriales y texto coincidente con
+  `content.js`, **en ambos viewports**.
+- Sin desbordamiento horizontal en las 40 combinaciones ficha/viewport.
+- Contrato de hallazgos correcto: solo los cuatro tableros declaran el host.
+- Navegación por clic desde el área y retroceso: el contenido cambia.
+
+### Fallido (defecto identificado, no corregido)
+
+- **API caída en los cuatro tableros**: el estado de espera termina, pero
+  `#hallazgos-host` queda **vacío**. Causa localizada: el adaptador
+  (`dist/projects/<proyecto>.js`) pinta el aviso de error en el área de la demo
+  (`bm-aviso--error`) y vacía el host de hallazgos sin escribir en él.
+- **Recuperación tras error**: al restaurar la API y recargar, el host sigue
+  vacío.
+- **Consola**: 22 errores durante el recorrido y 4 en la transición SPA de
+  `atlas-comercial`, asociados a las peticiones fallidas de los tableros.
+
+### Bloqueado
+
+- Escenario de **API sin datos**: no se construyeron respuestas vacías con el
+  contrato de cada endpoint; hacerlo requiere conocer cada contrato y su
+  adaptador.
+
+### No ejecutado
+
+- Integración del verificador en CI: requiere Playwright y un servidor estático
+  en el flujo; no se añadió para no dejar un job rojo sin verificar.
+- Corrección de los adaptadores: exige editar `dist/projects/*.js` o las fuentes
+  React y reconstruir los bundles; no se hizo porque no podía verificarse en esta
+  ronda.
+
+## Antecedentes históricos (no vigentes)
+
+- Las cifras de pruebas de rondas anteriores (`246`, `362`, `18`) corresponden a
+  ejecuciones locales de commits previos; no se repiten aquí como evidencia
+  vigente. Los resultados por repositorio viven en sus propios PR y CI.
