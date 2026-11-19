@@ -72,3 +72,33 @@ propuestas.
   consola, con título y navegación en las 20 rutas. El conteo de bloques por
   ficha devolvió 0 porque el selector usado no coincide con el DOM de la ficha:
   esa comprobación **no es válida** y no se declara superada.
+
+## Validación funcional y semántica (HEAD revisado)
+
+Comandos realmente ejecutados sobre el sitio servido en local (Python http.server,
+`dist/`), con Playwright y recarga completa por ruta:
+
+- **Navegación por clic**: desde `#portafolio`, el clic en la tarjeta del área
+  cambia el hash a `#/area/dashboards`. La navegación del sitio funciona. Los
+  recorridos anteriores, que usaban `goto` entre hashes sin recargar, mostraban
+  contenido de la ruta previa: eran inválidos.
+- **20 fichas con recarga real**: 20 de 20 con los ocho bloques editoriales
+  (Problema, Destinatario, Mi contribución, Fuentes y datos, Método y decisiones
+  técnicas, Resultados publicados, Limitaciones, Tecnologías), texto coincidente
+  con el registro y **0 errores de consola**. Sin desbordamiento horizontal a
+  1440 × 900 en ninguna.
+- **Hallazgos dinámicos**: solo los cuatro tableros con adaptador declaran el
+  host (`comparativo-bancario`, `atlas-vial`, `marketing-clientes`,
+  `pulso-comercial`). Ninguna otra ficha muestra contenedor dinámico.
+- **API caída (simulada con `route.abort()`)**: el estado de espera termina en
+  7 ms, pero el contenedor queda **vacío**: no hay mensaje de error comprensible.
+  Se marca **FALLIDO** y queda pendiente. No se inventaron hallazgos de respaldo.
+- **API disponible**: `comparativo-bancario` y `atlas-vial` completaron su bloque;
+  `marketing-clientes` y `pulso-comercial` seguían mostrando el estado de espera
+  al medir. Se marca **NO EJECUTADO** para esos dos: no se comprobó su fin.
+- **API sin datos**: **NO EJECUTADO**. No se construyeron respuestas vacías con el
+  contrato de cada endpoint.
+- **Móvil 390 × 844**: **NO EJECUTADO** en esta ronda.
+
+Lo que no se declara superado: mensaje de error en API caída, fin de espera en
+Marketing y Walmex, escenario de API vacía y revisión móvil.

@@ -10,7 +10,7 @@ clientes-campanas,"18 pruebas de artefactos y plantillas",evaluacion tecnica,pip
 clientes-en-movimiento,"tablero y paridad reconstruidos",evaluacion tecnica,dashboard-en-movimiento,14ea99b,pytest local,166 bytes sin atribuir
 gaza-observatorio,"build publico idempotente de 4 699 056 bytes",evaluacion tecnica,tools/construir.py,0617806,"construir.py --comprobar",clustering y pronostico sin codigo de calculo
 retailops,"AUC 0.9856 logistica y 0.9849 MLP 24/12 en prueba",resultado de modelo,bloque MODEL embebido,synthetic-42-v2,lectura del artefacto,"reproduccion del entrenamiento pendiente"
-asistente-investigacion,"6 pruebas de recuperacion y abstencion",evaluacion tecnica,pipeline/tests,a809f51,pytest local,recuperacion lexica sin embeddings
+asistente-investigacion,"6 pruebas de recuperacion y abstencion",evaluacion tecnica,tests/test_service.py,a809f51,pytest local,recuperacion lexica sin embeddings
 copiloto-nl-sql,"11 pruebas de parser y rechazo de escrituras",evaluacion tecnica,tests/,8f5021e,pytest local,plan del modelo opcional
 data-incident-commander,"8 pruebas del flujo supervisado",evaluacion tecnica,tests/,ee65ee0,pytest local,sin reparacion real
 the-ripple-room,"9 pruebas de determinismo y conservacion",evaluacion tecnica,tests/test_simulacion.py,8668627,pytest local,red y costos hipoteticos
@@ -19,4 +19,5 @@ dockmind,"36 escenarios y comprobaciones de interfaz",evaluacion tecnica,qa/*.cj
 observatorio-financiero,"caso definido sin implementacion",roadmap,ninguno,-,no aplica,sin datos ni evaluacion
 modernizacion-sas-python,"caso definido sin implementacion",roadmap,ninguno,-,no aplica,sin proceso migrado
 analista-asistido,"caso definido sin implementacion",roadmap,ninguno,-,no aplica,sin evaluacion
+
 
