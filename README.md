@@ -323,7 +323,27 @@ afirmación en [`docs/MATRIZ_EVIDENCIA_PROYECTOS.csv`](docs/MATRIZ_EVIDENCIA_PRO
 ```bash
 npm ci
 npx playwright install chromium
-npm run verificar
+npm run verificar                 # 104 casos con la API simulada
+npm run verificar:config          # build de producción: URL /api y Gaza
+npm run verificar:produccion      # comportamiento: ninguna petición a una API local
+npm run verificar:real            # + fase real aislada (requiere API y datos)
 ```
 
-El comando administra su servidor estático y verifica las 20 fichas en escritorio y móvil, navegación SPA y los estados de error, vacío y reintento de los cuatro tableros. La batería predeterminada usa respuestas interceptadas con contratos explícitos; no certifica la API real. [Alcance y reproducción](docs/CORRECCION_HALLAZGOS_2026-11-19.md). [Evidencia local de la corrección](docs/verificacion-fichas.json), ligada al SHA de código indicado en el propio informe. El workflow de navegador conserva evidencia por ejecución cuando se publique la rama.
+`npm run verificar` administra su servidor estático en el puerto 8000 (`PORT`
+para cambiarlo) y verifica las 20 fichas en escritorio y móvil, la navegación
+SPA y los estados de error, vacío y reintento de los cuatro tableros. La batería
+predeterminada usa respuestas interceptadas con contratos explícitos y se
+informa como **simulada**; no certifica la API real.
+
+`npm run verificar:real` añade 8 casos contra una API con datos reales, en un
+navegador aparte. Antes de ejecutarlos se comprueba CORS: si el origen del sitio
+no está en `ALLOWED_ORIGINS` de la API, la fase se informa como bloqueada con el
+motivo, en lugar de agotar la espera. Cada caso registra URL, estado HTTP y la
+cabecera CORS efectiva de cada petición.
+
+El workflow `Fichas y estados en navegador` ejecuta la batería en cada PR y
+conserva `artifacts/verificacion-fichas.json` y
+`artifacts/verificacion-produccion.json` incluso cuando falla un caso; el
+workflow `Despliegue integrado` construye las dos imágenes y levanta el stack
+completo. [Alcance y reproducción](docs/CORRECCION_HALLAZGOS_2026-11-19.md).
+
