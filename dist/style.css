@@ -1698,6 +1698,15 @@ body.demo-ampliado .demo-body { margin-top: 0; }
   overscroll-behavior: contain;
 }
 .demo-slot .demo-host { min-height: 0; height: auto; align-content: start; }
+/* El rótulo de los tableros no puede determinar el ancho de la página. Su
+   píldora de origen se dibuja sin cortes (`white-space: nowrap`) y, dentro de un
+   contenedor `inline-flex`, su ancho mínimo pasaba a ser el del texto completo:
+   en móvil desbordaba el documento (15 px con las métricas de letra de Linux y
+   más aún por debajo de 360 px). Se permite envolver el texto de la píldora y se
+   limita el rótulo al ancho de su columna; en escritorio no cambia nada porque
+   el texto cabe en una línea. */
+.demo-host .mk-brand { max-width: 100%; min-width: 0; }
+.demo-host .mk-brand-chip { white-space: normal; }
 
 /* ============ BLOQUE TÉCNICO DE LA DEMO ============
    Solo aparece en las fichas que declaran `demoTecnica`. Cierra la ficha a todo

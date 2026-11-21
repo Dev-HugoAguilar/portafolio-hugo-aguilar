@@ -31,7 +31,7 @@ const IDS=['comparativo-bancario','atlas-vial','marketing-clientes','pulso-comer
 const FIELDS={problema:'Problema',destinatario:'Destinatario',contribucion:'Mi contribución',fuentes:'Fuentes y datos',metodo:'Método y decisiones técnicas',resultados:'Resultados publicados',limitaciones:'Limitaciones'};
 const norm=v=>String(v??'').replace(/\u00a0/g,' ').replace(/\s+/g,' ').trim();
 const runId=crypto.randomUUID(), start=Date.now(), rows=[], plan=[], contexts=new Set();
-let browser,fatal=null,git={},projects=[],currentPage=null,currentInfo=null,currentSnapshot=null;
+let browser,fatal=null,git={},projects=[],currentPage=null,currentInfo=null,currentSnapshot=null,realPreflight=null;
 const hash=f=>crypto.createHash('sha256').update(fs.readFileSync(f)).digest('hex');
 const routeOf=p=>`#/area/${p.area}/${p.id}`;
 function add(fase,p,vp,scenario,run){plan.push({fase,p,vp,scenario,run});}
@@ -156,6 +156,20 @@ async function runPhase(fase){
   browser=null;contexts.clear();
  }
 }
+async function preflightCors(){
+ /* La fase real pide datos al navegador: si el origen del sitio no está en
+    ALLOWED_ORIGINS de la API, el navegador bloquea la respuesta y el caso
+    acabaría en un timeout de 20 s que no describe la causa. */
+ const origen=BASE;
+ try{
+  const r=await fetch(API+'/api/v1/health/live',{headers:{Origin:origen},signal:AbortSignal.timeout(8000)});
+  const permitido=r.headers.get('access-control-allow-origin');
+  const mismoOrigen=new URL(origen).origin===new URL(API).origin;
+  return{origen,estado:r.status,allow_origin:permitido,bloqueado:!permitido&&!mismoOrigen,motivo:permitido||mismoOrigen?null:`el origen ${origen} no está en ALLOWED_ORIGINS de la API (${API})`};
+ }catch(e){
+  return{origen,error:String(e.message||e),bloqueado:true,motivo:`la API no respondió en ${API}: ${String(e.message||e)}`};
+ }
+}
 try{
  git={sha:execFileSync('git',['rev-parse','HEAD'],{cwd:ROOT,encoding:'utf8'}).trim(),dirty:!!execFileSync('git',['status','--porcelain'],{cwd:ROOT,encoding:'utf8'}).trim()};
  const c={window:{}};vm.createContext(c);vm.runInContext(fs.readFileSync(path.join(ROOT,'dist/content.js'),'utf8'),c,{timeout:1000});
@@ -185,13 +199,17 @@ try{
  const _p=process.env.PROYECTO,_v=process.env.VIEWPORT,_s=process.env.ESCENARIO,_f=process.env.FASE;
  if(_p||_v||_s||_f){const sel=plan.filter(x=>(!_p||x.p.id===_p)&&(!_v||x.vp===_v)&&(!_s||x.scenario===_s)&&(!_f||x.fase===_f));plan.length=0;plan.push(...sel);}
  await runPhase('determinista');
- if(REAL&&plan.some(x=>x.fase==='real'))await runPhase('real');
+ if(REAL&&plan.some(x=>x.fase==='real')){
+  const pre=await preflightCors();realPreflight=pre;
+  if(pre.bloqueado)console.error(`FASE REAL BLOQUEADA: ${pre.motivo}`);
+  else await runPhase('real');
+ }
 }catch(e){fatal=String(e.stack||e);}
 finally{
  for(const ctx of contexts)await ctx.close().catch(()=>{});if(browser)await browser.close().catch(()=>{});
  const resumen=fase=>rows.filter(r=>r.fase===fase).reduce((s,r)=>({...s,[r.estado]:(s[r.estado]||0)+1}),{});
  const summary=rows.reduce((s,r)=>({...s,[r.estado]:(s[r.estado]||0)+1}),{}),missing=plan.length-rows.length;
- const report={run_id:runId,version:'4.1.0',site:BASE,api:API,git,date:new Date().toISOString(),duration_ms:Date.now()-start,status:fatal?'ABORTADO':'COMPLETADO',error_fatal:fatal,expected:plan.length,executed:rows.length,missing,phases:plan.reduce((s,x)=>({...s,[x.fase]:(s[x.fase]||0)+1}),{}),summary_by_phase:{determinista:resumen('determinista'),real:resumen('real')},real_api:REAL?'fase real solicitada; ver summary_by_phase.real':'NO EJECUTADO: usar --api-real con API y datos accesibles',verifier_sha256:hash(fileURLToPath(import.meta.url)),fixtures_sha256:hash(path.join(ROOT,'tools/qa/empty-api.mjs')),fixturePaths,summary,rows};
+ const report={run_id:runId,version:'4.1.0',site:BASE,api:API,git,date:new Date().toISOString(),duration_ms:Date.now()-start,status:fatal?'ABORTADO':'COMPLETADO',error_fatal:fatal,expected:plan.length,executed:rows.length,missing,phases:plan.reduce((s,x)=>({...s,[x.fase]:(s[x.fase]||0)+1}),{}),summary_by_phase:{determinista:resumen('determinista'),real:resumen('real')},real_api:REAL?'fase real solicitada':'NO EJECUTADO: usar --api-real con API y datos accesibles',real_api_preflight:realPreflight,verifier_sha256:hash(fileURLToPath(import.meta.url)),fixtures_sha256:hash(path.join(ROOT,'tools/qa/empty-api.mjs')),fixturePaths,summary,rows};
  fs.mkdirSync(path.dirname(OUTPUT),{recursive:true});fs.writeFileSync(OUTPUT+'.tmp',JSON.stringify(report,null,2));fs.renameSync(OUTPUT+'.tmp',OUTPUT);
  console.log(JSON.stringify({output:OUTPUT,expected:plan.length,executed:rows.length,summary,fatal}));if(fatal||missing||!plan.length||summary.FALLIDO)process.exitCode=1;
 }
