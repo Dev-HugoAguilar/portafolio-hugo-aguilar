@@ -77,8 +77,15 @@ jobs:
         run: |
           set -eu
           # Se excluye .github porque este mismo archivo enumera los patrones.
-          if grep -rIl --exclude-dir=.git --exclude-dir=.github -E '(mongodb(\+srv)?://[^"[:space:]]*:[^"[:space:]]*@|sk-[A-Za-z0-9]{16,}|gh[pousr]_[A-Za-z0-9]{20,}|github_pat_[A-Za-z0-9_]{20,}|AKIA[0-9A-Z]{16}|BEGIN (RSA |EC |OPENSSH )?PRIVATE KEY)' .; then
-            echo "Se detectaron posibles credenciales"; exit 1
+          # Las plantillas de documentación (`<VAR>`, usuario:clave) no son
+          # secretos y se descartan antes de decidir; los formatos
+          # criptográficos de token jamás se eximen.
+          detectadas=$(grep -rIn --exclude-dir=.git --exclude-dir=.github -E \
+            '(mongodb(\+srv)?://[^"[:space:]]*:[^"[:space:]]*@|sk-[A-Za-z0-9]{16,}|gh[pousr]_[A-Za-z0-9]{20,}|github_pat_[A-Za-z0-9_]{20,}|AKIA[0-9A-Z]{16}|BEGIN (RSA |EC |OPENSSH )?PRIVATE KEY)' . \
+            | grep -vE 'mongodb(\+srv)?://[^:]+:<[A-Za-z0-9_]+>@' \
+            | grep -vE 'mongodb(\+srv)?://(usuario|user|username):(clave|pass|password|contraseña)@' || true)
+          if [ -n "$detectadas" ]; then
+            echo "$detectadas"; echo "Se detectaron posibles credenciales"; exit 1
           fi
           echo "Sin credenciales detectadas"
 
