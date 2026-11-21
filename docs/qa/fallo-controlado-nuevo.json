@@ -1,0 +1,42 @@
+{
+  "run_id": "aa5c259c-907d-4abe-ade5-663d21ea8d8c",
+  "version": "4.0.0",
+  "site": "http://127.0.0.1:20247",
+  "api": "http://127.0.0.1:8010",
+  "git": {
+    "sha": "81359bfc43e69ace9d87cb0a227488a917349a8f",
+    "dirty": true
+  },
+  "date": "2026-11-19T23:21:23.681Z",
+  "duration_ms": 127,
+  "status": "ABORTADO",
+  "error_fatal": "Error: Fallo controlado: prueba de persistencia del reporte\n    at file:///D:/Portafolio/Portafolio_Hugo_Aguilar/tools/verificar-fichas.mjs:91:55\n    at ModuleJob.run (node:internal/modules/esm/module_job:377:25)\n    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:691:26)\n    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5)",
+  "expected": 104,
+  "executed": 0,
+  "missing": 104,
+  "real_api": "NO EJECUTADO: usar --api-real con API y datos accesibles",
+  "verifier_sha256": "811b159d7f2adb80098cbe3b0766e92634ef727b2a119785aa41e36ce3fde9d9",
+  "fixtures_sha256": "7aefaaa8d209943402f9c971421d91075ff482201fefe8a88810aa825fa549c3",
+  "fixturePaths": [
+    "cnbv/banca-multiple/catalogo",
+    "atlas-vial/catalogo",
+    "atlas-vial/geometria",
+    "marketing/estado",
+    "marketing/catalogo",
+    "marketing/resumen",
+    "marketing/conversion",
+    "marketing/cohortes",
+    "marketing/productos",
+    "marketing/adquisicion",
+    "marketing/tabla",
+    "walmex/estado",
+    "walmex/catalogo",
+    "walmex/resumen",
+    "walmex/motores",
+    "walmex/desempeno",
+    "walmex/matriz",
+    "walmex/fuentes"
+  ],
+  "summary": {},
+  "rows": []
+}

@@ -1,0 +1,8 @@
+# Contexto de la imagen del sitio: el repositorio entero, pero solo se publica
+# `dist/`. Las fuentes del monorepo (backend/, dashboards/, docs/) no entran.
+*
+!dist
+!dist/**
+!deploy
+!deploy/Dockerfile.sitio
+!deploy/nginx.conf

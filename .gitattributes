@@ -14,3 +14,13 @@
 *.webp  binary
 *.ico   binary
 *.webm  binary
+
+# Bundles generados por Vite y empaquetados de las demos: GitHub Linguist los
+# marca como generados para que no dominen la barra de lenguajes. No se
+# reclasifica ningún lenguaje ni se oculta código propio.
+dist/dashboards/*/app.js    linguist-generated=true
+dist/dashboards/*/app.css   linguist-generated=true
+dist/dashboards/*/index.html linguist-generated=true
+
+# Librerías de terceros servidas localmente, no escritas en este repositorio.
+dist/dashboards/*/vendor/*  linguist-vendored=true

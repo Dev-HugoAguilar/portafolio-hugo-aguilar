@@ -137,7 +137,7 @@ existe, de modo que una fila nunca apunta a un destino inexistente.
 |---|---|---|
 | D3.js | ✅ | 10 repositorios: [`vidas-en-transito`](https://github.com/Dev-HugoAguilar/vidas-en-transito), [`dockmind-demand-planning`](https://github.com/Dev-HugoAguilar/dockmind-demand-planning), [`cdmx-traffic-atlas`](https://github.com/Dev-HugoAguilar/cdmx-traffic-atlas), [`banxico-evidence-briefing`](https://github.com/Dev-HugoAguilar/banxico-evidence-briefing) y el resto |
 | React | ✅ | [`cdmx-traffic-atlas`](https://github.com/Dev-HugoAguilar/cdmx-traffic-atlas), [`mexican-banking-analytics`](https://github.com/Dev-HugoAguilar/mexican-banking-analytics), [`ga4-marketing-analytics`](https://github.com/Dev-HugoAguilar/ga4-marketing-analytics), [`walmex-financial-pulse`](https://github.com/Dev-HugoAguilar/walmex-financial-pulse), [`demand-forecasting-m5`](https://github.com/Dev-HugoAguilar/demand-forecasting-m5) |
-| Vite | ✅ | Los cinco proyectos React anteriores, con build verificado en CI |
+| Vite | ✅ | Los cuatro tableros React (`cdmx-traffic-atlas`, `mexican-banking-analytics`, `ga4-marketing-analytics`, `walmex-financial-pulse`) con build verificado en CI; `demand-forecasting-m5` incluye la fuente de su interfaz, sin build en CI |
 | HTML5 / CSS3 moderno | ✅ | Todos los sitios: sistema visual propio, sin frameworks de UI |
 | MapLibre GL · Three.js · SGP4 | ✅ | [`kilometro-cero-logistics`](https://github.com/Dev-HugoAguilar/kilometro-cero-logistics) (mapa vectorial), [`orbita-orbital-intelligence`](https://github.com/Dev-HugoAguilar/orbita-orbital-intelligence) (Tierra 3D y propagación orbital) |
 | Playwright · jsdom | ✅ | Verificadores de navegador de los repositorios y pruebas de interfaz en CI |
@@ -145,6 +145,205 @@ existe, de modo que una fila nunca apunta a un destino inexistente.
 ## Ejecutar
 
 ```bash
-git clone [https://github.com/Dev-HugoAguilar/portafolio-hugo-aguilar.git](https://github.com/Dev-HugoAguilar/portafolio-hugo-aguilar.git)
+git clone https://github.com/Dev-HugoAguilar/portafolio-hugo-aguilar.git
 cd portafolio-hugo-aguilar
 python -m http.server 8000 --directory dist
+```
+
+Abre <http://127.0.0.1:8000/>. Las rutas son *hash*
+(`#/area/<id>/<proyecto>`), así que el sitio funciona desde cualquier servidor de
+archivos. No hay compilación, dependencias ni backend.
+
+Los cuatro tableros conectados resuelven la API en tiempo de ejecución con
+`dist/config.js`: por omisión `/api` (mismo origen, detrás del proxy). Para
+apuntarlos a una API local, define `window.PORTFOLIO_API_BASE` antes de ese
+archivo —por ejemplo con un `config.local.js` no versionado— con el valor
+`http://127.0.0.1:8010/api`. El artefacto publicado no contiene ninguna URL de
+API local.
+
+## Despliegue integrado
+
+El sitio y la API se ejecutan juntos con dos contenedores y un solo origen
+público (`/api` lo publica nginx). El paquete está en `deploy/`:
+
+```bash
+git clone https://github.com/Dev-HugoAguilar/portfolio-api.git   # hermana del sitio
+cp deploy/.env.example deploy/.env                               # completa MONGODB_URI
+docker compose -f deploy/docker-compose.yml --env-file deploy/.env up -d --build
+curl -i http://127.0.0.1:8080/api/v1/health/ready
+```
+
+`deploy/LEEME.md` documenta los requisitos (MongoDB Atlas, dominio, TLS), el
+procedimiento de datos y lo que el paquete **no** resuelve. `deploy/.env.example`
+enumera las variables sin secretos.
+
+## Estructura
+
+```text
+dist/                  Sitio servible
+  index.html           Documento único del sitio
+  config.js            Base de la API en tiempo de ejecución (`/api`)
+  app.js               Navegación, vistas y renderizado
+  content.js           Contenido: áreas, fichas, estados, categorías y enlaces
+  style.css            Sistema visual
+  projects/            Módulos que montan cada demo en su ficha
+  dashboards/          Demos publicadas (una carpeta por proyecto)
+  img/                 Capturas de tarjeta y ficha
+deploy/
+  docker-compose.yml   Sitio + API + MongoDB local (perfiles de prueba)
+  Dockerfile.sitio     Imagen de nginx con `dist/` y el proxy `/api`
+  nginx.conf           Raíz web, caché y enrutado `/api`
+  .env.example         Variables del despliegue (sin secretos)
+  LEEME.md             Procedimiento, requisitos y límites
+tools/
+  verificar-taxonomia.mjs        Comprueba categorías, estados, enlaces y roadmap
+  verificar-fichas.mjs           Fichas, navegación, estados y peticiones de API
+  verificar-config-produccion.mjs Build de producción: URL relativa y Gaza
+  verificar-produccion.mjs       Comportamiento: ninguna petición a una API local
+```
+
+## Verificación
+
+```bash
+node tools/verificar-taxonomia.mjs
+```
+
+Comprueba en un navegador real el orden de las cinco áreas, sus etiquetas, el
+recuento de casos por estado, las fichas de cada área, los 17 enlaces a
+repositorio, los 12 enlaces a demo, el tratamiento de *roadmap* y la ausencia de
+desbordes a 390 px. La última ejecución local se hizo sobre el commit indicado en el PR, no en GitHub Actions.
+
+La integración continua ejecuta la comprobación de sintaxis del JavaScript del
+sitio, la validación de la taxonomía (5 áreas, etiquetas, estados y URL de
+repositorio) y el escaneo de credenciales.
+
+## Evidencia por repositorio
+
+Lo que ejecuta la integración continua de cada proyecto. Los resultados y sus
+ejecuciones viven en cada repositorio y en sus PR; aquí solo se declara el
+alcance, sin duplicar cifras que caducan:
+
+| Repositorio | Qué ejecuta su CI |
+|---|---|
+| `portfolio-api` | `pytest` con dos jobs: dominio sin MongoDB e integración con MongoDB efímero |
+| `customer-growth-intelligence` | `pytest` de artefactos y plantillas |
+| `vidas-en-transito` | `pytest` de contrato de datos y no redistribución |
+| `gaza-humanitarian-observatory` | `pytest` de contrato y guarda de la lista nominal |
+| `nl2sql-economic-copilot`, `banxico-evidence-briefing`, `data-incident-commander` | `pytest` del dominio |
+| `demand-forecasting-m5` | `pytest` de contratos y lógica pura, más `compileall` |
+| `dockmind-demand-planning` | `npm ci`, simulación de 36 escenarios e interfaz en jsdom |
+| `ripple-room-supply-chain`, `kilometro-cero-logistics` | `pytest` de invariantes de la simulación |
+| cuatro tableros React | `npm ci`, `tsc`, build y comprobación del artefacto |
+| `retailops-unified`, `orbita-orbital-intelligence` | integridad del artefacto, procedencia y escaneo de credenciales |
+
+## Stack del portafolio y evidencia técnica
+
+Este repositorio contiene **el sitio integrador**. La barra *Languages* de GitHub
+describe únicamente los archivos de este repositorio: los bundles generados de las
+demos y su HTML pesan mucho más que las utilidades de verificación, así que la
+barra no representa el stack del trabajo. Los pipelines, modelos y APIs se
+documentan en los repositorios enlazados.
+
+| Capacidad | Tecnologías | Proyecto | Evidencia directa |
+|---|---|---|---|
+| Machine Learning y evaluación | Python, LightGBM, scikit-learn, Pandas, NumPy | `demand-forecasting-m5` | [`lib/app/comercial/modelo.py`](https://github.com/Dev-HugoAguilar/demand-forecasting-m5/blob/main/lib/app/comercial/modelo.py) |
+| Segmentación y experimentación | scikit-learn, SciPy, pandas | `customer-growth-intelligence` | [`pipeline/src`](https://github.com/Dev-HugoAguilar/customer-growth-intelligence/tree/main/pipeline/src) |
+| Pronóstico y artefactos `joblib` | scikit-learn, joblib | `dockmind-demand-planning` | [`pipeline/train_models.py`](https://github.com/Dev-HugoAguilar/dockmind-demand-planning/blob/main/pipeline/train_models.py) |
+| Ingeniería de datos | Python, importer idempotente, índices | `portfolio-api` | [`app/cnbv`](https://github.com/Dev-HugoAguilar/portfolio-api/tree/main/app/cnbv) y [`app/db/indexes.py`](https://github.com/Dev-HugoAguilar/portfolio-api/blob/main/app/db/indexes.py) |
+| APIs y almacenamiento | FastAPI, Pydantic, MongoDB | `portfolio-api` | [`app/main.py`](https://github.com/Dev-HugoAguilar/portfolio-api/blob/main/app/main.py) |
+| Dominio instalable | Python, SQLite, pydantic-settings | `nl2sql-economic-copilot` | [`src/app/nl_sql`](https://github.com/Dev-HugoAguilar/nl2sql-economic-copilot/tree/main/src/app/nl_sql) |
+| Visualización e interfaces | React, Vite, TypeScript, D3.js, SVG | `cdmx-traffic-atlas`, `vidas-en-transito` | [`app/src`](https://github.com/Dev-HugoAguilar/cdmx-traffic-atlas/tree/main/app/src) y [`web/hexmap.js`](https://github.com/Dev-HugoAguilar/vidas-en-transito/blob/main/web/hexmap.js) |
+| Simulación y decisiones supervisadas | Python, reglas deterministas, aprobación humana | `data-incident-commander`, `ripple-room-supply-chain` | [`service.py`](https://github.com/Dev-HugoAguilar/data-incident-commander/blob/main/src/app/incident_commander/service.py) y [`simulation.py`](https://github.com/Dev-HugoAguilar/ripple-room-supply-chain/blob/main/source/simulation.py) |
+| Verificación | pytest, jsdom, Playwright | varios | [`qa/`](https://github.com/Dev-HugoAguilar/dockmind-demand-planning/tree/main/qa) y [`tools/verificar-taxonomia.mjs`](tools/verificar-taxonomia.mjs) |
+
+**Nivel de cada tecnología**: *implementada* cuando hay código ejecutable en el
+repositorio enlazado; *documentada históricamente* cuando el repositorio la
+declara sin pipeline reproducible (RetailOps: la inferencia está publicada y el
+entrenamiento original sigue pendiente); *propuesta* en los casos de roadmap.
+## Límites
+
+- El integrador es estático. Las demos autocontenidas funcionan con archivos del mismo origen; los cuatro tableros y M5 necesitan la API y sus datos, y no muestran cifras si falta.
+- Algunas demos se montan dentro de la ficha y no se abren fuera del sitio; la
+  tarjeta ofrece el enlace directo cuando existe una demo publicada.
+- Dos fichas comparten repositorio (*Clientes y campañas* y *Clientes en
+  movimiento* documentan dos enfoques del mismo trabajo).
+- Los tres casos *Próximamente* no tienen repositorio: solo tienen caso definido.
+- El contenido de las fichas describe lo que cada repositorio demuestra; las
+  tecnologías sin repositorio público están marcadas como experiencia profesional
+  en la sección de stack.
+- No hay analítica ni seguimiento de usuarios.
+
+## Seguridad y contribución
+
+El repositorio no contiene credenciales ni datos personales. Ver
+[`SECURITY.md`](SECURITY.md) y [`CONTRIBUTING.md`](CONTRIBUTING.md).
+
+## Arquitectura: qué se ejecuta y qué necesita backend
+
+No todas las piezas de este repositorio funcionan igual. Conviene distinguirlas
+antes de abrir una demo:
+
+| Tipo | Proyectos | Qué necesita |
+|---|---|---|
+| **Integrador estático** | este repositorio | Solo un servidor de archivos. Navegación por rutas *hash*. |
+| **Demos autocontenidas** | `retailops-unified`, `orbita-orbital-intelligence`, `kilometro-cero-logistics`, `ripple-room-supply-chain`, `dockmind-demand-planning`, `vidas-en-transito`, `gaza-humanitarian-observatory` | Servidor de archivos. Datos, estilos y lógica viajan dentro del artefacto. |
+| **Tableros que requieren la API** | Banca múltiple, Atlas vial, Marketing y clientes, Pulso comercial (Walmex) | `portfolio-api` en ejecución y MongoDB con los datos importados. |
+| **Servicios de dominio** | `nl2sql-economic-copilot`, `banxico-evidence-briefing`, `data-incident-commander` | `pip install -e .` en su repositorio; no usan la API HTTP. |
+| **Entrenamiento y actualización de datos** | `demand-forecasting-m5`, `customer-growth-intelligence`, `dockmind-demand-planning` | CSV externos (M5, Complete Journey, Criteo), MongoDB y, en M5, Unix. |
+
+### Sobre `localhost:8010`
+
+Los cuatro tableros piden la API en `http://127.0.0.1:8010`. En una demo servida
+**desde tu equipo** eso apunta a tu propia máquina: hay que arrancar
+`portfolio-api` en ese puerto con una base importada. En una demo remota, ese
+`localhost` apunta al equipo del visitante y no funcionará: los tableros muestran
+su estado de error, no una cifra inventada. El puerto y `ALLOWED_ORIGINS` se
+configuran por variables de entorno; el detalle está en el README de
+[`portfolio-api`](https://github.com/Dev-HugoAguilar/portfolio-api).
+
+Versiones compatibles registradas: los cuatro tableros se probaron contra
+`portfolio-api` en el commit `8a27227`.
+
+## Estado editorial de las fichas
+
+Cada ficha declara problema, destinatario, contribución, fuentes, método,
+resultados y limitaciones. Los cuatro tableros conservan además un bloque
+dinámico de hallazgos que se calcula contra la API con los filtros activos; si la
+API no responde, el bloque informa el error en lugar de dejar un «Calculando…»
+indefinido. Los proyectos sin adaptador no muestran ese bloque.
+
+Los tres casos **Próximamente** describen alcance previsto y validaciones futuras,
+sin resultados ejecutados. El estándar completo está en
+[`docs/ESTANDAR_EDITORIAL.md`](docs/ESTANDAR_EDITORIAL.md) y la evidencia por
+afirmación en [`docs/MATRIZ_EVIDENCIA_PROYECTOS.csv`](docs/MATRIZ_EVIDENCIA_PROYECTOS.csv).
+
+
+## Verificación de fichas en navegador
+
+```bash
+npm ci
+npx playwright install chromium
+npm run verificar                 # 104 casos con la API simulada
+npm run verificar:config          # build de producción: URL /api y Gaza
+npm run verificar:produccion      # comportamiento: ninguna petición a una API local
+npm run verificar:real            # + fase real aislada (requiere API y datos)
+```
+
+`npm run verificar` administra su servidor estático en el puerto 8000 (`PORT`
+para cambiarlo) y verifica las 20 fichas en escritorio y móvil, la navegación
+SPA y los estados de error, vacío y reintento de los cuatro tableros. La batería
+predeterminada usa respuestas interceptadas con contratos explícitos y se
+informa como **simulada**; no certifica la API real.
+
+`npm run verificar:real` añade 8 casos contra una API con datos reales, en un
+navegador aparte. Antes de ejecutarlos se comprueba CORS: si el origen del sitio
+no está en `ALLOWED_ORIGINS` de la API, la fase se informa como bloqueada con el
+motivo, en lugar de agotar la espera. Cada caso registra URL, estado HTTP y la
+cabecera CORS efectiva de cada petición.
+
+El workflow `Fichas y estados en navegador` ejecuta la batería en cada PR y
+conserva `artifacts/verificacion-fichas.json` y
+`artifacts/verificacion-produccion.json` incluso cuando falla un caso; el
+workflow `Despliegue integrado` construye las dos imágenes y levanta el stack
+completo. [Alcance y reproducción](docs/CORRECCION_HALLAZGOS_2026-11-19.md).
+

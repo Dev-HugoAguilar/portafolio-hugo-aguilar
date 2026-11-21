@@ -104,6 +104,7 @@ window.PORTAFOLIO = {
         {
           id: 'comparativo-bancario',
           titulo: 'Banca múltiple mexicana — Comparativo financiero',
+          resultados: 'Cobertura verificada: 7 boletines de la CNBV (octubre 2023 a octubre 2024), 56 248 hechos conciliados celda por celda, 158 conceptos y 50 instituciones. Los hallazgos por filtro se calculan contra la API para el corte seleccionado.',
           estado: 'publicado',
           descripcion: 'Compara saldos y resultados de las instituciones de banca múltiple con cifras publicadas por la CNBV: ranking por institución, evolución temporal, dispersión ROA–ROE y tabla de detalle, todo con un mismo estado de filtros.',
           destinatario: 'Pensado para quien necesita leer el sector bancario mexicano sin descargar y reconstruir a mano los boletines mensuales.',
@@ -112,7 +113,7 @@ window.PORTAFOLIO = {
           fuentes: 'CNBV, Boletín Estadístico de Banca Múltiple (sector 40 del Portafolio de Información): 7 boletines importados, 56 248 hechos, 158 conceptos y 50 instituciones.',
           metodo: 'Importación idempotente con SHA-256 y revisiones; hechos normalizados en MongoDB y agregaciones en el servidor. Interfaz con estado único en Zustand, consultas con claves completas en TanStack Query, tabla con TanStack Table y controles Radix. La columna «Sistema» es el agregado publicado y nunca se suma con las instituciones; los flujos acumulados solo se comparan con el mismo corte del año anterior; los meses sin boletín se marcan como huecos, no se interpolan. Metodología y calidad de datos: 56 248 hechos conciliados celda por celda contra los archivos originales sin discrepancias; 7 periodos disponibles (oct 2023 – oct 2024); 66 pruebas de navegador (escritorio y móvil) verifican que ranking, serie, dispersión y tabla responden al mismo estado de selección, incluida la prueba visual de la paleta, de los desplegables y de las unidades, y la de navegación del portafolio.',
           hallazgos: '',
-          limitaciones: null,
+          limitaciones: 'Solo banca múltiple: no incluye banca de desarrollo, sofomes ni otras entidades. Los conceptos acumulados no se comparan con saldos puntuales. La cobertura depende de los boletines importados (7 periodos, octubre 2023 a octubre 2024) y un mes sin boletín se marca como hueco, no se interpola. La columna «Sistema» es el agregado publicado y nunca se suma con las instituciones. Los importes son nominales, sin ajuste por inflación.',
           tecnologias: ['React', 'TypeScript', 'D3.js', 'Zustand', 'TanStack Query', 'TanStack Table', 'Radix UI', 'Playwright', 'FastAPI', 'MongoDB'],
           /* Mismas tecnologías, agrupadas por la función que cumplen en el módulo. */
           tecnologiasGrupos: [
@@ -142,6 +143,7 @@ window.PORTAFOLIO = {
         {
           id: 'atlas-vial',
           titulo: 'Atlas vial · Ciudad de México',
+          resultados: 'Cobertura verificada: hechos de tránsito 2024 de la SSC CDMX georreferenciados por alcaldía, con 1 654 registros sin edad y 1 005 sin sexo mostrados como «Sin dato». Los hallazgos por filtro se calculan contra la API.',
           estado: 'publicado',
           descripcion: 'Explora la distribución territorial y temporal de los hechos de tránsito registrados por la SSC, las personas afectadas y los vehículos involucrados mediante mapas y filtros conectados.',
           destinatario: 'Pensado para quien necesita leer los hechos de tránsito de la Ciudad de México sin descargar cinco archivos, cruzarlos a mano y reconstruir los mapas en una hoja de cálculo.',
@@ -175,7 +177,9 @@ window.PORTAFOLIO = {
         },
         {
           id: 'marketing-clientes',
+          resumen: 'Explora adquisicion, conversion y retorno de usuarios a partir de eventos de comercio electronico de una muestra publica y ofuscada de Google Analytics 4.',
           titulo: 'Marketing y clientes',
+          resultados: 'Cobertura verificada: muestra del 5 % de usuarios de GA4 (13 509 de 270 154), periodo del 1 de noviembre de 2020 al 31 de enero de 2021. Los hallazgos por filtro se calculan contra la API.',
           estado: 'desarrollo',
           descripcion: 'Explora adquisición, conversión y retorno de usuarios a partir de eventos de comercio electrónico.',
           destinatario: 'Profesionales de marketing, analítica y comercio electrónico que necesitan explorar adquisición, conversión y retorno de usuarios desde una misma aplicación, con métricas consistentes y filtros conectados.',
@@ -216,7 +220,9 @@ window.PORTAFOLIO = {
         },
         {
           id: 'pulso-comercial',
+          resumen: 'Analiza ventas, crecimiento y desempeno comercial de Walmart de Mexico y Centroamerica con los comunicados trimestrales oficiales.',
           titulo: 'Pulso comercial · Walmex',
+          resultados: 'Cobertura verificada: 15 trimestres del 1T23 al 3T26 y 16 documentos oficiales; tráfico y ticket solo desde 2024, con 10 de 15 trimestres y los huecos marcados como «no publicado».',
           estado: 'publicado',
           descripcion: 'Analiza ventas, crecimiento y desempeño comercial de Walmart de México y Centroamérica con los comunicados trimestrales oficiales.',
           destinatario: 'Pensado para analistas, equipos comerciales e inversores que necesitan leer el pulso de la operación trimestre a trimestre sin descargar y rearmar cada comunicado.',
@@ -272,7 +278,7 @@ window.PORTAFOLIO = {
             'Captura del tablero «Vidas en tránsito» servido en local: la cabecera con el corte de cada fuente, el esquema por países del corredor centroamericano descrito por OIM DTM y el inicio de las vistas de UPMRIP, ICIJ/CLIP y OIM DTM con sus notas de cobertura.',
           demoUrl: 'dashboards/vidas-en-transito/index.html',
           codigoUrl: 'https://github.com/Dev-HugoAguilar/vidas-en-transito',
-          hallazgos: '',
+          hallazgos: null,
           problema:
             "Las fuentes disponibles observan fenómenos distintos: eventos administrativos relacionados con personas migrantes que declararon victimización, incidentes documentados por una investigación periodística, registros de atención de organizaciones y elementos de una capa geográfica parcial de servicios. Mezclarlos puede llevar a conclusiones erróneas: interpretar un registro administrativo como un censo de delitos o de personas migrantes; contar una fila de incidente como una persona fallecida; leer un dato faltante como cero; confundir la entidad donde se registró un caso con el lugar del hecho; o presentar una capa parcial como un directorio vigente de albergues. El tablero mantiene separadas las unidades y coberturas, hace visibles los datos faltantes y añade notas para delimitar cada interpretación.",
           contribucion:
@@ -318,18 +324,25 @@ window.PORTAFOLIO = {
           ]
         },
         {
+          problema: 'Comparar el sistema financiero mexicano exige leer boletines de distintas autoridades con periodicidades, unidades y definiciones que no coinciden; sin ese contexto es fácil sumar agregados con instituciones o comparar saldos con flujos.',
+          contribucion: 'Alcance previsto, no implementado: definir el modelo de fuentes y unidades, el importador con control de revisiones y las vistas de crédito, captación y tasas. No hay datos importados ni vista construida.',
+          fuentes: 'Fuentes candidatas, ninguna integrada: Banco de México (tasas y agregados monetarios) y CNBV (banca múltiple y banca de desarrollo). Su licencia y corte se documentarán al importarlas.',
+          metodo: 'Criterio previsto: una unidad por vista, sin sumar agregados con instituciones, comparación interanual entre cortes equivalentes y huecos marcados cuando falte el boletín. La conciliación contra los archivos originales será requisito previo a publicar.',
+          resultados: 'Caso definido; sin implementación ni evaluación publicadas. No se declaran coberturas, métricas ni validaciones ejecutadas.',
           id: 'observatorio-financiero',
+          resultados: 'No hay resultados: el caso está definido y pendiente de desarrollo. No se declaran coberturas, métricas ni validaciones ejecutadas.',
           titulo: 'Observatorio financiero de México',
           estado: 'previsto',
+          resumen: 'Caso previsto: reunir en un solo tablero los indicadores financieros públicos de México que hoy se consultan en boletines separados, con la unidad y el corte de cada fuente a la vista.',
           categoria: 'Finanzas',
           descripcion: 'Explorar indicadores financieros por periodo y región a partir de fuentes públicas, con filtros, notas que expliquen cada lectura y acceso a la fuente original.',
           destinatario: 'Pensado para quien necesita entender la evolución del sistema financiero sin depender de reportes estáticos en PDF.',
-          problema: null,
-          contribucion: null,
-          fuentes: null,
-          metodo: null,
-          resultados: null,
-          limitaciones: null,
+          problema: 'Comparar el sistema financiero mexicano exige leer boletines de distintas autoridades con periodicidades, unidades y definiciones que no coinciden; sin ese contexto es fácil sumar agregados con instituciones o comparar saldos con flujos.',
+          contribucion: 'Alcance previsto, no implementado: definir el modelo de fuentes y unidades, el importador con control de revisiones y las vistas de crédito, captación y tasas. No hay datos importados ni vista construida.',
+          fuentes: 'Fuentes candidatas, ninguna integrada: Banco de México (tasas y agregados monetarios) y CNBV (banca múltiple y banca de desarrollo). Su licencia y corte se documentarán al importarlas.',
+          metodo: 'Criterio previsto: una unidad por vista, sin sumar agregados con instituciones, comparación interanual entre cortes equivalentes y huecos marcados cuando falte el boletín. La conciliación contra los archivos originales será requisito previo a publicar.',
+          resultados: 'Caso definido; sin implementación ni evaluación publicadas. No se declaran coberturas, métricas ni validaciones ejecutadas.',
+          limitaciones: 'Caso previsto: no existe implementación, datos importados ni evaluación. Cualquier cifra que se publique deberá declarar su fuente, su unidad, su corte y el hueco cuando falte el boletín; el agregado de una autoridad no se suma con el de otra.',
           tecnologias: ['D3.js', 'React', 'Datos públicos', 'Power BI'],
           capturas: [],
           demoUrl: null,
@@ -614,13 +627,13 @@ window.PORTAFOLIO = {
           problema:
             'Cuatro fuentes describen el mismo conflicto con gránulos distintos: reportes diarios de Tech for Palestine, una lista identificada de fallecidos, estimaciones de necesidades de rehabilitación de la OMS y evaluaciones satelitales de UNOSAT. Leídas juntas sin cuidado producen errores previsibles: tomar un reporte publicado como la muerte ocurrida ese día, leer la falta de reporte como cero, sumar categorías de lesiones que se solapan, tratar las prótesis colocadas como personas o confundir un sitio evaluado con un edificio dañado.',
           contribucion:
-            'Construí el observatorio como una sola página con once vistas conectadas: impacto humano con calendario de intensidad, círculos proporcionales por reporte y curva acumulada; edades declaradas con trama de cien celdas y pirámide de puntos por sexo, más prensa; la lista nominal completa en «Cada punto, una vida», con un punto por persona, color por edad, ficha individual y tabla accesible; lesiones con rangos de necesidades de rehabilitación y actividad de prótesis; mapa bivariado del daño con catorce evaluaciones; explorador de sitios con selección vinculada y ficha del registro; trayectorias y un panel de pronóstico con validación temporal —muertes nuevas reportadas con sus rangos y su backtest, daño por zona y cambio de clasificación por sitio—; «Acceso y respuesta» con logística, IPC, financiación y efectivo; y las vistas de evidencia, archivo completo y referencias de diseño. Cada familia de cifras lleva su fuente y su fecha de corte junto a la visualización, los controles de universo, edad, año, métrica, evaluación, mínimo de sitios y búsqueda actúan sobre la vista que la contiene, y las tablas accesibles, la descarga de celdas visibles y el JSON del archivo filtrado permiten volver al registro original.',
+            'Construí el observatorio como una sola página con once vistas conectadas: impacto humano con calendario de intensidad, círculos proporcionales por reporte y curva acumulada; edades declaradas con trama de cien celdas y pirámide de puntos por sexo, más prensa; la lista nominal completa en «Cada punto, una vida» —la extensión nominal opcional, que no forma parte del build publicado—, con un punto por persona, color por edad, ficha individual y tabla accesible; lesiones con rangos de necesidades de rehabilitación y actividad de prótesis; mapa bivariado del daño con catorce evaluaciones; explorador de sitios con selección vinculada y ficha del registro; trayectorias y un panel de pronóstico con validación temporal —muertes nuevas reportadas con sus rangos y su backtest, daño por zona y cambio de clasificación por sitio—; «Acceso y respuesta» con logística, IPC, financiación y efectivo; y las vistas de evidencia, archivo completo y referencias de diseño. Cada familia de cifras lleva su fuente y su fecha de corte junto a la visualización, los controles de universo, edad, año, métrica, evaluación, mínimo de sitios y búsqueda actúan sobre la vista que la contiene, y las tablas accesibles, la descarga de celdas visibles y el JSON del archivo filtrado permiten volver al registro original.',
           fuentes:
-            'Tech for Palestine: 1 131 reportes diarios de Gaza y 1 131 de Cisjordania, 730 registros de infraestructura y 263 de prensa; los reportes llegan al corte del 10 de noviembre de 2026. Lista identificada de fallecidos: 72 835 registros con nombre y edad declarada, corte al 7 de mayo de 2026; el tablero la incluye completa en «Cada punto, una vida» y no completa ni estima las personas que la lista no identifica. OMS (EMRO): estimación de necesidades de rehabilitación por politrauma, mayo de 2026, con rangos de escenario que no son intervalos de confianza; 2 277 personas evaluadas y 502 prótesis colocadas son actividades con unidades distintas, no una cohorte uno a uno. UNOSAT, producto 4213: 198 308 sitios y 14 evaluaciones, con el último producto de comparación de octubre de 2025. Los enlaces completos, los metadatos y los créditos de inspiración están dentro del propio observatorio; los datos de terceros conservan su licencia y no se redistribuyen desde este portafolio.',
+            'Tech for Palestine: 1 131 reportes diarios de Gaza y 1 131 de Cisjordania, 730 registros de infraestructura y 263 de prensa; los reportes llegan al corte del 10 de noviembre de 2026. Lista identificada de fallecidos: 72 835 registros con nombre y edad declarada, corte al 7 de mayo de 2026; el tablero la incluye completa en «Cada punto, una vida», la extensión nominal opcional, y no completa ni estima las personas que la lista no identifica. OMS (EMRO): estimación de necesidades de rehabilitación por politrauma, mayo de 2026, con rangos de escenario que no son intervalos de confianza; 2 277 personas evaluadas y 502 prótesis colocadas son actividades con unidades distintas, no una cohorte uno a uno. UNOSAT, producto 4213: 198 308 sitios y 14 evaluaciones, con el último producto de comparación de octubre de 2025. Los enlaces completos, los metadatos y los créditos de inspiración están dentro del propio observatorio; los datos de terceros conservan su licencia y no se redistribuyen desde este portafolio.',
           metodo:
-            'El mapa bivariado agrega el universo completo de sitios en 1 352 celdas de 0,005 grados: un eje es la cobertura con fecha y clase, el otro la proporción clasificada como destruida entre los sitios observados, y un mínimo de sitios por celda controla el ruido antes de dibujar. La vista de exploración usa una muestra visual fija de 10 000 puntos con selección vinculada a la ficha del sitio y no sirve para conteos locales. El experimento agrupa sitios por su secuencia de evaluaciones —seis categorías en one-hot por siete evaluaciones, 42 variables— sobre 155 112 sitios elegibles, con partición por bloques geográficos (118 889 de entrenamiento y 36 223 de validación) y k = 6 elegido entre 2 y 6 con silueta de 0,7005 en la muestra de validación. Los totales se leen de los acumulados publicados: las diferencias de acumulados no se presentan como datos diarios y la ausencia de reporte no se rellena con cero. En «Cada punto, una vida» los 72 835 registros nominales se dibujan sin muestreo sobre un lienzo, con una fila por edad y solo las filas visibles repintadas al desplazar; el color codifica la edad declarada, el tamaño es constante y el orden es por edad y luego por nombre, de modo que la posición no representa lugar ni fecha.',
+            'El mapa bivariado agrega el universo completo de sitios en 1 352 celdas de 0,005 grados: un eje es la cobertura con fecha y clase, el otro la proporción clasificada como destruida entre los sitios observados, y un mínimo de sitios por celda controla el ruido antes de dibujar. La vista de exploración usa una muestra visual fija de 10 000 puntos con selección vinculada a la ficha del sitio y no sirve para conteos locales. El experimento agrupa sitios por su secuencia de evaluaciones —seis categorías en one-hot por siete evaluaciones, 42 variables— sobre 155 112 sitios elegibles, con partición por bloques geográficos (118 889 de entrenamiento y 36 223 de validación) y k = 6 elegido entre 2 y 6 con silueta de 0,7005 en la muestra de validación. Los totales se leen de los acumulados publicados: las diferencias de acumulados no se presentan como datos diarios y la ausencia de reporte no se rellena con cero. En «Cada punto, una vida», la extensión nominal opcional, los 72 835 registros nominales se dibujan sin muestreo sobre un lienzo, con una fila por edad y solo las filas visibles repintadas al desplazar; el color codifica la edad declarada, el tamaño es constante y el orden es por edad y luego por nombre, de modo que la posición no representa lugar ni fecha.',
           resultados:
-            'Con el corte propio de cada fuente declarado en la cabecera —reportes al 10 de noviembre de 2026, edades al 7 de mayo de 2026, daño satelital de octubre de 2025 y OMS de mayo de 2026— el observatorio publica 74 645 fallecidos reportados y 175 978 heridos reportados, más los acumulados publicados de 21 976 niños y 263 periodistas con sus propias fechas de corte. La cobertura de reportes utilizables por año es 69 % en 2023, 92 % en 2024, 80 % en 2025 y 66 % en 2026, y los círculos dibujan 884 reportes positivos de 24 horas sobre 1 131 fechas. El mapa bivariado resume las 14 evaluaciones de UNOSAT sobre 198 308 sitios y el experimento retiene seis grupos con silueta de 0,701 en validación, concordancia ARI de 0,757 con clase inicial por clase final y asociación ajustada de 0,008 con la secuencia de sensores y 0,066 con la gobernación. La lista nominal dibuja 21 637 niños y adolescentes de 0 a 17 años —5 293 de ellos menores de 5— y 51 198 adultos sobre 72 835 registros con corte al 7 de mayo de 2026, frente a los 74 645 fallecidos reportados del acumulado al 10 de noviembre de 2026.',
+            'Con el corte propio de cada fuente declarado en la cabecera —reportes al 10 de noviembre de 2026, edades al 7 de mayo de 2026, daño satelital de octubre de 2025 y OMS de mayo de 2026— el observatorio publica 74 645 fallecidos reportados y 175 978 heridos reportados, más los acumulados publicados de 21 976 niños y 263 periodistas con sus propias fechas de corte. La cobertura de reportes utilizables por año es 69 % en 2023, 92 % en 2024, 80 % en 2025 y 66 % en 2026, y los círculos dibujan 884 reportes positivos de 24 horas sobre 1 131 fechas. El mapa bivariado resume las 14 evaluaciones de UNOSAT sobre 198 308 sitios y el experimento retiene seis grupos con silueta de 0,701 en validación, concordancia ARI de 0,757 con clase inicial por clase final y asociación ajustada de 0,008 con la secuencia de sensores y 0,066 con la gobernación. La lista nominal, en la extensión opcional, dibuja 21 637 niños y adolescentes de 0 a 17 años —5 293 de ellos menores de 5— y 51 198 adultos sobre 72 835 registros con corte al 7 de mayo de 2026, frente a los 74 645 fallecidos reportados del acumulado al 10 de noviembre de 2026.',
           limitaciones:
             'Un reporte publicado no equivale necesariamente a un periodo de 24 horas ni a las muertes ocurridas ese día, y la ausencia de reporte no es un cero: se marca como falta de reporte utilizable. Las categorías de lesiones pueden solaparse y no se suman; los rangos de la OMS son escenarios, no intervalos de confianza, y las 502 prótesis colocadas no son personas. La lista nominal es incompleta y su corte —7 de mayo de 2026— no coincide con el acumulado diario del 10 de noviembre de 2026: la diferencia incluye personas no identificadas y no se rellena con nombres, edades ni puntos inventados; la edad es declarada (0 = menos de un año), no hay fecha individual de defunción y la fuente identifica personas en Gaza, no a todas las niñas y niños fallecidos en Palestina. UNOSAT es un universo seleccionado en el producto final, no un censo de edificios previo al conflicto; sus coordenadas son de sitios y la fecha de una evaluación no identifica el instante del daño ni su autor. El límite geográfico es una referencia territorial, no un frente militar. La partición del experimento se usó para elegir la configuración: no es una prueba final independiente, no hay validación de terreno ni buffer espacial, k alcanzó el extremo del rango explorado y la utilidad incremental frente a reglas simples no está demostrada. El observatorio no predice fallecimientos, ataques ni responsables, y no vincula sitios dañados con personas.',
           tecnologias: ['Python', 'scikit-learn', 'JavaScript', 'D3.js', 'SVG', 'CSS', 'Playwright'],
@@ -659,8 +672,8 @@ window.PORTAFOLIO = {
           "contribucion": "Diseñé e implementé un prototipo con siete vistas conectadas: negocio, pedidos y picking, inventario, personal, experiencia, machine learning y evidencia. Construí un mapa de calor de ventas simuladas por sucursal, con límites de alcaldías, ranking y selección vinculada; una matriz temporal de demanda; paneles horarios de demanda y capacidad; visualizaciones de productos, calibración y riesgo; y una traza de las transiciones realizadas durante la sesión. Modelé la asignación por sucursal, rol, turno y plazas disponibles, el cierre de picking con validación atómica y descuento único de stock, las sustituciones manuales y el registro de entrega con evaluación opcional. Entrené y comparé una regresión logística y una MLP, exporté sus parámetros y conecté la red neuronal a un laboratorio de inferencia local. Separé las reglas del dominio de la presentación y preparé las comprobaciones y el paquete reproducible para integrar la demo en el portafolio.",
           "fuentes": "El catálogo contiene 51 ubicaciones de Walmart Supercenter y Express recopiladas de un directorio secundario de BizLocationDB, con cotejo oficial limitado; es una lista parcial y no garantiza vigencia ni exhaustividad. El mapa incorpora las geometrías de referencia de las 16 alcaldías seleccionadas del proyecto sociohidrológico SHI CDMX de 2021. Las 51 coordenadas tienen una coincidencia espacial única en esa capa y el directorio contiene tiendas en 13 de las 16 alcaldías; eso no representa cobertura comercial completa de la ciudad. La operación se genera con semilla 42: 12,000 pedidos sobre 120 días sintéticos, 18 productos, 153 personas y 918 registros de inventario por sucursal y SKU. Los últimos 150 pedidos forman la fotografía operativa. Pedidos, precios de ejemplo, turnos, existencias, evaluaciones y resultados son simulados; no son datos de Walmart ni información en tiempo real.",
           "metodo": "Definí como objetivo de clasificación si la duración total del simulador supera la promesa de entrega. Las cinco entradas son número de referencias distintas, carga inicial sintética, distancia, promesa y hora de creación; el número de referencias no se confunde con la suma de unidades. Comparé una referencia constante de prevalencia, regresión logística y una MLP de arquitectura 5 → 24 → 12 → 1. La separación por bloques de días sintéticos reserva 8,400 ejemplos para entrenamiento, 1,800 para validación y 1,800 para prueba. El escalado se ajusta solo con entrenamiento; la MLP de esta versión no utiliza un split aleatorio interno de early stopping. Los umbrales se eligen únicamente en validación con costos hipotéticos de 5 para un retraso no detectado y 1 para una falsa alerta. La evaluación incluye ROC-AUC, precisión promedio —AP—, Brier, matriz de confusión y curva de fiabilidad. Los pesos y el escalado exportados ejecutan la inferencia en JavaScript, sin un servidor de modelos.\n\nEl mapa suaviza el importe de cada sucursal con un núcleo gaussiano de σ aproximada de 2 km y composición por máximo local: las tiendas cercanas no se suman para aparentar una sola sucursal más vendedora. La sucursal líder se obtiene de su importe exacto. Ventas simuladas significa valor de artículos surtidos en pedidos entregados, conservando el precio original; ticket surtido es ese importe dividido por el número de entregas. Los filtros de sucursal, alcaldía, formato y periodo coordinan las vistas; inventario y personal mantienen su naturaleza de fotografía actual. Los resultados futuros de pedidos activos se ocultan y cambiar una asignación no modifica artificialmente la probabilidad original.",
-          "resultados": "La demo disponible permite recorrer una sucursal desde su desempeño comercial hasta un pedido, su preparación, disponibilidad, asignación, entrega y bitácora. Incluye el calor de ventas, la identificación de la tienda líder, zoom con porcentaje, retorno a la extensión de CDMX y el laboratorio de inferencia MLP. En el bloque sintético de prueba, la MLP obtiene ROC-AUC de 0.9859, AP de 0.9540 y Brier de 0.04017, frente a 0.9856, 0.9527 y 0.04020 de la regresión logística. La referencia constante obtiene ROC-AUC de 0.5000, AP de 0.2233 y Brier de 0.17351. El umbral seleccionado es 0.12 para la MLP y 0.14 para la logística. Son resultados del simulador, no resultados de una operación real. La implementación JavaScript de la MLP coincide con scikit-learn en los 150 ejemplos operativos con diferencia absoluta menor a 1e-12. La versión empaquetada registra 32 comprobaciones aprobadas: 12 de dominio, 6 del campo de calor y 14 de estructura e interacción DOM.",
-          "limitaciones": "Es un prototipo reproducible, no una plataforma de retail en producción. La calidad predictiva refleja el generador sintético; no demuestra generalización, ahorro o reducción de retrasos en Walmart u otra empresa. La diferencia entre MLP y logística es pequeña y no se ha establecido superioridad estadística; faltan intervalos, evaluación externa y validación de utilidad comercial. No hay un pronóstico de demanda entrenado, optimización de rutas ni evidencia causal de que reasignar personas reduzca el riesgo. La carga de entrada es sintética y no se recalcula desde las asignaciones. El inventario inicial es una fotografía y no una reconciliación de las 12,000 compras históricas; las sustituciones no validan alérgenos o equivalencia nutricional. No se modelan cobros, costos, devoluciones, impuestos desglosados ni margen. Las calificaciones corresponden a pedidos y no se atribuyen causalmente al trabajador. El estado y la bitácora viven en memoria y se pierden al recargar. La lista de tiendas es parcial y los límites cartográficos son de referencia. Las pruebas DOM no equivalen a comprobar clics físicos, foco y layout en un navegador; esa revisión en la integración del portafolio sigue pendiente. La publicación del portafolio debe verificarse antes de marcar el proyecto como publicado.",
+          "resultados": "El artefacto servido es la version synthetic-42-v2 (13 416 449 bytes, SHA-256 CDC6D7C9...), con particion 8 400/1 800/1 800 y prevalencia de 22.33 %. Metricas declaradas en el bloque MODEL: logistica AUC 0.9856, AP 0.9527, Brier 0.0402; MLP 24/12 AUC 0.9849, AP 0.9519, Brier 0.0411. La logistica queda ligeramente por encima. Las metricas no se recalcularon en esta revision y el entrenamiento no se reprodujo.",
+          "limitaciones": "Es un prototipo reproducible, no una plataforma de retail en produccion. La calidad predictiva refleja el generador sintetico y no demuestra generalizacion ni superioridad: la diferencia entre logistica y MLP es menor a una milesima de AUC. Las metricas son las declaradas por el artefacto; el pipeline de generacion y entrenamiento no esta publicado, asi que no pueden reproducirse de forma independiente. No se comprobo paridad numerica entre Python y JavaScript.",
           "tecnologias": [
             "Python",
             "NumPy",
@@ -749,18 +762,25 @@ window.PORTAFOLIO = {
       escenaAlt: 'Ilustración conceptual: fuentes, transformación, validación y almacenamiento conectados, con una línea de trazabilidad.',
       proyectos: [
         {
+          problema: 'Los procesos regulatorios escritos en SAS acumulan reglas que solo viven en el código; migrarlos sin una comparación reproducible contra el original cambia cifras sin que nadie lo note.',
+          contribucion: 'Alcance previsto, no implementado: escribir el arnés que ejecute el proceso original y el migrado sobre la misma entrada y compare campo por campo, y documentar la diferencia de tiempo de ejecución. No hay proceso migrado.',
+          fuentes: 'Fuentes candidatas, ninguna integrada: los conjuntos de entrada del proceso original y sus salidas históricas. No se publican datos; la verificación futura usará datos sintéticos equivalentes y una muestra autorizada.',
+          metodo: 'Criterio previsto: comparación celda por celda contra la salida vigente, tolerancia declarada para decimales y fallo explícito cuando una regla no tenga equivalente directo. Ninguna regla se cambia sin registrar el motivo.',
+          resultados: 'Caso definido; sin implementación ni evaluación publicadas. No se ejecutó ninguna migración y no se declaran tiempos ni ahorros.',
           id: 'modernizacion-sas-python',
+          resultados: 'No hay resultados: el caso está definido y pendiente de desarrollo. No se ejecutó ninguna migración ni se declaran tiempos ni ahorros.',
           titulo: 'Modernización SAS → Python',
           estado: 'previsto',
+          resumen: 'Caso previsto: migrar procesos de SAS a Python conservando el resultado numérico, con reconciliación automática entre el proceso original y el migrado.',
           categoria: 'Arquitectura & ETL',
           descripcion: 'Un ejemplo reproducible con datos sintéticos que concilia los resultados del proceso original con los del proceso migrado y compara tiempos de ejecución.',
           destinatario: 'Pensado para equipos que mantienen procesos heredados y necesitan migrarlos sin perder trazabilidad.',
-          problema: null,
-          contribucion: null,
-          fuentes: null,
-          metodo: null,
-          resultados: null,
-          limitaciones: null,
+          problema: 'Los procesos regulatorios escritos en SAS acumulan reglas que solo viven en el código; migrarlos sin una comparación reproducible contra el original cambia cifras sin que nadie lo note.',
+          contribucion: 'Alcance previsto, no implementado: escribir el arnés que ejecute el proceso original y el migrado sobre la misma entrada y compare campo por campo, y documentar la diferencia de tiempo de ejecución. No hay proceso migrado.',
+          fuentes: 'Fuentes candidatas, ninguna integrada: los conjuntos de entrada del proceso original y sus salidas históricas. No se publican datos; la verificación futura usará datos sintéticos y una muestra autorizada.',
+          metodo: 'Criterio previsto: comparación celda por celda contra la salida vigente, tolerancia declarada para decimales y fallo explícito cuando una regla no tenga equivalente directo. Ninguna regla se cambia sin registrar el motivo.',
+          resultados: 'Caso definido; sin implementación ni evaluación publicadas. No se ejecutó ninguna migración y no se declaran tiempos ni ahorros.',
+          limitaciones: 'Caso previsto: no existe un proceso migrado ni una conciliación ejecutada. La licencia de SAS impide redistribuir el código original; el arnés solo puede publicarse con datos sintéticos y una muestra autorizada.',
           tecnologias: ['SAS', 'Python', 'SQL', 'ETL'],
           capturas: [],
           demoUrl: null,
@@ -1122,18 +1142,25 @@ window.PORTAFOLIO = {
           ]
         },
         {
+          problema: 'Al delegar un análisis en un asistente es difícil distinguir una respuesta basada en los datos de una basada en suposiciones; sin trazabilidad el analista no puede auditar la decisión.',
+          contribucion: 'Alcance previsto, no implementado: definir el contrato de herramientas permitidas, el registro de cada decisión y la aprobación humana previa a cualquier acción. No hay asistente construido.',
+          fuentes: 'Fuentes candidatas, ninguna integrada: los conjuntos de los demás proyectos del portafolio, usados como entorno de prueba. No hay datos propios ni fuente integrada.',
+          metodo: 'Criterio previsto: cada propuesta cita la consulta y el resultado que la sustenta; las herramientas son de solo lectura y cualquier escritura requiere aprobación explícita. La calidad se evaluará con tareas reproducibles y respuesta conocida.',
+          resultados: 'Caso definido; sin implementación ni evaluación publicadas. No se declaran capacidades evaluadas.',
           id: 'analista-asistido',
+          resultados: 'No hay resultados: el caso está definido y pendiente de desarrollo. No se declaran capacidades ni evaluaciones ejecutadas.',
           titulo: 'Analista asistido por IA',
           estado: 'previsto',
+          resumen: 'Caso previsto: un analista asistido que proponga el siguiente paso de un análisis y muestre la evidencia y los límites de su propuesta antes de ejecutar nada.',
           categoria: 'Agentes',
           descripcion: 'Consultar datos, ejecutar cálculos, generar una visualización y preparar un informe que una persona revisa antes de usarlo.',
           destinatario: 'Pensado para equipos de análisis que quieren automatizar el trabajo repetitivo sin perder el control del resultado.',
-          problema: null,
-          contribucion: null,
-          fuentes: null,
-          metodo: null,
-          resultados: null,
-          limitaciones: null,
+          problema: 'Al delegar un análisis en un asistente es difícil distinguir una respuesta basada en los datos de una basada en suposiciones; sin trazabilidad el analista no puede auditar la decisión.',
+          contribucion: 'Alcance previsto, no implementado: definir el contrato de herramientas permitidas, el registro de cada decisión y la aprobación humana previa a cualquier acción. No hay asistente construido.',
+          fuentes: 'Fuentes candidatas, ninguna integrada: los conjuntos de los demás proyectos del portafolio como entorno de prueba. No hay datos propios ni fuente integrada.',
+          metodo: 'Criterio previsto: cada propuesta cita la consulta y el resultado que la sustenta; las herramientas son de solo lectura y cualquier escritura requiere aprobación explícita. La calidad se evaluará con tareas reproducibles y respuesta conocida.',
+          resultados: 'Caso definido; sin implementación ni evaluación publicadas. No se declaran capacidades evaluadas.',
+          limitaciones: 'Caso previsto: no existe implementación ni evaluación. Un asistente que propone no demuestra que acierte; la evaluación futura deberá medir acierto, abstención y coste, y declarar qué herramientas puede usar.',
           tecnologias: ['Python', 'APIs', 'Herramientas', 'Validación'],
           capturas: [],
           demoUrl: null,
@@ -1144,6 +1171,7 @@ window.PORTAFOLIO = {
     }
   ]
 };
+
 
 
 

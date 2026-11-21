@@ -1,0 +1,21 @@
+# Imagen del sitio estático del portafolio.
+#
+# Publica EXCLUSIVAMENTE el contenido de `dist/`, que es el artefacto aprobado
+# (el build público del observatorio de Gaza, sin la lista nominal). No copia
+# `dashboards/`, `backend/` ni ninguna fuente: la imagen no puede publicar por
+# accidente un artefacto que no esté en `dist/`.
+#
+# El contexto de build es la raíz del repositorio:
+#   docker build -f deploy/Dockerfile.sitio -t portafolio-sitio:local .
+FROM nginx:1.27-alpine
+
+# Configuración del proxy `/api` y del sitio.
+COPY deploy/nginx.conf /etc/nginx/conf.d/default.conf
+
+# Artefacto estático (raíz web correcta: /usr/share/nginx/html).
+COPY dist /usr/share/nginx/html
+
+EXPOSE 80
+
+HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
+    CMD wget -q -O /dev/null http://127.0.0.1/healthz || exit 1

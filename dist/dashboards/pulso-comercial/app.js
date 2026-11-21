@@ -14660,9 +14660,11 @@ function sa(e, t) {
 	}, `${e}-${t}`) : /* @__PURE__ */ (0, R.jsx)(l.Fragment, { children: e }, `texto-${t}`));
 }
 function ca({ apiBase: e }) {
-	let [t, n] = (0, l.useState)(aa);
+	let [t, n] = (0, l.useState)(aa), [r, i] = (0, l.useState)(0);
 	return (0, l.useEffect)(() => {
-		let t = new AbortController(), r = y(h(e));
+		let t = new AbortController();
+		n(aa);
+		let r = y(h(e));
 		return Promise.all([
 			r.resumen(M, t.signal),
 			r.motores(M, t.signal),
@@ -14685,36 +14687,52 @@ function ca({ apiBase: e }) {
 				omitidos: a.omitidos
 			});
 		}).catch((e) => {
-			e.name !== "AbortError" && n({
+			t.signal.aborted || e.name === "AbortError" || n({
 				...aa,
 				cargando: !1,
-				error: "No se pudieron calcular los hallazgos: la API de Walmex no respondió. El tablero sigue funcionando con los datos publicados."
+				error: "No se pudieron calcular los hallazgos: la API de Walmex no respondió. Vuelve a intentarlo cuando el servicio esté disponible."
 			});
 		}), () => t.abort();
-	}, [e]), t.cargando ? /* @__PURE__ */ (0, R.jsx)("p", {
+	}, [e, r]), t.cargando ? /* @__PURE__ */ (0, R.jsx)("p", {
 		className: "hallazgos-espera",
-		children: "Calculando hallazgos con los datos publicados…"
-	}) : t.error ? /* @__PURE__ */ (0, R.jsx)("p", {
-		className: "hallazgos-espera",
+		"data-state": "loading",
 		role: "status",
-		"data-testid": "hallazgos-error",
-		children: t.error
-	}) : t.hallazgos.length ? /* @__PURE__ */ (0, R.jsxs)(R.Fragment, { children: [/* @__PURE__ */ (0, R.jsx)("p", {
-		className: "hallazgos-alcance",
-		"data-testid": "hallazgos-alcance",
-		children: t.subtitulo
-	}), t.hallazgos.map((e) => /* @__PURE__ */ (0, R.jsxs)("p", {
-		"data-testid": `hallazgo-${e.id}`,
-		children: [
-			/* @__PURE__ */ (0, R.jsxs)("strong", {
-				className: "hallazgo-titulo",
-				children: [e.titulo, "."]
-			}),
-			" ",
-			sa(e.texto, e.enfasis)
-		]
-	}, e.id))] }) : /* @__PURE__ */ (0, R.jsx)("p", {
+		"aria-busy": "true",
+		children: "Calculando hallazgos con los datos publicados…"
+	}) : t.error ? /* @__PURE__ */ (0, R.jsxs)("p", {
 		className: "hallazgos-espera",
+		role: "alert",
+		"data-state": "error",
+		"data-testid": "hallazgos-error",
+		children: [
+			t.error,
+			" ",
+			/* @__PURE__ */ (0, R.jsx)("button", {
+				type: "button",
+				onClick: () => i((e) => e + 1),
+				children: "Reintentar"
+			})
+		]
+	}) : t.hallazgos.length ? /* @__PURE__ */ (0, R.jsxs)("div", {
+		"data-state": "ready",
+		children: [/* @__PURE__ */ (0, R.jsx)("p", {
+			className: "hallazgos-alcance",
+			"data-testid": "hallazgos-alcance",
+			children: t.subtitulo
+		}), t.hallazgos.map((e) => /* @__PURE__ */ (0, R.jsxs)("p", {
+			"data-testid": `hallazgo-${e.id}`,
+			children: [
+				/* @__PURE__ */ (0, R.jsxs)("strong", {
+					className: "hallazgo-titulo",
+					children: [e.titulo, "."]
+				}),
+				" ",
+				sa(e.texto, e.enfasis)
+			]
+		}, e.id))]
+	}) : /* @__PURE__ */ (0, R.jsx)("p", {
+		className: "hallazgos-espera",
+		"data-state": "empty",
 		role: "status",
 		children: "Todavía no hay cifras publicadas suficientes para redactar hallazgos."
 	});

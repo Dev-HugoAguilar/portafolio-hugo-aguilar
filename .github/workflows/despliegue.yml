@@ -1,0 +1,173 @@
+name: Despliegue integrado
+
+# Construye las dos imágenes del despliegue y levanta el stack real:
+#   nginx (sitio + proxy /api)  →  FastAPI  →  MongoDB local de pruebas
+#
+# Comprueba el manifiesto, la raíz web correcta, el proxy `/api`, los
+# healthchecks y que la API no queda publicada en el host. No usa Atlas ni datos
+# de producción: la base es `hugo_portfolio_ci_test` en un MongoDB efímero.
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'dist/**'
+      - 'deploy/**'
+      - 'tools/verificar-config-produccion.mjs'
+      - '.github/workflows/despliegue.yml'
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  stack:
+    name: Imágenes, proxy y salud
+    runs-on: ubuntu-24.04
+    timeout-minutes: 35
+    env:
+      #: Ref de la API con la que se prueba el stack. `main` es lo que desplegaría
+      #: una instalación nueva; mientras el PR de la API esté abierto, la imagen
+      #: desplegable es la de su rama.
+      API_REF: main
+    steps:
+      - name: Descargar el sitio
+        uses: actions/checkout@v4
+        with:
+          path: sitio
+
+      - name: Descargar la API (${{ env.API_REF }})
+        uses: actions/checkout@v4
+        with:
+          repository: Dev-HugoAguilar/portfolio-api
+          ref: ${{ env.API_REF }}
+          path: api
+
+      - name: Configuración saneada del despliegue
+        run: |
+          set -eu
+          # Valores de prueba: base efímera, sin secretos reales.
+          cat > despliegue.env <<'ENV'
+          MONGODB_URI=mongodb://mongo-local:27017/hugo_portfolio_ci_test
+          MONGODB_DB=hugo_portfolio_ci_test
+          ALLOWED_ORIGINS=
+          SITE_HOST_PORT=8080
+          LOG_LEVEL=info
+          PORTFOLIO_API_CONTEXT=../../api
+          ENV
+          cat despliegue.env
+
+      - name: Validar el manifiesto
+        working-directory: sitio
+        run: |
+          set -eu
+          docker compose -f deploy/docker-compose.yml --env-file ../despliegue.env config --quiet
+          echo "Manifiesto válido"
+
+      - name: Construir las dos imágenes
+        working-directory: sitio
+        run: |
+          set -eu
+          docker compose -f deploy/docker-compose.yml --env-file ../despliegue.env \
+            --profile mongo-local --profile datos build
+
+      - name: Comprobar la imagen del sitio (raíz web y artefacto de Gaza)
+        run: |
+          set -eu
+          # La sintaxis de nginx se valida dentro del stack (ver más abajo):
+          # `nginx -t` fuera de la red no resuelve el upstream `api`.
+          for archivo in /usr/share/nginx/html/index.html \
+                         /usr/share/nginx/html/config.js \
+                         /usr/share/nginx/html/app.js \
+                         /usr/share/nginx/html/dashboards/marketing-clientes/app.js \
+                         /usr/share/nginx/html/dashboards/gaza-observatorio/index.html; do
+            docker run --rm --entrypoint "" portafolio-sitio:local test -s "$archivo" \
+              || { echo "Falta $archivo en la imagen del sitio"; exit 1; }
+          done
+          gaza=$(docker run --rm --entrypoint "" portafolio-sitio:local stat -c '%s' /usr/share/nginx/html/dashboards/gaza-observatorio/index.html)
+          echo "Gaza en la imagen: $gaza B"
+          test "$gaza" -lt 6000000 || { echo "El artefacto de Gaza parece incluir la lista nominal"; exit 1; }
+          docker run --rm --entrypoint "" portafolio-sitio:local \
+            sh -c '! grep -qE "(127\.0\.0\.1|localhost):8010" /usr/share/nginx/html/config.js'
+
+      - name: Levantar MongoDB de pruebas
+        working-directory: sitio
+        run: |
+          set -eu
+          COMPOSE="docker compose -f deploy/docker-compose.yml --env-file ../despliegue.env"
+          $COMPOSE --profile mongo-local up -d mongo-local
+          cid=$($COMPOSE --profile mongo-local ps -q mongo-local)
+          for _ in $(seq 1 45); do
+            estado=$(docker inspect -f '{{.State.Health.Status}}' "$cid")
+            [ "$estado" = healthy ] && { echo "MongoDB de pruebas healthy"; exit 0; }
+            sleep 2
+          done
+          echo "MongoDB de pruebas no llegó a healthy"
+          docker logs "$cid"
+          exit 1
+
+      - name: Levantar la API y el sitio
+        working-directory: sitio
+        run: |
+          set -eu
+          COMPOSE="docker compose -f deploy/docker-compose.yml --env-file ../despliegue.env"
+          $COMPOSE --profile mongo-local up -d --no-build
+          $COMPOSE --profile mongo-local ps
+          # El proxy está vivo y su configuración es válida con el upstream real.
+          $COMPOSE --profile mongo-local exec -T web nginx -t
+
+      - name: Comprobar salud y proxy a través de nginx
+        working-directory: sitio
+        run: |
+          set -eu
+          codigo=000
+          for _ in $(seq 1 60); do
+            codigo=$(curl -s -o /tmp/ready.json -w '%{http_code}' http://127.0.0.1:8080/api/v1/health/ready || true)
+            [ "$codigo" = 200 ] && break
+            sleep 3
+          done
+          echo "health/ready vía proxy: $codigo"
+          cat /tmp/ready.json; echo
+          test "$codigo" = 200 || { echo "La API no respondió /health/ready a través del proxy"; exit 1; }
+          grep -q '"status":"ready"' /tmp/ready.json
+
+          # Una ruta inexistente debe responder con el JSON de la API: si nginx
+          # devolviera el index.html del sitio, el proxy no estaría enrutando.
+          codigo_404=$(curl -s -o /tmp/no-existe.json -w '%{http_code}' http://127.0.0.1:8080/api/v1/ruta-inexistente || true)
+          echo "ruta inexistente vía proxy: $codigo_404"
+          grep -qi '"detail"' /tmp/no-existe.json
+          ! grep -qi '<!doctype html>' /tmp/no-existe.json
+
+          # El sitio y sus artefactos se sirven desde la raíz correcta.
+          curl -fsS http://127.0.0.1:8080/ | grep -q 'Hugo Aguilar'
+          curl -fsS http://127.0.0.1:8080/config.js | grep -q '/api'
+          test "$(curl -s -o /dev/null -w '%{http_code}' http://127.0.0.1:8080/dashboards/marketing-clientes/app.js)" = 200
+
+      - name: Comprobar que la API no está publicada en el host
+        working-directory: sitio
+        run: |
+          set -eu
+          COMPOSE="docker compose -f deploy/docker-compose.yml --env-file ../despliegue.env"
+          api_id=$($COMPOSE --profile mongo-local ps -q api)
+          mongo_id=$($COMPOSE --profile mongo-local ps -q mongo-local)
+          for servicio in "$api_id" "$mongo_id"; do
+            publicado=$(docker port "$servicio" && true)
+            test -z "$publicado" || { echo "Puerto publicado en el host: $publicado"; exit 1; }
+          done
+          echo "API y MongoDB solo accesibles por la red del stack"
+
+      - name: Registros del stack
+        if: always()
+        working-directory: sitio
+        run: |
+          docker compose -f deploy/docker-compose.yml --env-file ../despliegue.env \
+            --profile mongo-local logs --no-color --tail 120 || true
+
+      - name: Limpieza
+        if: always()
+        working-directory: sitio
+        run: |
+          docker compose -f deploy/docker-compose.yml --env-file ../despliegue.env \
+            --profile mongo-local down --volumes --remove-orphans || true

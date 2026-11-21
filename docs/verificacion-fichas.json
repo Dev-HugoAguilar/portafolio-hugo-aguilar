@@ -1,0 +1,2212 @@
+{
+  "run_id": "402fa66f-e84d-49ee-a2a0-4717427c7672",
+  "version": "4.0.0",
+  "site": "http://127.0.0.1:3058",
+  "api": "http://127.0.0.1:8010",
+  "git": {
+    "sha": "81359bfc43e69ace9d87cb0a227488a917349a8f",
+    "dirty": true
+  },
+  "date": "2026-11-19T23:21:16.786Z",
+  "duration_ms": 166575,
+  "status": "COMPLETADO",
+  "error_fatal": null,
+  "expected": 104,
+  "executed": 104,
+  "missing": 0,
+  "real_api": "NO EJECUTADO: usar --api-real con API y datos accesibles",
+  "verifier_sha256": "811b159d7f2adb80098cbe3b0766e92634ef727b2a119785aa41e36ce3fde9d9",
+  "fixtures_sha256": "7aefaaa8d209943402f9c971421d91075ff482201fefe8a88810aa825fa549c3",
+  "fixturePaths": [
+    "cnbv/banca-multiple/catalogo",
+    "atlas-vial/catalogo",
+    "atlas-vial/geometria",
+    "marketing/estado",
+    "marketing/catalogo",
+    "marketing/resumen",
+    "marketing/conversion",
+    "marketing/cohortes",
+    "marketing/productos",
+    "marketing/adquisicion",
+    "marketing/tabla",
+    "walmex/estado",
+    "walmex/catalogo",
+    "walmex/resumen",
+    "walmex/motores",
+    "walmex/desempeno",
+    "walmex/matriz",
+    "walmex/fuentes"
+  ],
+  "summary": {
+    "APROBADO": 104
+  },
+  "rows": [
+    {
+      "project_id": "comparativo-bancario",
+      "viewport": "escritorio",
+      "escenario": "entrada-directa",
+      "estado": "APROBADO",
+      "duration_ms": 9075,
+      "evidence": {
+        "api": "simulada-vacia-o-no-disponible",
+        "network": [],
+        "requestsWithoutFixture": []
+      }
+    },
+    {
+      "project_id": "comparativo-bancario",
+      "viewport": "escritorio",
+      "escenario": "spa-clic-atras-adelante",
+      "estado": "APROBADO",
+      "duration_ms": 988,
+      "evidence": {
+        "api": "simulada-vacia-o-no-disponible",
+        "network": []
+      }
+    },
+    {
+      "project_id": "comparativo-bancario",
+      "viewport": "movil",
+      "escenario": "entrada-directa",
+      "estado": "APROBADO",
+      "duration_ms": 476,
+      "evidence": {
+        "api": "simulada-vacia-o-no-disponible",
+        "network": [],
+        "requestsWithoutFixture": []
+      }
+    },
+    {
+      "project_id": "comparativo-bancario",
+      "viewport": "movil",
+      "escenario": "spa-clic-atras-adelante",
+      "estado": "APROBADO",
+      "duration_ms": 684,
+      "evidence": {
+        "api": "simulada-vacia-o-no-disponible",
+        "network": []
+      }
+    },
+    {
+      "project_id": "atlas-vial",
+      "viewport": "escritorio",
+      "escenario": "entrada-directa",
+      "estado": "APROBADO",
+      "duration_ms": 501,
+      "evidence": {
+        "api": "simulada-vacia-o-no-disponible",
+        "network": [],
+        "requestsWithoutFixture": []
+      }
+    },
+    {
+      "project_id": "atlas-vial",
+      "viewport": "escritorio",
+      "escenario": "spa-clic-atras-adelante",
+      "estado": "APROBADO",
+      "duration_ms": 729,
+      "evidence": {
+        "api": "simulada-vacia-o-no-disponible",
+        "network": [
+          {
+            "type": "requestfailed",
+            "url": "http://127.0.0.1:8010/api/v1/atlas-vial/catalogo",
+            "reason": "net::ERR_ABORTED"
+          },
+          {
+            "type": "requestfailed",
+            "url": "http://127.0.0.1:8010/api/v1/atlas-vial/geometria",
+            "reason": "net::ERR_ABORTED"
+          }
+        ]
+      }
+    },
+    {
+      "project_id": "atlas-vial",
+      "viewport": "movil",
+      "escenario": "entrada-directa",
+      "estado": "APROBADO",
+      "duration_ms": 517,
+      "evidence": {
+        "api": "simulada-vacia-o-no-disponible",
+        "network": [],
+        "requestsWithoutFixture": []
+      }
+    },
+    {
+      "project_id": "atlas-vial",
+      "viewport": "movil",
+      "escenario": "spa-clic-atras-adelante",
+      "estado": "APROBADO",
+      "duration_ms": 690,
+      "evidence": {
+        "api": "simulada-vacia-o-no-disponible",
+        "network": [
+          {
+            "type": "requestfailed",
+            "url": "http://127.0.0.1:8010/api/v1/atlas-vial/catalogo",
+            "reason": "net::ERR_ABORTED"
+          },
+          {
+            "type": "requestfailed",
+            "url": "http://127.0.0.1:8010/api/v1/atlas-vial/geometria",
+            "reason": "net::ERR_ABORTED"
+          }
+        ]
+      }
+    },
+    {
+      "project_id": "marketing-clientes",
+      "viewport": "escritorio",
+      "escenario": "entrada-directa",
+      "estado": "APROBADO",
+      "duration_ms": 579,
+      "evidence": {
+        "api": "simulada-vacia-o-no-disponible",
+        "network": [],
+        "requestsWithoutFixture": []
+      }
+    },
+    {
+      "project_id": "marketing-clientes",
+      "viewport": "escritorio",
+      "escenario": "spa-clic-atras-adelante",
+      "estado": "APROBADO",
+      "duration_ms": 753,
+      "evidence": {
+        "api": "simulada-vacia-o-no-disponible",
+        "network": []
+      }
+    },
+    {
+      "project_id": "marketing-clientes",
+      "viewport": "movil",
+      "escenario": "entrada-directa",
+      "estado": "APROBADO",
+      "duration_ms": 584,
+      "evidence": {
+        "api": "simulada-vacia-o-no-disponible",
+        "network": [],
+        "requestsWithoutFixture": []
+      }
+    },
+    {
+      "project_id": "marketing-clientes",
+      "viewport": "movil",
+      "escenario": "spa-clic-atras-adelante",
+      "estado": "APROBADO",
+      "duration_ms": 773,
+      "evidence": {
+        "api": "simulada-vacia-o-no-disponible",
+        "network": []
+      }
+    },
+    {
+      "project_id": "pulso-comercial",
+      "viewport": "escritorio",
+      "escenario": "entrada-directa",
+      "estado": "APROBADO",
+      "duration_ms": 541,
+      "evidence": {
+        "api": "simulada-vacia-o-no-disponible",
+        "network": [],
+        "requestsWithoutFixture": []
+      }
+    },
+    {
+      "project_id": "pulso-comercial",
+      "viewport": "escritorio",
+      "escenario": "spa-clic-atras-adelante",
+      "estado": "APROBADO",
+      "duration_ms": 714,
+      "evidence": {
+        "api": "simulada-vacia-o-no-disponible",
+        "network": [
+          {
+            "type": "requestfailed",
+            "url": "http://127.0.0.1:8010/api/v1/walmex/estado",
+            "reason": "net::ERR_ABORTED"
+          },
+          {
+            "type": "requestfailed",
+            "url": "http://127.0.0.1:8010/api/v1/walmex/catalogo",
+            "reason": "net::ERR_ABORTED"
+          }
+        ]
+      }
+    },
+    {
+      "project_id": "pulso-comercial",
+      "viewport": "movil",
+      "escenario": "entrada-directa",
+      "estado": "APROBADO",
+      "duration_ms": 471,
+      "evidence": {
+        "api": "simulada-vacia-o-no-disponible",
+        "network": [],
+        "requestsWithoutFixture": []
+      }
+    },
+    {
+      "project_id": "pulso-comercial",
+      "viewport": "movil",
+      "escenario": "spa-clic-atras-adelante",
+      "estado": "APROBADO",
+      "duration_ms": 618,
+      "evidence": {
+        "api": "simulada-vacia-o-no-disponible",
+        "network": []
+      }
+    },
+    {
+      "project_id": "vidas-en-transito",
+      "viewport": "escritorio",
+      "escenario": "entrada-directa",
+      "estado": "APROBADO",
+      "duration_ms": 836,
+      "evidence": {
+        "api": "simulada-vacia-o-no-disponible",
+        "network": [],
+        "requestsWithoutFixture": []
+      }
+    },
+    {
+      "project_id": "vidas-en-transito",
+      "viewport": "escritorio",
+      "escenario": "spa-clic-atras-adelante",
+      "estado": "APROBADO",
+      "duration_ms": 1089,
+      "evidence": {
+        "api": "simulada-vacia-o-no-disponible",
+        "network": [
+          {
+            "type": "requestfailed",
+            "url": "http://127.0.0.1:3058/dashboards/vidas-en-transito/geografia/ferroviaria.geojson",
+            "reason": "net::ERR_ABORTED"
+          }
+        ]
+      }
+    },
+    {
+      "project_id": "vidas-en-transito",
+      "viewport": "movil",
+      "escenario": "entrada-directa",
+      "estado": "APROBADO",
+      "duration_ms": 825,
+      "evidence": {
+        "api": "simulada-vacia-o-no-disponible",
+        "network": [],
+        "requestsWithoutFixture": []
+      }
+    },
+    {
+      "project_id": "vidas-en-transito",
+      "viewport": "movil",
+      "escenario": "spa-clic-atras-adelante",
+      "estado": "APROBADO",
+      "duration_ms": 881,
+      "evidence": {
+        "api": "simulada-vacia-o-no-disponible",
+        "network": [
+          {
+            "type": "requestfailed",
+            "url": "http://127.0.0.1:3058/dashboards/vidas-en-transito/fuentes_ampliadas.json",
+            "reason": "net::ERR_ABORTED"
+          },
+          {
+            "type": "requestfailed",
+            "url": "http://127.0.0.1:3058/dashboards/vidas-en-transito/geografia/evidencia_transito.geojson",
+            "reason": "net::ERR_ABORTED"
+          },
+          {
+            "type": "requestfailed",
+            "url": "http://127.0.0.1:3058/dashboards/vidas-en-transito/geografia/hexbin_muertes.geojson",
+            "reason": "net::ERR_ABORTED"
+          },
+          {
+            "type": "requestfailed",
+            "url": "http://127.0.0.1:3058/dashboards/vidas-en-transito/geografia/paises_hex.geojson",
+            "reason": "net::ERR_ABORTED"
+          },
+          {
+            "type": "requestfailed",
+            "url": "http://127.0.0.1:3058/dashboards/vidas-en-transito/geografia/ferroviaria.json",
+            "reason": "net::ERR_ABORTED"
+          },
+          {
+            "type": "requestfailed",
+            "url": "http://127.0.0.1:3058/dashboards/vidas-en-transito/geografia/paises.geojson",
+            "reason": "net::ERR_ABORTED"
+          },
+          {
+            "type": "requestfailed",
+            "url": "http://127.0.0.1:3058/dashboards/vidas-en-transito/fuentes_ampliadas.json",
+            "reason": "net::ERR_ABORTED"
+          },
+          {
+            "type": "requestfailed",
+            "url": "http://127.0.0.1:3058/dashboards/vidas-en-transito/geografia/ferroviaria.geojson",
+            "reason": "net::ERR_ABORTED"
+          },
+          {
+            "type": "requestfailed",
+            "url": "http://127.0.0.1:3058/dashboards/vidas-en-transito/geografia/estados_mexico.geojson",
+            "reason": "net::ERR_ABORTED"
+          },
+          {
+            "type": "requestfailed",
+            "url": "http://127.0.0.1:3058/dashboards/vidas-en-transito/geografia/evidencia_transito.json",
+            "reason": "net::ERR_ABORTED"
+          },
+          {
+            "type": "requestfailed",
+            "url": "http://127.0.0.1:3058/dashboards/vidas-en-transito/geografia/corredor.geojson",
+            "reason": "net::ERR_ABORTED"
+          },
+          {
+            "type": "requestfailed",
+            "url": "http://127.0.0.1:3058/dashboards/vidas-en-transito/geografia/hexbin_muertes.json",
+            "reason": "net::ERR_ABORTED"
+          },
+          {
+            "type": "requestfailed",
+            "url": "http://127.0.0.1:3058/dashboards/vidas-en-transito/geografia/estados_mexico.geojson",
+            "reason": "net::ERR_ABORTED"
+          },
+          {
+            "type": "requestfailed",
+            "url": "http://127.0.0.1:3058/dashboards/vidas-en-transito/data.json",
+            "reason": "net::ERR_ABORTED"
+          },
+          {
+            "type": "requestfailed",
+            "url": "http://127.0.0.1:3058/dashboards/vidas-en-transito/geografia/corredor.geojson",
+            "reason": "net::ERR_ABORTED"
+          }
+        ]
+      }
+    },
+    {
+      "project_id": "observatorio-financiero",
+      "viewport": "escritorio",
+      "escenario": "entrada-directa",
+      "estado": "APROBADO",
+      "duration_ms": 426,
+      "evidence": {
+        "api": "simulada-vacia-o-no-disponible",
+        "network": [],
+        "requestsWithoutFixture": []
+      }
+    },
+    {
+      "project_id": "observatorio-financiero",
+      "viewport": "escritorio",
+      "escenario": "spa-clic-atras-adelante",
+      "estado": "APROBADO",
+      "duration_ms": 692,
+      "evidence": {
+        "api": "simulada-vacia-o-no-disponible",
+        "network": []
+      }
+    },
+    {
+      "project_id": "observatorio-financiero",
+      "viewport": "movil",
+      "escenario": "entrada-directa",
+      "estado": "APROBADO",
+      "duration_ms": 478,
+      "evidence": {
+        "api": "simulada-vacia-o-no-disponible",
+        "network": [],
+        "requestsWithoutFixture": []
+      }
+    },
+    {
+      "project_id": "observatorio-financiero",
+      "viewport": "movil",
+      "escenario": "spa-clic-atras-adelante",
+      "estado": "APROBADO",
+      "duration_ms": 628,
+      "evidence": {
+        "api": "simulada-vacia-o-no-disponible",
+        "network": []
+      }
+    },
+    {
+      "project_id": "orbita",
+      "viewport": "escritorio",
+      "escenario": "entrada-directa",
+      "estado": "APROBADO",
+      "duration_ms": 781,
+      "evidence": {
+        "api": "simulada-vacia-o-no-disponible",
+        "network": [],
+        "requestsWithoutFixture": []
+      }
+    },
+    {
+      "project_id": "orbita",
+      "viewport": "escritorio",
+      "escenario": "spa-clic-atras-adelante",
+      "estado": "APROBADO",
+      "duration_ms": 965,
+      "evidence": {
+        "api": "simulada-vacia-o-no-disponible",
+        "network": [
+          {
+            "type": "requestfailed",
+            "url": "http://127.0.0.1:3058/dashboards/orbita/index.html",
+            "reason": "net::ERR_ABORTED"
+          }
+        ]
+      }
+    },
+    {
+      "project_id": "orbita",
+      "viewport": "movil",
+      "escenario": "entrada-directa",
+      "estado": "APROBADO",
+      "duration_ms": 781,
+      "evidence": {
+        "api": "simulada-vacia-o-no-disponible",
+        "network": [],
+        "requestsWithoutFixture": []
+      }
+    },
+    {
+      "project_id": "orbita",
+      "viewport": "movil",
+      "escenario": "spa-clic-atras-adelante",
+      "estado": "APROBADO",
+      "duration_ms": 790,
+      "evidence": {
+        "api": "simulada-vacia-o-no-disponible",
+        "network": []
+      }
+    },
+    {
+      "project_id": "atlas-comercial",
+      "viewport": "escritorio",
+      "escenario": "entrada-directa",
+      "estado": "APROBADO",
+      "duration_ms": 586,
+      "evidence": {
+        "api": "simulada-vacia-o-no-disponible",
+        "network": [
+          {
+            "type": "console",
+            "text": "Failed to load resource: the server responded with a status of 503 (Service Unavailable)"
+          }
+        ],
+        "requestsWithoutFixture": [
+          "/api/v1/comercial/m5/estado"
+        ]
+      }
+    },
+    {
+      "project_id": "atlas-comercial",
+      "viewport": "escritorio",
+      "escenario": "spa-clic-atras-adelante",
+      "estado": "APROBADO",
+      "duration_ms": 819,
+      "evidence": {
+        "api": "simulada-vacia-o-no-disponible",
+        "network": [
+          {
+            "type": "console",
+            "text": "Failed to load resource: the server responded with a status of 503 (Service Unavailable)"
+          }
+        ]
+      }
+    },
+    {
+      "project_id": "atlas-comercial",
+      "viewport": "movil",
+      "escenario": "entrada-directa",
+      "estado": "APROBADO",
+      "duration_ms": 646,
+      "evidence": {
+        "api": "simulada-vacia-o-no-disponible",
+        "network": [
+          {
+            "type": "console",
+            "text": "Failed to load resource: the server responded with a status of 503 (Service Unavailable)"
+          }
+        ],
+        "requestsWithoutFixture": [
+          "/api/v1/comercial/m5/estado"
+        ]
+      }
+    },
+    {
+      "project_id": "atlas-comercial",
+      "viewport": "movil",
+      "escenario": "spa-clic-atras-adelante",
+      "estado": "APROBADO",
+      "duration_ms": 691,
+      "evidence": {
+        "api": "simulada-vacia-o-no-disponible",
+        "network": [
+          {
+            "type": "console",
+            "text": "Failed to load resource: the server responded with a status of 503 (Service Unavailable)"
+          }
+        ]
+      }
+    },
+    {
+      "project_id": "clientes-campanas",
+      "viewport": "escritorio",
+      "escenario": "entrada-directa",
+      "estado": "APROBADO",
+      "duration_ms": 597,
+      "evidence": {
+        "api": "simulada-vacia-o-no-disponible",
+        "network": [],
+        "requestsWithoutFixture": []
+      }
+    },
+    {
+      "project_id": "clientes-campanas",
+      "viewport": "escritorio",
+      "escenario": "spa-clic-atras-adelante",
+      "estado": "APROBADO",
+      "duration_ms": 799,
+      "evidence": {
+        "api": "simulada-vacia-o-no-disponible",
+        "network": []
+      }
+    },
+    {
+      "project_id": "clientes-campanas",
+      "viewport": "movil",
+      "escenario": "entrada-directa",
+      "estado": "APROBADO",
+      "duration_ms": 548,
+      "evidence": {
+        "api": "simulada-vacia-o-no-disponible",
+        "network": [],
+        "requestsWithoutFixture": []
+      }
+    },
+    {
+      "project_id": "clientes-campanas",
+      "viewport": "movil",
+      "escenario": "spa-clic-atras-adelante",
+      "estado": "APROBADO",
+      "duration_ms": 1105,
+      "evidence": {
+        "api": "simulada-vacia-o-no-disponible",
+        "network": []
+      }
+    },
+    {
+      "project_id": "clientes-en-movimiento",
+      "viewport": "escritorio",
+      "escenario": "entrada-directa",
+      "estado": "APROBADO",
+      "duration_ms": 1231,
+      "evidence": {
+        "api": "simulada-vacia-o-no-disponible",
+        "network": [],
+        "requestsWithoutFixture": []
+      }
+    },
+    {
+      "project_id": "clientes-en-movimiento",
+      "viewport": "escritorio",
+      "escenario": "spa-clic-atras-adelante",
+      "estado": "APROBADO",
+      "duration_ms": 1297,
+      "evidence": {
+        "api": "simulada-vacia-o-no-disponible",
+        "network": []
+      }
+    },
+    {
+      "project_id": "clientes-en-movimiento",
+      "viewport": "movil",
+      "escenario": "entrada-directa",
+      "estado": "APROBADO",
+      "duration_ms": 1047,
+      "evidence": {
+        "api": "simulada-vacia-o-no-disponible",
+        "network": [],
+        "requestsWithoutFixture": []
+      }
+    },
+    {
+      "project_id": "clientes-en-movimiento",
+      "viewport": "movil",
+      "escenario": "spa-clic-atras-adelante",
+      "estado": "APROBADO",
+      "duration_ms": 706,
+      "evidence": {
+        "api": "simulada-vacia-o-no-disponible",
+        "network": []
+      }
+    },
+    {
+      "project_id": "gaza-observatorio",
+      "viewport": "escritorio",
+      "escenario": "entrada-directa",
+      "estado": "APROBADO",
+      "duration_ms": 1689,
+      "evidence": {
+        "api": "simulada-vacia-o-no-disponible",
+        "network": [],
+        "requestsWithoutFixture": []
+      }
+    },
+    {
+      "project_id": "gaza-observatorio",
+      "viewport": "escritorio",
+      "escenario": "spa-clic-atras-adelante",
+      "estado": "APROBADO",
+      "duration_ms": 1799,
+      "evidence": {
+        "api": "simulada-vacia-o-no-disponible",
+        "network": []
+      }
+    },
+    {
+      "project_id": "gaza-observatorio",
+      "viewport": "movil",
+      "escenario": "entrada-directa",
+      "estado": "APROBADO",
+      "duration_ms": 1663,
+      "evidence": {
+        "api": "simulada-vacia-o-no-disponible",
+        "network": [],
+        "requestsWithoutFixture": []
+      }
+    },
+    {
+      "project_id": "gaza-observatorio",
+      "viewport": "movil",
+      "escenario": "spa-clic-atras-adelante",
+      "estado": "APROBADO",
+      "duration_ms": 2267,
+      "evidence": {
+        "api": "simulada-vacia-o-no-disponible",
+        "network": []
+      }
+    },
+    {
+      "project_id": "retailops",
+      "viewport": "escritorio",
+      "escenario": "entrada-directa",
+      "estado": "APROBADO",
+      "duration_ms": 676,
+      "evidence": {
+        "api": "simulada-vacia-o-no-disponible",
+        "network": [],
+        "requestsWithoutFixture": []
+      }
+    },
+    {
+      "project_id": "retailops",
+      "viewport": "escritorio",
+      "escenario": "spa-clic-atras-adelante",
+      "estado": "APROBADO",
+      "duration_ms": 930,
+      "evidence": {
+        "api": "simulada-vacia-o-no-disponible",
+        "network": []
+      }
+    },
+    {
+      "project_id": "retailops",
+      "viewport": "movil",
+      "escenario": "entrada-directa",
+      "estado": "APROBADO",
+      "duration_ms": 858,
+      "evidence": {
+        "api": "simulada-vacia-o-no-disponible",
+        "network": [],
+        "requestsWithoutFixture": []
+      }
+    },
+    {
+      "project_id": "retailops",
+      "viewport": "movil",
+      "escenario": "spa-clic-atras-adelante",
+      "estado": "APROBADO",
+      "duration_ms": 857,
+      "evidence": {
+        "api": "simulada-vacia-o-no-disponible",
+        "network": [
+          {
+            "type": "requestfailed",
+            "url": "http://127.0.0.1:3058/dashboards/retailops/index.html",
+            "reason": "net::ERR_ABORTED"
+          }
+        ]
+      }
+    },
+    {
+      "project_id": "modernizacion-sas-python",
+      "viewport": "escritorio",
+      "escenario": "entrada-directa",
+      "estado": "APROBADO",
+      "duration_ms": 539,
+      "evidence": {
+        "api": "simulada-vacia-o-no-disponible",
+        "network": [],
+        "requestsWithoutFixture": []
+      }
+    },
+    {
+      "project_id": "modernizacion-sas-python",
+      "viewport": "escritorio",
+      "escenario": "spa-clic-atras-adelante",
+      "estado": "APROBADO",
+      "duration_ms": 725,
+      "evidence": {
+        "api": "simulada-vacia-o-no-disponible",
+        "network": []
+      }
+    },
+    {
+      "project_id": "modernizacion-sas-python",
+      "viewport": "movil",
+      "escenario": "entrada-directa",
+      "estado": "APROBADO",
+      "duration_ms": 498,
+      "evidence": {
+        "api": "simulada-vacia-o-no-disponible",
+        "network": [],
+        "requestsWithoutFixture": []
+      }
+    },
+    {
+      "project_id": "modernizacion-sas-python",
+      "viewport": "movil",
+      "escenario": "spa-clic-atras-adelante",
+      "estado": "APROBADO",
+      "duration_ms": 755,
+      "evidence": {
+        "api": "simulada-vacia-o-no-disponible",
+        "network": []
+      }
+    },
+    {
+      "project_id": "asistente-investigacion",
+      "viewport": "escritorio",
+      "escenario": "entrada-directa",
+      "estado": "APROBADO",
+      "duration_ms": 743,
+      "evidence": {
+        "api": "simulada-vacia-o-no-disponible",
+        "network": [
+          {
+            "type": "console",
+            "text": "Failed to load resource: the server responded with a status of 503 (Service Unavailable)"
+          }
+        ],
+        "requestsWithoutFixture": [
+          "/api/v1/briefing-banxico/health"
+        ]
+      }
+    },
+    {
+      "project_id": "asistente-investigacion",
+      "viewport": "escritorio",
+      "escenario": "spa-clic-atras-adelante",
+      "estado": "APROBADO",
+      "duration_ms": 939,
+      "evidence": {
+        "api": "simulada-vacia-o-no-disponible",
+        "network": [
+          {
+            "type": "console",
+            "text": "Failed to load resource: the server responded with a status of 503 (Service Unavailable)"
+          }
+        ]
+      }
+    },
+    {
+      "project_id": "asistente-investigacion",
+      "viewport": "movil",
+      "escenario": "entrada-directa",
+      "estado": "APROBADO",
+      "duration_ms": 750,
+      "evidence": {
+        "api": "simulada-vacia-o-no-disponible",
+        "network": [
+          {
+            "type": "console",
+            "text": "Failed to load resource: the server responded with a status of 503 (Service Unavailable)"
+          }
+        ],
+        "requestsWithoutFixture": [
+          "/api/v1/briefing-banxico/health"
+        ]
+      }
+    },
+    {
+      "project_id": "asistente-investigacion",
+      "viewport": "movil",
+      "escenario": "spa-clic-atras-adelante",
+      "estado": "APROBADO",
+      "duration_ms": 755,
+      "evidence": {
+        "api": "simulada-vacia-o-no-disponible",
+        "network": [
+          {
+            "type": "requestfailed",
+            "url": "http://127.0.0.1:3058/dashboards/briefing-banxico/corpus.json",
+            "reason": "net::ERR_ABORTED"
+          },
+          {
+            "type": "requestfailed",
+            "url": "http://127.0.0.1:8010/api/v1/briefing-banxico/health",
+            "reason": "net::ERR_ABORTED"
+          }
+        ]
+      }
+    },
+    {
+      "project_id": "copiloto-nl-sql",
+      "viewport": "escritorio",
+      "escenario": "entrada-directa",
+      "estado": "APROBADO",
+      "duration_ms": 837,
+      "evidence": {
+        "api": "simulada-vacia-o-no-disponible",
+        "network": [
+          {
+            "type": "console",
+            "text": "Failed to load resource: the server responded with a status of 503 (Service Unavailable)"
+          }
+        ],
+        "requestsWithoutFixture": [
+          "/api/v1/copiloto-nl-sql/health"
+        ]
+      }
+    },
+    {
+      "project_id": "copiloto-nl-sql",
+      "viewport": "escritorio",
+      "escenario": "spa-clic-atras-adelante",
+      "estado": "APROBADO",
+      "duration_ms": 1128,
+      "evidence": {
+        "api": "simulada-vacia-o-no-disponible",
+        "network": [
+          {
+            "type": "console",
+            "text": "Failed to load resource: the server responded with a status of 503 (Service Unavailable)"
+          }
+        ]
+      }
+    },
+    {
+      "project_id": "copiloto-nl-sql",
+      "viewport": "movil",
+      "escenario": "entrada-directa",
+      "estado": "APROBADO",
+      "duration_ms": 646,
+      "evidence": {
+        "api": "simulada-vacia-o-no-disponible",
+        "network": [
+          {
+            "type": "console",
+            "text": "Failed to load resource: the server responded with a status of 503 (Service Unavailable)"
+          }
+        ],
+        "requestsWithoutFixture": [
+          "/api/v1/copiloto-nl-sql/health"
+        ]
+      }
+    },
+    {
+      "project_id": "copiloto-nl-sql",
+      "viewport": "movil",
+      "escenario": "spa-clic-atras-adelante",
+      "estado": "APROBADO",
+      "duration_ms": 854,
+      "evidence": {
+        "api": "simulada-vacia-o-no-disponible",
+        "network": [
+          {
+            "type": "console",
+            "text": "Failed to load resource: the server responded with a status of 503 (Service Unavailable)"
+          }
+        ]
+      }
+    },
+    {
+      "project_id": "data-incident-commander",
+      "viewport": "escritorio",
+      "escenario": "entrada-directa",
+      "estado": "APROBADO",
+      "duration_ms": 758,
+      "evidence": {
+        "api": "simulada-vacia-o-no-disponible",
+        "network": [],
+        "requestsWithoutFixture": []
+      }
+    },
+    {
+      "project_id": "data-incident-commander",
+      "viewport": "escritorio",
+      "escenario": "spa-clic-atras-adelante",
+      "estado": "APROBADO",
+      "duration_ms": 1056,
+      "evidence": {
+        "api": "simulada-vacia-o-no-disponible",
+        "network": []
+      }
+    },
+    {
+      "project_id": "data-incident-commander",
+      "viewport": "movil",
+      "escenario": "entrada-directa",
+      "estado": "APROBADO",
+      "duration_ms": 567,
+      "evidence": {
+        "api": "simulada-vacia-o-no-disponible",
+        "network": [],
+        "requestsWithoutFixture": []
+      }
+    },
+    {
+      "project_id": "data-incident-commander",
+      "viewport": "movil",
+      "escenario": "spa-clic-atras-adelante",
+      "estado": "APROBADO",
+      "duration_ms": 744,
+      "evidence": {
+        "api": "simulada-vacia-o-no-disponible",
+        "network": []
+      }
+    },
+    {
+      "project_id": "the-ripple-room",
+      "viewport": "escritorio",
+      "escenario": "entrada-directa",
+      "estado": "APROBADO",
+      "duration_ms": 615,
+      "evidence": {
+        "api": "simulada-vacia-o-no-disponible",
+        "network": [],
+        "requestsWithoutFixture": []
+      }
+    },
+    {
+      "project_id": "the-ripple-room",
+      "viewport": "escritorio",
+      "escenario": "spa-clic-atras-adelante",
+      "estado": "APROBADO",
+      "duration_ms": 756,
+      "evidence": {
+        "api": "simulada-vacia-o-no-disponible",
+        "network": []
+      }
+    },
+    {
+      "project_id": "the-ripple-room",
+      "viewport": "movil",
+      "escenario": "entrada-directa",
+      "estado": "APROBADO",
+      "duration_ms": 592,
+      "evidence": {
+        "api": "simulada-vacia-o-no-disponible",
+        "network": [],
+        "requestsWithoutFixture": []
+      }
+    },
+    {
+      "project_id": "the-ripple-room",
+      "viewport": "movil",
+      "escenario": "spa-clic-atras-adelante",
+      "estado": "APROBADO",
+      "duration_ms": 760,
+      "evidence": {
+        "api": "simulada-vacia-o-no-disponible",
+        "network": []
+      }
+    },
+    {
+      "project_id": "kilometro-cero",
+      "viewport": "escritorio",
+      "escenario": "entrada-directa",
+      "estado": "APROBADO",
+      "duration_ms": 1051,
+      "evidence": {
+        "api": "simulada-vacia-o-no-disponible",
+        "network": [],
+        "requestsWithoutFixture": []
+      }
+    },
+    {
+      "project_id": "kilometro-cero",
+      "viewport": "escritorio",
+      "escenario": "spa-clic-atras-adelante",
+      "estado": "APROBADO",
+      "duration_ms": 989,
+      "evidence": {
+        "api": "simulada-vacia-o-no-disponible",
+        "network": []
+      }
+    },
+    {
+      "project_id": "kilometro-cero",
+      "viewport": "movil",
+      "escenario": "entrada-directa",
+      "estado": "APROBADO",
+      "duration_ms": 795,
+      "evidence": {
+        "api": "simulada-vacia-o-no-disponible",
+        "network": [],
+        "requestsWithoutFixture": []
+      }
+    },
+    {
+      "project_id": "kilometro-cero",
+      "viewport": "movil",
+      "escenario": "spa-clic-atras-adelante",
+      "estado": "APROBADO",
+      "duration_ms": 909,
+      "evidence": {
+        "api": "simulada-vacia-o-no-disponible",
+        "network": []
+      }
+    },
+    {
+      "project_id": "dockmind",
+      "viewport": "escritorio",
+      "escenario": "entrada-directa",
+      "estado": "APROBADO",
+      "duration_ms": 643,
+      "evidence": {
+        "api": "simulada-vacia-o-no-disponible",
+        "network": [],
+        "requestsWithoutFixture": []
+      }
+    },
+    {
+      "project_id": "dockmind",
+      "viewport": "escritorio",
+      "escenario": "spa-clic-atras-adelante",
+      "estado": "APROBADO",
+      "duration_ms": 915,
+      "evidence": {
+        "api": "simulada-vacia-o-no-disponible",
+        "network": []
+      }
+    },
+    {
+      "project_id": "dockmind",
+      "viewport": "movil",
+      "escenario": "entrada-directa",
+      "estado": "APROBADO",
+      "duration_ms": 710,
+      "evidence": {
+        "api": "simulada-vacia-o-no-disponible",
+        "network": [],
+        "requestsWithoutFixture": []
+      }
+    },
+    {
+      "project_id": "dockmind",
+      "viewport": "movil",
+      "escenario": "spa-clic-atras-adelante",
+      "estado": "APROBADO",
+      "duration_ms": 636,
+      "evidence": {
+        "api": "simulada-vacia-o-no-disponible",
+        "network": [
+          {
+            "type": "requestfailed",
+            "url": "http://127.0.0.1:3058/dashboards/dockmind/data.json",
+            "reason": "net::ERR_ABORTED"
+          }
+        ]
+      }
+    },
+    {
+      "project_id": "analista-asistido",
+      "viewport": "escritorio",
+      "escenario": "entrada-directa",
+      "estado": "APROBADO",
+      "duration_ms": 417,
+      "evidence": {
+        "api": "simulada-vacia-o-no-disponible",
+        "network": [],
+        "requestsWithoutFixture": []
+      }
+    },
+    {
+      "project_id": "analista-asistido",
+      "viewport": "escritorio",
+      "escenario": "spa-clic-atras-adelante",
+      "estado": "APROBADO",
+      "duration_ms": 578,
+      "evidence": {
+        "api": "simulada-vacia-o-no-disponible",
+        "network": []
+      }
+    },
+    {
+      "project_id": "analista-asistido",
+      "viewport": "movil",
+      "escenario": "entrada-directa",
+      "estado": "APROBADO",
+      "duration_ms": 377,
+      "evidence": {
+        "api": "simulada-vacia-o-no-disponible",
+        "network": [],
+        "requestsWithoutFixture": []
+      }
+    },
+    {
+      "project_id": "analista-asistido",
+      "viewport": "movil",
+      "escenario": "spa-clic-atras-adelante",
+      "estado": "APROBADO",
+      "duration_ms": 616,
+      "evidence": {
+        "api": "simulada-vacia-o-no-disponible",
+        "network": []
+      }
+    },
+    {
+      "project_id": "comparativo-bancario",
+      "viewport": "escritorio",
+      "escenario": "error",
+      "estado": "APROBADO",
+      "duration_ms": 1543,
+      "evidence": {
+        "expected": "error",
+        "observed": "error",
+        "text": "No se pudieron calcular los hallazgos. El servicio no está disponible.\n\nReintentar",
+        "api": "simulada",
+        "network": [
+          {
+            "type": "requestfailed",
+            "url": "http://127.0.0.1:8010/api/v1/cnbv/banca-multiple/catalogo",
+            "reason": "net::ERR_FAILED"
+          },
+          {
+            "type": "console",
+            "text": "Failed to load resource: net::ERR_FAILED"
+          },
+          {
+            "type": "requestfailed",
+            "url": "http://127.0.0.1:8010/api/v1/cnbv/banca-multiple/catalogo",
+            "reason": "net::ERR_FAILED"
+          },
+          {
+            "type": "console",
+            "text": "Failed to load resource: net::ERR_FAILED"
+          }
+        ]
+      }
+    },
+    {
+      "project_id": "comparativo-bancario",
+      "viewport": "escritorio",
+      "escenario": "empty",
+      "estado": "APROBADO",
+      "duration_ms": 522,
+      "evidence": {
+        "expected": "empty",
+        "observed": "empty",
+        "text": "No hay datos publicados para calcular hallazgos.",
+        "api": "simulada",
+        "network": []
+      }
+    },
+    {
+      "project_id": "comparativo-bancario",
+      "viewport": "escritorio",
+      "escenario": "retry-empty",
+      "estado": "APROBADO",
+      "duration_ms": 1593,
+      "evidence": {
+        "expected": "empty",
+        "observed": "empty",
+        "text": "No hay datos publicados para calcular hallazgos.",
+        "api": "simulada",
+        "network": [
+          {
+            "type": "requestfailed",
+            "url": "http://127.0.0.1:8010/api/v1/cnbv/banca-multiple/catalogo",
+            "reason": "net::ERR_FAILED"
+          },
+          {
+            "type": "console",
+            "text": "Failed to load resource: net::ERR_FAILED"
+          },
+          {
+            "type": "requestfailed",
+            "url": "http://127.0.0.1:8010/api/v1/cnbv/banca-multiple/catalogo",
+            "reason": "net::ERR_FAILED"
+          },
+          {
+            "type": "console",
+            "text": "Failed to load resource: net::ERR_FAILED"
+          }
+        ]
+      }
+    },
+    {
+      "project_id": "comparativo-bancario",
+      "viewport": "movil",
+      "escenario": "error",
+      "estado": "APROBADO",
+      "duration_ms": 1484,
+      "evidence": {
+        "expected": "error",
+        "observed": "error",
+        "text": "No se pudieron calcular los hallazgos. El servicio no está disponible.\n\nReintentar",
+        "api": "simulada",
+        "network": [
+          {
+            "type": "requestfailed",
+            "url": "http://127.0.0.1:8010/api/v1/cnbv/banca-multiple/catalogo",
+            "reason": "net::ERR_FAILED"
+          },
+          {
+            "type": "console",
+            "text": "Failed to load resource: net::ERR_FAILED"
+          },
+          {
+            "type": "requestfailed",
+            "url": "http://127.0.0.1:8010/api/v1/cnbv/banca-multiple/catalogo",
+            "reason": "net::ERR_FAILED"
+          },
+          {
+            "type": "console",
+            "text": "Failed to load resource: net::ERR_FAILED"
+          }
+        ]
+      }
+    },
+    {
+      "project_id": "comparativo-bancario",
+      "viewport": "movil",
+      "escenario": "empty",
+      "estado": "APROBADO",
+      "duration_ms": 466,
+      "evidence": {
+        "expected": "empty",
+        "observed": "empty",
+        "text": "No hay datos publicados para calcular hallazgos.",
+        "api": "simulada",
+        "network": []
+      }
+    },
+    {
+      "project_id": "comparativo-bancario",
+      "viewport": "movil",
+      "escenario": "retry-empty",
+      "estado": "APROBADO",
+      "duration_ms": 1566,
+      "evidence": {
+        "expected": "empty",
+        "observed": "empty",
+        "text": "No hay datos publicados para calcular hallazgos.",
+        "api": "simulada",
+        "network": [
+          {
+            "type": "requestfailed",
+            "url": "http://127.0.0.1:8010/api/v1/cnbv/banca-multiple/catalogo",
+            "reason": "net::ERR_FAILED"
+          },
+          {
+            "type": "console",
+            "text": "Failed to load resource: net::ERR_FAILED"
+          },
+          {
+            "type": "requestfailed",
+            "url": "http://127.0.0.1:8010/api/v1/cnbv/banca-multiple/catalogo",
+            "reason": "net::ERR_FAILED"
+          },
+          {
+            "type": "console",
+            "text": "Failed to load resource: net::ERR_FAILED"
+          }
+        ]
+      }
+    },
+    {
+      "project_id": "atlas-vial",
+      "viewport": "escritorio",
+      "escenario": "error",
+      "estado": "APROBADO",
+      "duration_ms": 1465,
+      "evidence": {
+        "expected": "error",
+        "observed": "error",
+        "text": "No se pudieron calcular los hallazgos. El servicio no está disponible.\n\nReintentar",
+        "api": "simulada",
+        "network": [
+          {
+            "type": "requestfailed",
+            "url": "http://127.0.0.1:8010/api/v1/atlas-vial/catalogo",
+            "reason": "net::ERR_FAILED"
+          },
+          {
+            "type": "console",
+            "text": "Failed to load resource: net::ERR_FAILED"
+          },
+          {
+            "type": "requestfailed",
+            "url": "http://127.0.0.1:8010/api/v1/atlas-vial/geometria",
+            "reason": "net::ERR_FAILED"
+          },
+          {
+            "type": "console",
+            "text": "Failed to load resource: net::ERR_FAILED"
+          },
+          {
+            "type": "requestfailed",
+            "url": "http://127.0.0.1:8010/api/v1/atlas-vial/catalogo",
+            "reason": "net::ERR_FAILED"
+          },
+          {
+            "type": "console",
+            "text": "Failed to load resource: net::ERR_FAILED"
+          },
+          {
+            "type": "requestfailed",
+            "url": "http://127.0.0.1:8010/api/v1/atlas-vial/geometria",
+            "reason": "net::ERR_FAILED"
+          },
+          {
+            "type": "console",
+            "text": "Failed to load resource: net::ERR_FAILED"
+          }
+        ]
+      }
+    },
+    {
+      "project_id": "atlas-vial",
+      "viewport": "escritorio",
+      "escenario": "empty",
+      "estado": "APROBADO",
+      "duration_ms": 504,
+      "evidence": {
+        "expected": "empty",
+        "observed": "empty",
+        "text": "No hay datos publicados para calcular hallazgos.",
+        "api": "simulada",
+        "network": []
+      }
+    },
+    {
+      "project_id": "atlas-vial",
+      "viewport": "escritorio",
+      "escenario": "retry-empty",
+      "estado": "APROBADO",
+      "duration_ms": 1598,
+      "evidence": {
+        "expected": "empty",
+        "observed": "empty",
+        "text": "No hay datos publicados para calcular hallazgos.",
+        "api": "simulada",
+        "network": [
+          {
+            "type": "requestfailed",
+            "url": "http://127.0.0.1:8010/api/v1/atlas-vial/catalogo",
+            "reason": "net::ERR_FAILED"
+          },
+          {
+            "type": "console",
+            "text": "Failed to load resource: net::ERR_FAILED"
+          },
+          {
+            "type": "requestfailed",
+            "url": "http://127.0.0.1:8010/api/v1/atlas-vial/geometria",
+            "reason": "net::ERR_FAILED"
+          },
+          {
+            "type": "console",
+            "text": "Failed to load resource: net::ERR_FAILED"
+          },
+          {
+            "type": "requestfailed",
+            "url": "http://127.0.0.1:8010/api/v1/atlas-vial/catalogo",
+            "reason": "net::ERR_FAILED"
+          },
+          {
+            "type": "console",
+            "text": "Failed to load resource: net::ERR_FAILED"
+          },
+          {
+            "type": "requestfailed",
+            "url": "http://127.0.0.1:8010/api/v1/atlas-vial/geometria",
+            "reason": "net::ERR_FAILED"
+          },
+          {
+            "type": "console",
+            "text": "Failed to load resource: net::ERR_FAILED"
+          }
+        ]
+      }
+    },
+    {
+      "project_id": "atlas-vial",
+      "viewport": "movil",
+      "escenario": "error",
+      "estado": "APROBADO",
+      "duration_ms": 1481,
+      "evidence": {
+        "expected": "error",
+        "observed": "error",
+        "text": "No se pudieron calcular los hallazgos. El servicio no está disponible.\n\nReintentar",
+        "api": "simulada",
+        "network": [
+          {
+            "type": "requestfailed",
+            "url": "http://127.0.0.1:8010/api/v1/atlas-vial/catalogo",
+            "reason": "net::ERR_FAILED"
+          },
+          {
+            "type": "console",
+            "text": "Failed to load resource: net::ERR_FAILED"
+          },
+          {
+            "type": "requestfailed",
+            "url": "http://127.0.0.1:8010/api/v1/atlas-vial/geometria",
+            "reason": "net::ERR_FAILED"
+          },
+          {
+            "type": "console",
+            "text": "Failed to load resource: net::ERR_FAILED"
+          },
+          {
+            "type": "requestfailed",
+            "url": "http://127.0.0.1:8010/api/v1/atlas-vial/catalogo",
+            "reason": "net::ERR_FAILED"
+          },
+          {
+            "type": "console",
+            "text": "Failed to load resource: net::ERR_FAILED"
+          },
+          {
+            "type": "requestfailed",
+            "url": "http://127.0.0.1:8010/api/v1/atlas-vial/geometria",
+            "reason": "net::ERR_FAILED"
+          },
+          {
+            "type": "console",
+            "text": "Failed to load resource: net::ERR_FAILED"
+          }
+        ]
+      }
+    },
+    {
+      "project_id": "atlas-vial",
+      "viewport": "movil",
+      "escenario": "empty",
+      "estado": "APROBADO",
+      "duration_ms": 469,
+      "evidence": {
+        "expected": "empty",
+        "observed": "empty",
+        "text": "No hay datos publicados para calcular hallazgos.",
+        "api": "simulada",
+        "network": []
+      }
+    },
+    {
+      "project_id": "atlas-vial",
+      "viewport": "movil",
+      "escenario": "retry-empty",
+      "estado": "APROBADO",
+      "duration_ms": 1549,
+      "evidence": {
+        "expected": "empty",
+        "observed": "empty",
+        "text": "No hay datos publicados para calcular hallazgos.",
+        "api": "simulada",
+        "network": [
+          {
+            "type": "requestfailed",
+            "url": "http://127.0.0.1:8010/api/v1/atlas-vial/catalogo",
+            "reason": "net::ERR_FAILED"
+          },
+          {
+            "type": "console",
+            "text": "Failed to load resource: net::ERR_FAILED"
+          },
+          {
+            "type": "requestfailed",
+            "url": "http://127.0.0.1:8010/api/v1/atlas-vial/geometria",
+            "reason": "net::ERR_FAILED"
+          },
+          {
+            "type": "console",
+            "text": "Failed to load resource: net::ERR_FAILED"
+          },
+          {
+            "type": "requestfailed",
+            "url": "http://127.0.0.1:8010/api/v1/atlas-vial/catalogo",
+            "reason": "net::ERR_FAILED"
+          },
+          {
+            "type": "console",
+            "text": "Failed to load resource: net::ERR_FAILED"
+          },
+          {
+            "type": "requestfailed",
+            "url": "http://127.0.0.1:8010/api/v1/atlas-vial/geometria",
+            "reason": "net::ERR_FAILED"
+          },
+          {
+            "type": "console",
+            "text": "Failed to load resource: net::ERR_FAILED"
+          }
+        ]
+      }
+    },
+    {
+      "project_id": "marketing-clientes",
+      "viewport": "escritorio",
+      "escenario": "error",
+      "estado": "APROBADO",
+      "duration_ms": 6506,
+      "evidence": {
+        "expected": "error",
+        "observed": "error",
+        "text": "No se pudieron calcular los hallazgos: la API de marketing no respondió. Vuelve a intentarlo cuando el servicio esté disponible. Reintentar",
+        "api": "simulada",
+        "network": [
+          {
+            "type": "requestfailed",
+            "url": "http://127.0.0.1:8010/api/v1/marketing/estado",
+            "reason": "net::ERR_FAILED"
+          },
+          {
+            "type": "console",
+            "text": "Failed to load resource: net::ERR_FAILED"
+          },
+          {
+            "type": "requestfailed",
+            "url": "http://127.0.0.1:8010/api/v1/marketing/catalogo",
+            "reason": "net::ERR_FAILED"
+          },
+          {
+            "type": "console",
+            "text": "Failed to load resource: net::ERR_FAILED"
+          },
+          {
+            "type": "requestfailed",
+            "url": "http://127.0.0.1:8010/api/v1/marketing/estado",
+            "reason": "net::ERR_FAILED"
+          },
+          {
+            "type": "console",
+            "text": "Failed to load resource: net::ERR_FAILED"
+          },
+          {
+            "type": "requestfailed",
+            "url": "http://127.0.0.1:8010/api/v1/marketing/catalogo",
+            "reason": "net::ERR_FAILED"
+          },
+          {
+            "type": "console",
+            "text": "Failed to load resource: net::ERR_FAILED"
+          },
+          {
+            "type": "requestfailed",
+            "url": "http://127.0.0.1:8010/api/v1/marketing/resumen",
+            "reason": "net::ERR_FAILED"
+          },
+          {
+            "type": "console",
+            "text": "Failed to load resource: net::ERR_FAILED"
+          },
+          {
+            "type": "requestfailed",
+            "url": "http://127.0.0.1:8010/api/v1/marketing/conversion",
+            "reason": "net::ERR_FAILED"
+          },
+          {
+            "type": "console",
+            "text": "Failed to load resource: net::ERR_FAILED"
+          },
+          {
+            "type": "requestfailed",
+            "url": "http://127.0.0.1:8010/api/v1/marketing/cohortes?dimension=pais",
+            "reason": "net::ERR_FAILED"
+          },
+          {
+            "type": "console",
+            "text": "Failed to load resource: net::ERR_FAILED"
+          },
+          {
+            "type": "requestfailed",
+            "url": "http://127.0.0.1:8010/api/v1/marketing/productos?limite=10",
+            "reason": "net::ERR_FAILED"
+          },
+          {
+            "type": "console",
+            "text": "Failed to load resource: net::ERR_FAILED"
+          }
+        ]
+      }
+    },
+    {
+      "project_id": "marketing-clientes",
+      "viewport": "escritorio",
+      "escenario": "empty",
+      "estado": "APROBADO",
+      "duration_ms": 6525,
+      "evidence": {
+        "expected": "empty",
+        "observed": "empty",
+        "text": "Todavía no hay cifras publicadas suficientes para redactar hallazgos.",
+        "api": "simulada",
+        "network": []
+      }
+    },
+    {
+      "project_id": "marketing-clientes",
+      "viewport": "escritorio",
+      "escenario": "retry-empty",
+      "estado": "APROBADO",
+      "duration_ms": 6563,
+      "evidence": {
+        "expected": "empty",
+        "observed": "empty",
+        "text": "Todavía no hay cifras publicadas suficientes para redactar hallazgos.",
+        "api": "simulada",
+        "network": [
+          {
+            "type": "requestfailed",
+            "url": "http://127.0.0.1:8010/api/v1/marketing/estado",
+            "reason": "net::ERR_FAILED"
+          },
+          {
+            "type": "console",
+            "text": "Failed to load resource: net::ERR_FAILED"
+          },
+          {
+            "type": "requestfailed",
+            "url": "http://127.0.0.1:8010/api/v1/marketing/catalogo",
+            "reason": "net::ERR_FAILED"
+          },
+          {
+            "type": "console",
+            "text": "Failed to load resource: net::ERR_FAILED"
+          },
+          {
+            "type": "requestfailed",
+            "url": "http://127.0.0.1:8010/api/v1/marketing/estado",
+            "reason": "net::ERR_FAILED"
+          },
+          {
+            "type": "console",
+            "text": "Failed to load resource: net::ERR_FAILED"
+          },
+          {
+            "type": "requestfailed",
+            "url": "http://127.0.0.1:8010/api/v1/marketing/catalogo",
+            "reason": "net::ERR_FAILED"
+          },
+          {
+            "type": "console",
+            "text": "Failed to load resource: net::ERR_FAILED"
+          },
+          {
+            "type": "requestfailed",
+            "url": "http://127.0.0.1:8010/api/v1/marketing/resumen",
+            "reason": "net::ERR_FAILED"
+          },
+          {
+            "type": "console",
+            "text": "Failed to load resource: net::ERR_FAILED"
+          },
+          {
+            "type": "requestfailed",
+            "url": "http://127.0.0.1:8010/api/v1/marketing/conversion",
+            "reason": "net::ERR_FAILED"
+          },
+          {
+            "type": "console",
+            "text": "Failed to load resource: net::ERR_FAILED"
+          },
+          {
+            "type": "requestfailed",
+            "url": "http://127.0.0.1:8010/api/v1/marketing/cohortes?dimension=pais",
+            "reason": "net::ERR_FAILED"
+          },
+          {
+            "type": "console",
+            "text": "Failed to load resource: net::ERR_FAILED"
+          },
+          {
+            "type": "requestfailed",
+            "url": "http://127.0.0.1:8010/api/v1/marketing/productos?limite=10",
+            "reason": "net::ERR_FAILED"
+          },
+          {
+            "type": "console",
+            "text": "Failed to load resource: net::ERR_FAILED"
+          }
+        ]
+      }
+    },
+    {
+      "project_id": "marketing-clientes",
+      "viewport": "movil",
+      "escenario": "error",
+      "estado": "APROBADO",
+      "duration_ms": 6490,
+      "evidence": {
+        "expected": "error",
+        "observed": "error",
+        "text": "No se pudieron calcular los hallazgos: la API de marketing no respondió. Vuelve a intentarlo cuando el servicio esté disponible. Reintentar",
+        "api": "simulada",
+        "network": [
+          {
+            "type": "requestfailed",
+            "url": "http://127.0.0.1:8010/api/v1/marketing/estado",
+            "reason": "net::ERR_FAILED"
+          },
+          {
+            "type": "console",
+            "text": "Failed to load resource: net::ERR_FAILED"
+          },
+          {
+            "type": "requestfailed",
+            "url": "http://127.0.0.1:8010/api/v1/marketing/catalogo",
+            "reason": "net::ERR_FAILED"
+          },
+          {
+            "type": "console",
+            "text": "Failed to load resource: net::ERR_FAILED"
+          },
+          {
+            "type": "requestfailed",
+            "url": "http://127.0.0.1:8010/api/v1/marketing/estado",
+            "reason": "net::ERR_FAILED"
+          },
+          {
+            "type": "console",
+            "text": "Failed to load resource: net::ERR_FAILED"
+          },
+          {
+            "type": "requestfailed",
+            "url": "http://127.0.0.1:8010/api/v1/marketing/catalogo",
+            "reason": "net::ERR_FAILED"
+          },
+          {
+            "type": "console",
+            "text": "Failed to load resource: net::ERR_FAILED"
+          },
+          {
+            "type": "requestfailed",
+            "url": "http://127.0.0.1:8010/api/v1/marketing/resumen",
+            "reason": "net::ERR_FAILED"
+          },
+          {
+            "type": "console",
+            "text": "Failed to load resource: net::ERR_FAILED"
+          },
+          {
+            "type": "requestfailed",
+            "url": "http://127.0.0.1:8010/api/v1/marketing/conversion",
+            "reason": "net::ERR_FAILED"
+          },
+          {
+            "type": "console",
+            "text": "Failed to load resource: net::ERR_FAILED"
+          },
+          {
+            "type": "requestfailed",
+            "url": "http://127.0.0.1:8010/api/v1/marketing/cohortes?dimension=pais",
+            "reason": "net::ERR_FAILED"
+          },
+          {
+            "type": "console",
+            "text": "Failed to load resource: net::ERR_FAILED"
+          },
+          {
+            "type": "requestfailed",
+            "url": "http://127.0.0.1:8010/api/v1/marketing/productos?limite=10",
+            "reason": "net::ERR_FAILED"
+          },
+          {
+            "type": "console",
+            "text": "Failed to load resource: net::ERR_FAILED"
+          }
+        ]
+      }
+    },
+    {
+      "project_id": "marketing-clientes",
+      "viewport": "movil",
+      "escenario": "empty",
+      "estado": "APROBADO",
+      "duration_ms": 6511,
+      "evidence": {
+        "expected": "empty",
+        "observed": "empty",
+        "text": "Todavía no hay cifras publicadas suficientes para redactar hallazgos.",
+        "api": "simulada",
+        "network": []
+      }
+    },
+    {
+      "project_id": "marketing-clientes",
+      "viewport": "movil",
+      "escenario": "retry-empty",
+      "estado": "APROBADO",
+      "duration_ms": 6522,
+      "evidence": {
+        "expected": "empty",
+        "observed": "empty",
+        "text": "Todavía no hay cifras publicadas suficientes para redactar hallazgos.",
+        "api": "simulada",
+        "network": [
+          {
+            "type": "requestfailed",
+            "url": "http://127.0.0.1:8010/api/v1/marketing/estado",
+            "reason": "net::ERR_FAILED"
+          },
+          {
+            "type": "console",
+            "text": "Failed to load resource: net::ERR_FAILED"
+          },
+          {
+            "type": "requestfailed",
+            "url": "http://127.0.0.1:8010/api/v1/marketing/catalogo",
+            "reason": "net::ERR_FAILED"
+          },
+          {
+            "type": "console",
+            "text": "Failed to load resource: net::ERR_FAILED"
+          },
+          {
+            "type": "requestfailed",
+            "url": "http://127.0.0.1:8010/api/v1/marketing/estado",
+            "reason": "net::ERR_FAILED"
+          },
+          {
+            "type": "console",
+            "text": "Failed to load resource: net::ERR_FAILED"
+          },
+          {
+            "type": "requestfailed",
+            "url": "http://127.0.0.1:8010/api/v1/marketing/catalogo",
+            "reason": "net::ERR_FAILED"
+          },
+          {
+            "type": "console",
+            "text": "Failed to load resource: net::ERR_FAILED"
+          },
+          {
+            "type": "requestfailed",
+            "url": "http://127.0.0.1:8010/api/v1/marketing/resumen",
+            "reason": "net::ERR_FAILED"
+          },
+          {
+            "type": "console",
+            "text": "Failed to load resource: net::ERR_FAILED"
+          },
+          {
+            "type": "requestfailed",
+            "url": "http://127.0.0.1:8010/api/v1/marketing/conversion",
+            "reason": "net::ERR_FAILED"
+          },
+          {
+            "type": "console",
+            "text": "Failed to load resource: net::ERR_FAILED"
+          },
+          {
+            "type": "requestfailed",
+            "url": "http://127.0.0.1:8010/api/v1/marketing/cohortes?dimension=pais",
+            "reason": "net::ERR_FAILED"
+          },
+          {
+            "type": "console",
+            "text": "Failed to load resource: net::ERR_FAILED"
+          },
+          {
+            "type": "requestfailed",
+            "url": "http://127.0.0.1:8010/api/v1/marketing/productos?limite=10",
+            "reason": "net::ERR_FAILED"
+          },
+          {
+            "type": "console",
+            "text": "Failed to load resource: net::ERR_FAILED"
+          }
+        ]
+      }
+    },
+    {
+      "project_id": "pulso-comercial",
+      "viewport": "escritorio",
+      "escenario": "error",
+      "estado": "APROBADO",
+      "duration_ms": 6483,
+      "evidence": {
+        "expected": "error",
+        "observed": "error",
+        "text": "No se pudieron calcular los hallazgos: la API de Walmex no respondió. Vuelve a intentarlo cuando el servicio esté disponible. Reintentar",
+        "api": "simulada",
+        "network": [
+          {
+            "type": "requestfailed",
+            "url": "http://127.0.0.1:8010/api/v1/walmex/estado",
+            "reason": "net::ERR_FAILED"
+          },
+          {
+            "type": "console",
+            "text": "Failed to load resource: net::ERR_FAILED"
+          },
+          {
+            "type": "requestfailed",
+            "url": "http://127.0.0.1:8010/api/v1/walmex/catalogo",
+            "reason": "net::ERR_FAILED"
+          },
+          {
+            "type": "console",
+            "text": "Failed to load resource: net::ERR_FAILED"
+          },
+          {
+            "type": "requestfailed",
+            "url": "http://127.0.0.1:8010/api/v1/walmex/resumen",
+            "reason": "net::ERR_FAILED"
+          },
+          {
+            "type": "console",
+            "text": "Failed to load resource: net::ERR_FAILED"
+          },
+          {
+            "type": "requestfailed",
+            "url": "http://127.0.0.1:8010/api/v1/walmex/motores",
+            "reason": "net::ERR_FAILED"
+          },
+          {
+            "type": "console",
+            "text": "Failed to load resource: net::ERR_FAILED"
+          },
+          {
+            "type": "requestfailed",
+            "url": "http://127.0.0.1:8010/api/v1/walmex/desempeno?indicador=mismas_tiendas",
+            "reason": "net::ERR_FAILED"
+          },
+          {
+            "type": "console",
+            "text": "Failed to load resource: net::ERR_FAILED"
+          }
+        ]
+      }
+    },
+    {
+      "project_id": "pulso-comercial",
+      "viewport": "escritorio",
+      "escenario": "empty",
+      "estado": "APROBADO",
+      "duration_ms": 6466,
+      "evidence": {
+        "expected": "empty",
+        "observed": "empty",
+        "text": "Todavía no hay cifras publicadas suficientes para redactar hallazgos.",
+        "api": "simulada",
+        "network": []
+      }
+    },
+    {
+      "project_id": "pulso-comercial",
+      "viewport": "escritorio",
+      "escenario": "retry-empty",
+      "estado": "APROBADO",
+      "duration_ms": 6573,
+      "evidence": {
+        "expected": "empty",
+        "observed": "empty",
+        "text": "Todavía no hay cifras publicadas suficientes para redactar hallazgos.",
+        "api": "simulada",
+        "network": [
+          {
+            "type": "requestfailed",
+            "url": "http://127.0.0.1:8010/api/v1/walmex/estado",
+            "reason": "net::ERR_FAILED"
+          },
+          {
+            "type": "console",
+            "text": "Failed to load resource: net::ERR_FAILED"
+          },
+          {
+            "type": "requestfailed",
+            "url": "http://127.0.0.1:8010/api/v1/walmex/catalogo",
+            "reason": "net::ERR_FAILED"
+          },
+          {
+            "type": "console",
+            "text": "Failed to load resource: net::ERR_FAILED"
+          },
+          {
+            "type": "requestfailed",
+            "url": "http://127.0.0.1:8010/api/v1/walmex/resumen",
+            "reason": "net::ERR_FAILED"
+          },
+          {
+            "type": "console",
+            "text": "Failed to load resource: net::ERR_FAILED"
+          },
+          {
+            "type": "requestfailed",
+            "url": "http://127.0.0.1:8010/api/v1/walmex/motores",
+            "reason": "net::ERR_FAILED"
+          },
+          {
+            "type": "console",
+            "text": "Failed to load resource: net::ERR_FAILED"
+          },
+          {
+            "type": "requestfailed",
+            "url": "http://127.0.0.1:8010/api/v1/walmex/desempeno?indicador=mismas_tiendas",
+            "reason": "net::ERR_FAILED"
+          },
+          {
+            "type": "console",
+            "text": "Failed to load resource: net::ERR_FAILED"
+          }
+        ]
+      }
+    },
+    {
+      "project_id": "pulso-comercial",
+      "viewport": "movil",
+      "escenario": "error",
+      "estado": "APROBADO",
+      "duration_ms": 6424,
+      "evidence": {
+        "expected": "error",
+        "observed": "error",
+        "text": "No se pudieron calcular los hallazgos: la API de Walmex no respondió. Vuelve a intentarlo cuando el servicio esté disponible. Reintentar",
+        "api": "simulada",
+        "network": [
+          {
+            "type": "requestfailed",
+            "url": "http://127.0.0.1:8010/api/v1/walmex/estado",
+            "reason": "net::ERR_FAILED"
+          },
+          {
+            "type": "console",
+            "text": "Failed to load resource: net::ERR_FAILED"
+          },
+          {
+            "type": "requestfailed",
+            "url": "http://127.0.0.1:8010/api/v1/walmex/catalogo",
+            "reason": "net::ERR_FAILED"
+          },
+          {
+            "type": "console",
+            "text": "Failed to load resource: net::ERR_FAILED"
+          },
+          {
+            "type": "requestfailed",
+            "url": "http://127.0.0.1:8010/api/v1/walmex/resumen",
+            "reason": "net::ERR_FAILED"
+          },
+          {
+            "type": "console",
+            "text": "Failed to load resource: net::ERR_FAILED"
+          },
+          {
+            "type": "requestfailed",
+            "url": "http://127.0.0.1:8010/api/v1/walmex/motores",
+            "reason": "net::ERR_FAILED"
+          },
+          {
+            "type": "console",
+            "text": "Failed to load resource: net::ERR_FAILED"
+          },
+          {
+            "type": "requestfailed",
+            "url": "http://127.0.0.1:8010/api/v1/walmex/desempeno?indicador=mismas_tiendas",
+            "reason": "net::ERR_FAILED"
+          },
+          {
+            "type": "console",
+            "text": "Failed to load resource: net::ERR_FAILED"
+          }
+        ]
+      }
+    },
+    {
+      "project_id": "pulso-comercial",
+      "viewport": "movil",
+      "escenario": "empty",
+      "estado": "APROBADO",
+      "duration_ms": 6437,
+      "evidence": {
+        "expected": "empty",
+        "observed": "empty",
+        "text": "Todavía no hay cifras publicadas suficientes para redactar hallazgos.",
+        "api": "simulada",
+        "network": []
+      }
+    },
+    {
+      "project_id": "pulso-comercial",
+      "viewport": "movil",
+      "escenario": "retry-empty",
+      "estado": "APROBADO",
+      "duration_ms": 6512,
+      "evidence": {
+        "expected": "empty",
+        "observed": "empty",
+        "text": "Todavía no hay cifras publicadas suficientes para redactar hallazgos.",
+        "api": "simulada",
+        "network": [
+          {
+            "type": "requestfailed",
+            "url": "http://127.0.0.1:8010/api/v1/walmex/estado",
+            "reason": "net::ERR_FAILED"
+          },
+          {
+            "type": "console",
+            "text": "Failed to load resource: net::ERR_FAILED"
+          },
+          {
+            "type": "requestfailed",
+            "url": "http://127.0.0.1:8010/api/v1/walmex/catalogo",
+            "reason": "net::ERR_FAILED"
+          },
+          {
+            "type": "console",
+            "text": "Failed to load resource: net::ERR_FAILED"
+          },
+          {
+            "type": "requestfailed",
+            "url": "http://127.0.0.1:8010/api/v1/walmex/resumen",
+            "reason": "net::ERR_FAILED"
+          },
+          {
+            "type": "console",
+            "text": "Failed to load resource: net::ERR_FAILED"
+          },
+          {
+            "type": "requestfailed",
+            "url": "http://127.0.0.1:8010/api/v1/walmex/motores",
+            "reason": "net::ERR_FAILED"
+          },
+          {
+            "type": "console",
+            "text": "Failed to load resource: net::ERR_FAILED"
+          },
+          {
+            "type": "requestfailed",
+            "url": "http://127.0.0.1:8010/api/v1/walmex/desempeno?indicador=mismas_tiendas",
+            "reason": "net::ERR_FAILED"
+          },
+          {
+            "type": "console",
+            "text": "Failed to load resource: net::ERR_FAILED"
+          }
+        ]
+      }
+    }
+  ]
+}

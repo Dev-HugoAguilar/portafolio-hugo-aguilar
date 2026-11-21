@@ -1,0 +1,23 @@
+project_id,afirmacion,tipo_de_resultado,fuente_artefacto,version_o_sha,validacion,pendiente
+comparativo-bancario,"7 boletines, 56 248 hechos, 158 conceptos, 50 instituciones",cobertura de datos,CNBV via portfolio-api,8a27227,"verificado por API /api/v1/cnbv/banca-multiple/catalogo","hallazgos dinamicos requieren API en 8010"
+atlas-vial,"hechos de transito 2024 con 1 654 sin edad y 1 005 sin sexo",cobertura de datos,SSC CDMX via portfolio-api,ssc-2024-68a5871469,verificado por API /api/v1/atlas-vial/estado,hallazgos dinamicos requieren API
+marketing-clientes,"muestra del 5 % con 13 509 de 270 154 usuarios",cobertura de datos,GA4 publico via portfolio-api,ga4-e9764d626c,verificado por API /api/v1/marketing/estado,no es operacion comercial actual
+pulso-comercial,"15 trimestres y 16 documentos oficiales",cobertura de datos,Walmex via portfolio-api,walmex-3t26,verificado por API /api/v1/walmex/estado,"trafico y ticket solo desde 2024"
+vidas-en-transito,"build de 15 archivos integro contra manifiesto",evaluacion tecnica,web/ + docs/MANIFEST_LOCAL.json,08b9557744d2fe61,construir.py --comprobar,sin evaluacion de impacto
+orbita,"manifiesto con 6 grupos y 12 308 registros",evaluacion tecnica,app/content/orbita.sources.json,descarga 2026-11-17,verificar_fuentes.py,"no valida integridad del snapshot embebido"
+atlas-comercial,"horizonte de 28 dias con cortes diarios d_1773 a d_1913",evaluacion tecnica,pipeline/entrenar_m5.py y docs/METODOLOGIA.md,d042f16,revision de codigo y documentacion,"entrenamiento no reejecutado; confirmar que cortes son de desarrollo y cuales finales"
+clientes-campanas,"18 pruebas de artefactos y plantillas",evaluacion tecnica,pipeline/tests,14ea99b,pytest local,experimento disenado no ejecutado
+clientes-en-movimiento,"tablero y paridad reconstruidos",evaluacion tecnica,dashboard-en-movimiento,14ea99b,pytest local,166 bytes sin atribuir
+gaza-observatorio,"build publico idempotente de 4 699 056 bytes",evaluacion tecnica,tools/construir.py,0617806,"construir.py --comprobar",clustering y pronostico sin codigo de calculo
+retailops,"AUC 0.9856 logistica y 0.9849 MLP 24/12 en prueba",resultado de modelo,bloque MODEL embebido,synthetic-42-v2,lectura del artefacto,"reproduccion del entrenamiento pendiente"
+asistente-investigacion,"6 pruebas de recuperacion y abstencion",evaluacion tecnica,tests/test_service.py,a809f51,pytest local,recuperacion lexica sin embeddings
+copiloto-nl-sql,"11 pruebas de parser y rechazo de escrituras",evaluacion tecnica,tests/,8f5021e,pytest local,plan del modelo opcional
+data-incident-commander,"8 pruebas del flujo supervisado",evaluacion tecnica,tests/,ee65ee0,pytest local,sin reparacion real
+the-ripple-room,"9 pruebas de determinismo y conservacion",evaluacion tecnica,tests/test_simulacion.py,8668627,pytest local,red y costos hipoteticos
+kilometro-cero,"9 pruebas de determinismo y totales",evaluacion tecnica,tests/test_simulacion.py,acba60d,pytest local,envios sinteticos
+dockmind,"36 escenarios y comprobaciones de interfaz",evaluacion tecnica,qa/*.cjs,3450b3b,"npm run verify",catalogo sintetico
+observatorio-financiero,"caso definido sin implementacion",roadmap,ninguno,-,no aplica,sin datos ni evaluacion
+modernizacion-sas-python,"caso definido sin implementacion",roadmap,ninguno,-,no aplica,sin proceso migrado
+analista-asistido,"caso definido sin implementacion",roadmap,ninguno,-,no aplica,sin evaluacion
+
+
