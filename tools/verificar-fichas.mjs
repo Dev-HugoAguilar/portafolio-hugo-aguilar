@@ -1,7 +1,18 @@
-/** Browser verification v4. Default: deterministic, test-only empty/error API.
+/** Browser verification v4.1. Default: deterministic, test-only empty/error API.
  * npm ci && npx playwright install chromium; npm run serve; npm run verificar
- * --piloto: one project. --api-real: additionally require ready from a real API.
- * --fallo-controlado: exercises fatal-report persistence. No text classifiers.
+ * --piloto: one project. --api-real: adds an isolated real-API phase. No text classifiers.
+ *
+ * La batería se ejecuta en dos fases independientes:
+ *
+ *   1. `determinista` — 96 casos con la API simulada (vacía, error de red y
+ *      reintento). Es la única fase que corre en CI sin infraestructura.
+ *   2. `real` — 8 casos con `--api-real`, en un navegador recién lanzado, con su
+ *      propio contexto por caso. Se separa de la fase anterior porque en una
+ *      corrida conjunta los casos reales agotaban su espera por contención
+ *      (96 contextos previos) y no por el componente.
+ *
+ * Cada caso registra las peticiones a `/api/v1/...` con URL, origen, estado HTTP
+ * y la cabecera CORS efectiva cuando el navegador la expone.
  */
 import fs from 'node:fs';
 import path from 'node:path';
@@ -20,16 +31,22 @@ const IDS=['comparativo-bancario','atlas-vial','marketing-clientes','pulso-comer
 const FIELDS={problema:'Problema',destinatario:'Destinatario',contribucion:'Mi contribución',fuentes:'Fuentes y datos',metodo:'Método y decisiones técnicas',resultados:'Resultados publicados',limitaciones:'Limitaciones'};
 const norm=v=>String(v??'').replace(/\u00a0/g,' ').replace(/\s+/g,' ').trim();
 const runId=crypto.randomUUID(), start=Date.now(), rows=[], plan=[], contexts=new Set();
-let browser,fatal=null,git={},projects=[];
+let browser,fatal=null,git={},projects=[],currentPage=null,currentInfo=null;
 const hash=f=>crypto.createHash('sha256').update(fs.readFileSync(f)).digest('hex');
 const routeOf=p=>`#/area/${p.area}/${p.id}`;
-function add(p,vp,scenario,run){plan.push({p,vp,scenario,run});}
+function add(fase,p,vp,scenario,run){plan.push({fase,p,vp,scenario,run});}
+async function launch(){const {chromium}=await import('@playwright/test');browser=await chromium.launch({headless:true});}
 async function open(vp,initial='empty'){
  const ctx=await browser.newContext({viewport:VPS[vp]});contexts.add(ctx);let mode=initial;
- const page=await ctx.newPage(), errors=[], network=[], missing=[];
+ const page=await ctx.newPage(), errors=[], network=[], missing=[], requests=[]; currentPage=page; currentInfo={errors,network,requests};
  page.on('pageerror',e=>errors.push(e.message));
  page.on('console',m=>{if(m.type()==='error')network.push({type:'console',text:m.text()});});
  page.on('requestfailed',r=>network.push({type:'requestfailed',url:r.url(),reason:r.failure()?.errorText}));
+ page.on('response',async r=>{
+  const url=r.url(); if(!/\/api\/v1\//.test(url))return;
+  let headers={}; try{headers=r.headers();}catch(_e){headers={};}
+  requests.push({url,origin:new URL(url).origin,status:r.status(),cors:headers['access-control-allow-origin']??null});
+ });
  await ctx.addInitScript(api=>{
   window.PORTFOLIO_BANCA_API=window.PORTAFOLIO_BANCA_API=api+'/api/v1/cnbv/banca-multiple';
   window.PORTFOLIO_ATLAS_API=api+'/api/v1/atlas-vial';
@@ -44,7 +61,7 @@ async function open(vp,initial='empty'){
   missing.push(new URL(route.request().url()).pathname);
   return route.fulfill({status:503,contentType:'application/json',body:JSON.stringify({detail:'API no disponible en este escenario de prueba.'})});
  });
- return {page,errors,network,missing,mode:value=>{mode=value;},close:async()=>{await ctx.close();contexts.delete(ctx);}};
+ return {page,errors,network,missing,requests,mode:value=>{mode=value;},close:async()=>{await ctx.close();contexts.delete(ctx);}};
 }
 async function editorial(page,p){
  const [title,...subtitle]=p.titulo.split(/\s+—\s+/);
@@ -63,6 +80,68 @@ async function state(page,expected){
  await page.waitForFunction(value=>{const h=document.querySelector('[data-testid="hallazgos-host"]');const n=h?.querySelector('[data-state]');return n?.getAttribute('data-state')===value&&n.textContent.trim().length>0;},expected,{timeout:20000});
  return page.locator('[data-testid="hallazgos-host"]').innerText();
 }
+async function diagnose(){
+ try{
+  if(!currentPage)return{error:'sin pagina'};
+  const page=currentPage;
+  const d=await page.evaluate(()=>{
+   const de=document.documentElement, ancho=de.clientWidth;
+   /* Elementos cuya caja o contenido superan el ancho visible: es la evidencia
+      que permite atribuir un desbordamiento a un nodo concreto. */
+   const desbordes=[];
+   for(const el of document.querySelectorAll('body *')){
+    const r=el.getBoundingClientRect(); if(r.width<=0)continue;
+    const propio=el.scrollWidth-el.clientWidth;
+    if(Math.round(r.right)>ancho+1||propio>1)desbordes.push({
+      tag:el.tagName, clase:String(el.className||'').slice(0,60), id:el.id||'',
+      ancho:Math.round(r.width), derecha:Math.round(r.right), exceso:Math.round(r.right-ancho),
+      exceso_contenido:propio, font:getComputedStyle(el).fontFamily.slice(0,80),
+      texto:String(el.textContent||'').trim().slice(0,60)
+    });
+   }
+   const hosts=[...document.querySelectorAll('[data-testid="hallazgos-host"]')];
+   const h=hosts[0];
+   const st=h?h.querySelector('[data-state]'):null;
+   return{
+    url:location.href, origin:location.origin,
+    viewport:{ancho_visible:ancho,innerWidth:window.innerWidth,scrollWidth:de.scrollWidth,overflow:de.scrollWidth-ancho},
+    hosts:hosts.length,
+    dataState:st?st.getAttribute('data-state'):(h?'missing':'sin-host'),
+    montado:!!document.querySelector('#project-view-title'),
+    texto:(h?h.innerText:'').slice(0,300),
+    html:(h?h.innerHTML:'').slice(0,600),
+    desbordes:desbordes.slice(0,10),
+    apiBase:{banca:window.PORTFOLIO_BANCA_API||null,atlas:window.PORTFOLIO_ATLAS_API||null,marketing:window.PORTFOLIO_MARKETING_API||null,walmex:window.PORTFOLIO_WALMEX_API||null}
+   };
+  });
+  return{...d,errors:(currentInfo?.errors||[]).slice(0,8),network:(currentInfo?.network||[]).slice(0,12),requests:(currentInfo?.requests||[]).slice(0,20),api:API};
+ }catch(e){return{error:'diagnostico fallido: '+String(e.message||e)};}
+}
+async function runPhase(fase){
+ const items=plan.filter(x=>x.fase===fase);
+ if(!items.length)return;
+ await launch();
+ try{
+  for(const test of items){
+   const began=Date.now();
+   let evidence=null;
+   try{
+    currentInfo=null;
+    evidence=await test.run();
+    rows.push({fase,project_id:test.p.id,viewport:test.vp,escenario:test.scenario,estado:'APROBADO',duration_ms:Date.now()-began,evidence});
+   }catch(e){
+    let _d=null;try{_d=await diagnose();}catch(_e){_d={error:'diagnostico fallido'};}
+    rows.push({fase,project_id:test.p.id,viewport:test.vp,escenario:test.scenario,estado:'FALLIDO',duration_ms:Date.now()-began,error:String(e.stack||e),diagnostico:_d,evidence});
+    console.log('DIAGNOSTICO '+JSON.stringify(_d));
+   }
+   console.log(`${rows.at(-1).estado}: ${test.p.id} ${test.vp} ${test.scenario} (${fase})`);
+  }
+ }finally{
+  for(const ctx of [...contexts])await ctx.close().catch(()=>{});
+  if(browser)await browser.close().catch(()=>{});
+  browser=null;contexts.clear();
+ }
+}
 try{
  git={sha:execFileSync('git',['rev-parse','HEAD'],{cwd:ROOT,encoding:'utf8'}).trim(),dirty:!!execFileSync('git',['status','--porcelain'],{cwd:ROOT,encoding:'utf8'}).trim()};
  const c={window:{}};vm.createContext(c);vm.runInContext(fs.readFileSync(path.join(ROOT,'dist/content.js'),'utf8'),c,{timeout:1000});
@@ -70,32 +149,35 @@ try{
  assert.equal(projects.length,20,'Registro incompleto');
  if(PILOT)projects=[projects.find(p=>p.id==='comparativo-bancario')];
  for(const p of projects)for(const vp of Object.keys(VPS)){
-  add(p,vp,'entrada-directa',async()=>{const t=await open(vp);try{await t.page.goto(BASE+'/'+routeOf(p),{waitUntil:'domcontentloaded'});await editorial(t.page,p);assert.deepEqual(t.errors,[],'Excepción del aplicativo');return{api:'simulada-vacia-o-no-disponible',network:t.network,requestsWithoutFixture:t.missing};}finally{await t.close();}});
-  add(p,vp,'spa-clic-atras-adelante',async()=>{const t=await open(vp);try{
+  add('determinista',p,vp,'entrada-directa',async()=>{const t=await open(vp);try{await t.page.goto(BASE+'/'+routeOf(p),{waitUntil:'domcontentloaded'});await editorial(t.page,p);assert.deepEqual(t.errors,[],'Excepción del aplicativo');return{api:'simulada-vacia-o-no-disponible',network:t.network,requests:t.requests,requestsWithoutFixture:t.missing};}finally{await t.close();}});
+  add('determinista',p,vp,'spa-clic-atras-adelante',async()=>{const t=await open(vp);try{
    const area=`#/area/${p.area}`;await t.page.goto(BASE+'/'+area,{waitUntil:'domcontentloaded'});
    await t.page.locator(`[data-proyecto="${p.id}"] .card-hit`).click();await editorial(t.page,p);
    await t.page.goBack();await t.page.waitForFunction(h=>location.hash===h&&!!document.querySelector('.project-card'),area);
-   await t.page.goForward();await editorial(t.page,p);assert.deepEqual(t.errors,[],'Excepción al navegar');return{api:'simulada-vacia-o-no-disponible',network:t.network};
+   await t.page.goForward();await editorial(t.page,p);assert.deepEqual(t.errors,[],'Excepción al navegar');return{api:'simulada-vacia-o-no-disponible',network:t.network,requests:t.requests};
   }finally{await t.close();}});
  }
  for(const p of projects.filter(p=>IDS.includes(p.id)))for(const vp of Object.keys(VPS)){
-  for(const scenario of ['error','empty','retry-empty'])add(p,vp,scenario,async()=>{const t=await open(vp,scenario==='empty'?'empty':'error');try{
+  for(const scenario of ['error','empty','retry-empty'])add('determinista',p,vp,scenario,async()=>{const t=await open(vp,scenario==='empty'?'empty':'error');try{
    await t.page.goto(BASE+'/'+routeOf(p),{waitUntil:'domcontentloaded'});
    if(scenario==='retry-empty'){await state(t.page,'error');t.mode('empty');await t.page.locator('[data-testid="hallazgos-host"]').getByRole('button',{name:'Reintentar',exact:true}).click();}
    const expected=scenario==='error'?'error':'empty',text=await state(t.page,expected);
    assert.ok(!/NaN|Infinity|undefined/.test(text),'Resultado inválido');assert.deepEqual(t.errors,[],'Excepción del aplicativo');assert.deepEqual(t.missing,[],'Endpoint sin fixture explícita');
-   return{expected,observed:expected,text,api:'simulada',network:t.network};
+   return{expected,observed:expected,text,api:'simulada',network:t.network,requests:t.requests};
   }finally{await t.close();}});
-  if(REAL)add(p,vp,'ready-api-real',async()=>{const t=await open(vp,'real');try{await t.page.goto(BASE+'/'+routeOf(p),{waitUntil:'domcontentloaded'});const text=await state(t.page,'ready');assert.deepEqual(t.errors,[]);return{api:'real',text,network:t.network};}finally{await t.close();}});
+  if(REAL)add('real',p,vp,'ready-api-real',async()=>{const t=await open(vp,'real');try{await t.page.goto(BASE+'/'+routeOf(p),{waitUntil:'domcontentloaded'});const text=await state(t.page,'ready');assert.deepEqual(t.errors,[]);return{api:'real',text,network:t.network,requests:t.requests,origin:t.page.url().split('#')[0]};}finally{await t.close();}});
  }
  if(process.argv.includes('--fallo-controlado'))throw new Error('Fallo controlado: prueba de persistencia del reporte');
- const {chromium}=await import('@playwright/test');browser=await chromium.launch({headless:true});
- for(const test of plan){const began=Date.now();try{const evidence=await test.run();rows.push({project_id:test.p.id,viewport:test.vp,escenario:test.scenario,estado:'APROBADO',duration_ms:Date.now()-began,evidence});}catch(e){rows.push({project_id:test.p.id,viewport:test.vp,escenario:test.scenario,estado:'FALLIDO',duration_ms:Date.now()-began,error:String(e.stack||e)});}console.log(`${rows.at(-1).estado}: ${test.p.id} ${test.vp} ${test.scenario}`);}
+ const _p=process.env.PROYECTO,_v=process.env.VIEWPORT,_s=process.env.ESCENARIO,_f=process.env.FASE;
+ if(_p||_v||_s||_f){const sel=plan.filter(x=>(!_p||x.p.id===_p)&&(!_v||x.vp===_v)&&(!_s||x.scenario===_s)&&(!_f||x.fase===_f));plan.length=0;plan.push(...sel);}
+ await runPhase('determinista');
+ if(REAL&&plan.some(x=>x.fase==='real'))await runPhase('real');
 }catch(e){fatal=String(e.stack||e);}
 finally{
  for(const ctx of contexts)await ctx.close().catch(()=>{});if(browser)await browser.close().catch(()=>{});
+ const resumen=fase=>rows.filter(r=>r.fase===fase).reduce((s,r)=>({...s,[r.estado]:(s[r.estado]||0)+1}),{});
  const summary=rows.reduce((s,r)=>({...s,[r.estado]:(s[r.estado]||0)+1}),{}),missing=plan.length-rows.length;
- const report={run_id:runId,version:'4.0.0',site:BASE,api:API,git,date:new Date().toISOString(),duration_ms:Date.now()-start,status:fatal?'ABORTADO':'COMPLETADO',error_fatal:fatal,expected:plan.length,executed:rows.length,missing,real_api:REAL?'solicitada; consultar filas':'NO EJECUTADO: usar --api-real con API y datos accesibles',verifier_sha256:hash(fileURLToPath(import.meta.url)),fixtures_sha256:hash(path.join(ROOT,'tools/qa/empty-api.mjs')),fixturePaths,summary,rows};
+ const report={run_id:runId,version:'4.1.0',site:BASE,api:API,git,date:new Date().toISOString(),duration_ms:Date.now()-start,status:fatal?'ABORTADO':'COMPLETADO',error_fatal:fatal,expected:plan.length,executed:rows.length,missing,phases:plan.reduce((s,x)=>({...s,[x.fase]:(s[x.fase]||0)+1}),{}),summary_by_phase:{determinista:resumen('determinista'),real:resumen('real')},real_api:REAL?'fase real solicitada; ver summary_by_phase.real':'NO EJECUTADO: usar --api-real con API y datos accesibles',verifier_sha256:hash(fileURLToPath(import.meta.url)),fixtures_sha256:hash(path.join(ROOT,'tools/qa/empty-api.mjs')),fixturePaths,summary,rows};
  fs.mkdirSync(path.dirname(OUTPUT),{recursive:true});fs.writeFileSync(OUTPUT+'.tmp',JSON.stringify(report,null,2));fs.renameSync(OUTPUT+'.tmp',OUTPUT);
  console.log(JSON.stringify({output:OUTPUT,expected:plan.length,executed:rows.length,summary,fatal}));if(fatal||missing||!plan.length||summary.FALLIDO)process.exitCode=1;
 }

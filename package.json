@@ -7,7 +7,10 @@
   "scripts": {
     "verificar": "node tools/ejecutar-verificacion.mjs",
     "serve": "python -m http.server 8000 --directory dist",
-    "verificar:externo": "node tools/verificar-fichas.mjs"
+    "verificar:externo": "node tools/verificar-fichas.mjs",
+    "verificar:config": "node tools/verificar-config-produccion.mjs",
+    "verificar:produccion": "node tools/verificar-produccion.mjs",
+    "verificar:real": "node tools/ejecutar-verificacion.mjs --api-real"
   },
   "devDependencies": {
     "@playwright/test": "1.56.1"

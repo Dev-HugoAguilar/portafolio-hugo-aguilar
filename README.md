@@ -154,19 +154,52 @@ Abre <http://127.0.0.1:8000/>. Las rutas son *hash*
 (`#/area/<id>/<proyecto>`), así que el sitio funciona desde cualquier servidor de
 archivos. No hay compilación, dependencias ni backend.
 
+Los cuatro tableros conectados resuelven la API en tiempo de ejecución con
+`dist/config.js`: por omisión `/api` (mismo origen, detrás del proxy). Para
+apuntarlos a una API local, define `window.PORTFOLIO_API_BASE` antes de ese
+archivo —por ejemplo con un `config.local.js` no versionado— con el valor
+`http://127.0.0.1:8010/api`. El artefacto publicado no contiene ninguna URL de
+API local.
+
+## Despliegue integrado
+
+El sitio y la API se ejecutan juntos con dos contenedores y un solo origen
+público (`/api` lo publica nginx). El paquete está en `deploy/`:
+
+```bash
+git clone https://github.com/Dev-HugoAguilar/portfolio-api.git   # hermana del sitio
+cp deploy/.env.example deploy/.env                               # completa MONGODB_URI
+docker compose -f deploy/docker-compose.yml --env-file deploy/.env up -d --build
+curl -i http://127.0.0.1:8080/api/v1/health/ready
+```
+
+`deploy/LEEME.md` documenta los requisitos (MongoDB Atlas, dominio, TLS), el
+procedimiento de datos y lo que el paquete **no** resuelve. `deploy/.env.example`
+enumera las variables sin secretos.
+
 ## Estructura
 
 ```text
 dist/                  Sitio servible
   index.html           Documento único del sitio
+  config.js            Base de la API en tiempo de ejecución (`/api`)
   app.js               Navegación, vistas y renderizado
   content.js           Contenido: áreas, fichas, estados, categorías y enlaces
   style.css            Sistema visual
   projects/            Módulos que montan cada demo en su ficha
   dashboards/          Demos publicadas (una carpeta por proyecto)
   img/                 Capturas de tarjeta y ficha
+deploy/
+  docker-compose.yml   Sitio + API + MongoDB local (perfiles de prueba)
+  Dockerfile.sitio     Imagen de nginx con `dist/` y el proxy `/api`
+  nginx.conf           Raíz web, caché y enrutado `/api`
+  .env.example         Variables del despliegue (sin secretos)
+  LEEME.md             Procedimiento, requisitos y límites
 tools/
-  verificar-taxonomia.mjs   Comprueba categorías, estados, enlaces y roadmap
+  verificar-taxonomia.mjs        Comprueba categorías, estados, enlaces y roadmap
+  verificar-fichas.mjs           Fichas, navegación, estados y peticiones de API
+  verificar-config-produccion.mjs Build de producción: URL relativa y Gaza
+  verificar-produccion.mjs       Comportamiento: ninguna petición a una API local
 ```
 
 ## Verificación

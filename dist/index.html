@@ -720,6 +720,9 @@
     </div>
   </noscript>
 
+  <!-- Configuración de la API en tiempo de ejecución: por omisión `/api`
+       (mismo origen, detrás del proxy). Debe cargarse antes del resto. -->
+  <script src="config.js" defer></script>
   <script src="content.js" defer></script>
   <script src="scenes.js" defer></script>
   <script src="projects.js" defer></script>

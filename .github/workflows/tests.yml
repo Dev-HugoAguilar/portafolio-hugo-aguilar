@@ -23,7 +23,9 @@ jobs:
       - name: Verificar archivos obligatorios
         run: |
           set -eu
-          for archivo in dist/index.html dist/app.js dist/content.js dist/style.css README.md; do
+          for archivo in dist/index.html dist/config.js dist/app.js dist/content.js dist/style.css \
+                         deploy/docker-compose.yml deploy/nginx.conf deploy/Dockerfile.sitio \
+                         deploy/.env.example README.md; do
             test -s "$archivo" || { echo "Falta $archivo"; exit 1; }
           done
 
@@ -32,6 +34,7 @@ jobs:
           set -eu
           node --check dist/app.js
           node --check dist/content.js
+          node --check dist/config.js
           echo "Sintaxis correcta"
 
       - name: Verificar que las cinco categorías estén declaradas
@@ -78,3 +81,30 @@ jobs:
             echo "Se detectaron posibles credenciales"; exit 1
           fi
           echo "Sin credenciales detectadas"
+
+  produccion:
+    name: Build de producción (URL de API y artefacto de Gaza)
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+
+      - name: Verificar la configuración de producción
+        run: node tools/verificar-config-produccion.mjs
+
+      - name: Comprobar que el manifiesto es válido con configuración saneada
+        run: |
+          set -eu
+          cat > /tmp/despliegue-validacion.env <<'ENV'
+          MONGODB_URI=mongodb://usuario:clave@127.0.0.1:27017/validacion?authSource=validacion
+          MONGODB_DB=hugo_portfolio_validacion
+          ALLOWED_ORIGINS=
+          SITE_HOST_PORT=8099
+          LOG_LEVEL=info
+          ENV
+          docker compose -f deploy/docker-compose.yml \
+            --env-file /tmp/despliegue-validacion.env config --quiet
+          echo "Manifiesto válido"

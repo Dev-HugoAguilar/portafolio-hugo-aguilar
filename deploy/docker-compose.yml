@@ -1,0 +1,128 @@
+# =============================================================================
+# DESPLIEGUE INTEGRADO DEL PORTAFOLIO
+# -----------------------------------------------------------------------------
+# Dos contenedores y un solo origen público:
+#
+#   web  · nginx: publica `dist/` y reenvía `/api/` al backend
+#   api  · FastAPI: escucha en 8000, sin puerto publicado en el host
+#
+# El navegador pide siempre `/api/v1/...` al mismo host que sirve el sitio
+# (`dist/config.js` fija la base relativa `/api`), así que no hay peticiones
+# cross-origin ni CORS que abrir al dominio público.
+#
+# Requisitos previos (ver deploy/LEEME.md):
+#   * Docker Engine 24+ con Compose v2.
+#   * El repositorio `portfolio-api` clonado junto a este (../portfolio-api) o
+#     `PORTFOLIO_API_CONTEXT` apuntando a su ruta.
+#   * MongoDB Atlas accesible (MONGODB_URI) o el perfil `mongo-local` para probar.
+#   * Dominio y TLS: los resuelve el proxy/balanceador del host, no este archivo.
+#
+#   cp deploy/.env.example deploy/.env    # y completa MONGODB_URI
+#   docker compose -f deploy/docker-compose.yml --env-file deploy/.env up -d --build
+# =============================================================================
+
+name: portafolio
+
+services:
+  # ---------------------------------------------------------------------------
+  # API · FastAPI sobre MongoDB. Incluye los snapshots de runtime en la imagen.
+  # No publica puertos: solo se alcanza a través del proxy.
+  # ---------------------------------------------------------------------------
+  api:
+    build:
+      context: ${PORTFOLIO_API_CONTEXT:-../../portfolio-api}
+      dockerfile: Dockerfile
+    image: portfolio-api:local
+    environment:
+      MONGODB_URI: ${MONGODB_URI:?define MONGODB_URI en deploy/.env}
+      MONGODB_DB: ${MONGODB_DB:-hugo_portfolio}
+      ALLOWED_ORIGINS: ${ALLOWED_ORIGINS:-}
+      LOG_LEVEL: ${LOG_LEVEL:-info}
+    expose:
+      - "8000"
+    healthcheck:
+      # `/ready` incluye el ping a MongoDB: un contenedor "healthy" prueba que la
+      # API y su base responden, no solo que el proceso vive.
+      test:
+        - CMD
+        - python
+        - -c
+        - |
+          import urllib.request
+          urllib.request.urlopen("http://127.0.0.1:8000/api/v1/health/ready", timeout=3).read()
+      interval: 30s
+      timeout: 5s
+      retries: 5
+      start_period: 25s
+    restart: unless-stopped
+
+  # ---------------------------------------------------------------------------
+  # Sitio · nginx con `dist/` y el proxy `/api`. Único servicio publicado.
+  # ---------------------------------------------------------------------------
+  web:
+    build:
+      context: ..
+      dockerfile: deploy/Dockerfile.sitio
+    image: portafolio-sitio:local
+    depends_on:
+      api:
+        condition: service_healthy
+    ports:
+      - "${SITE_HOST_PORT:-8080}:80"
+    healthcheck:
+      test: ["CMD", "wget", "-q", "-O", "/dev/null", "http://127.0.0.1/healthz"]
+      interval: 30s
+      timeout: 3s
+      retries: 3
+      start_period: 5s
+    restart: unless-stopped
+
+  # ---------------------------------------------------------------------------
+  # MongoDB local · SOLO para pruebas y desarrollo. Nunca en producción: en
+  # producción la base es MongoDB Atlas y llega como MONGODB_URI.
+  #   docker compose -f deploy/docker-compose.yml --profile mongo-local up -d
+  # ---------------------------------------------------------------------------
+  mongo-local:
+    image: mongo:7
+    profiles: ["mongo-local"]
+    command: ["--bind_ip_all"]
+    volumes:
+      - mongo_datos:/data/db
+    expose:
+      - "27017"
+    healthcheck:
+      test: ["CMD", "mongosh", "--quiet", "--eval", "db.runCommand({ping:1}).ok"]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+      start_period: 10s
+    restart: unless-stopped
+
+  # ---------------------------------------------------------------------------
+  # Datos iniciales · tarea de una sola ejecución, idempotente y no destructiva:
+  # crea los índices que falten y carga el dataset sintético de demostración si
+  # no está. Solo para la base de prueba; nunca apuntes este perfil a producción.
+  #   docker compose -f deploy/docker-compose.yml --profile datos run --rm datos
+  # Para datos reales, ejecuta los importadores documentados en deploy/LEEME.md.
+  # ---------------------------------------------------------------------------
+  datos:
+    build:
+      context: ${PORTFOLIO_API_CONTEXT:-../../portfolio-api}
+      dockerfile: Dockerfile
+    image: portfolio-api:local
+    profiles: ["datos"]
+    environment:
+      MONGODB_URI: ${MONGODB_URI:?define MONGODB_URI en deploy/.env}
+      MONGODB_DB: ${MONGODB_DB:-hugo_portfolio_test}
+      LOG_LEVEL: ${LOG_LEVEL:-info}
+    command:
+      - sh
+      - -c
+      - |
+        set -eu
+        python -m scripts.create_indexes
+        python -m scripts.seed_demo
+    restart: "no"
+
+volumes:
+  mongo_datos:

@@ -34,9 +34,17 @@ _respaldo_*/
 _revision/
 entregas/
 paquete-demo/
-deploy/
 .openai
 accesos.txt
+
+# Despliegue: se versiona la definición del paquete (sitio + API + proxy). Las
+# tareas, entornos y entradas propias de cada equipo no se publican.
+deploy/*
+!deploy/docker-compose.yml
+!deploy/Dockerfile.sitio
+!deploy/nginx.conf
+!deploy/LEEME.md
+!deploy/.env.example
 
 # Evidencias, registros y capturas de verificación locales
 evidencias/
