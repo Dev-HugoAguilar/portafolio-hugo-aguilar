@@ -170,8 +170,26 @@ async function preflightCors(){
   return{origen,error:String(e.message||e),bloqueado:true,motivo:`la API no respondió en ${API}: ${String(e.message||e)}`};
  }
 }
+/* Estado del árbol de trabajo. En este repositorio hay archivos versionados con
+   fin de línea CRLF: al hacer checkout en Linux con `* text=auto eol=lf` git los
+   reporta como modificados aunque el contenido sea idéntico. Se separan los
+   cambios reales de los que solo difieren en fin de línea para que `dirty` no
+   señale un árbol sucio donde no lo está. */
+function estadoGit(){
+ const sha=execFileSync('git',['rev-parse','HEAD'],{cwd:ROOT,encoding:'utf8'}).trim();
+ const crudo=execFileSync('git',['status','--porcelain'],{cwd:ROOT,encoding:'utf8'}).trim();
+ if(!crudo)return{sha,dirty:false,cambios_reales:0,cambios_solo_fin_de_linea:0,archivos:[]};
+ const rutas=crudo.split(/\r?\n/).map(linea=>linea.slice(3).trim()).filter(Boolean);
+ const reales=[];let soloEol=0;
+ for(const ruta of rutas){
+  let diferencia='';
+  try{diferencia=execFileSync('git',['diff','--ignore-cr-at-eol','--numstat','--',ruta],{cwd:ROOT,encoding:'utf8'}).trim();}catch(_e){diferencia='?';}
+  if(diferencia==='')soloEol+=1;else reales.push(ruta);
+ }
+ return{sha,dirty:reales.length>0,cambios_reales:reales.length,cambios_solo_fin_de_linea:soloEol,archivos:reales.slice(0,20)};
+}
 try{
- git={sha:execFileSync('git',['rev-parse','HEAD'],{cwd:ROOT,encoding:'utf8'}).trim(),dirty:!!execFileSync('git',['status','--porcelain'],{cwd:ROOT,encoding:'utf8'}).trim()};
+ git=estadoGit();
  const c={window:{}};vm.createContext(c);vm.runInContext(fs.readFileSync(path.join(ROOT,'dist/content.js'),'utf8'),c,{timeout:1000});
  projects=c.window.PORTAFOLIO.areas.flatMap(a=>a.proyectos.map(p=>({...p,area:a.id})));
  assert.equal(projects.length,20,'Registro incompleto');
