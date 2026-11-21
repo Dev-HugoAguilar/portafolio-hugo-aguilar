@@ -76,19 +76,21 @@ jobs:
       - name: Comprobar la imagen del sitio (raíz web y artefacto de Gaza)
         run: |
           set -eu
-          docker run --rm portafolio-sitio:local nginx -t
+          # La sintaxis de nginx se valida dentro del stack (ver más abajo):
+          # `nginx -t` fuera de la red no resuelve el upstream `api`.
           for archivo in /usr/share/nginx/html/index.html \
                          /usr/share/nginx/html/config.js \
                          /usr/share/nginx/html/app.js \
                          /usr/share/nginx/html/dashboards/marketing-clientes/app.js \
                          /usr/share/nginx/html/dashboards/gaza-observatorio/index.html; do
-            docker run --rm portafolio-sitio:local test -s "$archivo" \
+            docker run --rm --entrypoint "" portafolio-sitio:local test -s "$archivo" \
               || { echo "Falta $archivo en la imagen del sitio"; exit 1; }
           done
-          gaza=$(docker run --rm portafolio-sitio:local stat -c '%s' /usr/share/nginx/html/dashboards/gaza-observatorio/index.html)
+          gaza=$(docker run --rm --entrypoint "" portafolio-sitio:local stat -c '%s' /usr/share/nginx/html/dashboards/gaza-observatorio/index.html)
           echo "Gaza en la imagen: $gaza B"
           test "$gaza" -lt 6000000 || { echo "El artefacto de Gaza parece incluir la lista nominal"; exit 1; }
-          docker run --rm portafolio-sitio:local sh -c '! grep -qE "(127\.0\.0\.1|localhost):8010" /usr/share/nginx/html/config.js'
+          docker run --rm --entrypoint "" portafolio-sitio:local \
+            sh -c '! grep -qE "(127\.0\.0\.1|localhost):8010" /usr/share/nginx/html/config.js'
 
       - name: Levantar MongoDB de pruebas
         working-directory: sitio
@@ -113,6 +115,8 @@ jobs:
           COMPOSE="docker compose -f deploy/docker-compose.yml --env-file ../despliegue.env"
           $COMPOSE --profile mongo-local up -d --no-build
           $COMPOSE --profile mongo-local ps
+          # El proxy está vivo y su configuración es válida con el upstream real.
+          $COMPOSE --profile mongo-local exec -T web nginx -t
 
       - name: Comprobar salud y proxy a través de nginx
         working-directory: sitio

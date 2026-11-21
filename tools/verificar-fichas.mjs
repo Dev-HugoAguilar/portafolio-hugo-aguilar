@@ -31,7 +31,7 @@ const IDS=['comparativo-bancario','atlas-vial','marketing-clientes','pulso-comer
 const FIELDS={problema:'Problema',destinatario:'Destinatario',contribucion:'Mi contribución',fuentes:'Fuentes y datos',metodo:'Método y decisiones técnicas',resultados:'Resultados publicados',limitaciones:'Limitaciones'};
 const norm=v=>String(v??'').replace(/\u00a0/g,' ').replace(/\s+/g,' ').trim();
 const runId=crypto.randomUUID(), start=Date.now(), rows=[], plan=[], contexts=new Set();
-let browser,fatal=null,git={},projects=[],currentPage=null,currentInfo=null;
+let browser,fatal=null,git={},projects=[],currentPage=null,currentInfo=null,currentSnapshot=null;
 const hash=f=>crypto.createHash('sha256').update(fs.readFileSync(f)).digest('hex');
 const routeOf=p=>`#/area/${p.area}/${p.id}`;
 function add(fase,p,vp,scenario,run){plan.push({fase,p,vp,scenario,run});}
@@ -53,6 +53,15 @@ async function open(vp,initial='empty'){
   window.PORTFOLIO_MARKETING_API=api+'/api/v1/marketing';
   window.PORTFOLIO_WALMEX_API=api+'/api/v1/walmex';
  },API);
+ /* `DESBORDE_CONTROLADO=1` fuerza 15 px de desbordamiento para comprobar que un
+    fallo de desbordamiento sale con el nodo responsable en el diagnóstico. */
+ if(process.env.DESBORDE_CONTROLADO) await ctx.addInitScript(()=>{
+  document.addEventListener('DOMContentLoaded',()=>{
+   const estilo=document.createElement('style');
+   estilo.textContent='.wrap{min-width:calc(100vw + 15px)}';
+   document.head.appendChild(estilo);
+  });
+ });
  await ctx.route('**/api/v1/**',async route=>{
   if(mode==='real')return route.continue();
   if(mode==='error')return route.abort('failed');
@@ -68,7 +77,23 @@ async function editorial(page,p){
  await page.waitForFunction(value=>document.querySelector('#project-view-title')?.textContent.trim()===value,title,{timeout:12000});
  assert.equal(norm(await page.locator('#project-view-title').innerText()),norm(title));
  assert.equal(norm(await page.locator('.view-subtitle').count() ? await page.locator('.view-subtitle').innerText() : ''),norm(subtitle.join(' — ')));
- const actual=await page.evaluate(()=>({hash:location.hash,fields:[...document.querySelectorAll('dt')].map(dt=>[dt.textContent.trim(),dt.nextElementSibling?.textContent??'']),host:!!document.querySelector('[data-testid="hallazgos-host"]'),overflow:document.documentElement.scrollWidth-document.documentElement.clientWidth}));
+ const actual=await page.evaluate(()=>{
+  const de=document.documentElement,ancho=de.clientWidth,desbordes=[];
+  /* Inventario de desbordes por elemento: se toma antes de afirmar nada, para
+     que un fallo por desbordamiento siempre traiga el nodo responsable. */
+  for(const el of document.querySelectorAll('body *')){
+   const r=el.getBoundingClientRect(); if(r.width<=0)continue;
+   const propio=el.scrollWidth-el.clientWidth;
+   if(Math.round(r.right)>ancho+1||propio>1)desbordes.push({
+    tag:el.tagName, clase:String(el.className||'').slice(0,60), id:el.id||'',
+    ancho:Math.round(r.width), derecha:Math.round(r.right), exceso:Math.round(r.right-ancho),
+    exceso_contenido:propio, font:getComputedStyle(el).fontFamily.slice(0,60),
+    texto:String(el.textContent||'').trim().slice(0,60)
+   });
+  }
+  return{url:location.href,hash:location.hash,fields:[...document.querySelectorAll('dt')].map(dt=>[dt.textContent.trim(),dt.nextElementSibling?.textContent??'']),host:!!document.querySelector('[data-testid="hallazgos-host"]'),viewport:{ancho_visible:ancho,innerWidth:window.innerWidth,scrollWidth:de.scrollWidth},overflow:de.scrollWidth-ancho,desbordes};
+ });
+ currentSnapshot=actual;
  assert.equal(actual.hash,routeOf(p),'Ruta incorrecta');
  const fields=Object.fromEntries(actual.fields.map(([k,v])=>[k,norm(v)]));
  for(const[key,label]of Object.entries(FIELDS)){assert.ok(Object.hasOwn(fields,label),`Falta ${label}`);assert.equal(fields[label],norm(p[key]),`Texto diferente: ${label}`);}
@@ -81,41 +106,30 @@ async function state(page,expected){
  return page.locator('[data-testid="hallazgos-host"]').innerText();
 }
 async function diagnose(){
+ /* Parte del inventario tomado en el momento de la medición: cuando el caso ya
+    cerró su contexto, el estado en vivo no está disponible pero el desborde
+    medido sí. */
+ const base=currentSnapshot?{url:currentSnapshot.url,viewport:currentSnapshot.viewport,overflow:currentSnapshot.overflow,desbordes:currentSnapshot.desbordes}:{};
+ const extra={errors:(currentInfo?.errors||[]).slice(0,8),network:(currentInfo?.network||[]).slice(0,12),requests:(currentInfo?.requests||[]).slice(0,20),api:API};
  try{
-  if(!currentPage)return{error:'sin pagina'};
+  if(!currentPage)return{...base,...extra,error:'sin pagina'};
   const page=currentPage;
   const d=await page.evaluate(()=>{
-   const de=document.documentElement, ancho=de.clientWidth;
-   /* Elementos cuya caja o contenido superan el ancho visible: es la evidencia
-      que permite atribuir un desbordamiento a un nodo concreto. */
-   const desbordes=[];
-   for(const el of document.querySelectorAll('body *')){
-    const r=el.getBoundingClientRect(); if(r.width<=0)continue;
-    const propio=el.scrollWidth-el.clientWidth;
-    if(Math.round(r.right)>ancho+1||propio>1)desbordes.push({
-      tag:el.tagName, clase:String(el.className||'').slice(0,60), id:el.id||'',
-      ancho:Math.round(r.width), derecha:Math.round(r.right), exceso:Math.round(r.right-ancho),
-      exceso_contenido:propio, font:getComputedStyle(el).fontFamily.slice(0,80),
-      texto:String(el.textContent||'').trim().slice(0,60)
-    });
-   }
    const hosts=[...document.querySelectorAll('[data-testid="hallazgos-host"]')];
    const h=hosts[0];
    const st=h?h.querySelector('[data-state]'):null;
    return{
     url:location.href, origin:location.origin,
-    viewport:{ancho_visible:ancho,innerWidth:window.innerWidth,scrollWidth:de.scrollWidth,overflow:de.scrollWidth-ancho},
     hosts:hosts.length,
     dataState:st?st.getAttribute('data-state'):(h?'missing':'sin-host'),
     montado:!!document.querySelector('#project-view-title'),
     texto:(h?h.innerText:'').slice(0,300),
     html:(h?h.innerHTML:'').slice(0,600),
-    desbordes:desbordes.slice(0,10),
     apiBase:{banca:window.PORTFOLIO_BANCA_API||null,atlas:window.PORTFOLIO_ATLAS_API||null,marketing:window.PORTFOLIO_MARKETING_API||null,walmex:window.PORTFOLIO_WALMEX_API||null}
    };
   });
-  return{...d,errors:(currentInfo?.errors||[]).slice(0,8),network:(currentInfo?.network||[]).slice(0,12),requests:(currentInfo?.requests||[]).slice(0,20),api:API};
- }catch(e){return{error:'diagnostico fallido: '+String(e.message||e)};}
+  return{...base,...d,...extra};
+ }catch(e){return{...base,...extra,error:'estado en vivo no disponible: '+String(e.message||e)};}
 }
 async function runPhase(fase){
  const items=plan.filter(x=>x.fase===fase);
